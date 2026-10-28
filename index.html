@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocalWeb | Разработка сайтов под ключ</title>
+    <title>LocalWeb | Сайты для малого бизнеса</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -15,22 +15,23 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2 font-black text-xl">
                 <div class="w-6 h-6 bg-[#2563EB] rounded"></div> LocalWeb
+                <span class="text-xs font-normal text-slate-500 hidden sm:inline">— Сайты для малого бизнеса</span>
             </div>
-            <div class="hidden md:flex gap-8 font-semibold text-sm">
+            <div class="hidden md:flex gap-6 font-semibold text-sm">
                 <a href="#offers" class="hover:text-[#2563EB]">Условия</a>
                 <a href="#why" class="hover:text-[#2563EB]">Зачем сайт</a>
                 <a href="#compare" class="hover:text-[#2563EB]">Сравнение</a>
                 <a href="#form" class="hover:text-[#2563EB]">Заказать</a>
             </div>
             <div class="flex items-center gap-3">
-                <div class="hidden lg:flex items-center gap-2 text-xs font-bold border border-slate-200 rounded-full px-4 py-1.5">
+                <div class="flex items-center gap-2 text-xs font-bold border border-slate-200 rounded-full px-4 py-1.5">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    Свободен 1 слот на бесплатный MVP
+                    Свободен 1 слот на бесплатный MVP сегодня
                 </div>
-                <a href="#form" class="bg-[#0F172A] text-white px-5 py-2 rounded-lg text-sm font-bold">Заявка</a>
+                <a href="#form" class="bg-[#0F172A] text-white px-5 py-2 rounded-lg text-sm font-bold">Оставить заявку</a>
             </div>
         </nav>
     </header>
@@ -39,70 +40,73 @@
     <section class="py-20 px-6 container mx-auto">
         <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight max-w-4xl">Разработаем сайт для вашего бизнеса: покажем рабочий прототип (MVP) уже через 24 часа — <span class="text-[#10B981]">абсолютно бесплатно</span></h1>
         <p class="text-xl text-slate-600 mb-10 max-w-2xl">Сделаем современный сайт под ключ всего за 7 500 ₽. Сначала вы видите результат, и только потом принимаете решение.</p>
+        <a href="#form" class="btn-primary mb-12 inline-block">Получить бесплатный MVP за 24 часа</a>
         
-        <!-- Interactive Preview Widget -->
-        <div class="mt-12 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm max-w-2xl">
+        <!-- Interactive Preview -->
+        <div class="mt-12">
+            <h3 class="font-bold mb-4">Примеры для вашего бизнеса:</h3>
             <div class="flex gap-2 mb-6">
-                <button class="bg-[#2563EB] text-white px-4 py-2 rounded-lg text-sm font-bold">Кофейня</button>
-                <button class="bg-slate-100 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-200">Автосервис</button>
-                <button class="bg-slate-100 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-200">Мастер</button>
+                <button class="bg-[#2563EB] text-white px-4 py-2 rounded-lg text-sm font-bold">Кофейня / Доставка</button>
+                <button class="bg-white border px-4 py-2 rounded-lg text-sm font-bold hover:border-[#2563EB]">Автосервис / Услуги</button>
+                <button class="bg-white border px-4 py-2 rounded-lg text-sm font-bold hover:border-[#2563EB]">Мастер / Эксперт</button>
             </div>
-            <div class="h-48 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 italic">Превью макета сайта</div>
+            <div class="h-64 bg-slate-200 rounded-2xl flex items-center justify-center text-slate-500 italic">Превью макета сайта</div>
         </div>
     </section>
 
-    <!-- Bento Grid (Условия) -->
+    <!-- Bento Grid -->
     <section id="offers" class="py-20 px-6 bg-white">
         <div class="container mx-auto grid md:grid-cols-2 gap-6">
             <div class="card-glass p-8 md:col-span-2 lg:col-span-1">
                 <span class="badge-emerald mb-4 inline-block">MVP за 24 часа</span>
                 <h3 class="text-2xl font-bold mb-4">Сначала результат — потом решение</h3>
-                <p class="text-slate-600">Изготовим рабочий прототип (MVP) за 24 часа абсолютно бесплатно. Вы ничем не рискуете.</p>
+                <p class="text-slate-600">Изготовим рабочий прототип (MVP) за 24 часа абсолютно бесплатно. Не понравится — без проблем обсудим новые пути. Вы ничем не рискуете.</p>
             </div>
             <div class="card-glass p-8 border-2 border-[#2563EB]">
                 <h3 class="text-4xl font-black mb-2 text-[#2563EB]">7 500 ₽</h3>
                 <p class="font-bold text-lg">Полная разработка сайта</p>
-                <p class="text-slate-600 text-sm mt-2">Никаких скрытых платежей. Честная цена.</p>
+                <p class="text-slate-600 text-sm mt-2">Никаких скрытых платежей, звездочек и дополнительных услуг.</p>
             </div>
             <div class="card-glass p-8">
                 <h3 class="text-2xl font-bold mb-4">Платите как удобно</h3>
-                <p class="text-slate-600">Безопасная оплата через ЮKassa. Предоставляем все документы для ИП и ООО.</p>
+                <p class="text-slate-600">Безопасная оплата через ЮKassa. Предоставляем документы для ИП и ООО.</p>
             </div>
             <div class="card-glass p-8">
                 <h3 class="text-2xl font-bold mb-4">Не бросаем после запуска</h3>
-                <p class="text-slate-600">Поддержка, обновление контента и развитие вашего сайта на постоянной основе.</p>
+                <p class="text-slate-600">Техподдержка, регулярное обновление контента и развитие вашего сайта.</p>
             </div>
         </div>
     </section>
 
-    <!-- Зачем сайт? -->
+    <!-- Why Site? -->
     <section id="why" class="py-20 px-6 container mx-auto">
         <h2 class="text-4xl font-black mb-12 text-center">Думаете, сайт не нужен?</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="card-glass p-6"><h4 class="font-bold mb-2">Алгоритмы режут охваты?</h4><p class="text-sm text-slate-600">Свой сайт работает 24/7 и не зависит от соцсетей.</p></div>
-            <div class="card-glass p-6"><h4 class="font-bold mb-2">Клиенты ищут вас в поиске</h4><p class="text-sm text-slate-600">Если нет сайта, клиент идет к конкуренту.</p></div>
-            <div class="card-glass p-6"><h4 class="font-bold mb-2">Устали отвечать?</h4><p class="text-sm text-slate-600">Сайт сам продает услуги и собирает заявки.</p></div>
-            <div class="card-glass p-6"><h4 class="font-bold mb-2">Доверие и статус</h4><p class="text-sm text-slate-600">Сайт повышает чек и доверие корпоративных заказчиков.</p></div>
+            <div class="card-glass p-6"><h4 class="font-bold mb-2">Клиенты ищут в поиске</h4><p class="text-sm text-slate-600">Клиент вбивает запрос — конкурент забирает его, если у вас нет сайта.</p></div>
+            <div class="card-glass p-6"><h4 class="font-bold mb-2">Устали отвечать?</h4><p class="text-sm text-slate-600">Сайт сам презентует услуги и отвечает на вопросы 24/7.</p></div>
+            <div class="card-glass p-6"><h4 class="font-bold mb-2">Доверие и статус</h4><p class="text-sm text-slate-600">Сайт выделяет вас и повышает чек в глазах клиентов.</p></div>
         </div>
     </section>
 
-    <!-- Сравнение -->
+    <!-- Comparison -->
     <section id="compare" class="py-20 px-6 bg-white">
         <div class="container mx-auto">
             <h2 class="text-4xl font-black mb-12 text-center">Почему LocalWeb выгоднее?</h2>
             <div class="overflow-x-auto card-glass">
-                <table class="w-full">
-                    <thead><tr class="bg-slate-50 border-b"><th class="p-6">Критерий</th><th class="p-6 text-[#2563EB] border-x">LocalWeb</th><th class="p-6">Конструкторы</th></tr></thead>
+                <table class="w-full text-left">
+                    <thead><tr class="bg-slate-50 border-b"><th class="p-6">Критерий</th><th class="p-6 text-[#2563EB] border-x border-slate-200">LocalWeb (Выбор бизнеса)</th><th class="p-6">Конструкторы</th><th class="p-6">Студии</th></tr></thead>
                     <tbody>
-                        <tr class="border-b"><td class="p-6 font-bold">Цена</td><td class="p-6 font-bold bg-blue-50/30">7 500 ₽ (Фикс)</td><td class="p-6">Подписки</td></tr>
-                        <tr class="border-b"><td class="p-6 font-bold">Абонплата</td><td class="p-6 font-bold bg-blue-50/30">0 ₽</td><td class="p-6">10к+/год</td></tr>
+                        <tr class="border-b"><td class="p-6 font-bold">Цена</td><td class="p-6 font-bold bg-blue-50/30">7 500 ₽ (Фикс)</td><td class="p-6">0 ₽ + время</td><td class="p-6">50к+</td></tr>
+                        <tr class="border-b"><td class="p-6 font-bold">Абонплата</td><td class="p-6 font-bold bg-blue-50/30">0 ₽</td><td class="p-6">6-12к / год</td><td class="p-6">Высокая</td></tr>
+                        <tr class="border-b"><td class="p-6 font-bold">Старт MVP</td><td class="p-6 font-bold bg-blue-50/30">24 часа</td><td class="p-6">Самостоятельно</td><td class="p-6">Недели</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
 
-    <!-- Форма -->
+    <!-- Form -->
     <section id="form" class="py-20 px-6 container mx-auto">
         <div class="card-glass p-12 grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -110,17 +114,30 @@
                 <p class="text-slate-600 mb-6">Запустите разработку сегодня: через 24 часа бесплатный MVP, а полный сайт всего 7 500 ₽.</p>
             </div>
             <form id="contact-form" class="space-y-4">
-                <input type="text" placeholder="Имя" class="w-full p-4 rounded-xl border border-slate-200" required>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="Имя" class="p-4 rounded-xl border border-slate-200" required>
+                    <input type="text" placeholder="Фамилия" class="p-4 rounded-xl border border-slate-200">
+                </div>
                 <input type="text" placeholder="Название фирмы" class="w-full p-4 rounded-xl border border-slate-200">
-                <button type="submit" class="btn-primary w-full">Получить бесплатный MVP</button>
-                <p class="text-[10px] text-slate-400">Нажимая кнопку, вы ничем не рискуете. Оплата через ЮKassa.</p>
+                <input type="text" placeholder="Сфера бизнеса" class="w-full p-4 rounded-xl border border-slate-200">
+                <select class="w-full p-4 rounded-xl border border-slate-200">
+                    <option>Telegram</option><option>WhatsApp</option><option>Телефон</option>
+                </select>
+                <input type="text" placeholder="Ваш контакт" class="w-full p-4 rounded-xl border border-slate-200">
+                <textarea placeholder="Доп. пожелания" class="w-full p-4 rounded-xl border border-slate-200 h-24"></textarea>
+                <button type="submit" class="btn-primary w-full">Получить бесплатный MVP за 24 часа</button>
+                <p class="text-[10px] text-slate-400">Нажимая кнопку, вы ничем не рискуете. Оплата после согласования, официально через ЮKassa.</p>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#0F172A] text-slate-400 py-12 px-6 text-center text-sm">
-        <p>© 2026 LocalWeb. Принимаем ЮKassa | Работаем с ИП и ООО.</p>
+    <footer class="bg-[#0F172A] text-slate-400 py-12 px-6">
+        <div class="container mx-auto grid md:grid-cols-3 gap-8">
+            <div><div class="text-white font-black text-xl mb-4">LocalWeb</div><p class="text-xs">Разработка быстрых и доступных сайтов под заказ для малого бизнеса</p></div>
+            <div><p class="text-xs font-bold text-white mb-2">Оплата</p><p class="text-xs">Принимаем через ЮKassa | Работаем с физлицами, ИП и ООО</p></div>
+            <div class="text-right text-xs">© 2026 LocalWeb. Все права защищены.</div>
+        </div>
     </footer>
 
     <script src="app.js"></script>
