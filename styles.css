@@ -1,158 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
 
-:root {
-  --primary: #10b981;
-  --primary-hover: #059669;
-  --primary-glow: rgba(16, 185, 129, 0.25);
-  --accent: #6366f1;
-  --bg-dark: #090d16;
-  --card-bg: rgba(15, 23, 42, 0.75);
-  --border-color: rgba(51, 65, 85, 0.6);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg-dark);
-  color: #f1f5f9;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-/* Background Gradients & Glows */
-.bg-glow-emerald {
-  background: radial-gradient(circle 500px at 50% 20%, rgba(16, 185, 129, 0.12), transparent 80%);
-}
-
-.bg-glow-indigo {
-  background: radial-gradient(circle 450px at 80% 60%, rgba(99, 102, 241, 0.12), transparent 75%);
+@layer base {
+  body {
+    @apply bg-[#F8FAFC] text-[#0F172A] font-['Inter'];
+  }
 }
 
 .card-glass {
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-color);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  @apply bg-white border border-slate-200 shadow-sm rounded-[16px] hover:shadow-md transition-all duration-300;
 }
 
-.card-glass:hover {
-  border-color: rgba(16, 185, 129, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px var(--primary-glow);
+.btn-primary {
+  @apply bg-[#2563EB] text-white font-bold px-8 py-4 rounded-[16px] hover:bg-[#1D4ED8] transition-all;
 }
 
-/* Modern Form Validation Styles per Modern Web Guidance */
-input, textarea, select {
-  font-family: inherit;
-  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
-}
-
-input:focus, textarea:focus, select:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-}
-
-input:user-invalid, textarea:user-invalid {
-  border-color: #ef4444 !important;
-  background-color: rgba(239, 68, 68, 0.05);
-}
-
-input:user-invalid + .field-error, textarea:user-invalid + .field-error {
-  display: block;
-}
-
-input:user-valid:not(:placeholder-shown) {
-  border-color: #10b981;
-}
-
-.field-error {
-  display: none;
-  color: #f87171;
-  font-size: 0.8rem;
-  margin-top: 0.35rem;
-}
-
-/* Modern Dialog Styling according to Modern Web Guidance */
-dialog:modal {
-  overscroll-behavior: contain;
-  border: none;
-  background: transparent;
-  padding: 0;
-  max-width: 90vw;
-  width: 900px;
-  margin: auto;
-}
-
-dialog::backdrop {
-  background: rgba(4, 7, 15, 0.82);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  overflow: hidden;
-  overscroll-behavior: contain;
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #090d16;
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
-
-/* Pulsing Badge */
-.pulse-dot {
-  position: relative;
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #10b981;
-}
-
-.pulse-dot::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: #10b981;
-  opacity: 0.75;
-  animation: pulse-ring 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.6); opacity: 0.8; }
-  100% { transform: scale(2.2); opacity: 0; }
-}
-
-/* Device mockup preview frame */
-.mockup-phone {
-  border: 10px solid #1e293b;
-  border-radius: 36px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-  overflow: hidden;
-  position: relative;
-}
-
-.mockup-screen {
-  background: #0f172a;
-  overflow-y: auto;
-  height: 520px;
+.badge-emerald {
+  @apply bg-[#10B981] text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider;
 }
