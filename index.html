@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboWeb | Быстрые сайты для бизнеса</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-950 text-slate-100">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black text-emerald-400">TurboWeb</div>
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-slate-300">
+                <a href="#portfolio" class="hover:text-emerald-400">Работы</a>
+                <a href="#prices" class="hover:text-emerald-400">Цены</a>
+                <a href="#quiz" class="hover:text-emerald-400">Расчет</a>
+            </div>
+            <a href="#contact" class="bg-emerald-500 text-slate-950 px-5 py-2 rounded-lg font-bold text-sm">Заказать</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-20 px-6 container mx-auto bg-glow-emerald">
+        <div class="max-w-3xl">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                Быстрые сайты для <span class="text-emerald-400">бизнеса</span> за 48 часов
+            </h1>
+            <p class="text-lg text-slate-400 mb-10">Готовый лендинг без абонентской платы. Сначала результат — потом оплата.</p>
+            <div class="flex gap-4">
+                <a href="#quiz" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-8 py-4 rounded-xl font-bold">Рассчитать стоимость</a>
+                <a href="#portfolio" class="border border-slate-700 hover:bg-slate-900 px-8 py-4 rounded-xl font-bold">Примеры работ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="prices" class="py-20 px-6 bg-slate-900/50">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-black mb-12 text-center">Сколько вы переплачиваете за конструкторы?</h2>
+            <div class="card-glass p-8 md:p-12 rounded-3xl max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold mb-2">Срок владения сайтом: <span id="calc-years-val" class="text-emerald-400">1 год</span></label>
+                    <input type="range" id="calc-years" min="1" max="5" value="1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="text-slate-400 text-sm mb-2">Tilda / Студии</div>
+                        <div id="calc-tilda-cost" class="text-3xl font-black">0 ₽</div>
+                    </div>
+                    <div>
+                        <div class="text-slate-400 text-sm mb-2">TurboWeb</div>
+                        <div id="calc-turboweb-cost" class="text-3xl font-black text-emerald-400">0 ₽</div>
+                    </div>
+                    <div>
+                        <div class="text-slate-400 text-sm mb-2">Экономия</div>
+                        <div id="calc-saved-amount" class="text-3xl font-black text-white">0 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="py-20 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-black mb-12 text-center">Наши работы</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card-glass p-6 rounded-2xl cursor-pointer open-demo-btn" data-demo="detailing">
+                    <div class="w-12 h-12 bg-emerald-500/20 rounded-xl mb-4 flex items-center justify-center text-2xl">🚗</div>
+                    <h3 class="font-bold mb-2">Автобизнес</h3>
+                    <p class="text-sm text-slate-400">Детейлинг, пленки, тюнинг.</p>
+                </div>
+                <div class="card-glass p-6 rounded-2xl cursor-pointer open-demo-btn" data-demo="renovation">
+                    <div class="w-12 h-12 bg-amber-500/20 rounded-xl mb-4 flex items-center justify-center text-2xl">🏗️</div>
+                    <h3 class="font-bold mb-2">Ремонт</h3>
+                    <p class="text-sm text-slate-400">Квартиры, коттеджи.</p>
+                </div>
+                <div class="card-glass p-6 rounded-2xl cursor-pointer open-demo-btn" data-demo="barbershop">
+                    <div class="w-12 h-12 bg-rose-500/20 rounded-xl mb-4 flex items-center justify-center text-2xl">✂️</div>
+                    <h3 class="font-bold mb-2">Услуги</h3>
+                    <p class="text-sm text-slate-400">Барбершопы, салоны.</p>
+                </div>
+                <div class="card-glass p-6 rounded-2xl cursor-pointer open-demo-btn" data-demo="legal">
+                    <div class="w-12 h-12 bg-sky-500/20 rounded-xl mb-4 flex items-center justify-center text-2xl">⚖️</div>
+                    <h3 class="font-bold mb-2">Юристы</h3>
+                    <p class="text-sm text-slate-400">Банкротство, споры.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Dialog -->
+    <dialog id="portfolio-dialog" class="rounded-3xl shadow-2xl">
+        <div class="bg-slate-950 p-8">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h2 id="modal-title" class="text-2xl font-black mb-1"></h2>
+                    <span id="modal-niche" class="text-emerald-400 text-sm font-semibold"></span>
+                </div>
+                <button id="dialog-close-btn" class="text-slate-500 hover:text-white">✕</button>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div id="modal-demo-container" class="mockup-phone"></div>
+                <div class="space-y-4">
+                    <div class="p-4 bg-slate-900 rounded-xl">
+                        <div class="text-xs text-slate-400">Результат</div>
+                        <div id="modal-result" class="font-bold"></div>
+                    </div>
+                    <div class="p-4 bg-slate-900 rounded-xl">
+                        <div class="text-xs text-slate-400">Скорость загрузки</div>
+                        <div id="modal-speed" class="font-bold"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Contact Form -->
+    <section id="contact" class="py-20 px-6">
+        <div class="container mx-auto max-w-2xl">
+            <h2 class="text-4xl font-black mb-12 text-center">Запустим ваш проект?</h2>
+            <form id="contact-form" class="card-glass p-8 rounded-3xl space-y-4">
+                <input type="text" id="user-name" placeholder="Ваше имя" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4">
+                <input type="tel" id="user-phone" placeholder="Telegram или Телефон" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4">
+                <select id="user-plan" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4">
+                    <option>Тариф: Экспресс (9 900 ₽)</option>
+                    <option>Тариф: Под ключ (14 900 ₽)</option>
+                </select>
+                <textarea id="user-note" placeholder="Пара слов о бизнесе" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 h-32"></textarea>
+                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 p-4 rounded-xl font-bold">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="fixed bottom-6 right-6 hidden transform transition-all duration-300">
+        <div class="bg-emerald-500 text-slate-950 p-4 rounded-xl font-bold shadow-2xl flex items-center gap-3">
+            <span id="success-toast-msg"></span>
+        </div>
+    </div>
+
+    <!-- JS inclusion -->
+    <script src="app.js"></script>
+</body>
+</html>
