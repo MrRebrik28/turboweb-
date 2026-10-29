@@ -2,8 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Презентация студии LocalWeb</title>
+    <title>LocalWeb — Презентация и коммерческое предложение</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
         @page {
             size: 297mm 210mm;
             margin: 0;
@@ -14,12 +16,14 @@
             padding: 0;
         }
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #F8FAFC;
             color: #0F172A;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+            -webkit-font-smoothing: antialiased;
         }
+
         .slide {
             width: 297mm;
             height: 210mm;
@@ -27,984 +31,1133 @@
             break-after: page;
             position: relative;
             overflow: hidden;
-            padding: 14mm 18mm 12mm 18mm;
+            padding: 12mm 16mm 10mm 16mm;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             background: #F8FAFC;
         }
-        .slide-dark {
-            background: #0F172A;
-            color: #FFFFFF;
+
+        /* Subtle grid background like website */
+        .slide-grid-bg {
+            background-image: radial-gradient(rgba(148, 163, 184, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
-        
-        /* Top Navigation Header on Slides */
-        .slide-header {
+
+        /* Top Header */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1.5px solid #E2E8F0;
             padding-bottom: 8px;
-            margin-bottom: 12px;
+            border-bottom: 1px solid #E2E8F0;
         }
-        .slide-dark .slide-header {
-            border-bottom-color: #334155;
-        }
-        .logo-wrap {
+        .brand {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .logo-box {
+        .brand-icon {
             width: 32px;
             height: 32px;
-            border-radius: 8px;
+            border-radius: 10px;
             background: #2563EB;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 900;
-            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
         }
-        .logo-text {
-            font-size: 20px;
+        .brand-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        .brand-name {
+            font-size: 19px;
             font-weight: 900;
             letter-spacing: -0.5px;
             color: #0F172A;
         }
-        .slide-dark .logo-text {
-            color: #FFFFFF;
-        }
-        .logo-text span {
+        .brand-name span {
             color: #2563EB;
         }
-        .badge {
-            background: #EFF6FF;
-            color: #2563EB;
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .slot-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #ECFDF5;
+            color: #059669;
+            border: 1px solid #A7F3D0;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-size: 11px;
             font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid #DBEAFE;
         }
-        .slide-dark .badge {
-            background: rgba(37, 99, 235, 0.2);
-            color: #60A5FA;
-            border-color: rgba(96, 165, 250, 0.3);
+        .slot-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+            box-shadow: 0 0 6px #10B981;
+        }
+        .slide-tag {
+            background: #EFF6FF;
+            color: #2563EB;
+            border: 1px solid #BFDBFE;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
         .slide-num {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 800;
             color: #94A3B8;
         }
 
-        /* Slide Content Area */
-        .slide-content {
+        /* Slide Body */
+        .content {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding: 8px 0;
         }
-        .slide-title {
-            font-size: 28px;
+        .slide-headline {
+            font-size: 26px;
             font-weight: 900;
-            line-height: 1.15;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.8px;
             color: #0F172A;
-            margin-bottom: 6px;
+            line-height: 1.2;
+            margin-bottom: 4px;
         }
-        .slide-dark .slide-title {
-            color: #FFFFFF;
-        }
-        .slide-subtitle {
-            font-size: 14px;
+        .slide-sub {
+            font-size: 13px;
             color: #64748B;
-            line-height: 1.4;
-            margin-bottom: 16px;
-        }
-        .slide-dark .slide-subtitle {
-            color: #94A3B8;
+            font-weight: 500;
+            margin-bottom: 14px;
         }
 
         /* Footer */
-        .slide-footer {
+        .footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #E2E8F0;
             padding-top: 8px;
+            border-top: 1px solid #E2E8F0;
             font-size: 11px;
             color: #64748B;
         }
-        .slide-dark .slide-footer {
-            border-top-color: #334155;
-            color: #64748B;
-        }
-        .slide-footer a {
+        .footer a {
             color: #2563EB;
-            text-decoration: none;
             font-weight: 700;
-        }
-        .slide-dark .slide-footer a {
-            color: #60A5FA;
+            text-decoration: none;
         }
 
-        /* Grid Cards Layouts */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-        }
-        .grid-4 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 14px;
-        }
-
-        /* Card Styles */
-        .card {
+        /* Card Glass (LocalWeb Signature Style) */
+        .card-glass {
             background: #FFFFFF;
-            border: 1.5px solid #E2E8F0;
-            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
             padding: 16px;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+            box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+            position: relative;
         }
-        .slide-dark .card {
-            background: #1E293B;
-            border-color: #334155;
+        .card-glass-blue {
+            border: 2px solid #2563EB;
+            background: linear-gradient(135deg, rgba(239, 246, 255, 0.6) 0%, #FFFFFF 100%);
         }
-        .card-danger {
-            background: #FFF5F5;
-            border-color: #FED7D7;
-        }
-        .card-success {
-            background: #F0FDF4;
-            border-color: #BBF7D0;
-        }
-        .card-primary {
-            background: #EFF6FF;
-            border-color: #BFDBFE;
+        .card-glass-emerald {
+            border: 1.5px solid #10B981;
+            background: linear-gradient(135deg, rgba(240, 253, 244, 0.6) 0%, #FFFFFF 100%);
         }
 
-        .card-title {
-            font-size: 16px;
+        /* Badges */
+        .badge-blue {
+            display: inline-block;
+            background: #EFF6FF;
+            color: #2563EB;
+            font-size: 10px;
             font-weight: 800;
-            margin-bottom: 8px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-emerald {
+            display: inline-block;
+            background: #ECFDF5;
+            color: #059669;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-rose {
+            display: inline-block;
+            background: #FFF1F2;
+            color: #E11D48;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Grids */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+        .grid-bento-hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: center; }
+
+        /* Smartphone Mockup */
+        .phone-frame {
+            width: 175px;
+            height: 310px;
+            background: #0F172A;
+            border-radius: 28px;
+            padding: 7px;
+            box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            position: relative;
+            margin: 0 auto;
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #F8FAFC;
+            border-radius: 22px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #CBD5E1;
+        }
+        .phone-notch {
+            width: 60px;
+            height: 12px;
+            background: #0F172A;
+            border-radius: 0 0 10px 10px;
+            margin: 0 auto;
+        }
+        .phone-content {
+            padding: 10px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: center;
+        }
+
+        /* Telegram Bubble Mockup */
+        .tg-bubble {
+            background: #FFFFFF;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 6px 18px -4px rgba(15, 23, 42, 0.08);
+            padding: 14px;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+        .tg-header {
             display: flex;
             align-items: center;
             gap: 8px;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
         }
-        .text-danger { color: #DC2626; }
-        .text-success { color: #16A34A; }
-        .text-primary { color: #2563EB; }
-
-        .list-items {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-size: 12px;
-            line-height: 1.45;
-            color: #334155;
-        }
-        .list-items li {
-            position: relative;
-            padding-left: 18px;
-        }
-        .list-items li::before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #2563EB;
-            font-weight: 900;
-            font-size: 14px;
-        }
-        .list-danger li::before { content: "✕"; color: #DC2626; font-size: 11px; }
-        .list-success li::before { content: "✓"; color: #16A34A; font-size: 12px; }
-
-        /* Cover Slide Specifics */
-        .cover-hero {
-            text-align: center;
-            max-width: 220mm;
-            margin: 0 auto;
-        }
-        .cover-tag {
-            display: inline-block;
-            background: rgba(37, 99, 235, 0.15);
-            color: #60A5FA;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            border: 1px solid rgba(96, 165, 250, 0.3);
-        }
-        .cover-title {
-            font-size: 38px;
-            font-weight: 900;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            margin-bottom: 14px;
-        }
-        .cover-title span {
-            color: #38BDF8;
-        }
-        .cover-subtitle {
-            font-size: 17px;
-            color: #94A3B8;
-            line-height: 1.5;
-            margin-bottom: 26px;
-        }
-        .stat-banner {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-            margin-top: 10px;
-        }
-        .stat-card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 16px 20px;
-            text-align: center;
-        }
-        .stat-val {
-            font-size: 30px;
-            font-weight: 900;
-            color: #38BDF8;
-            line-height: 1;
-            margin-bottom: 6px;
-        }
-        .stat-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 2px;
-        }
-        .stat-desc {
-            font-size: 11px;
-            color: #94A3B8;
-        }
-
-        /* Step Circles */
-        .step-num {
-            width: 34px;
-            height: 34px;
+        .tg-avatar {
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background: #2563EB;
             color: white;
-            font-weight: 900;
-            font-size: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
+            font-weight: 800;
+            font-size: 11px;
         }
 
-        /* Pill Features */
-        .pill-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+        /* Comparison Table */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
         }
-        .pill-item {
-            background: #FFFFFF;
+        .comp-table th {
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: 800;
+            border-bottom: 1.5px solid #E2E8F0;
+            background: #F8FAFC;
+        }
+        .comp-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #F1F5F9;
+            vertical-align: middle;
+        }
+        .comp-table .lw-col {
+            background: rgba(239, 246, 255, 0.6);
+            font-weight: 700;
+            color: #1E3A8A;
+            border-left: 2px solid #2563EB;
+            border-right: 2px solid #2563EB;
+        }
+        .comp-table tr:first-child .lw-col {
+            border-top: 2px solid #2563EB;
+        }
+        .comp-table tr:last-child .lw-col {
+            border-bottom: 2px solid #2563EB;
+        }
+
+        /* Icon Pill Card */
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: white;
             border: 1px solid #E2E8F0;
             border-radius: 10px;
-            padding: 12px 14px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
+            padding: 10px 12px;
         }
-        .pill-icon {
-            width: 28px;
-            height: 28px;
+        .feature-icon-box {
+            width: 26px;
+            height: 26px;
             border-radius: 6px;
             background: #EFF6FF;
             color: #2563EB;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            flex-shrink: 0;
             font-weight: 900;
-        }
-
-        /* Law Badge */
-        .law-card {
-            background: #FFFFFF;
-            border: 1.5px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 18px;
-            position: relative;
-        }
-        .law-tag {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: #FEF3C7;
-            color: #B45309;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 4px;
-        }
-
-        /* Contact Details */
-        .contact-box {
-            background: #FFFFFF;
-            border: 2px solid #2563EB;
-            border-radius: 16px;
-            padding: 22px;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+            font-size: 11px;
+            flex-shrink: 0;
         }
     </style>
 </head>
 <body>
 
-    <!-- ==================== СЛАЙД 1: ОБЛОЖКА ==================== -->
-    <div class="slide slide-dark">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+    <!-- ==================== СЛАЙД 1: ОБЛОЖКА В СТИЛЕ САЙТА ==================== -->
+    <div class="slide slide-grid-bg">
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                </div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Коммерческое предложение 2026</div>
+            <div class="header-meta">
+                <div class="slot-pill"><span class="slot-dot"></span> Осталось 2 слота на этой неделе</div>
+                <div class="slide-tag">Презентация 2026</div>
+            </div>
         </div>
 
-        <div class="slide-content">
-            <div class="cover-hero">
-                <div class="cover-tag">Разработка под ключ • Без предоплаты</div>
-                <h1 class="cover-title">Сайты для малого бизнеса,<br>которые приносят <span>клиентов</span>, а не расходы</h1>
-                <p class="cover-subtitle">
-                    Создаем быстрые и конверсионные сайты с готовым рабочим прототипом за 24 часа.<br>
-                    Без навязанных подписок, без ежемесячной абонентской платы и со 100% соблюдением законов РФ.
-                </p>
+        <div class="content">
+            <div class="grid-bento-hero">
+                <div>
+                    <div style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; background: #EFF6FF; border: 1px solid #BFDBFE; font-size: 11px; font-weight: 800; color: #2563EB; margin-bottom: 12px;">
+                        <span>⚡</span> Без предоплаты и затягивания сроков
+                    </div>
+                    
+                    <h1 style="font-size: 34px; font-weight: 900; line-height: 1.15; letter-spacing: -1px; color: #0F172A; margin-bottom: 10px;">
+                        Сайт для вашего дела за 24 часа.<br>
+                        Сначала рабочий черновик, оплата — <span style="color: #10B981; font-weight: 900;">потом</span>.
+                    </h1>
+                    
+                    <p style="font-size: 14px; color: #64748B; line-height: 1.45; margin-bottom: 18px;">
+                        Разрабатываем понятные, быстрые сайты для локального бизнеса с лидогенерацией в Telegram и 100% соблюдением законов РФ. Без абонентских плат за конструкторы.
+                    </p>
 
-                <div class="stat-banner">
-                    <div class="stat-card">
-                        <div class="stat-val">7 500 ₽</div>
-                        <div class="stat-label">Фиксированная цена</div>
-                        <div class="stat-desc">Под ключ. Без скрытых доплат</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                        <div class="card-glass" style="text-align: center; padding: 12px 10px;">
+                            <div style="font-size: 22px; font-weight: 900; color: #2563EB; line-height: 1;">24 часа</div>
+                            <div style="font-size: 10px; color: #64748B; font-weight: 700; margin-top: 4px;">Готовый сайт до оплаты</div>
+                        </div>
+                        <div class="card-glass card-glass-emerald" style="text-align: center; padding: 12px 10px;">
+                            <div style="font-size: 22px; font-weight: 900; color: #059669; line-height: 1;">0 ₽</div>
+                            <div style="font-size: 10px; color: #059669; font-weight: 700; margin-top: 4px;">Предоплата на старте</div>
+                        </div>
+                        <div class="card-glass card-glass-blue" style="text-align: center; padding: 12px 10px;">
+                            <div style="font-size: 22px; font-weight: 900; color: #0F172A; line-height: 1;">7 500 ₽</div>
+                            <div style="font-size: 10px; color: #2563EB; font-weight: 800; margin-top: 4px;">Финал под ключ</div>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-val">24 часа</div>
-                        <div class="stat-label">Прототип до оплаты</div>
-                        <div class="stat-desc">Оцениваете сайт на своем телефоне</div>
+                </div>
+
+                <!-- Мокап смартфона с реальным сайтом -->
+                <div style="display: flex; justify-content: center; position: relative;">
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <div class="phone-notch"></div>
+                            <div class="phone-content">
+                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9px; font-weight: 800; border-bottom: 1px solid #E2E8F0; padding-bottom: 4px;">
+                                    <span>Local<span style="color: #2563EB;">Web</span></span>
+                                    <span style="background: #ECFDF5; color: #059669; padding: 1px 4px; border-radius: 4px;">🟢 24ч MVP</span>
+                                </div>
+                                <div style="font-size: 11px; font-weight: 900; line-height: 1.2; color: #0F172A; margin-top: 4px;">
+                                    Автосервис "Драйв"<br><span style="font-size: 9px; color: #64748B; font-weight: 500;">Кузовной ремонт и ТО</span>
+                                </div>
+                                <div style="background: white; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px 4px; font-size: 8px; text-align: left;">
+                                    <div style="font-weight: 700; color: #2563EB;">✓ Диагностика 0 ₽</div>
+                                    <div style="color: #64748B;">Гарантия на работы 1 год</div>
+                                </div>
+                                <div style="background: #2563EB; color: white; border-radius: 6px; padding: 5px; font-size: 9px; font-weight: 800;">
+                                    Записаться в WhatsApp
+                                </div>
+                                <div style="background: #F1F5F9; border-radius: 6px; padding: 4px; font-size: 8px; color: #475569;">
+                                    ⚡ Загрузка: 0.8с (98/100)
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-val">0 ₽ / мес</div>
-                        <div class="stat-label">Пожизненный хостинг</div>
-                        <div class="stat-desc">Без плат за Tilda, CMS и движки</div>
+                    
+                    <!-- Плашка "Проверено на мобильных" -->
+                    <div style="position: absolute; bottom: 10px; right: 0; background: white; border: 1px solid #CBD5E1; border-radius: 10px; padding: 8px 12px; box-shadow: 0 8px 20px rgba(15,23,42,0.1); font-size: 11px; font-weight: 700;">
+                        📱 Тест на вашем смартфоне
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>Официальный сайт: <a href="https://local-web.ru">local-web.ru</a> • Студия LocalWeb</div>
-            <div>Руководитель: Александр Яровенко • TG: @LocalWebRu</div>
+        <div class="footer">
+            <div>Официальный сайт: <a href="https://local-web.ru">local-web.ru</a> • Студия разработки сайтов LocalWeb</div>
+            <div>Связаться с разработчиком: <a href="https://t.me/LocalWebRu">@LocalWebRu</a></div>
         </div>
     </div>
 
-    <!-- ==================== СЛАЙД 2: ПРОБЛЕМА РЫНКА VS РЕШЕНИЕ ==================== -->
+    <!-- ==================== СЛАЙД 2: ЧЕСТНОЕ СРАВНЕНИЕ (ТАБЛИЦА С САЙТА) ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Сравнение подходов</div>
-            <div class="slide-num">02 / 10</div>
-        </div>
-
-        <div class="slide-content">
-            <h2 class="slide-title">Почему бизнес боится заказывать сайты?</h2>
-            <p class="slide-subtitle">Большинство предпринимателей уже обжигались на веб-студиях. Мы перевернули привычные правила игры.</p>
-
-            <div class="grid-2">
-                <div class="card card-danger">
-                    <div class="card-title text-danger">
-                        <span>✕</span> Как делают 90% веб-студий
-                    </div>
-                    <ul class="list-items list-danger">
-                        <li><strong>Предоплата 50–100%:</strong> Вы платите от 40 000 ₽ вперед, не понимая, что получите в итоге.</li>
-                        <li><strong>Сроки от 3 до 8 недель:</strong> Бесконечные созвоны, заполнение ТЗ на 20 страниц и срыв дедлайнов.</li>
-                        <li><strong>«Игла» абонентской платы:</strong> Вас сажают на Tilda или Bitrix — платите от 750 до 3 000 ₽ каждый месяц (до 36 000 ₽/год). Забыли оплатить — сайт отключен.</li>
-                        <li><strong>Медленные сайты:</strong> Конструкторы перегружены тяжелым кодом. Загрузка 5–8 секунд — клиенты уходят к конкурентам.</li>
-                        <li><strong>Риск штрафов:</strong> Отсутствие политики конфиденциальности по 152-ФЗ грозит штрафами до 6 000 000 ₽.</li>
-                    </ul>
-                </div>
-
-                <div class="card card-success">
-                    <div class="card-title text-success">
-                        <span>✓</span> Стандарт работы LocalWeb
-                    </div>
-                    <ul class="list-items list-success">
-                        <li><strong>0 ₽ предоплаты на старте:</strong> Вы сначала вживую смотрите работающий сайт на своем телефоне. Оплата — только если всё нравится.</li>
-                        <li><strong>Готовый MVP за 24 часа:</strong> Быстрый запуск для получения первых заявок уже на этой неделе.</li>
-                        <li><strong>0 ₽ абонентской платы НАВСЕГДА:</strong> Чистый HTML5/CSS код без сторонних платных движков. Хостинг бесплатный.</li>
-                        <li><strong>Мгновенная загрузка (0.8 сек):</strong> 95–100 баллов в Google PageSpeed. Идеально открывается даже при слабом 4G.</li>
-                        <li><strong>100% защита по законам РФ:</strong> Локализация в Москве, согласия на обработку, фискальный чек ФНС.</li>
-                    </ul>
-                </div>
+            <div class="header-meta">
+                <div class="slide-tag">Честное сравнение</div>
+                <div class="slide-num">02 / 10</div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Сайты для локального бизнеса</div>
+        <div class="content">
+            <h2 class="slide-headline">Сравнение: мы, конструкторы или обычные веб-студии</h2>
+            <p class="slide-sub">Почему предприниматели переплачивают в 5–10 раз за то, что должно стоить разумно и работать быстро.</p>
+
+            <div class="card-glass" style="padding: 0; overflow: hidden;">
+                <table class="comp-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Критерий</th>
+                            <th class="lw-col" style="width: 28%;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span>LocalWeb</span>
+                                    <span class="badge-emerald" style="font-size: 9px;">Оптимально</span>
+                                </div>
+                            </th>
+                            <th style="width: 23%;">Конструкторы (Tilda и др.)</th>
+                            <th style="width: 24%;">Обычные веб-студии</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Предоплата на старте</strong></td>
+                            <td class="lw-col"><strong>0 ₽</strong> (оплата после показа черновика)</td>
+                            <td>100% своими руками или от 25 000 ₽</td>
+                            <td>От 50% до 100% вперед (от 40 000 ₽)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Срок первого результата</strong></td>
+                            <td class="lw-col"><strong>24 часа</strong> (рабочая страница на телефоне)</td>
+                            <td>Недели мучений по вечерам</td>
+                            <td>От 3 до 8 недель согласований</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Плата за хостинг и движок</strong></td>
+                            <td class="lw-col"><strong>0 ₽ НАВСЕГДА</strong> (чистый быстрый код)</td>
+                            <td>От 9 000 ₽/год (абонентская плата)</td>
+                            <td>От 6 000 ₽/год за хостинг и плагины</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Скорость на смартфонах</strong></td>
+                            <td class="lw-col"><strong>0.8 сек</strong> (98/100 в Google PageSpeed)</td>
+                            <td>3–5 сек (тяжелый конструктор)</td>
+                            <td>Как повезет (часто тормозит)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Юридическая чистота 152-ФЗ</strong></td>
+                            <td class="lw-col"><strong>100% в коробке</strong> (сервер в РФ, чекбокс, чек)</td>
+                            <td>Настраивать и писать самому</td>
+                            <td>Отдельная платная услуга</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Правки после запуска</strong></td>
+                            <td class="lw-col"><strong>30 дней бесплатно</strong> по сообщению в TG</td>
+                            <td>Разбираться в интерфейсе самому</td>
+                            <td>Почасовая оплата (от 2 500 ₽/час)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>LocalWeb • Никаких скрытых условий и мелких шрифтов</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
-    <!-- ==================== СЛАЙД 3: ПРИНЦИП "ОПЛАТА ЗА РЕЗУЛЬТАТ" ==================== -->
+    <!-- ==================== СЛАЙД 3: ПРИНЦИП "БЕЗ КОТА В МЕШКЕ" ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Бизнес-модель</div>
-            <div class="slide-num">03 / 10</div>
-        </div>
-
-        <div class="slide-content">
-            <h2 class="slide-title">Наш принцип: сначала результат — оплата потом</h2>
-            <p class="slide-subtitle">Мы полностью убрали финансовый риск для заказчика. Никаких «котов в мешке» и пустых обещаний.</p>
-
-            <div class="grid-3">
-                <div class="card">
-                    <div class="step-num">1</div>
-                    <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px;">Экспресс-старт за 10 минут</h3>
-                    <p style="font-size: 12px; color: #64748B; line-height: 1.45; margin-bottom: 10px;">
-                        Вам не нужно писать сложные технические задания. Вы просто рассказываете о своем бизнесе в переписке или голосовым сообщением в Telegram.
-                    </p>
-                    <div style="background: #F1F5F9; padding: 8px 10px; border-radius: 6px; font-size: 11px; color: #475569; font-weight: 600;">
-                        Предоплата: 0 ₽
-                    </div>
-                </div>
-
-                <div class="card" style="border-color: #BFDBFE; background: #F8FAFC;">
-                    <div class="step-num" style="background: #2563EB;">2</div>
-                    <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px;">Тест-драйв на смартфоне</h3>
-                    <p style="font-size: 12px; color: #64748B; line-height: 1.45; margin-bottom: 10px;">
-                        Ровно через 24 часа мы присылаем вам секретную ссылку. Вы открываете настоящий интерактивный сайт на своем телефоне, нажимаете кнопки и проверяете подачу.
-                    </p>
-                    <div style="background: #EFF6FF; padding: 8px 10px; border-radius: 6px; font-size: 11px; color: #2563EB; font-weight: 600;">
-                        Срок: 24 часа
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="step-num" style="background: #10B981;">3</div>
-                    <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px;">Решение без давления</h3>
-                    <p style="font-size: 12px; color: #64748B; line-height: 1.45; margin-bottom: 10px;">
-                        Если вам всё нравится — вы оплачиваете 7 500 ₽, мы подключаем ваш домен и настраиваем ботов. Если нет — вы не платите ни рубля, и мы расходимся друзьями.
-                    </p>
-                    <div style="background: #ECFDF5; padding: 8px 10px; border-radius: 6px; font-size: 11px; color: #059669; font-weight: 600;">
-                        Оплата: 7 500 ₽ (по факту)
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-top: 14px; background: #EFF6FF; border: 1.5px dashed #60A5FA; border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;">
-                <div style="font-size: 13px; font-weight: 700; color: #1E40AF;">
-                    🛡️ Мы уверены в качестве своей работы, поэтому берем весь коммерческий риск на себя.
-                </div>
-                <div style="font-size: 12px; font-weight: 800; color: #2563EB;">Гарантия честной сделки</div>
+            <div class="header-meta">
+                <div class="slide-tag">Условия работы</div>
+                <div class="slide-num">03 / 10</div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Прозрачная разработка для бизнеса</div>
+        <div class="content">
+            <h2 class="slide-headline">Понятный процесс без «кота в мешке»</h2>
+            <p class="slide-sub">Сначала вы своими глазами видите сайт на смартфоне, и только потом принимаете решение.</p>
+
+            <div class="grid-3" style="gap: 14px;">
+                <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span class="badge-emerald">Без риска</span>
+                            <span style="font-size: 11px; font-weight: 800; color: #94A3B8;">Шаг 1</span>
+                        </div>
+                        <h3 style="font-size: 16px; font-weight: 900; line-height: 1.25; margin-bottom: 8px;">
+                            Экспресс-бриф за 10 минут
+                        </h3>
+                        <p style="font-size: 12px; color: #64748B; line-height: 1.45;">
+                            Вам не нужно заполнять анкеты на 20 страниц. Достаточно рассказать о бизнесе голосом или текстом в Telegram: чем занимаетесь, цены, фото и куда отправлять заявки.
+                        </p>
+                    </div>
+                    <div style="margin-top: 12px; padding: 6px 10px; background: #F1F5F9; border-radius: 8px; font-size: 11px; font-weight: 700; color: #334155;">
+                        💰 Предоплата: 0 ₽
+                    </div>
+                </div>
+
+                <div class="card-glass card-glass-blue" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span class="badge-blue">Тест-драйв</span>
+                            <span style="font-size: 11px; font-weight: 800; color: #2563EB;">Шаг 2</span>
+                        </div>
+                        <h3 style="font-size: 16px; font-weight: 900; line-height: 1.25; margin-bottom: 8px;">
+                            Черновик на телефоне через 24 часа
+                        </h3>
+                        <p style="font-size: 12px; color: #475569; line-height: 1.45;">
+                            На следующий день мы присылаем персональную ссылку. Вы открываете настоящий интерактивный сайт на своем смартфоне: листаете блоки, кликаете кнопки и оцениваете тексты.
+                        </p>
+                    </div>
+                    <div style="margin-top: 12px; padding: 6px 10px; background: #EFF6FF; border-radius: 8px; font-size: 11px; font-weight: 800; color: #2563EB;">
+                        ⏱ Срок сборки: ровно 24 часа
+                    </div>
+                </div>
+
+                <div class="card-glass card-glass-emerald" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span class="badge-emerald">Решение</span>
+                            <span style="font-size: 11px; font-weight: 800; color: #059669;">Шаг 3</span>
+                        </div>
+                        <h3 style="font-size: 16px; font-weight: 900; line-height: 1.25; margin-bottom: 8px;">
+                            Понравилось — запускаем, нет — расходимся
+                        </h3>
+                        <p style="font-size: 12px; color: #065F46; line-height: 1.45;">
+                            Если прототип вам понравился — вы оплачиваете 7 500 ₽, мы подключаем ваш домен и ботов. Если нет — вы не платите ни копейки, без обид и навязчивых звонков.
+                        </p>
+                    </div>
+                    <div style="margin-top: 12px; padding: 6px 10px; background: #ECFDF5; border-radius: 8px; font-size: 11px; font-weight: 800; color: #059669;">
+                        🤝 100% гарантия честной сделки
+                    </div>
+                </div>
+            </div>
+
+            <!-- Плашка под шагами -->
+            <div style="margin-top: 12px; background: #FFFFFF; border: 1.5px dashed #2563EB; border-radius: 10px; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="font-size: 12px; font-weight: 700; color: #1E3A8A;">
+                    💡 <strong>Почему мы так делаем?</strong> Потому что мы уверены в скорости и качестве своего кода и не хотим, чтобы клиенты боялись заказывать сайт.
+                </div>
+                <div style="font-size: 11px; font-weight: 800; color: #2563EB; white-space: nowrap;">Риск: 0%</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>LocalWeb • Бизнес-модель, построенная на доверии</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
-    <!-- ==================== СЛАЙД 4: ПОШАГОВЫЙ ПРОЦЕСС ==================== -->
+    <!-- ==================== СЛАЙД 4: ЗАЧЕМ БИЗНЕСУ САЙТ (4 КАРТОЧКИ С САЙТА) ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Этапы работы</div>
-            <div class="slide-num">04 / 10</div>
-        </div>
-
-        <div class="slide-content">
-            <h2 class="slide-title">От вашей идеи до готового сайта за 3 дня</h2>
-            <p class="slide-subtitle">Четкий и структурированный производственный процесс без задержек и бюрократии.</p>
-
-            <div class="grid-4">
-                <div class="card">
-                    <div style="color: #2563EB; font-weight: 900; font-size: 12px; margin-bottom: 4px;">ДЕНЬ 1 (УТРО)</div>
-                    <div class="card-title">1. Экспресс-бриф</div>
-                    <p style="font-size: 11px; color: #64748B; line-height: 1.4;">
-                        10-минутный диалог в Telegram. Уточняем специфику бизнеса, ключевые преимущества, прайс-лист, фото (если есть) и контакты для приема заказов.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div style="color: #2563EB; font-weight: 900; font-size: 12px; margin-bottom: 4px;">ДЕНЬ 1–2</div>
-                    <div class="card-title">2. Сборка MVP</div>
-                    <p style="font-size: 11px; color: #64748B; line-height: 1.4;">
-                        Пишем емкие продающие тексты без "воды", верстаем современный адаптивный дизайн, настраиваем удобные формы захвата контактов.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div style="color: #2563EB; font-weight: 900; font-size: 12px; margin-bottom: 4px;">ДЕНЬ 2</div>
-                    <div class="card-title">3. Демо и правки</div>
-                    <p style="font-size: 11px; color: #64748B; line-height: 1.4;">
-                        Вы тестируете сайт со смартфона. Если нужно скорректировать формулировку цены, акцент или фотографию — вносим правки моментально.
-                    </p>
-                </div>
-
-                <div class="card" style="border-color: #10B981; background: #F0FDF4;">
-                    <div style="color: #059669; font-weight: 900; font-size: 12px; margin-bottom: 4px;">ДЕНЬ 3</div>
-                    <div class="card-title" style="color: #065F46;">4. Релиз и запуск</div>
-                    <p style="font-size: 11px; color: #166534; line-height: 1.4;">
-                        Привязываем ваш домен, выпускаем SSL, подключаем Telegram-бота, передаем права, выдаем официальный фискальный чек ФНС.
-                    </p>
-                </div>
-            </div>
-
-            <div style="margin-top: 16px;" class="card">
-                <div style="font-size: 13px; font-weight: 800; color: #0F172A; margin-bottom: 6px;">
-                    🎁 Бонус после запуска: 30 дней бесплатной поддержки
-                </div>
-                <div style="font-size: 12px; color: #64748B; line-height: 1.4;">
-                    В течение первого месяца работы мы бесплатно заменим цены, обновим акции, поменяем контактный телефон или текст. Вы не останетесь один на один с сайтом.
-                </div>
+            <div class="header-meta">
+                <div class="slide-tag">Зачем это нужно</div>
+                <div class="slide-num">04 / 10</div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Понятный путь к результату</div>
+        <div class="content">
+            <h2 class="slide-headline">Почему одной группы в соцсетях сегодня уже мало</h2>
+            <p class="slide-sub">Сайт — это не дань моде, а независимый инструмент, который окупает себя с первых клиентов.</p>
+
+            <div class="grid-2" style="gap: 12px;">
+                <!-- 1. Соцсети -->
+                <div class="card-glass" style="border-left: 4px solid #F43F5E;">
+                    <div style="font-size: 10px; font-weight: 800; color: #E11D48; text-transform: uppercase; margin-bottom: 2px;">Риски чужих платформ</div>
+                    <h3 style="font-size: 15px; font-weight: 900; color: #0F172A; margin-bottom: 6px;">
+                        Внезапные блокировки и падение охватов
+                    </h3>
+                    <p style="font-size: 11.5px; color: #475569; line-height: 1.45;">
+                        Сообщества в соцсетях могут заблокировать или урезать показы из-за смены алгоритмов. Собственный сайт на личном домене принадлежит только вам и работает 24/7 без оглядки на чужие правила.
+                    </p>
+                </div>
+
+                <!-- 2. Поиск -->
+                <div class="card-glass" style="border-left: 4px solid #F59E0B;">
+                    <div style="font-size: 10px; font-weight: 800; color: #D97706; text-transform: uppercase; margin-bottom: 2px;">Горячий спрос</div>
+                    <h3 style="font-size: 15px; font-weight: 900; color: #0F172A; margin-bottom: 6px;">
+                        Поиск в Яндексе и на картах прямо сейчас
+                    </h3>
+                    <p style="font-size: 11.5px; color: #475569; line-height: 1.45;">
+                        Когда человеку срочно нужен автосервис, ремонт, клиника или доставка — он открывает поиск. Если у вас нет простого и понятного сайта, клиент за 3 секунды уходит к конкуренту из соседней вкладки.
+                    </p>
+                </div>
+
+                <!-- 3. Рутина -->
+                <div class="card-glass" style="border-left: 4px solid #3B82F6;">
+                    <div style="font-size: 10px; font-weight: 800; color: #2563EB; text-transform: uppercase; margin-bottom: 2px;">Экономия времени</div>
+                    <h3 style="font-size: 15px; font-weight: 900; color: #0F172A; margin-bottom: 6px;">
+                        Минус 90% однотипных вопросов в переписке
+                    </h3>
+                    <p style="font-size: 11.5px; color: #475569; line-height: 1.45;">
+                        «А где вы находитесь?», «Сколько стоит?», «Есть примеры работ?». Сайт снимает эти вопросы за 30 секунд: показывает прайс, фото и сразу собирает заявку с номером телефона клиента.
+                    </p>
+                </div>
+
+                <!-- 4. Доверие -->
+                <div class="card-glass" style="border-left: 4px solid #6366F1;">
+                    <div style="font-size: 10px; font-weight: 800; color: #4F46E5; text-transform: uppercase; margin-bottom: 2px;">Статус и чек</div>
+                    <h3 style="font-size: 15px; font-weight: 900; color: #0F172A; margin-bottom: 6px;">
+                        Доверие и готовность платить больше
+                    </h3>
+                    <p style="font-size: 11.5px; color: #475569; line-height: 1.45;">
+                        Быстрый современный сайт сразу отличает надежный бизнес от временных исполнителей на бесплатных досках объявлений. Клиенты охотнее соглашаются на нормальный чек без торгов.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>LocalWeb • Инструменты продаж для малого бизнеса</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
-    <!-- ==================== СЛАЙД 5: ТЕХНОЛОГИИ И ХОСТИНГ ==================== -->
+    <!-- ==================== СЛАЙД 5: ТЕХНОЛОГИИ И ХОСТИНГ 0 РУБ ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Технологии и экономия</div>
-            <div class="slide-num">05 / 10</div>
-        </div>
-
-        <div class="slide-content">
-            <h2 class="slide-title">Хостинг за 0 ₽: почему сайт работает бесплатно</h2>
-            <p class="slide-subtitle">Мы используем современные серверные стандарты вместо устаревших и прожорливых CMS.</p>
-
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-title text-primary">
-                        <span>⚡</span> Чистый код вместо тяжелых CMS
-                    </div>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.5; margin-bottom: 12px;">
-                        Обычные сайты на WordPress или Tilda под капотом подгружают сотни мегабайт сторонних скриптов, баз данных и плагинов. Поэтому они требуют постоянной аренды мощных серверов и ежемесячной оплаты.
-                    </p>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.5;">
-                        <strong>Сайты LocalWeb написаны на чистом HTML5, Tailwind CSS и Vanilla JavaScript:</strong> они весят меньше одной фотографии, открываются за доли секунды и не требуют базы данных, которая может "упасть" или заразиться вирусом.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title text-success">
-                        <span>🌐</span> Облачный Edge CDN хостинг (0 ₽/мес)
-                    </div>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.5; margin-bottom: 12px;">
-                        Мы размещаем сайты в отказоустойчивой мировой сети GitHub & Cloudflare Edge CDN с узлами по всему миру и в России.
-                    </p>
-                    <ul class="list-items list-success">
-                        <li><strong>Экономия:</strong> Вы экономите от 9 000 до 36 000 ₽ каждый год на абонентских платах хостинга.</li>
-                        <li><strong>Надежность 99.99%:</strong> Сайт не сломается от наплыва тысяч посетителей в рекламе.</li>
-                        <li><strong>Бесплатный SSL (HTTPS):</strong> Бессрочный сертификат безопасности с зеленым замочком в браузере.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="margin-top: 14px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-around;">
-                <div style="text-align: center;">
-                    <div style="font-size: 20px; font-weight: 900; color: #16A34A;">98 / 100</div>
-                    <div style="font-size: 11px; color: #64748B;">Google PageSpeed (Mobile)</div>
-                </div>
-                <div style="text-align: center; border-left: 1px solid #CBD5E1; border-right: 1px solid #CBD5E1; padding: 0 20px;">
-                    <div style="font-size: 20px; font-weight: 900; color: #2563EB;">0.8 сек</div>
-                    <div style="font-size: 11px; color: #64748B;">Время полной загрузки</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 20px; font-weight: 900; color: #0F172A;">0 ₽</div>
-                    <div style="font-size: 11px; color: #64748B;">Ежемесячная плата за хостинг</div>
-                </div>
+            <div class="header-meta">
+                <div class="slide-tag">Технологии и экономия</div>
+                <div class="slide-num">05 / 10</div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Инженерный подход к веб-разработке</div>
+        <div class="content">
+            <h2 class="slide-headline">Хостинг за 0 ₽: почему сайт работает бесплатно навсегда</h2>
+            <p class="slide-sub">Инженерный подход вместо устаревших и прожорливых платформ.</p>
+
+            <div class="grid-bento-hero" style="gap: 16px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div class="card-glass">
+                        <div style="font-size: 11px; font-weight: 800; color: #2563EB; text-transform: uppercase; margin-bottom: 4px;">Чистый код без CMS</div>
+                        <h3 style="font-size: 15px; font-weight: 900; margin-bottom: 6px;">Почему конструкторы берут плату каждый месяц?</h3>
+                        <p style="font-size: 11.5px; color: #475569; line-height: 1.45;">
+                            Tilda или WordPress под капотом подгружают тысячи строк тяжелых плагинов и баз данных, требуя дорогих серверов. 
+                            <strong>Сайты LocalWeb написаны на чистом HTML5, Tailwind CSS и Vanilla JavaScript:</strong> они весят меньше одной фотографии, открываются за 0.8 сек и не требуют баз данных, которые могут упасть.
+                        </p>
+                    </div>
+
+                    <div class="card-glass card-glass-emerald">
+                        <div style="font-size: 11px; font-weight: 800; color: #059669; text-transform: uppercase; margin-bottom: 4px;">Облачный Edge CDN хостинг</div>
+                        <h3 style="font-size: 15px; font-weight: 900; margin-bottom: 6px;">Пожизненный бесплатный сервер</h3>
+                        <p style="font-size: 11.5px; color: #065F46; line-height: 1.45;">
+                            Сайт размещается в отказоустойчивой инфраструктуре GitHub & Cloudflare Edge CDN с бесплатным SSL-сертификатом безопасности (зеленый замочек). Вы экономите от <strong>9 000 до 36 000 ₽ каждый год</strong> на абонентских платах.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Спидометр скорости PageSpeed -->
+                <div class="card-glass" style="text-align: center; padding: 20px 14px; background: white; border: 2px solid #E2E8F0;">
+                    <div style="font-size: 12px; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 10px;">
+                        Google PageSpeed Insights
+                    </div>
+                    
+                    <div style="width: 100px; height: 100px; border-radius: 50%; border: 7px solid #10B981; margin: 0 auto 12px auto; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);">
+                        <div style="font-size: 32px; font-weight: 900; color: #0F172A; line-height: 1;">98</div>
+                        <div style="font-size: 9px; font-weight: 800; color: #059669;">ИЗ 100</div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; margin-top: 10px; border-top: 1px solid #F1F5F9; padding-top: 10px;">
+                        <div style="background: #F8FAFC; padding: 6px; border-radius: 6px;">
+                            <div style="font-weight: 900; color: #2563EB;">0.4 сек</div>
+                            <div style="color: #64748B; font-size: 9px;">Первый экран</div>
+                        </div>
+                        <div style="background: #F8FAFC; padding: 6px; border-radius: 6px;">
+                            <div style="font-weight: 900; color: #10B981;">0.8 сек</div>
+                            <div style="color: #64748B; font-size: 9px;">Полная загрузка</div>
+                        </div>
+                    </div>
+                    <div style="font-size: 10px; color: #64748B; margin-top: 8px;">
+                        🚀 Клиенты не уходят, ожидая загрузки страницы
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>LocalWeb • Скорость и надежность мирового уровня</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
     <!-- ==================== СЛАЙД 6: ДОМЕН И СОБСТВЕННОСТЬ ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Правовая чистота</div>
-            <div class="slide-num">06 / 10</div>
-        </div>
-
-        <div class="slide-content">
-            <h2 class="slide-title">Домен: ваша 100% юридическая собственность</h2>
-            <p class="slide-subtitle">Мы категорически против привязки клиентов к студии через удержание прав на домен.</p>
-
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-title text-primary">
-                        <span>🏷️</span> Домен в зоне .RU / .РФ оформляется на вас
-                    </div>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.5; margin-bottom: 10px;">
-                        В отличие от недобросовестных агентств, которые регистрируют домены на своих сотрудников или вебмастеров, мы регистрируем домен <strong>строго на ваши данные</strong>:
-                    </p>
-                    <ul class="list-items">
-                        <li>На реквизиты вашей компании (ИП или ООО);</li>
-                        <li>Либо на ваш паспорт (для физических лиц и самозанятых).</li>
-                    </ul>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.5; margin-top: 10px;">
-                        Вы являетесь единственным полноправным администратором домена в государственном реестре Координационного центра Рунета (ТЦИ).
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title text-success">
-                        <span>🛡️</span> Полная свобода и прозрачность
-                    </div>
-                    <ul class="list-items list-success">
-                        <li><strong>Никакого шантажа:</strong> Никто не сможет потребовать выкуп за домен, если вы решите сменить подрядчика.</li>
-                        <li><strong>Честная стоимость продления:</strong> Вы платите за продление напрямую аккредитованному регистратору (от ~190 ₽ в год) без наших скрытых наценок.</li>
-                        <li><strong>Полная настройка DNS:</strong> Мы профессионально настраиваем все системные записи (A, CNAME, SPF, DKIM), чтобы сайт и почта работали без сбоев.</li>
-                        <li><strong>Если у вас уже есть домен:</strong> Мы бесплатно подключим сайт к вашему существующему доменному имени.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="margin-top: 14px; background: #EFF6FF; border: 1.5px solid #BFDBFE; border-radius: 10px; padding: 12px 16px;">
-                <div style="font-size: 12px; color: #1E40AF; line-height: 1.45;">
-                    💡 <strong>Пример:</strong> Наш собственный домен <strong style="color: #2563EB;">local-web.ru</strong> зарегистрирован по аналогичной схеме напрямую у официального аккредитованного регистратора РФ и защищен двухфакторной аутентификацией.
-                </div>
+            <div class="header-meta">
+                <div class="slide-tag">Ваша собственность</div>
+                <div class="slide-num">06 / 10</div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Домен принадлежит только вам</div>
+        <div class="content">
+            <h2 class="slide-headline">Домен .RU: ваша 100% юридическая собственность</h2>
+            <p class="slide-sub">Мы принципиально не привязываем клиентов к себе и не удерживаем доменные имена.</p>
+
+            <div class="grid-2" style="gap: 14px;">
+                <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="badge-blue" style="margin-bottom: 8px;">Официальный реестр РФ</div>
+                        <h3 style="font-size: 16px; font-weight: 900; margin-bottom: 8px;">Оформление строго на ваши реквизиты</h3>
+                        <p style="font-size: 12px; color: #475569; line-height: 1.5; margin-bottom: 8px;">
+                            Многие недобросовестные вебмастера оформляют домен на себя, требуя выкуп при уходе. 
+                            <strong>Мы регистрируем домен строго на ваше имя:</strong>
+                        </p>
+                        <ul style="font-size: 11.5px; color: #334155; line-height: 1.5; padding-left: 14px;">
+                            <li>На реквизиты вашей компании (ИП или ООО);</li>
+                            <li>Либо на ваш паспорт (для физических лиц и самозанятых).</li>
+                        </ul>
+                        <p style="font-size: 11.5px; color: #475569; margin-top: 8px;">
+                            Вы — единственный полноправный администратор в государственном реестре Координационного центра Рунета (ТЦИ).
+                        </p>
+                    </div>
+
+                    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; font-size: 11px; color: #0F172A; font-weight: 700;">
+                        🏷️ Стоимость продления домена: от ~190 ₽ в год напрямую регистратору без наценок
+                    </div>
+                </div>
+
+                <div class="card-glass card-glass-blue" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="badge-emerald" style="margin-bottom: 8px;">Технический сервис</div>
+                        <h3 style="font-size: 16px; font-weight: 900; margin-bottom: 8px;">Полная настройка DNS под ключ</h3>
+                        <p style="font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 8px;">
+                            Вам не нужно разбираться в сложных аббревиатурах серверов. Мы берем на себя всю техническую часть:
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: #1E3A8A;">
+                            <div style="background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #BFDBFE;">
+                                ✓ 4 независимых IP-сервера для непрерывной доступности
+                            </div>
+                            <div style="background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #BFDBFE;">
+                                ✓ Автоматический редирект с www.site.ru на site.ru
+                            </div>
+                            <div style="background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #BFDBFE;">
+                                ✓ Выпуск и автообновление SSL-сертификата (HTTPS)
+                            </div>
+                            <div style="background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #BFDBFE;">
+                                ✓ Если у вас уже есть домен — подключим его бесплатно
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 10.5px; color: #2563EB; font-weight: 700; margin-top: 6px;">
+                        💡 Наш собственный сайт <span style="text-decoration: underline;">local-web.ru</span> настроен по этой же схеме
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>LocalWeb • Домен принадлежит вам с первой секунды</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
     <!-- ==================== СЛАЙД 7: ЗАКОНОДАТЕЛЬСТВО РФ ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Безопасность и закон</div>
-            <div class="slide-num">07 / 10</div>
-        </div>
-
-        <div class="slide-content">
-            <h2 class="slide-title">100% защита от штрафов Роскомнадзора</h2>
-            <p class="slide-subtitle">Штрафы за нарушения работы с персональными данными в РФ достигают 6 000 000 ₽. Мы защищаем ваш бизнес.</p>
-
-            <div class="grid-3">
-                <div class="law-card">
-                    <div class="law-tag">152-ФЗ РФ</div>
-                    <div class="card-title text-primary">Локализация данных</div>
-                    <p style="font-size: 11px; color: #475569; line-height: 1.45; margin-bottom: 8px;">
-                        Вся первичная фиксация и сбор заявок производятся на серверах, физически расположенных в Российской Федерации (Яндекс Облако, Москва).
-                    </p>
-                    <div style="font-size: 10px; color: #16A34A; font-weight: 700;">✓ Требование ч. 5 ст. 18 152-ФЗ соблюдено</div>
-                </div>
-
-                <div class="law-card">
-                    <div class="law-tag">152-ФЗ РФ</div>
-                    <div class="card-title text-primary">Согласие и Политика</div>
-                    <p style="font-size: 11px; color: #475569; line-height: 1.45; margin-bottom: 8px;">
-                        В каждой форме устанавливается обязательный чекбокс согласия, а на сайте размещается персональная Политика обработки данных с реквизитами вашей компании.
-                    </p>
-                    <div style="font-size: 10px; color: #16A34A; font-weight: 700;">✓ Защита от проверок РКН</div>
-                </div>
-
-                <div class="law-card">
-                    <div class="law-tag">ФНС РФ</div>
-                    <div class="card-title text-primary">Чеки и Бухгалтерия</div>
-                    <p style="font-size: 11px; color: #475569; line-height: 1.45; margin-bottom: 8px;">
-                        Официальная работа в статусе Самозанятого (ФЗ № 422-ФЗ). Предоставляем электронный чек из приложения «Мой налог» для уменьшения вашей налогооблагаемой базы.
-                    </p>
-                    <div style="font-size: 10px; color: #16A34A; font-weight: 700;">✓ Официально для ИП и ООО</div>
-                </div>
-            </div>
-
-            <div style="margin-top: 14px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 10px; padding: 12px 16px;">
-                <div style="font-size: 12px; color: #334155; line-height: 1.45;">
-                    🔐 <strong>Протокол 72-часового удаления:</strong> Данные клиентов не накапливаются в публичных шлюзах. После моментальной доставки заявки вам в Telegram и таблицу запускается протокол очистки промежуточных логов.
-                </div>
+            <div class="header-meta">
+                <div class="slide-tag">Законодательство РФ</div>
+                <div class="slide-num">07 / 10</div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Юридически безупречные решения</div>
+        <div class="content">
+            <h2 class="slide-headline">100% защита от штрафов Роскомнадзора</h2>
+            <p class="slide-sub">В 2024–2026 годах штрафы по 152-ФЗ выросли до 6 000 000 ₽. Мы закрываем все юридические риски.</p>
+
+            <div class="grid-3" style="gap: 12px;">
+                <div class="card-glass" style="border-top: 4px solid #2563EB;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 11px; font-weight: 800; color: #2563EB;">152-ФЗ РФ</span>
+                        <span style="font-size: 16px;">🇷🇺</span>
+                    </div>
+                    <h3 style="font-size: 14px; font-weight: 900; margin-bottom: 6px;">Локализация в Москве</h3>
+                    <p style="font-size: 11px; color: #475569; line-height: 1.45;">
+                        Серверная первичная фиксация данных клиентов производится в дата-центрах на территории РФ (Яндекс Облако, Москва).
+                    </p>
+                    <div style="font-size: 10px; color: #16A34A; font-weight: 800; margin-top: 8px;">
+                        ✓ Соблюдение ч. 5 ст. 18 152-ФЗ
+                    </div>
+                </div>
+
+                <div class="card-glass" style="border-top: 4px solid #10B981;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 11px; font-weight: 800; color: #059669;">Политика и согласия</span>
+                        <span style="font-size: 16px;">📝</span>
+                    </div>
+                    <h3 style="font-size: 14px; font-weight: 900; margin-bottom: 6px;">Чекбоксы под формы</h3>
+                    <p style="font-size: 11px; color: #475569; line-height: 1.45;">
+                        Каждая кнопка сопровождается обязательным чекбоксом согласия и юридически выверенной Политикой обработки с реквизитами вашей компании.
+                    </p>
+                    <div style="font-size: 10px; color: #16A34A; font-weight: 800; margin-top: 8px;">
+                        ✓ Защита от жалоб в РКН
+                    </div>
+                </div>
+
+                <div class="card-glass" style="border-top: 4px solid #F59E0B;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 11px; font-weight: 800; color: #D97706;">ФНС России</span>
+                        <span style="font-size: 16px;">🧾</span>
+                    </div>
+                    <h3 style="font-size: 14px; font-weight: 900; margin-bottom: 6px;">Чеки для бухгалтерии</h3>
+                    <p style="font-size: 11px; color: #475569; line-height: 1.45;">
+                        Работаем официально по ФЗ № 422-ФЗ (Самозанятость). Выдаем электронный фискальный чек с QR-кодом для учета расходов ИП или ООО.
+                    </p>
+                    <div style="font-size: 10px; color: #16A34A; font-weight: 800; margin-top: 8px;">
+                        ✓ Уменьшает налог компании
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 12px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 12px;">
+                <div style="width: 28px; height: 28px; border-radius: 8px; background: #ECFDF5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; flex-shrink: 0;">
+                    🛡️
+                </div>
+                <div style="font-size: 11.5px; color: #334155; line-height: 1.4;">
+                    <strong>Протокол 72-часового удаления:</strong> Данные ваших клиентов не накапливаются в публичных сетевых хранилищах. После моментальной доставки заявки вам в Telegram и таблицу запускается автоматическая очистка промежуточных логов.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>LocalWeb • Полное соответствие законодательству РФ</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
-    <!-- ==================== СЛАЙД 8: КУДА ИДУТ ЗАЯВКИ ==================== -->
+    <!-- ==================== СЛАЙД 8: КУДА ИДУТ ЗАЯВКИ (МОКАП TELEGRAM) ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Лидогенерация</div>
-            <div class="slide-num">08 / 10</div>
-        </div>
-
-        <div class="slide-content">
-            <h2 class="slide-title">Куда приходят заявки: мгновенно и без потерь</h2>
-            <p class="slide-subtitle">Вы не упустите ни одного клиента. Трехуровневая система маршрутизации лидов.</p>
-
-            <div class="grid-3">
-                <div class="card">
-                    <div style="font-size: 26px; margin-bottom: 6px;">📱</div>
-                    <div class="card-title text-primary">1. Telegram-бот (0.5 сек)</div>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.45;">
-                        Заявка моментально падает в ваш личный Telegram или в рабочий чат менеджеров.
-                    </p>
-                    <ul class="list-items" style="margin-top: 8px;">
-                        <li>Имя и контакты клиента в 1 клик</li>
-                        <li>Ниша и комментарий к заказу</li>
-                        <li>Время и страница перехода</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div style="font-size: 26px; margin-bottom: 6px;">📊</div>
-                    <div class="card-title text-primary">2. Онлайн-CRM таблица</div>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.45;">
-                        Каждый лид автоматически сохраняется в защищенную таблицу Google Таблицы / Excel.
-                    </p>
-                    <ul class="list-items" style="margin-top: 8px;">
-                        <li>Удобно вести воронку продаж</li>
-                        <li>Все контакты в одном надежном месте</li>
-                        <li>Экспорт в любую CRM-систему</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div style="font-size: 26px; margin-bottom: 6px;">✉️</div>
-                    <div class="card-title text-primary">3. Резерв на Email</div>
-                    <p style="font-size: 12px; color: #475569; line-height: 1.45;">
-                        Красивое форматированное HTML-письмо с деталями заказа на вашу почту руководителя (Яндекс).
-                    </p>
-                    <ul class="list-items" style="margin-top: 8px;">
-                        <li>Резервная копия всех обращений</li>
-                        <li>Удобно для архива и юристов</li>
-                        <li>100% гарантия сохранности данных</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="margin-top: 14px; background: #F0FDF4; border: 1.5px solid #BBF7D0; border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
-                <div style="font-size: 22px;">🪤</div>
-                <div style="font-size: 12px; color: #166534; line-height: 1.4;">
-                    <strong>Встроенная защита от ботов (Honeypot):</strong> Невидимая ловушка для спам-роботов на сайте отсекает 100% спама и рассылок. Вы получаете уведомления только о реальных заявках от живых клиентов.
-                </div>
+            <div class="header-meta">
+                <div class="slide-tag">Лидогенерация</div>
+                <div class="slide-num">08 / 10</div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Конверсионные инструменты захвата</div>
+        <div class="content">
+            <h2 class="slide-headline">Куда приходят заявки: мгновенно и без потерь</h2>
+            <p class="slide-sub">Трехуровневая система маршрутизации: вы не упустите ни одного клиента даже ночью.</p>
+
+            <div class="grid-bento-hero" style="gap: 16px;">
+                <!-- Мокап реального сообщения из Telegram бота -->
+                <div>
+                    <div style="font-size: 11px; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 6px;">
+                        Канал 1: Telegram-бот (доставка за 0.5 секунды)
+                    </div>
+                    <div class="tg-bubble">
+                        <div class="tg-header">
+                            <div class="tg-avatar">LW</div>
+                            <div>
+                                <div style="font-weight: 800; color: #0F172A; font-size: 12px;">LocalWeb Bot <span style="font-size: 10px; color: #2563EB;">bot</span></div>
+                                <div style="font-size: 9px; color: #94A3B8;">только что • уведомление о лиде</div>
+                            </div>
+                        </div>
+                        <div style="font-weight: 800; color: #0F172A; font-size: 12px; margin-bottom: 6px;">
+                            🚀 НОВАЯ ЗАЯВКА С САЙТА!
+                        </div>
+                        <div style="color: #475569; display: flex; flex-direction: column; gap: 3px; font-size: 11px;">
+                            <div>👤 <strong>Клиент:</strong> Алексей Смирнов</div>
+                            <div>🏢 <strong>Компания:</strong> Автосервис "Механика"</div>
+                            <div>💼 <strong>Сфера:</strong> Ремонт двигателей и ТО</div>
+                            <div>💬 <strong>Связь:</strong> Telegram</div>
+                            <div>📞 <strong>Контакт:</strong> <span style="background: #EFF6FF; color: #2563EB; padding: 2px 5px; border-radius: 4px; font-family: monospace; font-weight: 700;">@smirnov_auto</span></div>
+                            <div>📝 <strong>Пожелания:</strong> Нужен запуск сайта к открытию нового бокса в субботу</div>
+                            <div style="font-size: 9px; color: #94A3B8; margin-top: 4px; border-top: 1px solid #F1F5F9; padding-top: 4px;">
+                                ⏱ 14:22 • Источник: local-web.ru
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Резервные каналы -->
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div class="card-glass">
+                        <div style="font-size: 12px; font-weight: 800; color: #2563EB; margin-bottom: 2px;">
+                            📊 Канал 2: Онлайн-таблица (Google Sheets / Excel)
+                        </div>
+                        <p style="font-size: 11px; color: #475569; line-height: 1.4;">
+                            Каждый лид автоматически заносится новой строкой в таблицу: имя, телефон, дата, источник. Готовая база для отдела продаж.
+                        </p>
+                    </div>
+
+                    <div class="card-glass">
+                        <div style="font-size: 12px; font-weight: 800; color: #2563EB; margin-bottom: 2px;">
+                            ✉️ Канал 3: Резервный дубликат на Email (Яндекс)
+                        </div>
+                        <p style="font-size: 11px; color: #475569; line-height: 1.4;">
+                            Стилизованное письмо отправляется на вашу почту руководителя как резервная копия на случай отсутствия доступа к Telegram.
+                        </p>
+                    </div>
+
+                    <div class="card-glass card-glass-emerald" style="padding: 10px 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 16px;">🪤</span>
+                            <div style="font-size: 11px; color: #065F46; line-height: 1.35;">
+                                <strong>Honeypot-ловушка:</strong> встроенный скрытый фильтр отсекает 100% спам-роботов. Никаких пустых уведомлений.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>LocalWeb • Ни один клиент не будет потерян</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
     <!-- ==================== СЛАЙД 9: ЧТО ВХОДИТ В 7 500 РУБЛЕЙ ==================== -->
     <div class="slide">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Тариф «Всё включено»</div>
-            <div class="slide-num">09 / 10</div>
+            <div class="header-meta">
+                <div class="slide-tag">Тариф «Всё включено»</div>
+                <div class="slide-num">09 / 10</div>
+            </div>
         </div>
 
-        <div class="slide-content">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px;">
+        <div class="content">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
                 <div>
-                    <h2 class="slide-title">Что входит в фиксированные 7 500 ₽</h2>
-                    <p class="slide-subtitle" style="margin-bottom: 0;">Полный комплект для запуска продаж в интернете без необходимости что-либо докупать.</p>
+                    <h2 class="slide-headline">Что входит в фиксированные 7 500 ₽</h2>
+                    <p class="slide-sub" style="margin-bottom: 0;">Никаких мелких шрифтов, доплат за адаптив или наценок в процессе работы.</p>
                 </div>
-                <div style="background: #2563EB; color: white; padding: 8px 18px; border-radius: 12px; text-align: right;">
+                <div style="background: #2563EB; color: white; padding: 6px 14px; border-radius: 10px; text-align: right; box-shadow: 0 4px 12px rgba(37,99,235,0.3);">
                     <div style="font-size: 20px; font-weight: 900; line-height: 1;">7 500 ₽</div>
-                    <div style="font-size: 10px; font-weight: 700; opacity: 0.9;">ОДНОКРАТНО</div>
+                    <div style="font-size: 9px; font-weight: 700; opacity: 0.9;">ФИНАЛЬНАЯ ЦЕНА</div>
                 </div>
             </div>
 
-            <div class="pill-grid">
-                <div class="pill-item">
-                    <div class="pill-icon">01</div>
+            <div class="grid-4" style="gap: 10px;">
+                <div class="feature-item">
+                    <div class="feature-icon-box">01</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #0F172A;">Индивидуальный Landing Page</div>
-                        <div style="font-size: 11px; color: #64748B;">Продающая структура: главный экран, каталог услуг, УТП, блок доверия, FAQ, формы захвата.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #0F172A;">Landing Page под ключ</div>
+                        <div style="font-size: 10.5px; color: #64748B;">Качественный одностраничный сайт под специфику вашей ниши.</div>
                     </div>
                 </div>
 
-                <div class="pill-item">
-                    <div class="pill-icon">02</div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">02</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #0F172A;">Идеальная мобильная версия</div>
-                        <div style="font-size: 11px; color: #64748B;">Сайт разрабатывается по принципу Mobile-First: кнопки под большой палец, быстрый звонок и WhatsApp.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #0F172A;">Mobile-First верстка</div>
+                        <div style="font-size: 10.5px; color: #64748B;">Удобные кнопки под большой палец, быстрый звонок и WhatsApp.</div>
                     </div>
                 </div>
 
-                <div class="pill-item">
-                    <div class="pill-icon">03</div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">03</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #0F172A;">Продающий копирайтинг</div>
-                        <div style="font-size: 11px; color: #64748B;">Пишем понятные тексты под вашу целевую аудиторию без скучных шаблонов и воды.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #0F172A;">Продающий копирайтинг</div>
+                        <div style="font-size: 10.5px; color: #64748B;">Пишем понятные тексты без воды, раскрывая ваши выгоды и цены.</div>
                     </div>
                 </div>
 
-                <div class="pill-item">
-                    <div class="pill-icon">04</div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">04</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #0F172A;">Telegram-бот + CRM-таблица</div>
-                        <div style="font-size: 11px; color: #64748B;">Мгновенная доставка лидов в мессенджер директора или менеджеров и табличный учет.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #0F172A;">Telegram-бот + CRM</div>
+                        <div style="font-size: 10.5px; color: #64748B;">Мгновенная доставка лидов в мессенджер директора или менеджеров.</div>
                     </div>
                 </div>
 
-                <div class="pill-item">
-                    <div class="pill-icon">05</div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">05</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #0F172A;">Пожизненный хостинг и SSL (0 ₽/мес)</div>
-                        <div style="font-size: 11px; color: #64748B;">Бесплатное размещение на скоростном Edge CDN. Замочек HTTPS без ежегодных оплат.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #0F172A;">Хостинг за 0 ₽/мес</div>
+                        <div style="font-size: 10.5px; color: #64748B;">Пожизненное бесплатное размещение на скоростном Edge CDN.</div>
                     </div>
                 </div>
 
-                <div class="pill-item">
-                    <div class="pill-icon">06</div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">06</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #0F172A;">Подключение домена .RU / .РФ</div>
-                        <div style="font-size: 11px; color: #64748B;">Помощь в выборе и полная техническая привязка DNS-записей напрямую к вашему аккаунту.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #0F172A;">Привязка домена .RU</div>
+                        <div style="font-size: 10.5px; color: #64748B;">Помощь в выборе и полная настройка DNS на ваши реквизиты.</div>
                     </div>
                 </div>
 
-                <div class="pill-item">
-                    <div class="pill-icon">07</div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">07</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #0F172A;">Пакет соответствия 152-ФЗ РФ</div>
-                        <div style="font-size: 11px; color: #64748B;">Юридически выверенная Политика конфиденциальности и чекбоксы согласия для РКН.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #0F172A;">Защита по 152-ФЗ РФ</div>
+                        <div style="font-size: 10.5px; color: #64748B;">Политика конфиденциальности, чекбоксы согласий и чек ФНС.</div>
                     </div>
                 </div>
 
-                <div class="pill-item" style="border-color: #10B981; background: #F0FDF4;">
-                    <div class="pill-icon" style="background: #10B981; color: white;">08</div>
+                <div class="feature-item" style="border: 1.5px solid #10B981; background: #F0FDF4;">
+                    <div class="feature-icon-box" style="background: #10B981; color: white;">08</div>
                     <div>
-                        <div style="font-size: 13px; font-weight: 800; color: #065F46;">30 дней бесплатной поддержки</div>
-                        <div style="font-size: 11px; color: #166534;">Бесплатно заменим цены, добавим новые акции, скорректируем текст или фото после запуска.</div>
+                        <div style="font-size: 12px; font-weight: 800; color: #065F46;">30 дней гарантии</div>
+                        <div style="font-size: 10.5px; color: #166534;">Бесплатно заменим цены, добавим акции и фото после релиза.</div>
                     </div>
                 </div>
+            </div>
+
+            <div style="margin-top: 10px; background: #EFF6FF; border-radius: 8px; padding: 8px 12px; font-size: 11px; color: #1E3A8A; font-weight: 600; text-align: center;">
+                Код сайта остается у вас навсегда. Вы платите один раз — сайт работает годами без списаний.
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>LocalWeb • Фиксированная стоимость без сюрпризов</div>
+        <div class="footer">
+            <div>LocalWeb • Фиксированная стоимость без скрытых платежей</div>
             <div>https://local-web.ru • @LocalWebRu</div>
         </div>
     </div>
 
-    <!-- ==================== СЛАЙД 10: КОНТАКТЫ И СТАРТ ==================== -->
-    <div class="slide slide-dark">
-        <div class="slide-header">
-            <div class="logo-wrap">
-                <div class="logo-box">LW</div>
-                <div class="logo-text">Local<span>Web</span></div>
+    <!-- ==================== СЛАЙД 10: КОНТАКТЫ И СТАРТ РАБОТЫ ==================== -->
+    <div class="slide slide-grid-bg">
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                <div class="brand-name">Local<span>Web</span></div>
             </div>
-            <div class="badge">Контакты и заказ</div>
-            <div class="slide-num">10 / 10</div>
+            <div class="header-meta">
+                <div class="slot-pill"><span class="slot-dot"></span> Начните без предоплаты</div>
+                <div class="slide-num">10 / 10</div>
+            </div>
         </div>
 
-        <div class="slide-content">
-            <div class="grid-2" style="align-items: center; gap: 24px;">
+        <div class="content">
+            <div class="grid-bento-hero" style="gap: 20px;">
                 <div>
-                    <div class="cover-tag" style="margin-bottom: 12px;">Старт без риска</div>
-                    <h2 class="slide-title" style="font-size: 32px; margin-bottom: 12px;">Получите готовый прототип вашего сайта уже завтра</h2>
-                    <p class="slide-subtitle" style="font-size: 14px; margin-bottom: 18px;">
-                        Напишите нам в Telegram и коротко расскажите о вашей деятельности. Через 24 часа мы отправим ссылку на готовый интерактивный сайт.
+                    <span class="badge-emerald" style="margin-bottom: 8px;">Старт без риска</span>
+                    <h2 style="font-size: 28px; font-weight: 900; line-height: 1.2; letter-spacing: -0.8px; color: #0F172A; margin-bottom: 10px;">
+                        Получите рабочий черновик вашего сайта уже завтра
+                    </h2>
+                    <p style="font-size: 13px; color: #64748B; line-height: 1.45; margin-bottom: 14px;">
+                        Напишите нам в Telegram и коротко расскажите о своем деле. Мы соберем работающую страницу и пришлем ссылку прямо на ваш смартфон.
                     </p>
-                    <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #334155; border-radius: 12px; padding: 14px 18px;">
-                        <div style="font-size: 12px; color: #94A3B8; margin-bottom: 4px;">Напоминаем:</div>
-                        <div style="font-size: 14px; font-weight: 800; color: #38BDF8;">
+
+                    <div class="card-glass card-glass-emerald" style="padding: 12px 14px;">
+                        <div style="font-size: 11px; font-weight: 800; color: #059669; margin-bottom: 2px;">
+                            Напоминаем главное правило:
+                        </div>
+                        <div style="font-size: 13px; font-weight: 800; color: #065F46; line-height: 1.35;">
                             Оплата 7 500 ₽ только после того, как вы лично проверите сайт на своем телефоне и скажете: «Мне нравится!»
                         </div>
                     </div>
                 </div>
 
-                <div class="contact-box" style="background: #1E293B; border-color: #2563EB;">
-                    <div style="font-size: 18px; font-weight: 900; color: #FFFFFF; margin-bottom: 14px;">Прямые контакты студии:</div>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 8px;">
-                            <span style="color: #94A3B8;">Официальный сайт:</span>
-                            <a href="https://local-web.ru" style="color: #38BDF8; font-weight: 800; text-decoration: none;">local-web.ru</a>
+                <!-- Контактная карточка -->
+                <div class="card-glass card-glass-blue" style="padding: 16px;">
+                    <div style="font-size: 15px; font-weight: 900; color: #0F172A; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                        <span>Прямые контакты студии</span>
+                        <span class="badge-blue">На связи</span>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #E2E8F0; padding-bottom: 6px;">
+                            <span style="color: #64748B;">Официальный сайт:</span>
+                            <a href="https://local-web.ru" style="color: #2563EB; font-weight: 800; text-decoration: none;">local-web.ru</a>
                         </div>
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 8px;">
-                            <span style="color: #94A3B8;">Telegram руководителя:</span>
-                            <a href="https://t.me/LocalWebRu" style="color: #38BDF8; font-weight: 800; text-decoration: none;">@LocalWebRu</a>
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #E2E8F0; padding-bottom: 6px;">
+                            <span style="color: #64748B;">Telegram разработчика:</span>
+                            <a href="https://t.me/LocalWebRu" style="color: #2563EB; font-weight: 800; text-decoration: none;">@LocalWebRu</a>
                         </div>
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 8px;">
-                            <span style="color: #94A3B8;">Telegram-бот заявок:</span>
-                            <span style="color: #FFFFFF; font-weight: 700;">@LocalWebRuBot</span>
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #E2E8F0; padding-bottom: 6px;">
+                            <span style="color: #64748B;">Telegram-бот заявок:</span>
+                            <span style="font-weight: 700; color: #0F172A;">@LocalWebRuBot</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 8px;">
-                            <span style="color: #94A3B8;">Рабочий Email:</span>
-                            <a href="mailto:jarovenkoaleksander@yandex.ru" style="color: #E2E8F0; font-weight: 600; text-decoration: none;">jarovenkoaleksander@yandex.ru</a>
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #E2E8F0; padding-bottom: 6px;">
+                            <span style="color: #64748B;">Рабочий Email:</span>
+                            <a href="mailto:jarovenkoaleksander@yandex.ru" style="color: #334155; font-weight: 600; text-decoration: none;">jarovenkoaleksander@yandex.ru</a>
                         </div>
-                        <div style="display: flex; justify-content: space-between; padding-top: 4px;">
-                            <span style="color: #94A3B8;">Разработчик / Исполнитель:</span>
-                            <span style="color: #FFFFFF; font-weight: 700;">Яровенко А. С. (Самозанятый)</span>
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #E2E8F0; padding-bottom: 6px;">
+                            <span style="color: #64748B;">Исполнитель:</span>
+                            <span style="font-weight: 700; color: #0F172A;">Яровенко А. С. (Самозанятый)</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: #94A3B8;">ИНН для проверки в ФНС:</span>
-                            <span style="color: #94A3B8; font-family: monospace;">420560867537</span>
+                        <div style="display: flex; justify-content: space-between; padding-top: 2px;">
+                            <span style="color: #64748B;">ИНН в реестре ФНС:</span>
+                            <span style="font-family: monospace; font-weight: 700; color: #64748B;">420560867537</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide-footer">
-            <div>Студия веб-разработки LocalWeb • 2026</div>
-            <div>https://local-web.ru • Связаться в TG: @LocalWebRu</div>
+        <div class="footer">
+            <div>LocalWeb • Сайты для малого бизнеса с оплатой за результат</div>
+            <div>https://local-web.ru • Написать в Telegram: @LocalWebRu</div>
         </div>
     </div>
 
