@@ -9,68 +9,76 @@ document.addEventListener('DOMContentLoaded', () => {
   initDynamicDate();
 });
 
-// 1. Karaoke / Subtitle reading animation on Hero Title (строго по 1 букве, без неона)
+// 1. Karaoke / Subtitle reading animation on Hero Title
+// Строго по 1 букве, без неона, черновик гарантированно темный, зеленым остается только "потом"
 function initKaraokeTitle() {
   const title = document.getElementById('hero-title');
   if (!title) return;
 
-  const rawText = "Сайт для вашего дела за 24 часа. Сначала рабочий черновик, оплата — потом";
+  const blackText = "Сайт для вашего дела за 24 часа. Сначала рабочий черновик, оплата — ";
+  const greenText = "потом";
+
   title.innerHTML = '';
-  
-  const chars = [];
-  const words = rawText.split(' ');
+  const allCharSpans = [];
 
-  words.forEach((word, wordIndex) => {
-    const wordSpan = document.createElement('span');
-    wordSpan.className = 'inline-block whitespace-nowrap';
+  function buildSpans(text, isPermanentGreen) {
+    const words = text.split(' ');
+    words.forEach((word, wIdx) => {
+      if (word.length === 0) return;
+      const wordSpan = document.createElement('span');
+      wordSpan.className = 'inline-block whitespace-nowrap';
 
-    // Только последнее слово "потом" в конце останется зеленым
-    const isFinalWord = (wordIndex === words.length - 1); // "потом"
-
-    for (let i = 0; i < word.length; i++) {
-      const charSpan = document.createElement('span');
-      charSpan.textContent = word[i];
-      charSpan.className = 'karaoke-char';
-      if (isFinalWord) {
-        charSpan.dataset.final = "true";
+      for (let i = 0; i < word.length; i++) {
+        const charSpan = document.createElement('span');
+        charSpan.textContent = word[i];
+        charSpan.className = 'karaoke-char';
+        if (isPermanentGreen) {
+          charSpan.dataset.isGreen = "true";
+          charSpan.style.color = '#10B981';
+          charSpan.style.fontWeight = '900';
+        } else {
+          charSpan.style.color = '#0F172A';
+        }
+        wordSpan.appendChild(charSpan);
+        allCharSpans.push(charSpan);
       }
-      wordSpan.appendChild(charSpan);
-      chars.push(charSpan);
-    }
 
-    title.appendChild(wordSpan);
-    if (wordIndex < words.length - 1) {
-      const space = document.createTextNode(' ');
-      title.appendChild(space);
-    }
-  });
+      title.appendChild(wordSpan);
+      if (wIdx < words.length - 1 || text.endsWith(' ')) {
+        title.appendChild(document.createTextNode(' '));
+      }
+    });
+  }
 
-  // Запуск эффекта субтитров строго по 1 букве
+  // Создаем структуру текста
+  buildSpans(blackText, false);
+  buildSpans(greenText, true);
+
+  // Запуск бегущей подсветки ровно по 1 букве
   setTimeout(() => {
-    let currentIndex = 0;
-    let prevChar = null;
-    const speed = 30; // Скорость сканирования (мс на символ)
+    let index = 0;
+    let currentActive = null;
+    const speed = 30; // мс на букву
 
-    const interval = setInterval(() => {
-      // Предыдущая буква мгновенно гаснет (или фиксируется зелёной, если это слово "потом")
-      if (prevChar) {
-        prevChar.classList.remove('karaoke-active');
-        if (prevChar.dataset.final === "true") {
-          prevChar.classList.add('karaoke-final-green');
+    const timer = setInterval(() => {
+      // Предыдущая буква мгновенно гаснет
+      if (currentActive) {
+        currentActive.classList.remove('karaoke-active');
+        if (currentActive.dataset.isGreen === "true") {
+          currentActive.style.color = '#10B981';
+        } else {
+          currentActive.style.color = '#0F172A';
         }
       }
 
-      if (currentIndex < chars.length) {
-        const char = chars[currentIndex];
-        char.classList.add('karaoke-active');
-        prevChar = char;
-        currentIndex++;
+      if (index < allCharSpans.length) {
+        currentActive = allCharSpans[index];
+        currentActive.classList.add('karaoke-active');
+        currentActive.style.color = '#10B981';
+        index++;
       } else {
-        clearInterval(interval);
-        // Завершение на последней букве слова "потом"
-        if (prevChar && prevChar.dataset.final === "true") {
-          prevChar.classList.add('karaoke-final-green');
-        }
+        clearInterval(timer);
+        currentActive = null;
       }
     }, speed);
   }, 350);
