@@ -20,20 +20,24 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Karaoke Subtitle Effect on Hero Title: строго 1 буква, без неона */
+/* Karaoke Subtitle Effect on Hero Title: мягкая волна с легким свечением */
 .karaoke-char {
   color: #0F172A;
   display: inline-block;
-  transition: color 0.08s ease;
+  transition: color 0.15s ease, text-shadow 0.15s ease, transform 0.15s ease;
+  will-change: transform, color, text-shadow;
 }
 
 .karaoke-char.karaoke-active {
   color: #10B981 !important;
+  transform: translateY(-2px);
+  text-shadow: 0 0 14px rgba(16, 185, 129, 0.55), 0 0 4px rgba(16, 185, 129, 0.35);
 }
 
 .karaoke-char.karaoke-final-green {
   color: #10B981 !important;
   font-weight: 900;
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
 }
 
 /* Bento Card with Spotlight & Depth */
