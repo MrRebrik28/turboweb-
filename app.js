@@ -142,9 +142,8 @@ function initMessengerSelector() {
   });
 }
 
-// Конфигурация вебхука для сбора заявок (Яндекс.Облако, Google Sheets или Telegram Bot)
-// Если URL не указан, форма работает в безопасном демонстрационном режиме с показом модального окна
-window.LEAD_ENDPOINT = window.LEAD_ENDPOINT || '';
+// Конфигурация вебхука для сбора заявок (Яндекс.Облако, 152-ФЗ шлюз)
+window.LEAD_ENDPOINT = window.LEAD_ENDPOINT || 'https://functions.yandexcloud.net/d4e23a85l1pnpv0skdum';
 
 // 5. Contact Form Submission & Success Dialog
 function initContactForm() {
