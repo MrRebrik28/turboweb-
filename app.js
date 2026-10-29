@@ -142,6 +142,10 @@ function initMessengerSelector() {
   });
 }
 
+// Конфигурация вебхука для сбора заявок (Яндекс.Облако, Google Sheets или Telegram Bot)
+// Если URL не указан, форма работает в безопасном демонстрационном режиме с показом модального окна
+window.LEAD_ENDPOINT = window.LEAD_ENDPOINT || '';
+
 // 5. Contact Form Submission & Success Dialog
 function initContactForm() {
   const form = document.getElementById('lead-form');
@@ -150,11 +154,24 @@ function initContactForm() {
 
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
+
+    // Сбор данных формы
+    const payload = {
+      name: form.querySelector('#user-name')?.value.trim() || '',
+      surname: form.querySelector('#user-surname')?.value.trim() || '',
+      company: form.querySelector('#user-company')?.value.trim() || '',
+      niche: form.querySelector('#user-niche')?.value.trim() || '',
+      messenger: form.querySelector('#selected-messenger')?.value || 'Telegram',
+      contact: form.querySelector('#contact-input')?.value.trim() || '',
+      notes: form.querySelector('#user-notes')?.value.trim() || '',
+      timestamp: new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }),
+      source: window.location.href
+    };
 
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
@@ -162,33 +179,48 @@ function initContactForm() {
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
       </svg>
-      Отправка...
+      Отправка заявки...
     `;
 
-    const name = form.querySelector('#user-name')?.value || 'клиент';
-    const messenger = form.querySelector('#selected-messenger')?.value || 'Telegram';
-    const contact = form.querySelector('#contact-input')?.value || '';
+    try {
+      // Если подключен рабочий эндпоинт — отправляем реальный запрос
+      if (window.LEAD_ENDPOINT && window.LEAD_ENDPOINT.trim() !== '') {
+        const response = await fetch(window.LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
 
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
-
-      const userNameEl = document.getElementById('modal-user-name');
-      const userDetailsEl = document.getElementById('modal-user-details');
-      if (userNameEl) userNameEl.textContent = name;
-      if (userDetailsEl) {
-        userDetailsEl.textContent = `Мы свяжемся с вами через ${messenger} (${contact}) в течение 15 минут, чтобы обсудить первый черновик.`;
+        if (!response.ok) {
+          console.warn('Сервер вернул статус:', response.status);
+        }
+      } else {
+        // Имитация быстрой сетевой задержки для плавности анимации
+        await new Promise(resolve => setTimeout(resolve, 600));
       }
 
+      // Заполняем данные в модальном окне
+      const userNameEl = document.getElementById('modal-user-name');
+      const userDetailsEl = document.getElementById('modal-user-details');
+      if (userNameEl) userNameEl.textContent = payload.name || 'клиент';
+      if (userDetailsEl) {
+        userDetailsEl.textContent = `Мы свяжемся с вами через ${payload.messenger} (${payload.contact}) в течение 15 минут, чтобы обсудить первый черновик.`;
+      }
+
+      // Открываем модальное окно
       if (dialog && typeof dialog.showModal === 'function') {
         dialog.showModal();
       } else {
-        alert(`Спасибо, ${name}! Заявка принята. Свяжемся с вами через ${messenger}: ${contact}`);
+        alert(`Спасибо, ${payload.name}! Заявка принята. Свяжемся с вами через ${payload.messenger}: ${payload.contact}`);
       }
 
+      // Сбрасываем форму к исходному состоянию
       form.reset();
       
       const defaultBtn = document.querySelector('.messenger-btn[data-messenger="Telegram"]');
+      const contactInput = form.querySelector('#contact-input');
       if (defaultBtn) {
         document.querySelectorAll('.messenger-btn').forEach(b => b.classList.remove('active'));
         defaultBtn.classList.add('active');
@@ -196,7 +228,14 @@ function initContactForm() {
           contactInput.placeholder = defaultBtn.getAttribute('data-placeholder') || '@username или номер в Telegram';
         }
       }
-    }, 700);
+
+    } catch (err) {
+      console.error('Ошибка при отправке заявки:', err);
+      alert('Произошла временная ошибка отправки. Пожалуйста, напишите нам напрямую в Telegram.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
   });
 
   if (closeBtn && dialog) {
