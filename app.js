@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSpotlight();
   initMessengerSelector();
   initContactForm();
+  initFaqAccordion();
   initDynamicDate();
 });
 
@@ -218,7 +219,21 @@ function initContactForm() {
   }
 }
 
-// 6. Dynamic slot date
+// 6. FAQ Accordion (Smooth toggle)
+function initFaqAccordion() {
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const wasActive = item.classList.contains('active');
+      items.forEach(i => i.classList.remove('active'));
+      if (!wasActive) {
+        item.classList.add('active');
+      }
+    });
+  });
+}
+
+// 7. Dynamic slot date
 function initDynamicDate() {
   const dateEl = document.getElementById('current-date');
   if (dateEl) {

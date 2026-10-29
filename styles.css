@@ -188,3 +188,34 @@ dialog::backdrop {
   -webkit-backdrop-filter: blur(6px);
   overscroll-behavior: contain;
 }
+
+/* FAQ Accordion Styling */
+.faq-item {
+  cursor: pointer;
+  user-select: none;
+}
+
+.faq-icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, color 0.2s;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  background-color: #EFF6FF;
+  color: var(--primary);
+}
+
+.faq-content {
+  display: none;
+  animation: faqFadeIn 0.25s ease-out;
+}
+
+.faq-item.active .faq-content {
+  display: block;
+}
+
+@keyframes faqFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
