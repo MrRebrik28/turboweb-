@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocalWeb — Сайты для малого бизнеса под заказ за 7 500 ₽</title>
-    <meta name="description" content="Разработаем сайт для вашего бизнеса: бесплатный рабочий MVP через 24 часа. Полный сайт за 7 500 ₽ без абонентской платы.">
+    <title>LocalWeb — Быстрые сайты для малого бизнеса за 7 500 ₽</title>
+    <meta name="description" content="Разработка понятных и быстрых сайтов для малого бизнеса. Рабочий прототип за 24 часа без предоплаты. Фиксированная цена 7 500 ₽.">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-[#F8FAFC] text-[#0F172A] min-h-screen">
 
-    <!-- БЛОК 1: ХЕДЕР (Sticky Navigation) -->
+    <!-- БЛОК 1: ХЕДЕР -->
     <header class="sticky top-0 z-50 bg-[#F8FAFC]/90 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Логотип -->
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                <div class="w-10 h-10 rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                 </div>
                 <div>
                     <span class="font-black text-xl tracking-tight text-[#0F172A]">Local<span class="text-[#2563EB]">Web</span></span>
-                    <span class="hidden sm:block text-[11px] text-slate-500 font-medium leading-none">Сайты для малого бизнеса</span>
+                    <span class="hidden sm:block text-[11px] text-slate-500 font-medium leading-none">Сайты для локального бизнеса</span>
                 </div>
             </a>
 
@@ -42,7 +42,7 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#10B981]"></span>
                     </span>
-                    <span>Свободен 1 слот на бесплатный MVP <span id="current-date" class="text-[#10B981] font-bold">сегодня</span></span>
+                    <span>Свободен 1 слот на MVP <span id="current-date" class="text-[#10B981] font-bold">сегодня</span></span>
                 </div>
                 <a href="#form" class="bg-[#0F172A] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-sm">
                     Оставить заявку
@@ -52,214 +52,197 @@
     </header>
 
     <!-- БЛОК 1 (ПРОДОЛЖЕНИЕ): HERO СЕКЦИЯ -->
-    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         <div class="max-w-4xl mx-auto text-center">
-            <!-- Верхний бейдж -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200/60 text-[#2563EB] text-xs sm:text-sm font-bold mb-8 reveal">
-                <span class="w-2 h-2 rounded-full bg-[#2563EB]"></span>
-                Без предоплаты и скрытых платежей
+            
+            <!-- Живой бейдж -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-[#2563EB] text-xs sm:text-sm font-bold mb-8 reveal">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#2563EB]"></span>
+                Без предоплаты и затягивания сроков
             </div>
 
-            <!-- Заголовок H1 -->
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0F172A] tracking-tight leading-[1.12] mb-6 reveal">
-                Разработаем сайт для вашего бизнеса: покажем рабочий прототип (MVP) уже через 24 часа — <span class="text-[#10B981]">абсолютно бесплатно</span>
+            <!-- Главный заголовок: живой, без лозунгов -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-[#0F172A] tracking-tight leading-[1.15] mb-6 reveal">
+                Сайт для вашего дела за 24 часа. Сначала рабочий черновик, оплата — <span class="text-[#10B981]">потом</span>
             </h1>
 
-            <!-- Подзаголовок -->
+            <!-- Подзаголовок: честный и прямой -->
             <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed reveal">
-                Сделаем современный сайт под ключ всего за <strong class="text-[#0F172A] font-extrabold">7 500 ₽</strong>. Сначала вы видите результат, и только потом принимаете решение.
+                Собираем быстрые сайты под ключ для мастеров, сервисов и магазинов. Фиксированная цена — <strong class="text-[#0F172A] font-extrabold">7 500 ₽</strong>. Смотрите результат на своем телефоне и только потом решаете, работать ли дальше.
             </p>
 
-            <!-- CTA кнопка -->
+            <!-- Кнопки действий -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal">
                 <a href="#form" class="btn-primary text-base sm:text-lg px-8 sm:px-10 py-4 w-full sm:w-auto">
-                    Получить бесплатный MVP за 24 часа
+                    Получить бесплатный черновик за 24 часа
                 </a>
-                <a href="#offers" class="w-full sm:w-auto px-6 py-4 rounded-2xl font-bold text-slate-600 bg-white border border-slate-200 hover:border-slate-300 transition-all text-sm sm:text-base">
-                    Узнать подробности
+                <a href="#offers" class="w-full sm:w-auto px-6 py-4 rounded-xl font-bold text-slate-600 bg-white border border-slate-200 hover:border-slate-300 transition-all text-sm sm:text-base">
+                    Как мы работаем
                 </a>
             </div>
 
-            <!-- Трастовые маркеры под кнопкой -->
-            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-center reveal">
-                <div class="p-4 bg-white/70 backdrop-blur rounded-2xl border border-slate-200/80">
+            <!-- 3 плашки фактов: строго 3 карточки (без '0р/год') -->
+            <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto text-center reveal">
+                <div class="p-4 bg-white rounded-2xl border border-slate-200/90 shadow-sm">
                     <div class="text-2xl font-black text-[#2563EB]">24 часа</div>
-                    <div class="text-xs text-slate-500 font-medium mt-0.5">Готовый прототип</div>
+                    <div class="text-xs text-slate-500 font-medium mt-1">Показываем рабочий сайт</div>
                 </div>
-                <div class="p-4 bg-white/70 backdrop-blur rounded-2xl border border-slate-200/80">
+                <div class="p-4 bg-white rounded-2xl border border-slate-200/90 shadow-sm">
                     <div class="text-2xl font-black text-[#10B981]">0 ₽</div>
-                    <div class="text-xs text-slate-500 font-medium mt-0.5">Предоплаты до теста</div>
+                    <div class="text-xs text-slate-500 font-medium mt-1">Предоплаты до показа</div>
                 </div>
-                <div class="p-4 bg-white/70 backdrop-blur rounded-2xl border border-slate-200/80">
+                <div class="p-4 bg-white rounded-2xl border border-slate-200/90 shadow-sm">
                     <div class="text-2xl font-black text-[#0F172A]">7 500 ₽</div>
-                    <div class="text-xs text-slate-500 font-medium mt-0.5">Фиксированная цена</div>
-                </div>
-                <div class="p-4 bg-white/70 backdrop-blur rounded-2xl border border-slate-200/80">
-                    <div class="text-2xl font-black text-[#2563EB]">0 ₽ / год</div>
-                    <div class="text-xs text-slate-500 font-medium mt-0.5">За CMS платформу</div>
+                    <div class="text-xs text-slate-500 font-medium mt-1">Финальная цена под ключ</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- БЛОК 2: УСЛОВИЯ, ЦЕНА И ГАРАНТИИ (BENTO GRID) -->
+    <!-- БЛОК 2: УСЛОВИЯ И ЦЕНА (BENTO GRID) -->
     <section id="offers" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#2563EB]">Прозрачные условия</span>
+        <div class="max-w-2xl mx-auto text-center mb-14 reveal">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2563EB]">Условия работы</span>
             <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-[#0F172A] mt-2">
-                Максимальная надежность без риска для вашего бюджета
+                Понятный процесс без кота в мешке
             </h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Карточка 1: Бесплатный MVP (Главный фокус, занимает 2 колонки на md) -->
+            <!-- Карточка 1: Прототип (2 колонки) -->
             <div class="card-glass p-8 md:p-10 md:col-span-2 border-slate-200 flex flex-col justify-between reveal">
                 <div>
                     <div class="flex items-center justify-between mb-6">
-                        <span class="badge-emerald">Главное преимущество</span>
-                        <div class="w-10 h-10 rounded-full bg-emerald-50 text-[#10B981] flex items-center justify-center font-black">
-                            ✓
-                        </div>
+                        <span class="badge-emerald">Без риска</span>
+                        <span class="text-xs font-bold text-slate-400">Шаг 1</span>
                     </div>
                     <h3 class="text-2xl sm:text-3xl font-black text-[#0F172A] mb-4">
-                        Сначала результат — потом решение
+                        Черновик за 24 часа. Понравится — запускаем, нет — расходимся
                     </h3>
                     <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
-                        Изготовим рабочий прототип (MVP) за 24 часа после согласования ТЗ абсолютно бесплатно. Не понравится — без проблем обсудим новые пути и скорректируем направление. Вы ничем не рискуете.
+                        Вы присылаете базовую информацию: чем занимаетесь, адрес, фото и цены. Уже на следующий день мы присылаем ссылку на черновой сайт, который можно открыть со смартфона. Вы сами проверяете, как он работает, и только после этого принимаете решение.
                     </p>
                 </div>
-                <div class="mt-8 pt-6 border-t border-slate-100 flex items-center gap-3 text-sm font-semibold text-slate-700">
-                    <span class="text-emerald-500 font-bold">●</span> Вы платите только тогда, когда сайт вам действительно нравится.
+                <div class="mt-8 pt-6 border-t border-slate-100 text-sm font-semibold text-slate-600 flex items-center gap-2">
+                    <span class="text-emerald-500 font-bold">✓</span> Никаких предоплат до тех пор, пока вы не увидите свой сайт своими глазами.
                 </div>
             </div>
 
-            <!-- Карточка 2: Фиксированная цена 7 500 ₽ (Выделена визуально) -->
-            <div class="card-glass p-8 md:p-10 border-2 border-[#2563EB] bg-gradient-to-br from-blue-50/50 via-white to-white flex flex-col justify-between reveal">
+            <!-- Карточка 2: 7 500 ₽ (1 колонка, акцентная) -->
+            <div class="card-glass p-8 md:p-10 border-2 border-[#2563EB] bg-gradient-to-br from-blue-50/40 via-white to-white flex flex-col justify-between reveal">
                 <div>
                     <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-[#2563EB] text-xs font-bold uppercase tracking-wider mb-6">
-                        Честный прайс
+                        Фиксированная цена
                     </span>
                     <div class="text-4xl sm:text-5xl font-black text-[#2563EB] mb-2">
                         7 500 ₽
                     </div>
                     <h3 class="text-xl font-black text-[#0F172A] mb-3">
-                        Полная разработка сайта
+                        Окончательная сумма
                     </h3>
                     <p class="text-slate-600 text-sm leading-relaxed">
-                        Дешевле за индивидуальный подход не найти. Никаких скрытых платежей, звездочек в договоре и «неожиданно» взявшихся дополнительных услуг в процессе вёрстки.
+                        Никаких «мелких шрифтов», доплат за адаптив или наценок в процессе. В эту сумму входит готовая страница, настройка приёма заявок в мессенджер и помощь с привязкой домена.
                     </p>
                 </div>
                 <div class="mt-6 text-xs text-slate-500 font-medium">
-                    Все включено: дизайн, адаптив, тексты и запуск.
+                    Оплата один раз — код сайта остается у вас навсегда.
                 </div>
             </div>
 
-            <!-- Карточка 3: Официальная оплата и документы -->
+            <!-- Карточка 3: Белая оплата и закрывающие -->
             <div class="card-glass p-8 reveal">
-                <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-[#2563EB] mb-6">
+                <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-[#2563EB] mb-6">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
                 <h3 class="text-xl font-black text-[#0F172A] mb-3">
-                    Платите как удобно — работаем в белую
+                    Работаем в белую
                 </h3>
                 <p class="text-slate-600 text-sm leading-relaxed">
-                    Безопасная оплата через платёжную платформу <strong>ЮKassa</strong>. Возможность выставления счёта для юридических лиц и ИП с предоставлением всех закрывающих документов для бухгалтерской отчётности.
+                    Принимаем оплату официально через ЮKassa. Можем выставить счёт для ИП или ООО с предоставлением закрывающих актов для бухгалтерии. Для физлиц — чек на почту.
                 </p>
             </div>
 
-            <!-- Карточка 4: Долгосрочное партнёрство (занимает 2 колонки на md) -->
+            <!-- Карточка 4: Поддержка (2 колонки) -->
             <div class="card-glass p-8 md:col-span-2 reveal">
-                <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-[#2563EB] mb-6">
+                <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-[#2563EB] mb-6">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                 </div>
                 <h3 class="text-xl font-black text-[#0F172A] mb-3">
-                    Не бросаем после запуска
+                    Всегда на связи после сдачи проекта
                 </h3>
                 <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                    Возможность заключения договора для долгосрочной работы, технической поддержки, регулярного обновления контента и развития вашего сайта (условия обсуждаются индивидуально). Ваш сайт всегда актуален и работает без сбоев.
+                    Мы не бросаем клиентов после релиза. Сменился номер телефона? Добавилась новая услуга или поменялся график работы в праздники? Просто напишите нам в Telegram — быстро внесем правки без бюрократии.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- БЛОК 3: ЗАЧЕМ ВАШЕМУ БИЗНЕСУ СВОЙ САЙТ? -->
+    <!-- БЛОК 3: ЗАЧЕМ БИЗНЕСУ САЙТ -->
     <section id="why" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center max-w-3xl mx-auto mb-14 reveal">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#2563EB]">Реальная польза</span>
+        <div class="max-w-3xl mx-auto text-center mb-14 reveal">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2563EB]">Зачем это нужно</span>
             <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-[#0F172A] mt-2">
-                Думаете, малому бизнесу не нужен сайт? Вот что вы теряете прямо сейчас
+                Почему одной группы в соцсетях сегодня уже мало
             </h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- 1. Соцсети блокируют -->
+            <!-- 1. Соцсети -->
             <div class="card-glass p-8 border-l-4 border-l-rose-500 reveal">
-                <div class="text-xs font-bold text-rose-500 uppercase tracking-wider mb-2">Проблема №1: Риски блокировок</div>
-                <h3 class="text-xl font-black text-[#0F172A] mb-3">
-                    «Соцсети блокируют, алгоритмы режут охваты»
+                <div class="text-xs font-bold text-rose-500 uppercase tracking-wider mb-2">Риски площадок</div>
+                <h3 class="text-xl font-black text-[#0F172A] mb-2">
+                    Внезапные блокировки и падение охватов
                 </h3>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">Решение с сайтом:</span>
-                    <p class="text-slate-600 text-sm sm:text-base">
-                        Свой сайт работает 24/7, принадлежит только вам и не зависит от капризов и блокировок чужих площадок.
-                    </p>
-                </div>
+                <p class="text-slate-600 text-sm sm:text-base mt-2">
+                    Сообщества могут заблокировать или урезать показы из-за смены алгоритмов. Собственный сайт на личном домене принадлежит только вам и работает 24/7 без оглядки на чужие правила.
+                </p>
             </div>
 
-            <!-- 2. Клиенты ищут в поиске -->
+            <!-- 2. Поиск -->
             <div class="card-glass p-8 border-l-4 border-l-amber-500 reveal">
-                <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Проблема №2: Упущенные клиенты</div>
-                <h3 class="text-xl font-black text-[#0F172A] mb-3">
-                    «Клиенты ищут услуги в Яндексе и Google прямо сейчас»
+                <div class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">Горячий спрос</div>
+                <h3 class="text-xl font-black text-[#0F172A] mb-2">
+                    Поиск в Яндексе и на картах прямо сейчас
                 </h3>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">Решение с сайтом:</span>
-                    <p class="text-slate-600 text-sm sm:text-base">
-                        Человек вбивает «ремонт / кафе / услуга рядом» в поиск. Если у вас нет сайта, этого горячего клиента забирает ваш конкурент.
-                    </p>
-                </div>
+                <p class="text-slate-600 text-sm sm:text-base mt-2">
+                    Когда человеку срочно нужен мастер, автосервис или доставка поблизости, он идет в поиск. Если у вас нет простого и понятного сайта, клиент сразу переходит к конкуренту из соседней вкладки.
+                </p>
             </div>
 
-            <!-- 3. Устали отвечать -->
+            <!-- 3. Рутина -->
             <div class="card-glass p-8 border-l-4 border-l-blue-500 reveal">
-                <div class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2">Проблема №3: Потеря времени</div>
-                <h3 class="text-xl font-black text-[#0F172A] mb-3">
-                    «Устали отвечать на одни и те же вопросы в мессенджерах?»
+                <div class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2">Экономия времени</div>
+                <h3 class="text-xl font-black text-[#0F172A] mb-2">
+                    Однотипные вопросы в переписках
                 </h3>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">Решение с сайтом:</span>
-                    <p class="text-slate-600 text-sm sm:text-base">
-                        Сайт сам презентует услуги, показывает прайс, отвечает на частые вопросы и собирает готовые заявки, пока вы заняты делом или отдыхаете.
-                    </p>
-                </div>
+                <p class="text-slate-600 text-sm sm:text-base mt-2">
+                    «А где вы находитесь?», «Сколько стоит?», «Есть примеры работ?». Сайт снимает эти вопросы за 30 секунд: показывает прайс, фото и сразу собирает заявку с контактом клиента.
+                </p>
             </div>
 
-            <!-- 4. Доверие и статус -->
+            <!-- 4. Доверие -->
             <div class="card-glass p-8 border-l-4 border-l-indigo-500 reveal">
-                <div class="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-2">Проблема №4: Низкий чек</div>
-                <h3 class="text-xl font-black text-[#0F172A] mb-3">
-                    «Доверие и статус с первой секунды»
+                <div class="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-2">Статус и чек</div>
+                <h3 class="text-xl font-black text-[#0F172A] mb-2">
+                    Доверие с первой секунды
                 </h3>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">Решение с сайтом:</span>
-                    <p class="text-slate-600 text-sm sm:text-base">
-                        Наличие аккуратного, быстрого сайта сразу выделяет вас среди частников и повышает чек: компании со своим сайтом доверяют охотнее, особенно корпоративные заказчики.
-                    </p>
-                </div>
+                <p class="text-slate-600 text-sm sm:text-base mt-2">
+                    Быстрый сайт с аккуратной версткой сразу отличает надежный бизнес от временных исполнителей на досках объявлений. Клиенты охотнее соглашаются на нормальный чек.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- БЛОК 4: СРАВНЕНИЕ ПЛАТФОРМ -->
+    <!-- БЛОК 4: СРАВНЕНИЕ -->
     <section id="compare" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+        <div class="max-w-3xl mx-auto text-center mb-14 reveal">
             <span class="text-xs font-bold uppercase tracking-wider text-[#2563EB]">Честное сравнение</span>
             <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-[#0F172A] mt-2">
-                Почему индивидуальный сайт у нас выгоднее конструкторов и крупных веб-студий?
+                Сравнение: мы, конструкторы или веб-студии
             </h2>
         </div>
 
@@ -271,63 +254,54 @@
                             <th class="p-6 text-sm font-bold text-slate-500 w-1/4">Критерий</th>
                             <th class="p-6 text-sm font-extrabold text-[#2563EB] bg-blue-50/60 border-x border-slate-200 w-1/3">
                                 <div class="flex items-center gap-2">
-                                    <span>LocalWeb (Мы)</span>
-                                    <span class="badge-emerald text-[10px] py-0.5">Выбор малого бизнеса</span>
+                                    <span>LocalWeb</span>
+                                    <span class="badge-emerald text-[10px] py-0.5">Оптимально</span>
                                 </div>
                             </th>
                             <th class="p-6 text-sm font-bold text-slate-600 w-1/4">Конструкторы (Tilda и др.)</th>
-                            <th class="p-6 text-sm font-bold text-slate-600 w-1/4">Популярные веб-студии</th>
+                            <th class="p-6 text-sm font-bold text-slate-600 w-1/4">Обычные веб-студии</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 text-sm">
-                        <!-- 1. Стоимость разработки -->
                         <tr>
-                            <td class="p-6 font-bold text-slate-900">Стоимость разработки</td>
+                            <td class="p-6 font-bold text-slate-900">Стоимость запуска</td>
                             <td class="p-6 font-black text-[#2563EB] bg-blue-50/40 border-x border-slate-200">
-                                7 500 ₽ фиксированно
+                                7 500 ₽ один раз
                             </td>
-                            <td class="p-6 text-slate-600">От 0 ₽, но нужно тратить недели своего времени</td>
-                            <td class="p-6 text-slate-600">От 50 000 – 150 000 ₽ за раздутый штат</td>
+                            <td class="p-6 text-slate-600">Вроде бесплатно, но тратите десятки часов личного времени</td>
+                            <td class="p-6 text-slate-600">От 50 000 до 150 000 ₽ из-за расходов на штат</td>
                         </tr>
-
-                        <!-- 2. Абонентская плата -->
                         <tr>
-                            <td class="p-6 font-bold text-slate-900">Абонентская плата за платформу</td>
+                            <td class="p-6 font-bold text-slate-900">Ежегодные платежи</td>
                             <td class="p-6 font-black text-[#10B981] bg-blue-50/40 border-x border-slate-200">
-                                0 ₽ — код сайта полностью ваш навсегда
+                                0 ₽ за платформу (код сайта ваш)
                             </td>
-                            <td class="p-6 text-slate-600">6 000 – 12 000 ₽ каждый год (перестали платить — сайт отключили)</td>
-                            <td class="p-6 text-slate-600">Зависит от CMS, часто дорогие платные лицензии</td>
+                            <td class="p-6 text-slate-600">7 200 – 12 000 ₽ каждый год (забыли оплатить — сайт отключен)</td>
+                            <td class="p-6 text-slate-600">Оплата платных CMS, хостингов и доработок</td>
                         </tr>
-
-                        <!-- 3. Старт и тест без риска -->
                         <tr>
-                            <td class="p-6 font-bold text-slate-900">Старт и тест без риска</td>
+                            <td class="p-6 font-bold text-slate-900">Риск при заказе</td>
                             <td class="p-6 font-black text-[#2563EB] bg-blue-50/40 border-x border-slate-200">
-                                Бесплатный MVP за 24 часа
+                                Черновик за 24 часа без предоплаты
                             </td>
-                            <td class="p-6 text-slate-600">Приходится собирать самому методом проб и ошибок</td>
-                            <td class="p-6 text-slate-600">Только после предоплаты 50% и недель согласований</td>
+                            <td class="p-6 text-slate-600">Разбираетесь сами методом проб и ошибок</td>
+                            <td class="p-6 text-slate-600">Предоплата 50% и недели согласований по ТЗ</td>
                         </tr>
-
-                        <!-- 4. Скорость работы и чистота кода -->
                         <tr>
-                            <td class="p-6 font-bold text-slate-900">Скорость работы и чистота кода</td>
+                            <td class="p-6 font-bold text-slate-900">Скорость и качество</td>
                             <td class="p-6 font-black text-[#2563EB] bg-blue-50/40 border-x border-slate-200">
-                                Молниеносная загрузка, чистый индивидуальный код
+                                Мгновенное открытие на телефонах, чистый код
                             </td>
-                            <td class="p-6 text-slate-600">Тяжёлые шаблонные скрипты, ограничения дизайна</td>
-                            <td class="p-6 text-slate-600">Часто перегруженные решения, сроки от 1 месяца</td>
+                            <td class="p-6 text-slate-600">Тяжелые стандартные скрипты, часто медленная загрузка</td>
+                            <td class="p-6 text-slate-600">Хорошо, но разработка занимает от месяца</td>
                         </tr>
-
-                        <!-- 5. Внимание к проекту -->
                         <tr>
-                            <td class="p-6 font-bold text-slate-900">Внимание к проекту</td>
+                            <td class="p-6 font-bold text-slate-900">Формат общения</td>
                             <td class="p-6 font-black text-[#2563EB] bg-blue-50/40 border-x border-slate-200">
-                                Прямой контакт, работаем на результат
+                                Напрямую с разработчиком в Telegram
                             </td>
-                            <td class="p-6 text-slate-600">Вы один на один с техподдержкой</td>
-                            <td class="p-6 text-slate-600">Поток, менеджеры-посредники и навязывание доп. услуг</td>
+                            <td class="p-6 text-slate-600">Один на один с документацией и ботом поддержки</td>
+                            <td class="p-6 text-slate-600">Через менеджеров-посредников</td>
                         </tr>
                     </tbody>
                 </table>
@@ -335,43 +309,43 @@
         </div>
     </section>
 
-    <!-- БЛОК 5: ФОРМА ЗАКАЗА / ОСТАВИТЬ ЗАЯВКУ -->
+    <!-- БЛОК 5: ФОРМА ЗАКАЗА -->
     <section id="form" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="card-glass p-8 sm:p-12 lg:p-16 border-slate-200 reveal">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                 
-                <!-- Левая колонка: напоминание выгоды -->
+                <!-- Левая колонка -->
                 <div class="lg:col-span-5">
-                    <span class="text-xs font-bold uppercase tracking-wider text-[#2563EB]">Старт без риска</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#2563EB]">Шаг вперед</span>
                     <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-[#0F172A] mt-2 mb-6">
-                        Запустите разработку сегодня
+                        Обсудить сайт и получить черновик
                     </h2>
                     <p class="text-slate-600 text-base sm:text-lg mb-8 leading-relaxed">
-                        Через 24 часа покажем бесплатный MVP, а полный готовый сайт обойдется всего в <strong class="text-[#0F172A]">7 500 ₽</strong>.
+                        Заполните пару полей — мы свяжемся, уточним детали и покажем рабочий вариант сайта уже через 24 часа. Итоговая стоимость — фиксированные <strong class="text-[#0F172A]">7 500 ₽</strong>.
                     </p>
 
                     <div class="space-y-4">
                         <div class="flex items-start gap-3">
                             <div class="w-6 h-6 rounded-full bg-emerald-100 text-[#10B981] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</div>
-                            <p class="text-sm text-slate-600">Рабочий макет создается персонально под вашу сферу</p>
+                            <p class="text-sm text-slate-600">Черновой макет под вашу нишу — до оплаты</p>
                         </div>
                         <div class="flex items-start gap-3">
                             <div class="w-6 h-6 rounded-full bg-emerald-100 text-[#10B981] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</div>
-                            <p class="text-sm text-slate-600">Никаких списаний: оплата только при полном согласовании</p>
+                            <p class="text-sm text-slate-600">Если не понравится результат — вы ничего не должны</p>
                         </div>
                         <div class="flex items-start gap-3">
                             <div class="w-6 h-6 rounded-full bg-emerald-100 text-[#10B981] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</div>
-                            <p class="text-sm text-slate-600">Официальный чек и закрывающие документы через ЮKassa</p>
+                            <p class="text-sm text-slate-600">Официальная оплата с чеком через ЮKassa</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Правая колонка: форма заявки -->
+                <!-- Правая колонка: форма -->
                 <div class="lg:col-span-7 bg-slate-50/70 p-6 sm:p-8 rounded-2xl border border-slate-200/80">
                     <form id="lead-form" class="space-y-4">
                         <input type="hidden" id="selected-messenger" value="Telegram">
 
-                        <!-- Поля: Имя и Фамилия -->
+                        <!-- Имя и Фамилия -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="user-name" class="block text-xs font-bold text-slate-700 mb-1.5">Имя <span class="text-rose-500">*</span></label>
@@ -383,55 +357,54 @@
                             </div>
                         </div>
 
-                        <!-- Поля: Фирма и Сфера -->
+                        <!-- Фирма и Сфера -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label for="user-company" class="block text-xs font-bold text-slate-700 mb-1.5">Название фирмы / проекта</label>
-                                <input type="text" id="user-company" placeholder="Например: Кофейня Бодрость или ИП Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                                <label for="user-company" class="block text-xs font-bold text-slate-700 mb-1.5">Название фирмы или проекта</label>
+                                <input type="text" id="user-company" placeholder="Кофейня Бодрость или ИП Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                             </div>
                             <div>
-                                <label for="user-niche" class="block text-xs font-bold text-slate-700 mb-1.5">Область работы (сфера)</label>
-                                <input type="text" id="user-niche" placeholder="Например: Автосервис, юристы, доставка" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                                <label for="user-niche" class="block text-xs font-bold text-slate-700 mb-1.5">Сфера бизнеса</label>
+                                <input type="text" id="user-niche" placeholder="Автосервис, ремонт, юридические услуги..." class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                             </div>
                         </div>
 
-                        <!-- Выбор мессенджера -->
+                        <!-- Переключатель канала связи (Рабочий и наглядный) -->
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-2">Удобный способ связи</label>
-                            <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-3">
-                                <button type="button" class="messenger-btn py-2 px-3 text-xs font-bold rounded-lg border border-[#2563EB] bg-[#2563EB] text-white transition-all text-center" data-messenger="Telegram" data-placeholder="@username или номер Telegram">
+                            <label class="block text-xs font-bold text-slate-700 mb-2">Где вам удобнее ответить?</label>
+                            <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-3" id="messenger-group">
+                                <button type="button" class="messenger-btn active" data-messenger="Telegram" data-placeholder="@username или номер в Telegram">
                                     Telegram
                                 </button>
-                                <button type="button" class="messenger-btn py-2 px-3 text-xs font-bold rounded-lg border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all text-center" data-messenger="MAX" data-placeholder="Контакт в MAX">
+                                <button type="button" class="messenger-btn" data-messenger="MAX" data-placeholder="Ваш контакт в MAX">
                                     MAX
                                 </button>
-                                <button type="button" class="messenger-btn py-2 px-3 text-xs font-bold rounded-lg border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all text-center" data-messenger="VK" data-placeholder="Ссылка на профиль VK">
+                                <button type="button" class="messenger-btn" data-messenger="VK" data-placeholder="Ссылка на страницу или ID VK">
                                     VK
                                 </button>
-                                <button type="button" class="messenger-btn py-2 px-3 text-xs font-bold rounded-lg border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all text-center" data-messenger="Яндекс" data-placeholder="Почта на Яндексе">
+                                <button type="button" class="messenger-btn" data-messenger="Яндекс" data-placeholder="Электронная почта на Яндексе">
                                     Яндекс
                                 </button>
-                                <button type="button" class="messenger-btn py-2 px-3 text-xs font-bold rounded-lg border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all text-center" data-messenger="Телефон" data-placeholder="+7 (999) 000-00-00">
+                                <button type="button" class="messenger-btn" data-messenger="Телефон" data-placeholder="+7 (999) 000-00-00">
                                     Телефон
                                 </button>
                             </div>
-                            <input type="text" id="contact-input" required placeholder="@username или номер Telegram" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                            <input type="text" id="contact-input" required placeholder="@username или номер в Telegram" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                         </div>
 
-                        <!-- Дополнительные пожелания -->
+                        <!-- Пожелания -->
                         <div>
-                            <label for="user-notes" class="block text-xs font-bold text-slate-700 mb-1.5">Дополнительные пожелания</label>
-                            <textarea id="user-notes" rows="3" placeholder="Опишите в двух словах, какой сайт хотите, или оставьте пустым — мы сами всё спросим" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]"></textarea>
+                            <label for="user-notes" class="block text-xs font-bold text-slate-700 mb-1.5">Пожелания или ссылка на соцсети (если есть)</label>
+                            <textarea id="user-notes" rows="3" placeholder="Можно описать пару пожеланий своими словами или оставить поле пустым" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]"></textarea>
                         </div>
 
-                        <!-- Кнопка отправки -->
+                        <!-- Кнопка -->
                         <button type="submit" class="btn-primary w-full py-4 text-base font-bold shadow-md shadow-blue-500/20">
-                            Получить бесплатный MVP за 24 часа
+                            Получить черновик сайта за 24 часа
                         </button>
 
-                        <!-- Подпись о безопасности -->
                         <p class="text-center text-xs text-slate-500 leading-normal pt-1">
-                            Нажимая кнопку, вы ничем не рискуете. Оплата только после согласования, официально через ЮKassa.
+                            Оплата только при согласовании готового сайта. Официально через ЮKassa.
                         </p>
                     </form>
                 </div>
@@ -439,10 +412,10 @@
         </div>
     </section>
 
-    <!-- БЛОК 6: ФУТЕР (ПОДВАЛ САЙТА) -->
+    <!-- БЛОК 6: ФУТЕР -->
     <footer class="bg-[#0F172A] text-slate-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            <!-- Колонка 1: О нас -->
+            <!-- 1: О студии -->
             <div class="md:col-span-2">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center text-white font-bold text-sm">
@@ -451,7 +424,7 @@
                     <span class="font-black text-xl text-white tracking-tight">LocalWeb</span>
                 </div>
                 <p class="text-sm text-slate-400 max-w-sm mb-6 leading-relaxed">
-                    Разработка быстрых и доступных сайтов под заказ для малого и локального бизнеса. Сначала показываем результат, потом оплата.
+                    Разработка быстрых и доступных сайтов для малого и локального бизнеса. Сначала показываем результат на смартфонах, затем оплата.
                 </p>
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 text-xs text-slate-300 border border-slate-700">
                     <span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
@@ -459,22 +432,22 @@
                 </div>
             </div>
 
-            <!-- Колонка 2: Навигация -->
+            <!-- 2: Разделы -->
             <div>
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Навигация</h4>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Разделы</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#offers" class="hover:text-white transition-colors">Условия и цены</a></li>
-                    <li><a href="#why" class="hover:text-white transition-colors">Зачем сайт бизнесу</a></li>
+                    <li><a href="#offers" class="hover:text-white transition-colors">Условия и стоимость</a></li>
+                    <li><a href="#why" class="hover:text-white transition-colors">Зачем сайт вашему делу</a></li>
                     <li><a href="#compare" class="hover:text-white transition-colors">Сравнение с Tilda</a></li>
                     <li><a href="#form" class="hover:text-white transition-colors">Оставить заявку</a></li>
                 </ul>
             </div>
 
-            <!-- Колонка 3: Юридическая информация -->
+            <!-- 3: Документы -->
             <div>
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Документы и безопасность</h4>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Документы и расчёты</h4>
                 <p class="text-xs text-slate-400 leading-relaxed mb-3">
-                    Выставление счёта, предоставление всех закрывающих документов (акты, чеки) для бухгалтерской отчётности.
+                    Выставление счёта, предоставление всех закрывающих актов и чеков для бухгалтерии.
                 </p>
                 <p class="text-xs text-slate-500">
                     Безопасный эквайринг ЮKassa (ООО НКО «ЮМани»).
@@ -487,12 +460,12 @@
                 © 2026 LocalWeb. Все права защищены.
             </div>
             <div>
-                Разработка сайтов за 48 часов
+                Разработка сайтов за 24–48 часов
             </div>
         </div>
     </footer>
 
-    <!-- МОДАЛЬНОЕ ОКНО УСПЕХА (Native <dialog> по Modern Web Guidance) -->
+    <!-- МОДАЛЬНОЕ ОКНО УСПЕХА -->
     <dialog id="success-dialog" class="rounded-3xl shadow-2xl p-0">
         <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 text-center max-w-md mx-auto">
             <div class="w-16 h-16 rounded-full bg-emerald-100 text-[#10B981] flex items-center justify-center text-3xl mx-auto mb-6">
@@ -502,7 +475,7 @@
                 Заявка принята, <span id="modal-user-name">Иван</span>!
             </h3>
             <p id="modal-user-details" class="text-sm text-slate-600 mb-8 leading-relaxed">
-                Мы уже приступили к анализу вашей сферы и свяжемся с вами в течение 15 минут для уточнения деталей бесплатного MVP.
+                Мы свяжемся с вами в течение 15 минут для уточнения деталей первого черновика.
             </p>
             <button id="dialog-close-btn" type="button" class="btn-primary w-full py-3.5 text-sm font-bold">
                 Отлично, жду!
@@ -510,7 +483,7 @@
         </div>
     </dialog>
 
-    <!-- Скрипт логики и анимаций -->
+    <!-- Скрипт -->
     <script src="app.js"></script>
 </body>
 </html>

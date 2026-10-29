@@ -21,13 +21,12 @@ function initScrollReveal() {
         }
       });
     }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px'
     });
 
     reveals.forEach(el => observer.observe(el));
   } else {
-    // Fallback if IntersectionObserver is not supported
     reveals.forEach(el => el.classList.add('active'));
   }
 }
@@ -46,7 +45,7 @@ function initSpotlight() {
   });
 }
 
-// 3. Messenger Button Selector in Form
+// 3. Messenger Button Selector in Form (100% Reliable)
 function initMessengerSelector() {
   const buttons = document.querySelectorAll('.messenger-btn');
   const hiddenInput = document.getElementById('selected-messenger');
@@ -55,18 +54,20 @@ function initMessengerSelector() {
   buttons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      buttons.forEach(b => {
-        b.classList.remove('bg-[#2563EB]', 'text-white', 'border-[#2563EB]', 'shadow-sm');
-        b.classList.add('bg-slate-50', 'text-slate-700', 'border-slate-200');
-      });
+      
+      // Update active state
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-      btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
-      btn.classList.add('bg-[#2563EB]', 'text-white', 'border-[#2563EB]', 'shadow-sm');
+      const messenger = btn.getAttribute('data-messenger') || 'Telegram';
+      const placeholder = btn.getAttribute('data-placeholder') || 'Ваш контакт';
 
-      const messenger = btn.dataset.messenger || 'Telegram';
-      if (hiddenInput) hiddenInput.value = messenger;
+      if (hiddenInput) {
+        hiddenInput.value = messenger;
+      }
+
       if (contactInput) {
-        contactInput.placeholder = btn.dataset.placeholder || 'Ваш ник или номер телефона';
+        contactInput.placeholder = placeholder;
         contactInput.focus();
       }
     });
@@ -94,12 +95,11 @@ function initContactForm() {
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
       </svg>
-      Отправляем заявку...
+      Отправка...
     `;
 
     // Extract values
     const name = form.querySelector('#user-name')?.value || 'клиент';
-    const company = form.querySelector('#user-company')?.value || '';
     const messenger = form.querySelector('#selected-messenger')?.value || 'Telegram';
     const contact = form.querySelector('#contact-input')?.value || '';
 
@@ -112,18 +112,28 @@ function initContactForm() {
       const userDetailsEl = document.getElementById('modal-user-details');
       if (userNameEl) userNameEl.textContent = name;
       if (userDetailsEl) {
-        userDetailsEl.textContent = `Свяжемся с вами через ${messenger} (${contact})${company ? ` по проекту «${company}»` : ''} в течение 15 минут.`;
+        userDetailsEl.textContent = `Мы свяжемся с вами через ${messenger} (${contact}) в течение 15 минут, чтобы обсудить первый черновик.`;
       }
 
       // Open native modal dialog
       if (dialog && typeof dialog.showModal === 'function') {
         dialog.showModal();
       } else {
-        alert(`Спасибо, ${name}! Заявка принята. Свяжемся с вами в ${messenger}: ${contact}`);
+        alert(`Спасибо, ${name}! Заявка принята. Свяжемся с вами через ${messenger}: ${contact}`);
       }
 
       form.reset();
-    }, 800);
+      
+      // Reset active button to Telegram
+      const defaultBtn = document.querySelector('.messenger-btn[data-messenger="Telegram"]');
+      if (defaultBtn) {
+        document.querySelectorAll('.messenger-btn').forEach(b => b.classList.remove('active'));
+        defaultBtn.classList.add('active');
+        if (contactInput) {
+          contactInput.placeholder = defaultBtn.getAttribute('data-placeholder') || '@username или телефон';
+        }
+      }
+    }, 700);
   });
 
   if (closeBtn && dialog) {
@@ -147,7 +157,7 @@ function initContactForm() {
   }
 }
 
-// 5. Dynamic slot date (always fresh)
+// 5. Dynamic slot date
 function initDynamicDate() {
   const dateEl = document.getElementById('current-date');
   if (dateEl) {
