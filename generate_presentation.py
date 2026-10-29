@@ -6,6 +6,13 @@ html_content = '''<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>LocalWeb — Презентация и коммерческое предложение</title>
+    <link rel="canonical" href="https://local-web.ru/presentation.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://local-web.ru/presentation.html">
+    <meta property="og:title" content="LocalWeb — Презентация и коммерческое предложение">
+    <meta property="og:description" content="Разработка сайтов для малого бизнеса за 7 500 ₽ под ключ. 0 ₽ предоплаты, прототип за 24 часа.">
+    <meta property="og:image" content="https://local-web.ru/og-image.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 

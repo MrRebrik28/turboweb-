@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://local-web.ru/sitemap.xml
+Host: https://local-web.ru
