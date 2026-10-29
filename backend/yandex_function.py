@@ -12,8 +12,15 @@ import json
 import os
 import base64
 import html
+import socket
 import urllib.request
 import urllib.error
+
+# Принудительно используем только IPv4, так как в облачных средах часто нет маршрутизации IPv6 к внешним серверам
+_orig_getaddrinfo = socket.getaddrinfo
+def _ipv4_only_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+    return _orig_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+socket.getaddrinfo = _ipv4_only_getaddrinfo
 
 # Заголовки CORS для работы с сайтом на любом домене
 CORS_HEADERS = {
@@ -114,10 +121,12 @@ def handler(event, context):
     )
 
     # 6. Отправка в Telegram
-    bot_token = os.environ.get('TELEGRAM_BOT_TOKEN', '').strip()
-    chat_id = os.environ.get('TELEGRAM_CHAT_ID', '').strip()
+    bot_token = os.environ.get('TELEGRAM_BOT_TOKEN', '').strip().strip('\'"')
+    chat_id = os.environ.get('TELEGRAM_CHAT_ID', '').strip().strip('\'"')
 
     tg_sent = False
+    tg_debug = "No tokens configured"
+
     if bot_token and chat_id:
         tg_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
         tg_payload = {
@@ -133,21 +142,26 @@ def handler(event, context):
                 data=json.dumps(tg_payload).encode('utf-8'),
                 headers={'Content-Type': 'application/json'}
             )
-            with urllib.request.urlopen(req, timeout=8) as response:
+            with urllib.request.urlopen(req, timeout=10) as response:
+                resp_text = response.read().decode('utf-8')
                 if response.status == 200:
                     tg_sent = True
-                    print(f"[SUCCESS] Уведомление успешно доставлено в Telegram: {chat_id}")
+                    tg_debug = "Delivered successfully"
+                    print(f"[SUCCESS] Уведомление доставлено в Telegram: {chat_id}")
                 else:
-                    print(f"[WARNING] Telegram вернул код: {response.status}")
+                    tg_debug = f"Status {response.status}: {resp_text}"
         except urllib.error.HTTPError as he:
             err_content = he.read().decode('utf-8', errors='ignore')
+            tg_debug = f"Telegram API HTTP {he.code}: {err_content}"
             print(f"[ERROR] Ошибка Telegram API ({he.code}): {err_content}")
         except Exception as te:
-            print(f"[ERROR] Ошибка отправки в Telegram: {te}")
+            tg_debug = f"{type(te).__name__}: {str(te)}"
+            print(f"[ERROR] Исключение при отправке в Telegram: {te}")
     else:
-        print("[NOTICE] Токены TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID не настроены в переменных окружения.")
+        tg_debug = f"Missing env tokens: token_len={len(bot_token)}, chat_id_len={len(chat_id)}"
+        print(f"[NOTICE] {tg_debug}")
 
-    # 7. Успешный ответ сайту
+    # 7. Ответ сайту с детальной диагностикой
     return {
         'statusCode': 200,
         'headers': CORS_HEADERS,
@@ -155,6 +169,7 @@ def handler(event, context):
             'status': 'success',
             'message': 'Заявка принята и зафиксирована в реестре РФ',
             'lead_id': lead_id,
-            'tg_notified': tg_sent
+            'tg_notified': tg_sent,
+            'tg_debug': tg_debug
         }, ensure_ascii=False)
     }
