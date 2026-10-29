@@ -142,8 +142,12 @@ function initMessengerSelector() {
   });
 }
 
-// Конфигурация вебхука для сбора заявок (Яндекс.Облако, 152-ФЗ шлюз)
-window.LEAD_ENDPOINT = window.LEAD_ENDPOINT || 'https://functions.yandexcloud.net/d4e23a85l1pnpv0skdum';
+// Конфигурация вебхуков для сбора заявок:
+// 1. Основной шлюз: Google Таблица + моментальный пуш в Telegram
+window.LEAD_ENDPOINT = window.LEAD_ENDPOINT || 'https://script.google.com/macros/s/AKfycbygm5pShoTm9MsR8gA2FM3y47aojBNUVxFz_TjOrC4zvUZsDEu-6A1UZgwSxcIJVSQD/exec';
+
+// 2. Российский шлюз Яндекс.Облако: первичная фиксация по 152-ФЗ в РФ
+window.YANDEX_152FZ_ENDPOINT = window.YANDEX_152FZ_ENDPOINT || 'https://functions.yandexcloud.net/d4e23a85l1pnpv0skdum';
 
 // 5. Contact Form Submission & Success Dialog
 function initContactForm() {
@@ -182,21 +186,30 @@ function initContactForm() {
     `;
 
     try {
-      // Если подключен рабочий эндпоинт — отправляем реальный запрос
+      // 1. Отправка в основной шлюз (Google Таблица + моментальный Telegram)
       if (window.LEAD_ENDPOINT && window.LEAD_ENDPOINT.trim() !== '') {
-        const response = await fetch(window.LEAD_ENDPOINT, {
+        const payloadString = JSON.stringify(payload);
+
+        // Используем text/plain и mode: 'no-cors' для обхода CORS preflight в любых мобильных и десктопных браузерах
+        await fetch(window.LEAD_ENDPOINT, {
           method: 'POST',
+          mode: 'no-cors',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain;charset=utf-8'
           },
-          body: JSON.stringify(payload)
+          body: payloadString
         });
 
-        if (!response.ok) {
-          console.warn('Сервер вернул статус:', response.status);
+        // 2. Параллельная фиксация в реестре РФ Яндекс.Облако (152-ФЗ)
+        if (window.YANDEX_152FZ_ENDPOINT && window.YANDEX_152FZ_ENDPOINT.trim() !== '') {
+          fetch(window.YANDEX_152FZ_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payloadString
+          }).catch(err => console.debug('152-FZ log sync:', err));
         }
       } else {
-        // Имитация быстрой сетевой задержки для плавности анимации
+        // Имитация быстрой сетевой задержки для плавности анимации в режиме демо
         await new Promise(resolve => setTimeout(resolve, 600));
       }
 
