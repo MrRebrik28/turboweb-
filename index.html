@@ -341,15 +341,21 @@
                     <form id="lead-form" class="space-y-4">
                         <input type="hidden" id="selected-messenger" value="Telegram">
 
+                        <!-- Honeypot спам-ловушка для ботов (скрыта для реальных пользователей) -->
+                        <div class="hidden opacity-0 pointer-events-none absolute -left-[9999px]" aria-hidden="true">
+                            <label for="form-website-trap">Не заполняйте это поле</label>
+                            <input type="text" id="form-website-trap" name="website_trap" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <!-- Имя и Фамилия -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="user-name" class="block text-xs font-bold text-slate-700 mb-1.5">Имя <span class="text-rose-500">*</span></label>
-                                <input type="text" id="user-name" required placeholder="Иван" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                                <input type="text" id="user-name" required maxlength="60" placeholder="Иван" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                             </div>
                             <div>
                                 <label for="user-surname" class="block text-xs font-bold text-slate-700 mb-1.5">Фамилия</label>
-                                <input type="text" id="user-surname" placeholder="Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                                <input type="text" id="user-surname" maxlength="60" placeholder="Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                             </div>
                         </div>
 
@@ -357,11 +363,11 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="user-company" class="block text-xs font-bold text-slate-700 mb-1.5">Название фирмы или проекта</label>
-                                <input type="text" id="user-company" placeholder="Кофейня Бодрость или ИП Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                                <input type="text" id="user-company" maxlength="100" placeholder="Кофейня Бодрость или ИП Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                             </div>
                             <div>
                                 <label for="user-niche" class="block text-xs font-bold text-slate-700 mb-1.5">Сфера бизнеса</label>
-                                <input type="text" id="user-niche" placeholder="Автосервис, ремонт, юридические услуги..." class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                                <input type="text" id="user-niche" maxlength="100" placeholder="Автосервис, ремонт, юридические услуги..." class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                             </div>
                         </div>
 
@@ -385,13 +391,13 @@
                                     Телефон
                                 </button>
                             </div>
-                            <input type="text" id="contact-input" required placeholder="@username или номер в Telegram" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                            <input type="text" id="contact-input" required maxlength="100" placeholder="@username или номер в Telegram" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]">
                         </div>
 
                         <!-- Пожелания -->
                         <div>
                             <label for="user-notes" class="block text-xs font-bold text-slate-700 mb-1.5">Пожелания или ссылка на соцсети (если есть)</label>
-                            <textarea id="user-notes" rows="3" placeholder="Можно описать пару пожеланий своими словами или оставить поле пустым" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]"></textarea>
+                            <textarea id="user-notes" rows="3" maxlength="1000" placeholder="Можно описать пару пожеланий своими словами или оставить поле пустым" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-[#0F172A]"></textarea>
                         </div>
 
                         <!-- Кнопка -->
@@ -648,6 +654,6 @@
     </dialog>
 
     <!-- Скрипт с версионированием для сброса кэша браузера -->
-    <script src="app.js?v=20261029_08"></script>
+    <script src="app.js?v=20261029_09"></script>
 </body>
 </html>

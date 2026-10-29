@@ -160,20 +160,39 @@ function initContactForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // 0. Защита от ботов: проверка honeypot-ловушки
+    const honeypot = form.querySelector('#form-website-trap')?.value;
+    if (honeypot && honeypot.trim() !== '') {
+      console.warn('Bot detected via honeypot.');
+      form.reset();
+      if (dialog && typeof dialog.showModal === 'function') dialog.showModal();
+      return;
+    }
+
+    // 0.1. Защита от частого спама (Rate-limiting: 30 секунд между отправками)
+    const COOLDOWN_MS = 30000;
+    const lastSubmit = parseInt(sessionStorage.getItem('lw_last_submit') || '0', 10);
+    const now = Date.now();
+    if (now - lastSubmit < COOLDOWN_MS) {
+      const remainingSec = Math.ceil((COOLDOWN_MS - (now - lastSubmit)) / 1000);
+      alert(`Пожалуйста, подождите ${remainingSec} сек. перед отправкой следующей заявки.`);
+      return;
+    }
+
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
 
-    // Сбор данных формы
+    // Сбор и строгая валидация длины данных формы
     const payload = {
-      name: form.querySelector('#user-name')?.value.trim() || '',
-      surname: form.querySelector('#user-surname')?.value.trim() || '',
-      company: form.querySelector('#user-company')?.value.trim() || '',
-      niche: form.querySelector('#user-niche')?.value.trim() || '',
+      name: (form.querySelector('#user-name')?.value || '').trim().slice(0, 60),
+      surname: (form.querySelector('#user-surname')?.value || '').trim().slice(0, 60),
+      company: (form.querySelector('#user-company')?.value || '').trim().slice(0, 100),
+      niche: (form.querySelector('#user-niche')?.value || '').trim().slice(0, 100),
       messenger: form.querySelector('#selected-messenger')?.value || 'Telegram',
-      contact: form.querySelector('#contact-input')?.value.trim() || '',
-      notes: form.querySelector('#user-notes')?.value.trim() || '',
+      contact: (form.querySelector('#contact-input')?.value || '').trim().slice(0, 100),
+      notes: (form.querySelector('#user-notes')?.value || '').trim().slice(0, 1000),
       timestamp: new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }),
-      source: window.location.href
+      source: window.location.href.slice(0, 200)
     };
 
     submitBtn.disabled = true;
@@ -227,6 +246,9 @@ function initContactForm() {
       } else {
         alert(`Спасибо, ${payload.name}! Заявка принята. Свяжемся с вами через ${payload.messenger}: ${payload.contact}`);
       }
+
+      // Запоминаем время успешной отправки для защиты от спама
+      sessionStorage.setItem('lw_last_submit', Date.now().toString());
 
       // Сбрасываем форму к исходному состоянию
       form.reset();
