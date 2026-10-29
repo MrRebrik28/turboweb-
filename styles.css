@@ -20,17 +20,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Karaoke Subtitle Effect on Hero Title */
+/* Karaoke Subtitle Effect on Hero Title: строго 1 буква, без неона */
 .karaoke-char {
   color: #0F172A;
-  transition: color 0.15s ease, transform 0.15s ease, text-shadow 0.15s ease;
-  will-change: transform, color, text-shadow;
+  display: inline-block;
+  transition: color 0.08s ease;
 }
 
 .karaoke-char.karaoke-active {
   color: #10B981 !important;
-  transform: translateY(-3px) scale(1.08);
-  text-shadow: 0 0 16px rgba(16, 185, 129, 0.65), 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.karaoke-char.karaoke-final-green {
+  color: #10B981 !important;
+  font-weight: 900;
 }
 
 /* Bento Card with Spotlight & Depth */
@@ -164,7 +167,7 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
-/* Native Dialog per Modern Web Guidance */
+/* Native Dialog */
 dialog:modal {
   overscroll-behavior: contain;
   border: none;

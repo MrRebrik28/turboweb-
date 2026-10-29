@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDynamicDate();
 });
 
-// 1. Karaoke / Subtitle reading animation on Hero Title
+// 1. Karaoke / Subtitle reading animation on Hero Title (строго по 1 букве, без неона)
 function initKaraokeTitle() {
   const title = document.getElementById('hero-title');
   if (!title) return;
@@ -24,10 +24,16 @@ function initKaraokeTitle() {
     const wordSpan = document.createElement('span');
     wordSpan.className = 'inline-block whitespace-nowrap';
 
+    // Только последнее слово "потом" в конце останется зеленым
+    const isFinalWord = (wordIndex === words.length - 1); // "потом"
+
     for (let i = 0; i < word.length; i++) {
       const charSpan = document.createElement('span');
       charSpan.textContent = word[i];
       charSpan.className = 'karaoke-char';
+      if (isFinalWord) {
+        charSpan.dataset.final = "true";
+      }
       wordSpan.appendChild(charSpan);
       chars.push(charSpan);
     }
@@ -39,31 +45,35 @@ function initKaraokeTitle() {
     }
   });
 
-  // Run the subtitle karaoke wave
+  // Запуск эффекта субтитров строго по 1 букве
   setTimeout(() => {
-    let index = 0;
-    const speed = 28; // ms per character (~2 seconds total reading wave)
+    let currentIndex = 0;
+    let prevChar = null;
+    const speed = 30; // Скорость сканирования (мс на символ)
 
     const interval = setInterval(() => {
-      if (index < chars.length) {
-        const char = chars[index];
+      // Предыдущая буква мгновенно гаснет (или фиксируется зелёной, если это слово "потом")
+      if (prevChar) {
+        prevChar.classList.remove('karaoke-active');
+        if (prevChar.dataset.final === "true") {
+          prevChar.classList.add('karaoke-final-green');
+        }
+      }
+
+      if (currentIndex < chars.length) {
+        const char = chars[currentIndex];
         char.classList.add('karaoke-active');
-
-        // Let the green glow pass through, settling the last word "потом" in green
-        setTimeout(() => {
-          char.classList.remove('karaoke-active');
-          if (index >= chars.length - 5) {
-            char.style.color = '#10B981';
-            char.style.fontWeight = '900';
-          }
-        }, 220);
-
-        index++;
+        prevChar = char;
+        currentIndex++;
       } else {
         clearInterval(interval);
+        // Завершение на последней букве слова "потом"
+        if (prevChar && prevChar.dataset.final === "true") {
+          prevChar.classList.add('karaoke-final-green');
+        }
       }
     }, speed);
-  }, 450);
+  }, 350);
 }
 
 // 2. Smooth Scroll Reveal with IntersectionObserver
@@ -145,7 +155,6 @@ function initContactForm() {
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
 
-    // Loading state
     submitBtn.disabled = true;
     submitBtn.innerHTML = `
       <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -155,7 +164,6 @@ function initContactForm() {
       Отправка...
     `;
 
-    // Extract values
     const name = form.querySelector('#user-name')?.value || 'клиент';
     const messenger = form.querySelector('#selected-messenger')?.value || 'Telegram';
     const contact = form.querySelector('#contact-input')?.value || '';
