@@ -1,6 +1,7 @@
 // LocalWeb - Core Interactive Logic & Animations
 
 document.addEventListener('DOMContentLoaded', () => {
+  initKaraokeTitle();
   initScrollReveal();
   initSpotlight();
   initMessengerSelector();
@@ -8,7 +9,64 @@ document.addEventListener('DOMContentLoaded', () => {
   initDynamicDate();
 });
 
-// 1. Smooth Scroll Reveal with IntersectionObserver
+// 1. Karaoke / Subtitle reading animation on Hero Title
+function initKaraokeTitle() {
+  const title = document.getElementById('hero-title');
+  if (!title) return;
+
+  const rawText = "Сайт для вашего дела за 24 часа. Сначала рабочий черновик, оплата — потом";
+  title.innerHTML = '';
+  
+  const chars = [];
+  const words = rawText.split(' ');
+
+  words.forEach((word, wordIndex) => {
+    const wordSpan = document.createElement('span');
+    wordSpan.className = 'inline-block whitespace-nowrap';
+
+    for (let i = 0; i < word.length; i++) {
+      const charSpan = document.createElement('span');
+      charSpan.textContent = word[i];
+      charSpan.className = 'karaoke-char';
+      wordSpan.appendChild(charSpan);
+      chars.push(charSpan);
+    }
+
+    title.appendChild(wordSpan);
+    if (wordIndex < words.length - 1) {
+      const space = document.createTextNode(' ');
+      title.appendChild(space);
+    }
+  });
+
+  // Run the subtitle karaoke wave
+  setTimeout(() => {
+    let index = 0;
+    const speed = 28; // ms per character (~2 seconds total reading wave)
+
+    const interval = setInterval(() => {
+      if (index < chars.length) {
+        const char = chars[index];
+        char.classList.add('karaoke-active');
+
+        // Let the green glow pass through, settling the last word "потом" in green
+        setTimeout(() => {
+          char.classList.remove('karaoke-active');
+          if (index >= chars.length - 5) {
+            char.style.color = '#10B981';
+            char.style.fontWeight = '900';
+          }
+        }, 220);
+
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, speed);
+  }, 450);
+}
+
+// 2. Smooth Scroll Reveal with IntersectionObserver
 function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
   
@@ -31,7 +89,7 @@ function initScrollReveal() {
   }
 }
 
-// 2. Spotlight Hover Effect for Bento Cards
+// 3. Spotlight Hover Effect for Bento Cards
 function initSpotlight() {
   const cards = document.querySelectorAll('.card-glass');
   cards.forEach(card => {
@@ -45,7 +103,7 @@ function initSpotlight() {
   });
 }
 
-// 3. Messenger Button Selector in Form (100% Reliable)
+// 4. Messenger Button Selector in Form
 function initMessengerSelector() {
   const buttons = document.querySelectorAll('.messenger-btn');
   const hiddenInput = document.getElementById('selected-messenger');
@@ -55,7 +113,6 @@ function initMessengerSelector() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       
-      // Update active state
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -74,7 +131,7 @@ function initMessengerSelector() {
   });
 }
 
-// 4. Contact Form Submission & Success Dialog
+// 5. Contact Form Submission & Success Dialog
 function initContactForm() {
   const form = document.getElementById('lead-form');
   const dialog = document.getElementById('success-dialog');
@@ -107,7 +164,6 @@ function initContactForm() {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
 
-      // Update success modal text
       const userNameEl = document.getElementById('modal-user-name');
       const userDetailsEl = document.getElementById('modal-user-details');
       if (userNameEl) userNameEl.textContent = name;
@@ -115,7 +171,6 @@ function initContactForm() {
         userDetailsEl.textContent = `Мы свяжемся с вами через ${messenger} (${contact}) в течение 15 минут, чтобы обсудить первый черновик.`;
       }
 
-      // Open native modal dialog
       if (dialog && typeof dialog.showModal === 'function') {
         dialog.showModal();
       } else {
@@ -124,13 +179,12 @@ function initContactForm() {
 
       form.reset();
       
-      // Reset active button to Telegram
       const defaultBtn = document.querySelector('.messenger-btn[data-messenger="Telegram"]');
       if (defaultBtn) {
         document.querySelectorAll('.messenger-btn').forEach(b => b.classList.remove('active'));
         defaultBtn.classList.add('active');
         if (contactInput) {
-          contactInput.placeholder = defaultBtn.getAttribute('data-placeholder') || '@username или телефон';
+          contactInput.placeholder = defaultBtn.getAttribute('data-placeholder') || '@username или номер в Telegram';
         }
       }
     }, 700);
@@ -140,7 +194,6 @@ function initContactForm() {
     closeBtn.addEventListener('click', () => dialog.close());
   }
 
-  // Close on backdrop click per Modern Web Guidance
   if (dialog) {
     dialog.addEventListener('click', (e) => {
       const rect = dialog.getBoundingClientRect();
@@ -157,7 +210,7 @@ function initContactForm() {
   }
 }
 
-// 5. Dynamic slot date
+// 6. Dynamic slot date
 function initDynamicDate() {
   const dateEl = document.getElementById('current-date');
   if (dateEl) {
