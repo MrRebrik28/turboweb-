@@ -1,8 +1,34 @@
 import os
 from datetime import datetime, timedelta
 
+def _load_dotenv():
+    # Ищем .env в текущей директории или в родительской (корень проекта)
+    candidates = [
+        os.path.join(os.getcwd(), ".env"),
+        os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"),
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    ]
+    for env_path in candidates:
+        if os.path.exists(env_path):
+            try:
+                with open(env_path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line or line.startswith("#") or "=" not in line:
+                            continue
+                        k, v = line.split("=", 1)
+                        k = k.strip()
+                        v = v.strip().strip("'\"")
+                        if k and k not in os.environ:
+                            os.environ[k] = v
+                break
+            except Exception:
+                pass
+
+_load_dotenv()
+
 # VK API Configuration
-# Токен пользователя ВКонтакте с правами: wall,groups,photos,offline
+# Токен пользователя ВКонтакте с правами: wall,groups,photos,messages,offline
 VK_USER_TOKEN = os.getenv("VK_USER_TOKEN", "")
 
 # Версия API ВКонтакте

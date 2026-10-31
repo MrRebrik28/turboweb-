@@ -224,3 +224,46 @@ class VkApiClient:
         res = self.call("wall.post", params)
         post_id = res.get("post_id")
         return post_id
+
+    def search_groups(self, query: str, count: int = 50, offset: int = 0, 
+                      fields: str = "can_message,site,description,members_count,city,contacts,status") -> dict:
+        """
+        Ищет сообщества по поисковой строке и возвращает список с метаданными.
+        """
+        params = {
+            "q": query,
+            "count": min(count, 100),
+            "offset": offset,
+            "fields": fields
+        }
+        return self.call("groups.search", params)
+
+    def send_message(self, peer_id: int, message: str, random_id: int = None) -> int:
+        """
+        Отправляет сообщение пользователю или в сообщения сообщества.
+        peer_id: Для сообщества передается -group_id (отрицательное число).
+        random_id: уникальный идентификатор отправки (защита от дублей).
+        """
+        if random_id is None:
+            import random
+            random_id = random.randint(1, 2147483647)
+        params = {
+            "peer_id": peer_id,
+            "message": message,
+            "random_id": random_id
+        }
+        return self.call("messages.send", params)
+
+    def get_group_by_id(self, group_id: int, fields: str = "can_message,site,description,members_count,city,contacts") -> dict:
+        """Получает расширенную информацию о сообществе по ID."""
+        params = {
+            "group_id": str(abs(group_id)),
+            "fields": fields
+        }
+        res = self.call("groups.getById", params)
+        if isinstance(res, list) and len(res) > 0:
+            return res[0]
+        if isinstance(res, dict) and "groups" in res and len(res["groups"]) > 0:
+            return res["groups"][0]
+        return res
+
