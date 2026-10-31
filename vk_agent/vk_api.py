@@ -267,3 +267,28 @@ class VkApiClient:
             return res["groups"][0]
         return res
 
+    def get_conversations(self, count: int = 50, offset: int = 0, filter_type: str = "all") -> dict:
+        """
+        Получает список последних бесед (диалогов) пользователя.
+        filter_type: all, unread, important, unanswered.
+        """
+        params = {
+            "count": min(count, 100),
+            "offset": offset,
+            "filter": filter_type,
+            "extended": 1
+        }
+        return self.call("messages.getConversations", params)
+
+    def get_history(self, peer_id: int, count: int = 10, offset: int = 0) -> dict:
+        """
+        Получает историю переписки с указанным пользователем или сообществом (peer_id = -group_id).
+        """
+        params = {
+            "peer_id": peer_id,
+            "count": min(count, 50),
+            "offset": offset
+        }
+        return self.call("messages.getHistory", params)
+
+
