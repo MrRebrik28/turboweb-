@@ -250,6 +250,15 @@ function initContactForm() {
       // Запоминаем время успешной отправки для защиты от спама
       sessionStorage.setItem('lw_last_submit', Date.now().toString());
 
+      // Фиксация конверсии в Яндекс Метрике
+      if (typeof ym === 'function') {
+        try {
+          ym(113958309, 'reachGoal', 'lead_form_submit');
+        } catch (e) {
+          console.debug('Yandex Metrika goal error:', e);
+        }
+      }
+
       // Сбрасываем форму к исходному состоянию
       form.reset();
       
