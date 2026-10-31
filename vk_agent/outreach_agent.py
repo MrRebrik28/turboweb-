@@ -370,11 +370,11 @@ class VkOutreachAgent:
                         else:
                             delay = random.uniform(self.min_delay_step1, self.max_delay_step1)
                             if sent_count > 0 and sent_count % 4 == 0:
-                                break_delay = random.uniform(120, 180)
-                                logger.info(f"☕ Человеческая микро-пауза ({break_delay:.0f} сек) после 4 сообщений...")
+                                break_delay = delay + random.uniform(60, 150)
+                                logger.info(f"☕ Человеческая микро-пауза ({break_delay:.0f} сек / {break_delay/60:.1f} мин) после 4 сообщений...")
                                 time.sleep(break_delay)
                             else:
-                                logger.info(f"⏳ Безопасная пауза перед следующим пингом: {delay:.1f} сек...")
+                                logger.info(f"⏳ Безопасная пауза перед следующим пингом: {delay:.1f} сек ({delay/60:.1f} мин)...")
                                 time.sleep(delay)
 
         return {

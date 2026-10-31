@@ -178,6 +178,8 @@ def main():
     parser.add_argument("--city", "-c", type=str, nargs="+", help="Города для поиска (например: 'Кемерово' 'Новосибирск')")
     parser.add_argument("--limit", "-l", type=int, default=25, help="Лимит пингов Шага 1 на текущий запуск (по умолчанию 25)")
     parser.add_argument("--daily-limit", type=int, default=35, help="Безопасный суточный максимум пингов Шага 1 (по умолчанию 35)")
+    parser.add_argument("--min-delay", type=int, default=50, help="Минимальная задержка между отправками в секундах (по умолчанию 50)")
+    parser.add_argument("--max-delay", type=int, default=90, help="Максимальная задержка между отправками в секундах (по умолчанию 90)")
     parser.add_argument("--max-inactive-days", type=int, default=60, help="Максимальная давность последней публикации на стене в днях (по умолчанию 60)")
     parser.add_argument("--yes", "-y", action="store_true", help="Пропустить подтверждение в live-режиме")
 
@@ -194,8 +196,8 @@ def main():
         token=VK_USER_TOKEN,
         db=db,
         step1_daily_limit=args.daily_limit,
-        min_delay_step1=50,
-        max_delay_step1=90,
+        min_delay_step1=args.min_delay,
+        max_delay_step1=args.max_delay,
         max_inactive_days=args.max_inactive_days
     )
 
