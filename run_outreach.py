@@ -163,6 +163,9 @@ def main():
     parser.add_argument("--check-replies", action="store_true", help="Проверить входящие ответы от сообществ")
     parser.add_argument("--step2", action="store_true", help="Отправить офферы Шага 2 тем, кто ответил")
     parser.add_argument("--auto", action="store_true", help="Автопилот: проверить ответы -> отправить офферы -> отправить новые пинги")
+    parser.add_argument("--daemon", action="store_true", help="Режим автоответчика: непрерывное дежурство и автоответ на новые сообщения до конца дня")
+    parser.add_argument("--interval", type=int, default=180, help="Интервал проверки ответов в секундах (по умолчанию 180)")
+    parser.add_argument("--until", type=int, default=23, help="Час окончания дежурства автоответчика (по умолчанию 23:59)")
     
     # Флаги выполнения
     parser.add_argument("--dry-run", action="store_true", default=False, help="Предпросмотр без реальной отправки")
@@ -204,6 +207,31 @@ def main():
     if args.test_group:
         niche = args.niche[0] if args.niche else "детейлинга"
         test_single_group_preview(agent, args.test_group, niche=niche)
+        return
+
+    # Режим дежурства автоответчика
+    if args.daemon:
+        is_dry_run = not args.live
+        print(f"🎧 ЗАПУСК РЕЖИМА АВТООТВЕТЧИКА (ДЕЖУРСТВО ДО {args.until:02d}:59, интервал: {args.interval}с, Режим: {'DRY-RUN' if is_dry_run else 'LIVE'})...")
+        while True:
+            now = datetime.now()
+            if now.hour > args.until or (now.hour == args.until and now.minute >= 59):
+                print(f"\n🌙 Время {args.until:02d}:59 наступило. Дежурство автоответчика завершено.")
+                break
+
+            try:
+                # 1. Проверяем новые ответы
+                agent.check_incoming_replies()
+                
+                # 2. Если есть лиды, ожидающие оффер Шага 2 — отправляем
+                ready_leads = db.get_leads_ready_for_pitch()
+                if ready_leads:
+                    print(f"\n🎯 [АВТООТВЕТЧИК] Найдено {len(ready_leads)} лидов, ожидающих оффер. Отправка...")
+                    agent.run_step2_campaign(dry_run=is_dry_run)
+            except Exception as e:
+                print(f"⚠️ Ошибка в цикле автоответчика: {e}")
+
+            time.sleep(args.interval)
         return
 
     # Режим проверки ответов
