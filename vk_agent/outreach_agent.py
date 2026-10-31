@@ -45,13 +45,15 @@ BUILDER_DOMAINS = [
 class VkOutreachAgent:
     def __init__(self, token: str, db: OutreachDatabase = None, 
                  step1_daily_limit: int = 35, step2_daily_limit: int = 50,
-                 min_delay_step1: int = 50, max_delay_step1: int = 90):
+                 min_delay_step1: int = 50, max_delay_step1: int = 90,
+                 max_inactive_days: int = 60):
         self.vk = VkApiClient(token)
         self.db = db or OutreachDatabase()
         self.step1_daily_limit = step1_daily_limit
         self.step2_daily_limit = step2_daily_limit
         self.min_delay_step1 = min_delay_step1
         self.max_delay_step1 = max_delay_step1
+        self.max_inactive_days = max_inactive_days
         # Для обратной совместимости
         self.daily_limit = step1_daily_limit
         self.min_delay = min_delay_step1
@@ -92,7 +94,20 @@ class VkOutreachAgent:
             if sw in desc[:200]:
                 return False, "", f"stop_word_in_desc ('{sw}')"
 
-        # 6. Наличие сайта
+        # 6. КРИТИЧЕСКАЯ ПРОВЕРКА АКТИВНОСТИ: Дата последней публикации на стене (макс. 60 дней)
+        last_post_ts = self.vk.get_last_wall_post_date(group_id)
+        if not last_post_ts:
+            return False, "", "no_wall_posts_or_closed_wall"
+
+        now_ts = time.time()
+        wall_age_days = (now_ts - last_post_ts) / 86400.0
+        if wall_age_days > self.max_inactive_days:
+            return False, "", f"inactive_wall ({wall_age_days:.0f}d > {self.max_inactive_days}d)"
+
+        group["last_wall_post_ts"] = last_post_ts
+        group["wall_age_days"] = round(wall_age_days, 1)
+
+        # 7. Наличие сайта
         site = (group.get("site") or "").strip().lower()
         if not site or site.startswith("https://vk.com") or site.startswith("http://vk.com"):
             lead_tier = "no_site"

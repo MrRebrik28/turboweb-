@@ -80,6 +80,8 @@ def print_banner():
 def print_strategy_info():
     print("""
 💡 КАК РАБОТАЕТ ДВУХШАГОВАЯ СТРАТЕГИЯ («КАСАНИЕ БЕЗ ПРОДАЖИ»):
+  • Фильтр активности: агент в первую очередь проверяет дату последнего поста на стене.
+    Если группа заброшена (> 60 дней без публикаций) — она сразу отсекается.
   • Шаг 1 (Пинг): короткий естественный вопрос («Подскажите, есть ли сайт с прайсом или смотреть в группе?»).
     Без ссылок, без цен, без рекламы студии. Антиспам-фильтры ВК не видят спама, 
     а администраторы групп охотно отвечают (конверсия в ответ 40-70%!).
@@ -126,9 +128,18 @@ def test_single_group_preview(agent: VkOutreachAgent, group_id: int, niche: str 
     site = grp.get("site", "")
     members = grp.get("members_count", 0)
     
+    # Проверка даты последнего поста на стене
+    last_post_ts = agent.vk.get_last_wall_post_date(group_id)
+    wall_info = "нет постов или стена закрыта"
+    if last_post_ts:
+        wall_days = (time.time() - last_post_ts) / 86400.0
+        post_date_str = datetime.fromtimestamp(last_post_ts).strftime("%d.%m.%Y")
+        wall_info = f"{post_date_str} ({wall_days:.1f} дн. назад)"
+
     print(f"  • Название: {name}")
     print(f"  • Обращение: {clean_group_name(name)}")
     print(f"  • Подписчиков: {members} | Сайт: '{site}'")
+    print(f"  • Последний пост на стене: {wall_info}")
 
     is_qual, tier, reason = agent.evaluate_group(grp)
     print(f"  • Квалификация: {'✅ Подходит' if is_qual else f'❌ Отклонен ({reason})'}")
@@ -164,6 +175,7 @@ def main():
     parser.add_argument("--city", "-c", type=str, nargs="+", help="Города для поиска (например: 'Кемерово' 'Новосибирск')")
     parser.add_argument("--limit", "-l", type=int, default=25, help="Лимит пингов Шага 1 на текущий запуск (по умолчанию 25)")
     parser.add_argument("--daily-limit", type=int, default=35, help="Безопасный суточный максимум пингов Шага 1 (по умолчанию 35)")
+    parser.add_argument("--max-inactive-days", type=int, default=60, help="Максимальная давность последней публикации на стене в днях (по умолчанию 60)")
     parser.add_argument("--yes", "-y", action="store_true", help="Пропустить подтверждение в live-режиме")
 
     args = parser.parse_args()
@@ -180,7 +192,8 @@ def main():
         db=db,
         step1_daily_limit=args.daily_limit,
         min_delay_step1=50,
-        max_delay_step1=90
+        max_delay_step1=90,
+        max_inactive_days=args.max_inactive_days
     )
 
     if args.stats:

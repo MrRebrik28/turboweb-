@@ -3,6 +3,7 @@ import requests
 import os
 import json
 import logging
+from typing import Optional
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("VkApi")
@@ -290,5 +291,23 @@ class VkApiClient:
             "offset": offset
         }
         return self.call("messages.getHistory", params)
+
+    def get_last_wall_post_date(self, group_id: int) -> Optional[int]:
+        """
+        Возвращает unixtime самой свежей публикации на стене сообщества.
+        Учитывает закрепленные посты (берет max(date) из первых 3 постов).
+        Если постов нет или стена недоступна, возвращает None.
+        """
+        try:
+            res = self.call("wall.get", {"owner_id": -abs(group_id), "count": 3})
+            items = res.get("items", []) if isinstance(res, dict) else []
+            if not items:
+                return None
+            dates = [p.get("date", 0) for p in items if isinstance(p, dict) and "date" in p]
+            return max(dates) if dates else None
+        except Exception as e:
+            logger.warning(f"Не удалось получить стену группы ID {group_id}: {e}")
+            return None
+
 
 
