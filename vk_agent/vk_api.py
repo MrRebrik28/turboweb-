@@ -26,8 +26,8 @@ class VkApiClient:
         self.session = requests.Session()
         self._user_info = None
 
-    def call(self, method: str, params: dict = None, http_method: str = "POST") -> dict:
-        """Вызов метода VK API с автоматической обработкой ошибок и задержкой."""
+    def call(self, method: str, params: dict = None, http_method: str = "POST", max_retries: int = 3) -> dict:
+        """Вызов метода VK API с автоматической обработкой сетевых сбоев, задержкой и повторами."""
         if params is None:
             params = {}
         
@@ -37,20 +37,35 @@ class VkApiClient:
             **params
         }
 
-        # Соблюдаем лимит запросов к VK API (до 3 запросов в секунду для пользователя)
-        time.sleep(0.35)
-
         url = f"{self.API_URL}{method}"
-        try:
-            if http_method.upper() == "GET":
-                resp = self.session.get(url, params=request_params, timeout=30)
-            else:
-                resp = self.session.post(url, data=request_params, timeout=30)
-            
-            data = resp.json()
-        except Exception as e:
-            logger.error(f"HTTP ошибка при вызове {method}: {e}")
-            raise
+
+        data = None
+        for attempt in range(1, max_retries + 1):
+            # Соблюдаем лимит запросов к VK API (до 3 запросов в секунду для пользователя)
+            time.sleep(0.35)
+
+            try:
+                if http_method.upper() == "GET":
+                    resp = self.session.get(url, params=request_params, timeout=30)
+                else:
+                    resp = self.session.post(url, data=request_params, timeout=30)
+                
+                data = resp.json()
+                break  # Успешный HTTP-запрос
+            except Exception as e:
+                logger.warning(f"⚠️ Сетевой сбой при вызове {method} (попытка {attempt}/{max_retries}): {e}")
+                if attempt == max_retries:
+                    logger.error(f"❌ Исчерпаны попытки выполнения {method}: {e}")
+                    raise
+                try:
+                    self.session.close()
+                except Exception:
+                    pass
+                self.session = requests.Session()
+                time.sleep(3 * attempt)
+
+        if not data:
+            raise VkApiException(0, f"Не удалось получить ответ от VK API для метода {method}")
 
         if "error" in data:
             error = data["error"]
