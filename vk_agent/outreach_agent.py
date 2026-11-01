@@ -224,7 +224,7 @@ class VkOutreachAgent:
             }
 
         except VkApiException as e:
-            if e.error_code in (14, 9, 17):
+            if e.error_code in (5, 9, 14, 17):
                 logger.error(f"🛑 КРИТИЧЕСКАЯ ОШИБКА VK [{e.error_code}]: {e.error_msg}. Аутрич остановлен!")
                 raise
             logger.warning(f"⚠️ Ошибка отправки в группу ID {group_id}: {e.error_msg} (Код: {e.error_code})")
@@ -240,7 +240,12 @@ class VkOutreachAgent:
         """
         logger.info("📬 Проверка входящих ответов от сообществ через VK API...")
         try:
-            convs = self.vk.get_conversations(count=60)
+            convs = self.vk.get_conversations(count=100)
+        except VkApiException as e:
+            if e.error_code in (5, 9, 14, 17):
+                raise
+            logger.error(f"Ошибка получения бесед: {e}")
+            return []
         except Exception as e:
             logger.error(f"Ошибка получения бесед: {e}")
             return []
@@ -381,7 +386,7 @@ class VkOutreachAgent:
                 "response": res
             }
         except VkApiException as e:
-            if e.error_code in (14, 9, 17):
+            if e.error_code in (5, 9, 14, 17):
                 logger.error(f"🛑 КРИТИЧЕСКАЯ ОШИБКА VK [{e.error_code}]: {e.error_msg}.")
                 raise
             logger.warning(f"⚠️ Ошибка отправки Шага 2 в группу ID {group_id}: {e.error_msg}")
