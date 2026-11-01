@@ -283,6 +283,67 @@ class VkOutreachAgent:
         logger.info(f"Всего новых зафиксированных ответов: {len(discovered_replies)}")
         return discovered_replies
 
+    def clean_unanswered_conversations(self, dry_run: bool = False) -> Dict[str, Any]:
+        """
+        Удаляет все диалоги с сообществами, в которых мы отправили сообщение (пинг),
+        но сообщество так и не ответило (входящих сообщений 0).
+        Ни в коем случае НЕ удаляет диалоги, в которых сообщество ответило!
+        """
+        logger.info(f"🧹 Запуск очистки безответных диалогов (Dry-run: {dry_run})...")
+        try:
+            convs = self.vk.get_conversations(count=100)
+        except Exception as e:
+            logger.error(f"Ошибка получения списка бесед: {e}")
+            return {"error": str(e), "cleaned": 0, "kept": 0}
+
+        items = convs.get("items", []) if isinstance(convs, dict) else []
+        groups_info = {g["id"]: g for g in convs.get("groups", [])} if isinstance(convs, dict) else {}
+
+        cleaned = []
+        kept = []
+
+        for item in items:
+            conversation = item.get("conversation", {})
+            peer_id = conversation.get("peer", {}).get("id", 0)
+
+            # Нас интересуют только сообщества (peer_id < 0)
+            if peer_id >= 0:
+                continue
+
+            group_id = abs(peer_id)
+            group_name = groups_info.get(group_id, {}).get("name", f"Группа {group_id}")
+
+            try:
+                hist = self.vk.get_history(peer_id=peer_id, count=10)
+                messages = hist.get("items", []) if isinstance(hist, dict) else []
+                incoming = [m for m in messages if m.get("out") == 0]
+
+                if len(incoming) == 0:
+                    # Входящих сообщений от группы нет — удаляем диалог
+                    if not dry_run:
+                        self.vk.delete_conversation(peer_id=peer_id)
+                        logger.info(f"🗑️ Удален безответный диалог: ID {group_id} («{group_name}»)")
+                    else:
+                        logger.info(f"👀 [DRY-RUN] Будет удален безответный диалог: ID {group_id} («{group_name}»)")
+                    cleaned.append({"group_id": group_id, "name": group_name})
+                else:
+                    # Есть входящие сообщения — сохраняем диалог!
+                    last_incoming_text = incoming[0].get("text", "")[:60]
+                    logger.info(f"💬 Сохранен активный диалог: ID {group_id} («{group_name}»), ответ: \"{last_incoming_text}\"")
+                    kept.append({"group_id": group_id, "name": group_name, "incoming_count": len(incoming)})
+            except Exception as e:
+                logger.warning(f"Ошибка при обработке диалога ID {group_id}: {e}")
+
+        logger.info(f"✅ Очистка завершена! Удалено безответных: {len(cleaned)}, Сохранено активных: {len(kept)}")
+        return {
+            "status": "completed",
+            "dry_run": dry_run,
+            "cleaned_count": len(cleaned),
+            "kept_count": len(kept),
+            "cleaned": cleaned,
+            "kept": kept
+        }
+
     # ==================== ШАГ 2: ОТПРАВКА ОФФЕРА ВО ВЗАИМНЫЙ ДИАЛОГ ====================
 
     def send_step2_pitch(self, lead: Dict[str, Any], dry_run: bool = False) -> Dict[str, Any]:
@@ -369,6 +430,15 @@ class VkOutreachAgent:
                             time.sleep(0.15)
                         else:
                             delay = random.uniform(self.min_delay_step1, self.max_delay_step1)
+                            # Проверяем ответы от сообществ во время ожидания
+                            try:
+                                new_replies = self.check_incoming_replies()
+                                if new_replies:
+                                    logger.info(f"🎯 Обнаружено {len(new_replies)} новых ответов! Отправка офферов Шага 2...")
+                                    self.run_step2_campaign(dry_run=dry_run)
+                            except Exception as e:
+                                logger.warning(f"Ошибка проверки ответов: {e}")
+
                             if sent_count > 0 and sent_count % 4 == 0:
                                 break_delay = delay + random.uniform(60, 150)
                                 logger.info(f"☕ Человеческая микро-пауза ({break_delay:.0f} сек / {break_delay/60:.1f} мин) после 4 сообщений...")

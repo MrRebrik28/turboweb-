@@ -309,5 +309,16 @@ class VkApiClient:
             logger.warning(f"Не удалось получить стену группы ID {group_id}: {e}")
             return None
 
+    def delete_conversation(self, peer_id: int, group_id: int = None) -> dict:
+        """
+        Удаляет всю беседу (диалог) с сообществом или пользователем.
+        peer_id: -group_id для сообщества или user_id для пользователя.
+        """
+        params = {"peer_id": peer_id}
+        if group_id:
+            params["group_id"] = group_id
+        return self.call("messages.deleteConversation", params)
+
+
 
 
