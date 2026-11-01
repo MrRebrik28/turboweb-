@@ -43,23 +43,35 @@ from vk_agent.spintax import (
 )
 
 DEFAULT_NICHES = [
-    "детейлинг",
-    "автосервис",
-    "кузовной ремонт",
     "кухни на заказ",
     "ремонт квартир",
+    "салон красоты",
+    "клининг",
+    "натяжные потолки",
+    "корпусная мебель",
+    "банкетный зал",
     "косметология",
     "барбершоп",
     "стоматология",
-    "клининг"
+    "кондитерская"
 ]
 
 DEFAULT_CITIES = [
-    "Кемерово",
-    "Новокузнецк",
+    "Москва",
+    "Санкт-Петербург",
     "Новосибирск",
-    "Томск",
-    "Красноярск"
+    "Екатеринбург",
+    "Казань",
+    "Нижний Новгород",
+    "Челябинск",
+    "Красноярск",
+    "Самара",
+    "Уфа",
+    "Ростов-на-Дону",
+    "Омск",
+    "Воронеж",
+    "Пермь",
+    "Волгоград"
 ]
 
 def print_banner():
@@ -162,7 +174,6 @@ def main():
     parser.add_argument("--step1", action="store_true", help="Запуск рассылки коротких пингов Шага 1")
     parser.add_argument("--check-replies", action="store_true", help="Проверить входящие ответы от сообществ")
     parser.add_argument("--step2", action="store_true", help="Отправить офферы Шага 2 тем, кто ответил")
-    parser.add_argument("--clean-unanswered", action="store_true", help="Очистить безответные диалоги из раздела сообщений (сохраняя активные переписки)")
     parser.add_argument("--auto", action="store_true", help="Автопилот: проверить ответы -> отправить офферы -> отправить новые пинги")
     parser.add_argument("--daemon", action="store_true", help="Режим автоответчика: непрерывное дежурство и автоответ на новые сообщения до конца дня")
     parser.add_argument("--interval", type=int, default=180, help="Интервал проверки ответов в секундах (по умолчанию 180)")
@@ -259,21 +270,6 @@ def main():
                 return
         res = agent.run_step2_campaign(dry_run=is_dry_run)
         print(f"Успешно обработано: {res.get('sent', 0)} офферов.")
-        return
-
-    # Режим очистки безответных диалогов
-    if args.clean_unanswered:
-        is_dry_run = not args.live
-        print(f"🧹 ОЧИСТКА БЕЗОТВЕТНЫХ ДИАЛОГОВ (Режим: {'DRY-RUN' if is_dry_run else 'LIVE'})...")
-        if not is_dry_run and not args.yes:
-            conf = input("Подтвердите удаление диалогов, где сообщества не ответили на наше сообщение (да/нет): ")
-            if conf.strip().lower() not in ("да", "yes", "y"):
-                print("Отменено.")
-                return
-        res = agent.clean_unanswered_conversations(dry_run=is_dry_run)
-        print(f"\n📊 Итог очистки:")
-        print(f"  • Удалено безответных диалогов: {res.get('cleaned_count')}")
-        print(f"  • Сохранено активных переписок с ответами: {res.get('kept_count')}")
         return
 
     # Автопилот или Шаг 1
