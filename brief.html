@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Бриф по дизайну и карточкам товаров TIMETRY — LocalWeb</title>
+  <title>Выбор дизайна — LocalWeb</title>
 
   <!-- Tailwind CSS & Inter Font -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,21 +20,37 @@
       color: #0f172a;
     }
     .custom-checkbox:checked + label {
-      border-color: #ff5500;
-      background-color: #fff7ed;
-      color: #9a3412;
+      border-color: #ff5500 !important;
+      background-color: #fff7ed !important;
+      color: #c2410c !important;
+      box-shadow: 0 0 0 2px rgba(255, 85, 0, 0.25) !important;
+    }
+    .custom-checkbox + label .check-indicator {
+      border-color: #cbd5e1;
+      background-color: transparent;
+      color: transparent;
+      transition: all 0.2s ease;
+    }
+    .custom-checkbox:checked + label .check-indicator {
+      border-color: #ff5500 !important;
+      background-color: #ff5500 !important;
+      color: #ffffff !important;
+    }
+    .custom-checkbox:checked + label .check-icon {
+      opacity: 1 !important;
+      transform: scale(1) !important;
     }
     .custom-radio:checked + label {
-      border-color: #ff5500;
-      background-color: #fff7ed;
-      box-shadow: 0 0 0 2px rgba(255, 85, 0, 0.2);
+      border-color: #ff5500 !important;
+      background-color: #fff7ed !important;
+      box-shadow: 0 0 0 2px rgba(255, 85, 0, 0.25) !important;
     }
     .design-variant-card {
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .design-variant-radio:checked + .design-variant-card {
-      border-color: #ff5500;
-      box-shadow: 0 10px 25px -5px rgba(255, 85, 0, 0.2), 0 0 0 3px #ff5500;
+      border-color: #ff5500 !important;
+      box-shadow: 0 10px 25px -5px rgba(255, 85, 0, 0.25), 0 0 0 3px #ff5500 !important;
       transform: translateY(-3px);
     }
   </style>
@@ -42,26 +58,28 @@
 <body class="min-h-screen flex flex-col justify-between">
 
   <!-- ========================================================================
-       TOP HEADER
+       TOP HEADER WITH OFFICIAL LOCALWEB LOGO
        ======================================================================== -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <a href="javascript:void(0)" class="flex items-center gap-2">
-          <span class="w-8 h-8 rounded-lg bg-[#ff5500] flex items-center justify-center text-white font-extrabold text-lg shadow-sm">T</span>
-          <span class="text-xl font-black text-slate-900 tracking-tight">TIMETRY<span class="text-[#ff5500]">.DESIGN</span></span>
-        </a>
-        <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200">
-          🎨 Согласование визуального стиля
-        </span>
-      </div>
-
-      <div class="flex items-center gap-4 text-xs sm:text-sm text-slate-500">
-        <div id="project-badge" class="inline-flex items-center gap-1.5 font-medium text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-md">
-          📁 Проект: <strong class="text-slate-900">timetry-bikes.ru</strong>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Official LocalWeb Agency Logo (from main site index.html) -->
+      <a href="https://local-web.ru/" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
         </div>
-        <a href="tel:+79698400151" class="hidden md:inline font-semibold text-slate-700 hover:text-[#ff5500] transition">
-          LocalWeb: +7 (969) 840-01-51
+        <div>
+          <span class="font-black text-xl tracking-tight text-[#0F172A]">Local<span class="text-[#2563EB]">Web</span></span>
+          <span class="hidden sm:block text-[11px] text-slate-500 font-medium leading-none">Сайты для локального бизнеса</span>
+        </div>
+      </a>
+
+      <!-- Right Contacts Block -->
+      <div class="flex items-center gap-4 text-xs sm:text-sm text-slate-500">
+        <a href="tel:+79698400151" class="font-bold text-slate-800 hover:text-blue-600 transition flex items-center gap-1.5">
+          <span>📞</span> +7 (969) 840-01-51
         </a>
       </div>
     </div>
@@ -72,15 +90,15 @@
        ======================================================================== -->
   <main id="gate-screen" class="flex-grow flex items-center justify-center p-4 sm:p-6 my-auto">
     <div class="max-w-md w-full bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-8 text-center">
-      <div class="w-16 h-16 bg-orange-50 text-[#ff5500] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5 shadow-sm border border-orange-100">
-        🚴
+      <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5 shadow-sm border border-blue-100">
+        🎨
       </div>
 
       <h1 class="text-2xl font-extrabold text-slate-900 mb-2">
-        Бриф по дизайну и карточкам TIMETRY
+        Выбор дизайна
       </h1>
       <p class="text-sm text-slate-600 mb-6 leading-relaxed">
-        Согласование внешнего вида магазина, оформления карточек и структуры характеристик. Введите ваш код доступа:
+        Введите ваш код проекта для перехода к выбору концепции и согласованию карточек:
       </p>
 
       <form id="gate-form" onsubmit="handleGateSubmit(event)" class="space-y-4">
@@ -91,7 +109,7 @@
             id="access-code-input"
             required
             placeholder="Введите код (например, TIMETRY)"
-            class="w-full text-center tracking-widest uppercase font-mono font-bold text-lg sm:text-xl py-3.5 px-4 bg-slate-50 border-2 border-slate-300 rounded-xl focus:border-[#ff5500] focus:bg-white focus:outline-none transition shadow-inner"
+            class="w-full text-center tracking-widest uppercase font-mono font-bold text-lg sm:text-xl py-3.5 px-4 bg-slate-50 border-2 border-slate-300 rounded-xl focus:border-blue-600 focus:bg-white focus:outline-none transition shadow-inner"
             autocomplete="off"
             autofocus
           />
@@ -99,7 +117,7 @@
 
         <button
           type="submit"
-          class="w-full bg-[#ff5500] hover:bg-[#e04a00] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-orange-500/25 transition active:scale-[0.99] flex items-center justify-center gap-2"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-500/25 transition active:scale-[0.99] flex items-center justify-center gap-2"
         >
           <span>Перейти к выбору дизайна</span>
           <span>→</span>
@@ -113,19 +131,11 @@
        ======================================================================== -->
   <main id="brief-screen" class="hidden flex-grow max-w-4xl w-full mx-auto p-4 sm:p-6 lg:p-8">
     
-    <!-- Client Welcome Banner -->
-    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-6 sm:p-8 mb-8 shadow-lg border border-slate-700">
-      <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-orange-400 mb-2">
-        <span>TIMETRY BIKES RUSSIA</span>
-        <span>•</span>
-        <span class="bg-orange-600/80 px-2.5 py-0.5 rounded text-white font-mono">ИП Ефимов Д.М.</span>
-      </div>
-      <h2 class="text-xl sm:text-2xl font-black mb-2 text-white">
-        Выбор концепции дизайна и наполнения магазина
-      </h2>
-      <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
-        Дмитрий Михайлович, мы уже знаем структуру вашего ассортимента (213 моделей) и логистику. В этом брифе сосредоточимся исключительно на <strong>внешнем виде</strong>, <strong>карточках товаров</strong> и <strong>удобстве покупателя</strong>.
-      </p>
+    <!-- Clean Minimal Title Header (No boilerplate, no IP info) -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 mb-8 shadow-sm border border-slate-200 text-center sm:text-left">
+      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+        Выбор дизайна
+      </h1>
     </div>
 
     <!-- The Form -->
@@ -137,8 +147,8 @@
       <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
           <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 1</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Выберите понравившуюся концепцию дизайна</h3>
-          <p class="text-sm text-slate-500 mt-1">Мы сгенерировали 3 различных направления. Выберите вариант, который лучше всего передает дух Timetry:</p>
+          <h2 class="text-xl font-extrabold text-slate-900">Выберите понравившуюся концепцию дизайна</h2>
+          <p class="text-sm text-slate-500 mt-1">Кликните на карточку с подходящим вариантом оформления:</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -273,55 +283,79 @@
       <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
           <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 2</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Внешний вид карточки товара в каталоге</h3>
-          <p class="text-sm text-slate-500 mt-1">Что покупатель должен видеть на карточке сразу, не открывая товар детально:</p>
+          <h2 class="text-xl font-extrabold text-slate-900">Внешний вид карточки товара в каталоге</h2>
+          <p class="text-sm text-slate-500 mt-1">Отметьте элементы, которые покупатель должен видеть на карточке сразу:</p>
         </div>
 
         <div class="space-y-6">
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              1. Какие характеристики выносить прямо на фасад карточки (бейджи-чипы):
+              1. Характеристики прямо на карточке товара (выберите нужные):
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div>
                 <input type="checkbox" id="card-spec-1" name="card_specs" value="Диаметр колес (29, 27.5, 700C)" class="hidden custom-checkbox" checked />
-                <label for="card-spec-1" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>🔘</span> <span class="font-medium text-slate-900">Диаметр колес (29", 27.5", 700C)</span>
+                <label for="card-spec-1" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-base">🔘</span>
+                    <span class="font-semibold text-slate-900">Диаметр колес (29", 27.5", 700C)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
 
               <div>
-                <input type="checkbox" id="card-spec-2" name="card_specs" value="Ростовка рамы (рекомендуемый рост покупателя)" class="hidden custom-checkbox" checked />
-                <label for="card-spec-2" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>🧍</span> <span class="font-medium text-slate-900">Подсказка по росту (например, 175–188 см / L)</span>
+                <input type="checkbox" id="card-spec-2" name="card_specs" value="Ростовка рамы (подсказка по росту)" class="hidden custom-checkbox" checked />
+                <label for="card-spec-2" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-base">🧍</span>
+                    <span class="font-semibold text-slate-900">Подсказка по росту (175–188 см / L)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
 
               <div>
                 <input type="checkbox" id="card-spec-3" name="card_specs" value="Тип тормозов (гидравлика / дисковая механика)" class="hidden custom-checkbox" checked />
-                <label for="card-spec-3" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>🛑</span> <span class="font-medium text-slate-900">Тормоза (Гидравлика / Механика)</span>
+                <label for="card-spec-3" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-base">🛑</span>
+                    <span class="font-semibold text-slate-900">Тормоза (Гидравлика / Механика)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
 
               <div>
                 <input type="checkbox" id="card-spec-4" name="card_specs" value="Модель навески (Shimano Cues / Deore / S-Ride)" class="hidden custom-checkbox" checked />
-                <label for="card-spec-4" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>⚙️</span> <span class="font-medium text-slate-900">Навеска (Shimano Cues, S-Ride и т.д.)</span>
+                <label for="card-spec-4" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-base">⚙️</span>
+                    <span class="font-semibold text-slate-900">Навеска (Shimano Cues, S-Ride и др.)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
 
               <div>
                 <input type="checkbox" id="card-spec-5" name="card_specs" value="Материал рамы (Алюминий 6061 / Карбон)" class="hidden custom-checkbox" checked />
-                <label for="card-spec-5" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>📐</span> <span class="font-medium text-slate-900">Материал рамы (Алюминий / Карбон)</span>
+                <label for="card-spec-5" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-base">📐</span>
+                    <span class="font-semibold text-slate-900">Материал рамы (Алюминий / Карбон)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
 
               <div>
                 <input type="checkbox" id="card-spec-6" name="card_specs" value="Количество скоростей (10 ск., 12 ск.)" class="hidden custom-checkbox" />
-                <label for="card-spec-6" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>⚡</span> <span class="font-medium text-slate-900">Количество скоростей (1x10, 1x11, 2x9)</span>
+                <label for="card-spec-6" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-base">⚡</span>
+                    <span class="font-semibold text-slate-900">Количество скоростей (1x10, 1x11)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
             </div>
@@ -329,36 +363,64 @@
 
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              2. Кнопки действий на карточке в каталоге:
+              2. Кнопки действий на карточке товара:
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div>
                 <input type="radio" id="btn-mode-1" name="card_buttons_mode" value="Две кнопки: «В корзину» + экспресс-заказ «В 1 клик»" class="hidden custom-radio" checked />
-                <label for="btn-mode-1" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                <label for="btn-mode-1" class="block p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer">
                   <div class="font-bold text-slate-900">Две кнопки: «В корзину» + «1 клик»</div>
-                  <div class="text-xs text-slate-500 mt-0.5">Максимальная конверсия: те, кто не любит корзины, заказывают сразу по номеру телефона</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Максимальная конверсия: быстрый заказ по телефону без перехода в корзину</div>
                 </label>
               </div>
 
               <div>
                 <input type="radio" id="btn-mode-2" name="card_buttons_mode" value="Одна основная кнопка «В корзину»" class="hidden custom-radio" />
-                <label for="btn-mode-2" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
-                  <div class="font-bold text-slate-900">Только «В корзину»</div>
+                <label for="btn-mode-2" class="block p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer">
+                  <div class="font-bold text-slate-900">Только кнопка «В корзину»</div>
                   <div class="text-xs text-slate-500 mt-0.5">Классический строгий минимализм</div>
                 </label>
               </div>
             </div>
           </div>
 
+          <!-- INTERACTIVE MARKETING BADGES (Clickable Checkboxes) -->
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              3. Маркетинговые бейджи на фотографии велосипеда:
+              3. Маркетинговые бейджи на фотографии велосипеда (нажмите для выбора):
             </label>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              <span class="p-2.5 bg-orange-50 border border-orange-200 text-orange-800 font-bold rounded-lg text-center">🔥 «Хит продаж»</span>
-              <span class="p-2.5 bg-red-50 border border-red-200 text-red-700 font-bold rounded-lg text-center">🏷️ «Скидка -15%»</span>
-              <span class="p-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold rounded-lg text-center">✅ «В наличии (Кемерово)»</span>
-              <span class="p-2.5 bg-blue-50 border border-blue-200 text-blue-800 font-bold rounded-lg text-center">✨ «Новинка 2026»</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div>
+                <input type="checkbox" id="badge-hit" name="marketing_badges" value="Хит продаж" class="hidden custom-checkbox" checked />
+                <label for="badge-hit" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>🔥 «Хит продаж»</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="badge-sale" name="marketing_badges" value="Скидка -15%" class="hidden custom-checkbox" checked />
+                <label for="badge-sale" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>🏷️ «Скидка -15%»</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="badge-stock" name="marketing_badges" value="В наличии (Кемерово)" class="hidden custom-checkbox" checked />
+                <label for="badge-stock" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>✅ «В наличии»</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="badge-new" name="marketing_badges" value="Новинка 2026" class="hidden custom-checkbox" checked />
+                <label for="badge-new" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>✨ «Новинка 2026»</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -370,8 +432,8 @@
       <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
           <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 3</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Детальное модальное окно / карточка товара</h3>
-          <p class="text-sm text-slate-500 mt-1">Как преподносить велосипед при клике на него:</p>
+          <h2 class="text-xl font-extrabold text-slate-900">Детальный просмотр и карточка товара</h2>
+          <p class="text-sm text-slate-500 mt-1">Опции наполнения при открытии велосипеда покупателем:</p>
         </div>
 
         <div class="space-y-6">
@@ -382,37 +444,76 @@
             <div class="space-y-3 text-sm">
               <div>
                 <input type="checkbox" id="gallery-1" name="gallery_features" value="Крупные фото узлов крупным планом (переключатель, тормоза, вилка)" class="hidden custom-checkbox" checked />
-                <label for="gallery-1" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>📸</span> <span class="font-medium text-slate-900">Детальные фото узлов (крупным планом задний переключатель, вилка, каретка, руль)</span>
+                <label for="gallery-1" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-3">
+                    <span class="text-base">📸</span>
+                    <span class="font-semibold text-slate-900">Детальные фото узлов (переключатель, вилка, каретка, руль)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
 
               <div>
                 <input type="checkbox" id="gallery-2" name="gallery_features" value="Интерактивная таблица подбора размера рамы под рост" class="hidden custom-checkbox" checked />
-                <label for="gallery-2" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>📏</span> <span class="font-medium text-slate-900">Интерактивная таблица / подсказка: какой рост подходит под данную раму</span>
+                <label for="gallery-2" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-3">
+                    <span class="text-base">📏</span>
+                    <span class="font-semibold text-slate-900">Интерактивная таблица: какой рост подходит под раму</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
 
               <div>
                 <input type="checkbox" id="gallery-3" name="gallery_features" value="Короткие видеообзоры моделей (RuTube / VK Video)" class="hidden custom-checkbox" checked />
-                <label for="gallery-3" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer">
-                  <span>▶️</span> <span class="font-medium text-slate-900">Встроенный видеоплеер с короткими видеообзорами на байки (RuTube / VK Видео)</span>
+                <label for="gallery-3" class="flex items-center justify-between p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
+                  <div class="flex items-center gap-3">
+                    <span class="text-base">▶️</span>
+                    <span class="font-semibold text-slate-900">Встроенный видеоплеер с обзорами на байки (RuTube / VK Видео)</span>
+                  </div>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
                 </label>
               </div>
             </div>
           </div>
 
+          <!-- INTERACTIVE ACCESSORIES (Clickable Checkboxes) -->
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Сопутствующие товары («Вместе с этим велосипедом покупают»):
+              Сопутствующие товары («Вместе с этим велосипедом покупают» — нажмите для выбора):
             </label>
-            <p class="text-xs text-slate-500 mb-2">Планируете ли сразу предлагать допы при просмотре байка?</p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Крылья и брызговики</label>
-              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Фляги и держатели</label>
-              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Насосы и ремкомплекты</label>
-              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Шлемы и перчатки</label>
+              <div>
+                <input type="checkbox" id="acc-wings" name="accessories" value="Крылья и брызговики" class="hidden custom-checkbox" checked />
+                <label for="acc-wings" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>🛡️ Крылья</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="acc-bottles" name="accessories" value="Фляги и держатели" class="hidden custom-checkbox" checked />
+                <label for="acc-bottles" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>🍶 Фляги</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="acc-pumps" name="accessories" value="Насосы и ремкомплекты" class="hidden custom-checkbox" checked />
+                <label for="acc-pumps" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>🔧 Насосы</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="acc-helmets" name="accessories" value="Шлемы и перчатки" class="hidden custom-checkbox" checked />
+                <label for="acc-helmets" class="flex items-center justify-between gap-1.5 p-3 sm:p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 font-bold transition select-none">
+                  <span>🪖 Шлемы</span>
+                  <span class="check-indicator w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] font-bold shrink-0">✓</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -424,7 +525,7 @@
       <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
           <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 4</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Шапка магазина и контакты</h3>
+          <h2 class="text-xl font-extrabold text-slate-900">Шапка магазина и контакты</h2>
           <p class="text-sm text-slate-500 mt-1">Организация верхней части страницы:</p>
         </div>
 
@@ -436,15 +537,15 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div>
                 <input type="radio" id="logo-pos-1" name="logo_position" value="Крупный объемный 3D-логотип по центру (как в утвержденном концепте)" class="hidden custom-radio" checked />
-                <label for="logo-pos-1" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                <label for="logo-pos-1" class="block p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer">
                   <div class="font-bold text-slate-900">Крупный 3D-логотип по центру</div>
-                  <div class="text-xs text-slate-500 mt-0.5">Максимальная солидность, бренд на первом плане</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Максимальная узнаваемость, бренд на первом плане</div>
                 </label>
               </div>
 
               <div>
                 <input type="radio" id="logo-pos-2" name="logo_position" value="Компактный логотип слева, рядом меню и поиск" class="hidden custom-radio" />
-                <label for="logo-pos-2" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                <label for="logo-pos-2" class="block p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer">
                   <div class="font-bold text-slate-900">Компактный логотип слева</div>
                   <div class="text-xs text-slate-500 mt-0.5">Строгий классический e-commerce</div>
                 </label>
@@ -454,7 +555,7 @@
 
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Телефон и мессенджеры в шапке:
+              Телефон и контакты склада в шапке:
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <input
@@ -480,17 +581,17 @@
       <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-4 pb-3 border-b border-slate-100">
           <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 5</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Ваши персональные пожелания по визуалу</h3>
+          <h2 class="text-xl font-extrabold text-slate-900">Ваши пожелания по визуалу</h2>
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-            Что ещё обязательно учесть или добавить в дизайн?
+            Что ещё обязательно учесть или добавить в оформление?
           </label>
           <textarea
             name="custom_wishes"
             rows="3"
-            placeholder="Например: сделать оранжевый цвет чуть ярче, добавить на карточки шильдик 'Официальный дилер', закрепить кнопку звонка внизу на смартфонах..."
+            placeholder="Например: сделать оранжевый цвет чуть ярче, закрепить кнопку быстрого звонка внизу на смартфонах..."
             class="w-full py-3 px-4 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:border-[#ff5500] focus:outline-none"
           ></textarea>
         </div>
@@ -499,7 +600,7 @@
       <!-- Submit Button -->
       <div class="pt-4 flex items-center justify-between">
         <div class="text-xs text-slate-500">
-          Данные моментально передаются дизайнерам LocalWeb для финальной отрисовки.
+          Данные моментально передаются разработчикам LocalWeb.
         </div>
 
         <button
@@ -527,7 +628,7 @@
         Бриф по дизайну принят!
       </h2>
       <p class="text-sm text-slate-600 mb-6 leading-relaxed">
-        Спасибо, Дмитрий Михайлович! Ваши предпочтения по концепции, карточкам и визуалу зафиксированы и уже переданы веб-разработчикам LocalWeb.
+        Ваши предпочтения по концепции, карточкам и визуалу зафиксированы и переданы разработчикам LocalWeb.
       </p>
 
       <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-left text-xs text-slate-600 space-y-1.5 mb-6">
@@ -551,7 +652,7 @@
        ======================================================================== -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400">
     <div class="max-w-5xl mx-auto px-4">
-      © 2026 TIMETRY BIKES RUSSIA & LocalWeb Digital Agency. Все права защищены.
+      © 2026 LocalWeb Digital Agency. Все права защищены.
     </div>
   </footer>
 
@@ -614,9 +715,11 @@ ${values.design_concept || '—'}
 📦 <b>КАРТОЧКИ ТОВАРОВ В КАТАЛОГЕ:</b>
 • Характеристики на фасаде: ${formatList(values.card_specs)}
 • Кнопки заказа: ${values.card_buttons_mode || '—'}
+• Маркетинговые бейджи на фото: ${formatList(values.marketing_badges)}
 
 🖼️ <b>СТРАНИЦА И ДЕТАЛЬНЫЙ ПРОСМОТР:</b>
 • Фотогалерея и опции: ${formatList(values.gallery_features)}
+• Сопутствующие товары (аксессуары): ${formatList(values.accessories)}
 
 🔝 <b>ШАПКА И КОНТАКТЫ:</b>
 • Логотип: ${values.logo_position || '—'}
@@ -631,9 +734,9 @@ ${values.custom_wishes || 'Без дополнительных правок'}
         type: 'briefing',
         is_brief: true,
         project_code: 'TIMETRY',
-        company: 'TIMETRY BIKES RUSSIA (ИП Ефимов Д.М.)',
-        client_name: 'Ефимов Дмитрий Михайлович',
-        name: 'Ефимов Дмитрий Михайлович',
+        company: 'TIMETRY BIKES RUSSIA',
+        client_name: 'Клиент',
+        name: 'Клиент',
         phone: values.header_phone || '8 (950) 272-04-40',
         contact: values.header_phone || '8 (950) 272-04-40',
         email: 'timetry-bikes@yandex.ru',
