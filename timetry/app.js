@@ -387,7 +387,7 @@ async function initProductPage() {
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
           ${heightOptions.map(h => `
             <button type="button" class="btn-outline height-opt-btn ${h.cat === AppState.productPageSelectedHeight ? 'active' : ''}" 
-              style="padding: 8px 4px; font-size: 0.78rem; text-align: center; border-radius: 6px; ${h.cat === AppState.productPageSelectedHeight ? 'background: #0f172a; color: #fff; border-color: #0f172a;' : ''}"
+              style="padding: 8px 4px; font-size: 0.78rem; text-align: center; border-radius: 6px;"
               onclick="selectProductHeight('${h.cat}', '${h.size}', this)">
               ${h.label}
             </button>
@@ -510,14 +510,10 @@ function switchProductThumb(src, el) {
 function selectProductHeight(cat, size, btn) {
   AppState.productPageSelectedHeight = cat;
   document.querySelectorAll('.height-opt-btn').forEach(b => {
-    b.style.background = '';
-    b.style.color = '';
-    b.style.borderColor = '';
+    b.classList.remove('active');
   });
   if (btn) {
-    btn.style.background = '#0f172a';
-    btn.style.color = '#fff';
-    btn.style.borderColor = '#0f172a';
+    btn.classList.add('active');
   }
   const descEl = document.getElementById('p-selected-size-desc');
   if (descEl) descEl.textContent = `Размер ${size}`;
@@ -592,7 +588,7 @@ function openQuickOrderModal(id) {
   if (details) {
     details.innerHTML = `
       <div style="display: flex; gap: 14px; align-items: center; background: var(--bg-surface); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-        <img src="${p.images && p.images[0] ? p.images[0] : ''}" style="width: 60px; height: 60px; object-fit: contain; background: #fff; border-radius: 6px;" />
+        <img src="${p.images && p.images[0] ? p.images[0] : ''}" style="width: 60px; height: 60px; object-fit: contain; background: var(--bg-card); border-radius: 6px;" />
         <div>
           <h4 style="color: var(--text-main); font-size: 0.95rem; font-weight: 700;">${p.name}</h4>
           <div style="font-size: 0.8rem; color: var(--text-muted);">Склад: г. Кемерово • Гарантия 24 мес</div>
@@ -905,7 +901,7 @@ function renderFavoritesModal() {
   const favProducts = AppState.products.filter(p => AppState.favorites.includes(p.id));
   container.innerHTML = favProducts.map(p => `
     <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
-      <a href="product.html?id=${p.id}" style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; background: #fff; border-radius: 6px; text-decoration: none;">
+      <a href="product.html?id=${p.id}" style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; background: var(--bg-card); border-radius: 6px; text-decoration: none;">
         <img src="${p.images && p.images[0] ? p.images[0] : ''}" style="max-height: 90%; object-fit: contain;" />
       </a>
       <div>

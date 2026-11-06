@@ -14,7 +14,16 @@
         const saved = localStorage.getItem('timetry_theme');
         if (saved) {
           document.documentElement.setAttribute('data-theme', saved);
-          document.querySelector('meta[name="color-scheme"]').content = saved;
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = saved;
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = 'dark';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = 'light';
         }
       } catch (e) {}
     })();
