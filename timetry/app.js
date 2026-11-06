@@ -12,12 +12,34 @@ const FALLBACK_PRODUCTS = [{"id": 81202415, "name": "TIMETRY TT428, TT429", "sku
 const LEAD_ENDPOINT = window.LEAD_ENDPOINT || 'https://script.google.com/macros/s/AKfycbygm5pShoTm9MsR8gA2FM3y47aojBNUVxFz_TjOrC4zvUZsDEu-6A1UZgwSxcIJVSQD/exec';
 const YANDEX_152FZ_ENDPOINT = window.YANDEX_152FZ_ENDPOINT || 'https://functions.yandexcloud.net/d4e23a85l1pnpv0skdum';
 
-// Cross-Sell Accessories Catalog
+// ==========================================
+// CLEAN SVG ICONS (ZERO EMOJIS)
+// ==========================================
+const ICONS = {
+  cart: `<svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
+  cartSmall: `<svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
+  heart: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  heartFilled: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="#ef4444" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  search: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
+  phone: `<svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+  truck: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
+  shield: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  tag: `<svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+  flame: `<svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+  check: `<svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  sparkle: `<svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`,
+  box: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  gear: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  checkCircle: `<svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 15 8 12"/></svg>`,
+  info: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`
+};
+
+// Cross-Sell Accessories Catalog (Clean icons)
 const ACCESSORIES_CATALOG = [
-  { id: 'acc_wings', name: 'Комплект быстросъемных крыльев (брызговики)', price: 1490, icon: '🛡️' },
-  { id: 'acc_bottle', name: 'Фирменная велофляга + алюминиевый держатель', price: 990, icon: '🍾' },
-  { id: 'acc_pump', name: 'Компактный телескопический велонасос + ремкомплект', price: 1290, icon: '🚲' },
-  { id: 'acc_helmet', name: 'Легкий аэродинамический шлем с регулировкой размера', price: 2890, icon: '🪖' }
+  { id: 'acc_wings', name: 'Комплект быстросъемных крыльев (брызговики)', price: 1490, icon: ICONS.shield },
+  { id: 'acc_bottle', name: 'Фирменная велофляга + алюминиевый держатель', price: 990, icon: ICONS.tag },
+  { id: 'acc_pump', name: 'Компактный телескопический велонасос + ремкомплект', price: 1290, icon: ICONS.gear },
+  { id: 'acc_helmet', name: 'Легкий аэродинамический шлем с регулировкой размера', price: 2890, icon: ICONS.shield }
 ];
 
 // ==========================================
@@ -28,8 +50,8 @@ const AppState = {
   filteredProducts: [],
   cart: JSON.parse(localStorage.getItem('timetry_cart') || '[]'),
   favorites: JSON.parse(localStorage.getItem('timetry_favs') || '[]'),
-  quickViewSelectedAccs: new Set(),
-  quickViewSelectedHeight: null,
+  productPageSelectedAccs: new Set(),
+  productPageSelectedHeight: null,
   activeFilters: {
     category: 'all',
     wheel: 'all',
@@ -44,11 +66,33 @@ const AppState = {
 };
 
 // ==========================================
+// THEME SWITCHER (LIGHT / DARK)
+// ==========================================
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+  document.documentElement.setAttribute('data-theme', targetTheme);
+  const metaScheme = document.querySelector('meta[name="color-scheme"]');
+  if (metaScheme) metaScheme.content = targetTheme;
+
+  try {
+    localStorage.setItem('timetry_theme', targetTheme);
+  } catch (e) {}
+
+  showToast(targetTheme === 'dark' ? 'Включена темная тема' : 'Включена светлая тема');
+}
+
+// ==========================================
 // INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  initCatalog();
-  initEventListeners();
+  // If index.html is loaded
+  if (document.getElementById('products-grid')) {
+    initCatalog();
+    initEventListeners();
+  }
   updateCartBadge();
   updateFavoritesCount();
 });
@@ -63,8 +107,25 @@ async function initCatalog() {
       }
     }
   } catch (e) {
-    // Offline / local file fallback
+    // Offline / fallback catalog active
   }
+
+  // Check URL params for search or category
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchParam = urlParams.get('search');
+  const catParam = urlParams.get('cat');
+  if (searchParam) {
+    AppState.activeFilters.search = searchParam;
+    const searchInput = document.getElementById('catalog-search-input');
+    if (searchInput) searchInput.value = searchParam;
+  }
+  if (catParam) {
+    AppState.activeFilters.category = catParam;
+    document.querySelectorAll('.cat-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === catParam);
+    });
+  }
+
   applyFilters();
 }
 
@@ -128,7 +189,7 @@ function applyFilters() {
 }
 
 // ==========================================
-// CATALOG RENDERING WITH MARKETING BADGES
+// CATALOG RENDERING (LINKS TO product.html)
 // ==========================================
 function renderCatalog(items) {
   const grid = document.getElementById('products-grid');
@@ -140,7 +201,7 @@ function renderCatalog(items) {
   if (items.length === 0) {
     grid.innerHTML = `
       <div class="catalog-empty-notice">
-        <h3>🔍 Модели по вашему запросу не найдены</h3>
+        <h3>Модели по вашему запросу не найдены</h3>
         <p>Попробуйте сбросить фильтры или изменить поисковый запрос</p>
         <button class="btn-primary" onclick="resetAllFilters()">Сбросить все фильтры</button>
       </div>
@@ -153,18 +214,18 @@ function renderCatalog(items) {
     const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
     const discount = p.old_price ? Math.round(((p.old_price - p.price) / p.old_price) * 100) : null;
     
-    // Marketing badges logic
+    // Marketing badges logic (clean SVG icons, zero emojis)
     let badges = [];
     if (discount && discount > 0) {
-      badges.push(`<span class="badge-tag sale">🏷️ -${discount}%</span>`);
+      badges.push(`<span class="badge-tag sale">${ICONS.tag} -${discount}%</span>`);
     }
     if (p.price >= 42000 || index % 3 === 0) {
-      badges.push(`<span class="badge-tag hit">🔥 Хит продаж</span>`);
+      badges.push(`<span class="badge-tag hit">${ICONS.flame} Хит продаж</span>`);
     }
     if (p.sku && (p.sku.includes('TT4') || p.sku.includes('TT8') || p.price > 50000)) {
-      badges.push(`<span class="badge-tag new">✨ Новинка 2026</span>`);
+      badges.push(`<span class="badge-tag new">${ICONS.sparkle} Новинка 2026</span>`);
     }
-    badges.push(`<span class="badge-tag stock">✅ В наличии (Кемерово)</span>`);
+    badges.push(`<span class="badge-tag stock">${ICONS.check} В наличии (Кемерово)</span>`);
 
     return `
       <article class="store-card" data-id="${p.id}">
@@ -172,21 +233,23 @@ function renderCatalog(items) {
           <div style="display: flex; flex-wrap: wrap; gap: 4px; max-width: 82%;">
             ${badges.slice(0, 2).join(' ')}
           </div>
-          <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное">
-            ${isFav ? '❤️' : '🤍'}
+          <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное" aria-label="В избранное">
+            ${isFav ? ICONS.heartFilled : ICONS.heart}
           </button>
         </div>
 
-        <div class="card-photo-box" onclick="openQuickView(${p.id})">
+        <a href="product.html?id=${p.id}" class="card-photo-box" style="display: block; text-decoration: none;">
           <img src="${mainImg}" alt="${p.name}" loading="lazy" />
-        </div>
+        </a>
 
         <div class="card-info">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
             <span class="card-cat-label">${p.bike_type}</span>
             <span style="font-size: 0.72rem; color: #10b981; font-weight: 700;">● Склад Кемерово</span>
           </div>
-          <h3 class="card-model-name" onclick="openQuickView(${p.id})">${p.name}</h3>
+          <h3 class="card-model-name">
+            <a href="product.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.name}</a>
+          </h3>
           
           <div class="card-specs-flex">
             <span class="spec-chip">Колёса: ${p.wheel_size}</span>
@@ -201,9 +264,10 @@ function renderCatalog(items) {
             ${p.old_price ? `<span class="price-old-strikethrough">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
           </div>
           <div class="card-buttons-pair">
-            <button class="btn-card-cart" onclick="addToCart(${p.id})">
-              <span>🛒 В корзину</span>
-            </button>
+            <a href="product.html?id=${p.id}" class="btn-card-cart" style="text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px;">
+              ${ICONS.cartSmall}
+              <span>Подробнее</span>
+            </a>
             <button class="btn-card-quick-order" onclick="openQuickOrderModal(${p.id})">
               1 клик
             </button>
@@ -215,24 +279,53 @@ function renderCatalog(items) {
 }
 
 // ==========================================
-// QUICK VIEW MODAL (WITH HEIGHT & ACCESSORIES)
+// DEDICATED PRODUCT PAGE INITIALIZATION
 // ==========================================
-let currentQuickViewBike = null;
+let currentProductItem = null;
 
-function openQuickView(id) {
-  const p = AppState.products.find(x => x.id === id);
-  if (!p) return;
+async function initProductPage() {
+  // Ensure catalog loaded
+  if (AppState.products.length <= 13) {
+    try {
+      const res = await fetch('products.json');
+      if (res.ok) {
+        const full = await res.json();
+        if (Array.isArray(full) && full.length > 0) {
+          AppState.products = full;
+        }
+      }
+    } catch (e) {}
+  }
 
-  currentQuickViewBike = p;
-  AppState.quickViewSelectedAccs.clear();
-  AppState.quickViewSelectedHeight = p.height_category || '175-188';
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = Number(urlParams.get('id'));
+  const p = AppState.products.find(x => x.id === id) || AppState.products[0];
 
-  const modal = document.getElementById('quick-view-modal');
-  const body = document.getElementById('quick-view-content');
-  if (!modal || !body) return;
+  if (!p) {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  currentProductItem = p;
+  AppState.productPageSelectedAccs.clear();
+  AppState.productPageSelectedHeight = p.height_category || '175-188';
+
+  // Set page meta title
+  document.title = `${p.name} купить в наличии | TIMETRY BIKES RUSSIA`;
+
+  // Breadcrumbs
+  const crumbCat = document.getElementById('crumb-category');
+  if (crumbCat) crumbCat.textContent = p.bike_type;
+  const crumbTitle = document.getElementById('crumb-title');
+  if (crumbTitle) crumbTitle.textContent = p.name;
+
+  // Render product layout grid
+  const container = document.getElementById('product-layout-container');
+  if (!container) return;
 
   const images = p.images && p.images.length > 0 ? p.images : ['https://placehold.co/600x400/ffffff/0f172a?text=TIMETRY'];
   const mainImg = images[0];
+  const discount = p.old_price ? Math.round(((p.old_price - p.price) / p.old_price) * 100) : null;
 
   const heightOptions = [
     { cat: '150-165', label: '150–165 см', size: 'S (15-16")' },
@@ -241,114 +334,181 @@ function openQuickView(id) {
     { cat: '185+', label: '185+ см', size: 'XL (21-22")' }
   ];
 
-  body.innerHTML = `
-    <div class="qv-grid-split">
-      <div class="qv-gallery-col">
-        <div class="qv-main-img-box">
-          <img id="modal-main-img" src="${mainImg}" alt="${p.name}" />
-        </div>
-        <div class="qv-thumbs-row">
-          ${images.map((img, idx) => `
-            <div class="qv-thumb ${idx === 0 ? 'active' : ''}" onclick="switchModalThumb('${img}', this)">
-              <img src="${img}" alt="" />
-            </div>
-          `).join('')}
-        </div>
+  container.innerHTML = `
+    <!-- Gallery Column -->
+    <div class="product-gallery-box">
+      <div class="product-main-view">
+        <img id="product-main-img-el" class="product-main-img" src="${mainImg}" alt="${p.name}" />
+      </div>
 
-        <div style="margin-top: 18px; padding: 12px; background: var(--bg-surface); border-radius: 8px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
-          <div>🏭 <strong>Заводская сборка:</strong> 85% готовность в коробке</div>
-          <div style="margin-top: 4px;">🛡️ <strong>Гарантия рамы:</strong> 24 месяца от производителя</div>
-          <div style="margin-top: 4px;">🚚 <strong>Отгрузка:</strong> склад Кемерово (СДЭК / ТК по РФ)</div>
+      <div class="product-thumbs-strip">
+        ${images.map((img, idx) => `
+          <div class="product-thumb-item ${idx === 0 ? 'active' : ''}" onclick="switchProductThumb('${img}', this)">
+            <img src="${img}" alt="${p.name}" />
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="margin-top: 20px; padding: 14px; background: var(--bg-surface); border-radius: var(--radius-md); font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; border: 1px solid var(--border-color);">
+        <div style="font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+          ${ICONS.truck} Отгрузка со склада в Кемерово
+        </div>
+        <div>• Предпродажная настройка тормозов и переключателей</div>
+        <div>• Фирменная заводская упаковка (пятислойный картон)</div>
+        <div>• Доставка СДЭК / ТК по всей территории РФ</div>
+      </div>
+    </div>
+
+    <!-- Info & Purchase Column -->
+    <div class="product-info-col">
+      <div class="product-badge-row">
+        <span class="card-cat-label">${p.bike_type}</span>
+        <span class="badge-tag stock">${ICONS.check} В наличии (Кемерово)</span>
+        ${discount ? `<span class="badge-tag sale">${ICONS.tag} -${discount}%</span>` : ''}
+        ${p.price > 45000 ? `<span class="badge-tag hit">${ICONS.flame} Хит продаж</span>` : ''}
+      </div>
+
+      <h1 class="product-title-h1">${p.name}</h1>
+      <div class="product-sku-code">Артикул: <strong>${p.sku}</strong> | Гарантия дилера: 24 месяца</div>
+
+      <!-- Pricing Box -->
+      <div class="product-pricing-box">
+        <span class="product-price-current">${p.price.toLocaleString('ru-RU')} ₽</span>
+        ${p.old_price ? `<span class="product-price-old">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
+        ${discount ? `<span class="badge-tag sale" style="font-size: 0.8rem;">Экономия ${(p.old_price - p.price).toLocaleString('ru-RU')} ₽</span>` : ''}
+      </div>
+
+      <!-- Interactive Height Picker Widget -->
+      <div class="height-picker-widget" style="margin-bottom: 20px; padding: 14px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+          <span>Подбор ростовки райдера:</span>
+          <span id="p-selected-size-desc" style="color: var(--accent-orange); font-weight: 800;">Размер ${p.rider_height || 'Универсал'}</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+          ${heightOptions.map(h => `
+            <button type="button" class="btn-outline height-opt-btn ${h.cat === AppState.productPageSelectedHeight ? 'active' : ''}" 
+              style="padding: 8px 4px; font-size: 0.78rem; text-align: center; border-radius: 6px; ${h.cat === AppState.productPageSelectedHeight ? 'background: #0f172a; color: #fff; border-color: #0f172a;' : ''}"
+              onclick="selectProductHeight('${h.cat}', '${h.size}', this)">
+              ${h.label}
+            </button>
+          `).join('')}
         </div>
       </div>
 
-      <div>
-        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
-          <span class="card-cat-label">${p.bike_type}</span>
-          <span class="badge-tag stock">В наличии (Кемерово)</span>
+      <!-- Cross-Sell Accessories Section -->
+      <div class="qv-acc-section" style="margin-bottom: 24px;">
+        <div style="font-size: 0.88rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+          ${ICONS.gear} Вместе с этим велосипедом покупают:
         </div>
-        <h2 style="font-size: 1.45rem; font-weight: 800; margin: 4px 0 10px 0; color: #0f172a;">${p.name}</h2>
-        <div style="font-size: 1.6rem; font-weight: 900; color: var(--accent-orange); margin-bottom: 12px;">
-          ${p.price.toLocaleString('ru-RU')} ₽
-          ${p.old_price ? `<span style="font-size: 0.95rem; color: var(--text-dim); text-decoration: line-through; margin-left: 8px;">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          ${ACCESSORIES_CATALOG.map(acc => `
+            <label class="qv-acc-item" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer; font-size: 0.85rem;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" value="${acc.id}" onchange="toggleProductAccessory('${acc.id}', this.checked)" style="accent-color: var(--accent-orange); width: 16px; height: 16px;" />
+                <span style="color: var(--text-main);">${acc.name}</span>
+              </div>
+              <strong style="color: var(--text-main); white-space: nowrap; margin-left: 10px;">+${acc.price.toLocaleString('ru-RU')} ₽</strong>
+            </label>
+          `).join('')}
         </div>
+      </div>
 
-        <!-- Height Picker Widget -->
-        <div class="height-picker-widget" style="margin-bottom: 16px; padding: 12px; background: var(--bg-surface); border-radius: 8px; border: 1px solid var(--border-color);">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; display: flex; justify-content: space-between;">
-            <span>📏 Подбор ростовки райдера:</span>
-            <span id="qv-selected-size-desc" style="color: var(--accent-orange); font-weight: 800;">Размер ${p.rider_height || 'Универсал'}</span>
-          </div>
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
-            ${heightOptions.map(h => `
-              <button type="button" class="btn-outline height-opt-btn ${h.cat === AppState.quickViewSelectedHeight ? 'active' : ''}" 
-                style="padding: 6px 4px; font-size: 0.75rem; text-align: center; border-radius: 6px; ${h.cat === AppState.quickViewSelectedHeight ? 'background: #0f172a; color: #fff; border-color: #0f172a;' : ''}"
-                onclick="selectQuickViewHeight('${h.cat}', '${h.size}', this)">
-                ${h.label}
-              </button>
-            `).join('')}
-          </div>
-        </div>
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button id="product-add-cart-btn" class="btn-primary" style="flex: 1; min-width: 200px; padding: 14px; justify-content: center; font-size: 1rem;" onclick="addProductPageToCart()">
+          ${ICONS.cart}
+          <span>В корзину (${p.price.toLocaleString('ru-RU')} ₽)</span>
+        </button>
+        <button class="btn-outline" style="padding: 14px 20px; font-size: 1rem;" onclick="openQuickOrderModal(${p.id})">
+          1 клик
+        </button>
+      </div>
 
-        <!-- Technical Specs Grid -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; font-size: 0.82rem;">
-          <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px;">
-            <span style="color: var(--text-dim);">Колёса:</span> <strong style="color: #0f172a;">${p.wheel_size}</strong>
-          </div>
-          <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px;">
-            <span style="color: var(--text-dim);">Тормоза:</span> <strong style="color: #0f172a;">${p.brakes}</strong>
-          </div>
-          <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px;">
-            <span style="color: var(--text-dim);">Рама:</span> <strong style="color: #0f172a;">${p.frame_material}</strong>
-          </div>
-          <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 6px;">
-            <span style="color: var(--text-dim);">Передачи:</span> <strong style="color: #0f172a;">${p.speeds || 'Кассета'}</strong>
-          </div>
-        </div>
-
-        <!-- Cross-Sell Accessories Section -->
-        <div class="qv-acc-section">
-          <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-bottom: 10px;">
-            🎁 Добавьте полезные аксессуары к заказу:
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            ${ACCESSORIES_CATALOG.map(acc => `
-              <label class="qv-acc-item" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; font-size: 0.82rem;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                  <input type="checkbox" value="${acc.id}" onchange="toggleQuickViewAccessory('${acc.id}', this.checked)" style="accent-color: var(--accent-orange); width: 16px; height: 16px;" />
-                  <span>${acc.icon} ${acc.name}</span>
-                </div>
-                <strong style="color: #0f172a; white-space: nowrap; margin-left: 8px;">+${acc.price.toLocaleString('ru-RU')} ₽</strong>
-              </label>
-            `).join('')}
-          </div>
-        </div>
-
-        <!-- Actions -->
-        <div style="display: flex; gap: 10px; margin-top: 18px;">
-          <button id="qv-add-cart-btn" class="btn-primary" style="flex: 1; padding: 12px; justify-content: center;" onclick="addQuickViewToCart()">
-            🛒 В корзину (${p.price.toLocaleString('ru-RU')} ₽)
-          </button>
-          <button class="btn-outline" style="padding: 12px 16px;" onclick="openQuickOrderModal(${p.id}); closeModal('quick-view-modal');">
-            ⚡ В 1 клик
-          </button>
-        </div>
+      <!-- Security & Guarantee Badges -->
+      <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.82rem; color: var(--text-muted);">
+        <span style="display: inline-flex; align-items: center; gap: 6px;">${ICONS.shield} Гарантия 24 мес</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px;">${ICONS.truck} Доставка СДЭК / ТК</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px;">${ICONS.check} Оплата при получении</span>
       </div>
     </div>
   `;
 
-  modal.classList.add('active');
+  // Render Technical Specifications
+  const specsTable = document.getElementById('product-specs-table');
+  if (specsTable) {
+    specsTable.innerHTML = `
+      <tbody>
+        <tr><td>Диаметр колес</td><td>${p.wheel_size}</td></tr>
+        <tr><td>Тормозная система</td><td>${p.brakes}</td></tr>
+        <tr><td>Материал рамы</td><td>${p.frame_material}</td></tr>
+        <tr><td>Количество скоростей</td><td>${p.speeds || 'Кассета'}</td></tr>
+        <tr><td>Рекомендуемый рост</td><td>${p.rider_height || 'Универсал'}</td></tr>
+        <tr><td>Артикул / Модель</td><td>${p.sku}</td></tr>
+        <tr><td>Склад отгрузки</td><td>г. Кемерово (прямая отправка)</td></tr>
+        <tr><td>Гарантия производителя</td><td>24 месяца на раму и компоненты</td></tr>
+      </tbody>
+    `;
+  }
+
+  // Render Description
+  const descEl = document.getElementById('product-full-description');
+  if (descEl) {
+    descEl.textContent = p.clean_description || p.description;
+  }
+
+  // Render Related Products
+  const relatedGrid = document.getElementById('related-products-grid');
+  if (relatedGrid) {
+    const related = AppState.products
+      .filter(x => x.id !== p.id && x.bike_type === p.bike_type)
+      .slice(0, 4);
+
+    if (related.length === 0) {
+      relatedGrid.innerHTML = AppState.products.slice(0, 4).map(r => renderRelatedCard(r)).join('');
+    } else {
+      relatedGrid.innerHTML = related.map(r => renderRelatedCard(r)).join('');
+    }
+  }
 }
 
-function switchModalThumb(src, el) {
-  const main = document.getElementById('modal-main-img');
+function renderRelatedCard(p) {
+  const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
+  return `
+    <article class="store-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+      <a href="product.html?id=${p.id}" class="card-photo-box" style="display: block; text-decoration: none;">
+        <img src="${mainImg}" alt="${p.name}" loading="lazy" />
+      </a>
+      <div class="card-info">
+        <span class="card-cat-label">${p.bike_type}</span>
+        <h3 class="card-model-name">
+          <a href="product.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.name}</a>
+        </h3>
+        <div class="card-specs-flex">
+          <span class="spec-chip">Колёса: ${p.wheel_size}</span>
+          <span class="spec-chip">${p.brakes && p.brakes.includes('гидравл') ? 'Гидравлика' : 'Дисковые'}</span>
+        </div>
+      </div>
+      <div class="card-bottom-actions">
+        <div class="card-prices-line">
+          <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
+        </div>
+        <a href="product.html?id=${p.id}" class="btn-card-cart" style="text-decoration: none; justify-content: center;">
+          <span>Подробнее</span>
+        </a>
+      </div>
+    </article>
+  `;
+}
+
+function switchProductThumb(src, el) {
+  const main = document.getElementById('product-main-img-el');
   if (main) main.src = src;
-  document.querySelectorAll('.qv-thumb').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.product-thumb-item').forEach(t => t.classList.remove('active'));
   if (el) el.classList.add('active');
 }
 
-function selectQuickViewHeight(cat, size, btn) {
-  AppState.quickViewSelectedHeight = cat;
+function selectProductHeight(cat, size, btn) {
+  AppState.productPageSelectedHeight = cat;
   document.querySelectorAll('.height-opt-btn').forEach(b => {
     b.style.background = '';
     b.style.color = '';
@@ -359,46 +519,42 @@ function selectQuickViewHeight(cat, size, btn) {
     btn.style.color = '#fff';
     btn.style.borderColor = '#0f172a';
   }
-  const descEl = document.getElementById('qv-selected-size-desc');
+  const descEl = document.getElementById('p-selected-size-desc');
   if (descEl) descEl.textContent = `Размер ${size}`;
 }
 
-function toggleQuickViewAccessory(accId, isChecked) {
+function toggleProductAccessory(accId, isChecked) {
   if (isChecked) {
-    AppState.quickViewSelectedAccs.add(accId);
+    AppState.productPageSelectedAccs.add(accId);
   } else {
-    AppState.quickViewSelectedAccs.delete(accId);
+    AppState.productPageSelectedAccs.delete(accId);
   }
 
-  // Recalculate button label
-  if (!currentQuickViewBike) return;
-  let total = currentQuickViewBike.price;
-  AppState.quickViewSelectedAccs.forEach(id => {
+  if (!currentProductItem) return;
+  let total = currentProductItem.price;
+  AppState.productPageSelectedAccs.forEach(id => {
     const item = ACCESSORIES_CATALOG.find(a => a.id === id);
     if (item) total += item.price;
   });
 
-  const btn = document.getElementById('qv-add-cart-btn');
+  const btn = document.getElementById('product-add-cart-btn');
   if (btn) {
-    btn.textContent = `🛒 В корзину (${total.toLocaleString('ru-RU')} ₽)`;
+    btn.innerHTML = `${ICONS.cart} <span>В корзину (${total.toLocaleString('ru-RU')} ₽)</span>`;
   }
 }
 
-function addQuickViewToCart() {
-  if (!currentQuickViewBike) return;
+function addProductPageToCart() {
+  if (!currentProductItem) return;
 
-  // Add bike
-  addToCart(currentQuickViewBike.id);
+  addToCart(currentProductItem.id);
 
-  // Add selected accessories
-  AppState.quickViewSelectedAccs.forEach(accId => {
+  AppState.productPageSelectedAccs.forEach(accId => {
     const acc = ACCESSORIES_CATALOG.find(a => a.id === accId);
     if (acc) {
       addAccessoryToCart(acc);
     }
   });
 
-  closeModal('quick-view-modal');
   toggleCartDrawer();
 }
 
@@ -438,7 +594,7 @@ function openQuickOrderModal(id) {
       <div style="display: flex; gap: 14px; align-items: center; background: var(--bg-surface); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
         <img src="${p.images && p.images[0] ? p.images[0] : ''}" style="width: 60px; height: 60px; object-fit: contain; background: #fff; border-radius: 6px;" />
         <div>
-          <h4 style="color: #0f172a; font-size: 0.95rem; font-weight: 700;">${p.name}</h4>
+          <h4 style="color: var(--text-main); font-size: 0.95rem; font-weight: 700;">${p.name}</h4>
           <div style="font-size: 0.8rem; color: var(--text-muted);">Склад: г. Кемерово • Гарантия 24 мес</div>
           <span style="color: var(--accent-orange); font-weight: 800;">${p.price.toLocaleString('ru-RU')} ₽</span>
         </div>
@@ -498,16 +654,16 @@ function addToCart(id) {
 
   saveCart();
   updateCartBadge();
-  showToast(`🛒 "${p.name}" добавлен в корзину!`);
+  showToast(`"${p.name}" добавлен в корзину`);
 }
 
 function updateCartQty(id, delta) {
-  const item = AppState.cart.find(x => x.id === id);
+  const item = AppState.cart.find(x => String(x.id) === String(id));
   if (!item) return;
 
   item.qty += delta;
   if (item.qty <= 0) {
-    AppState.cart = AppState.cart.filter(x => x.id !== id);
+    AppState.cart = AppState.cart.filter(x => String(x.id) !== String(id));
   }
   saveCart();
   renderCartDrawer();
@@ -544,8 +700,10 @@ function renderCartDrawer() {
   if (AppState.cart.length === 0) {
     body.innerHTML = `
       <div style="text-align: center; padding: 40px 10px; color: var(--text-muted);">
-        <p style="font-size: 2.2rem; margin-bottom: 8px;">🛒</p>
-        <p style="font-weight: 700; color: #0f172a;">Ваша корзина пуста</p>
+        <div style="margin-bottom: 12px; opacity: 0.5;">
+          ${ICONS.cart}
+        </div>
+        <p style="font-weight: 700; color: var(--text-main);">Ваша корзина пуста</p>
         <p style="font-size: 0.82rem; margin-top: 4px;">Выберите подходящую модель велосипеда в каталоге</p>
       </div>
     `;
@@ -558,7 +716,7 @@ function renderCartDrawer() {
     totalSum += item.price * item.qty;
     return `
       <div class="cart-line-item">
-        ${item.image ? `<img class="cart-line-img" src="${item.image}" alt="${item.name}" />` : '<div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: #e2e8f0; border-radius: 6px;">📦</div>'}
+        ${item.image ? `<img class="cart-line-img" src="${item.image}" alt="${item.name}" />` : `<div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); border-radius: 6px;">${ICONS.box}</div>`}
         <div style="flex: 1; padding: 0 8px;">
           <h4 class="cart-line-title">${item.name}</h4>
           <div class="cart-line-price">${item.price.toLocaleString('ru-RU')} ₽</div>
@@ -577,7 +735,7 @@ function renderCartDrawer() {
 
 function openCheckoutModal() {
   if (AppState.cart.length === 0) {
-    showToast('⚠️ Ваша корзина пуста');
+    showToast('Ваша корзина пуста');
     return;
   }
   toggleCartDrawer();
@@ -596,7 +754,7 @@ async function handleCheckoutSubmit(e) {
   const payment = document.getElementById('checkout-payment').value;
 
   if (AppState.cart.length === 0) {
-    showToast('⚠️ Ваша корзина пуста');
+    showToast('Ваша корзина пуста');
     return;
   }
 
@@ -644,7 +802,7 @@ async function handleCallbackSubmit(e) {
   };
 
   await sendStoreOrder(orderData);
-  showToast('✅ Спасибо! Консультант дилера перезвонит вам в течение 10 минут.');
+  showToast('Спасибо! Консультант дилера перезвонит вам в течение 10 минут.');
 }
 
 // ==========================================
@@ -715,7 +873,7 @@ function toggleFavorite(id, e) {
     showToast('Удалено из избранного');
   } else {
     AppState.favorites.push(id);
-    showToast('❤️ Добавлено в избранное');
+    showToast('Добавлено в избранное');
   }
   localStorage.setItem('timetry_favs', JSON.stringify(AppState.favorites));
   updateFavoritesCount();
@@ -734,8 +892,10 @@ function renderFavoritesModal() {
   if (AppState.favorites.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1/-1; text-align: center; padding: 36px 12px; color: var(--text-muted);">
-        <p style="font-size: 2rem; margin-bottom: 8px;">🤍</p>
-        <p style="font-weight: 700; color: #0f172a;">Список избранного пуст</p>
+        <div style="margin-bottom: 8px; opacity: 0.5;">
+          ${ICONS.heart}
+        </div>
+        <p style="font-weight: 700; color: var(--text-main);">Список избранного пуст</p>
         <p style="font-size: 0.85rem; margin-top: 4px;">Нажимайте на сердечко на карточках, чтобы сохранять модели.</p>
       </div>
     `;
@@ -745,15 +905,17 @@ function renderFavoritesModal() {
   const favProducts = AppState.products.filter(p => AppState.favorites.includes(p.id));
   container.innerHTML = favProducts.map(p => `
     <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
-      <div style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; background: #fff; border-radius: 6px;">
+      <a href="product.html?id=${p.id}" style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; background: #fff; border-radius: 6px; text-decoration: none;">
         <img src="${p.images && p.images[0] ? p.images[0] : ''}" style="max-height: 90%; object-fit: contain;" />
-      </div>
+      </a>
       <div>
-        <h4 style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 4px;">${p.name}</h4>
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">
+          <a href="product.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.name}</a>
+        </h4>
         <div style="color: var(--accent-orange); font-weight: 800; margin-bottom: 10px;">${p.price.toLocaleString('ru-RU')} ₽</div>
       </div>
       <div style="display: flex; gap: 8px;">
-        <button class="btn-primary" style="flex: 1; padding: 6px; font-size: 0.8rem;" onclick="addToCart(${p.id})">🛒 В корзину</button>
+        <button class="btn-primary" style="flex: 1; padding: 6px; font-size: 0.8rem;" onclick="addToCart(${p.id})">В корзину</button>
         <button class="btn-outline" style="padding: 6px 10px; font-size: 0.8rem;" onclick="toggleFavorite(${p.id}); renderFavoritesModal();">✕</button>
       </div>
     </div>

@@ -2,18 +2,30 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Велосипеды TIMETRY — Официальный интернет-магазин в России</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>TIMETRY BIKES RUSSIA — Официальный магазин велосипедов дилера</title>
+  <meta name="description" content="Официальный каталог велосипедов TIMETRY в России. 213 моделей со склада в Кемерово: горные, гравийные, двухподвесы, городские, фэтбайки. Быстрая доставка по РФ, гарантия 24 мес, оплата при получении." />
   
-  <meta name="description" content="Официальный интернет-магазин велосипедов TIMETRY в России. Полный каталог горных, гравийных, двухподвесных и подростковых моделей со склада дилера с доставкой по всей РФ." />
-  <meta name="keywords" content="велосипеды timetry, таймтрай, timetry официальный сайт, купить велосипед timetry, горный велосипед timetry" />
-  <link rel="canonical" href="https://timetry-bikes.ru/" />
+  <!-- Modern Color Scheme & Anti-FOUC Theme Switcher -->
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('timetry_theme');
+        if (saved) {
+          document.documentElement.setAttribute('data-theme', saved);
+          document.querySelector('meta[name="color-scheme"]').content = saved;
+        }
+      } catch (e) {}
+    })();
+  </script>
 
-  <!-- Fonts -->
+  <!-- Google Fonts: Inter & Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -24,21 +36,33 @@
   <div class="top-info-bar">
     <div class="container top-info-inner">
       <div class="top-trust-items">
-        <span class="top-trust-item">🚚 <strong>Доставка по РФ:</strong> СДЭК, Деловые Линии, ПЭК</span>
-        <span class="top-trust-item">🛡️ <strong>Официальная гарантия:</strong> 24 месяца</span>
-        <span class="top-trust-item">📍 <strong>Склад дилера:</strong> г. Кемерово</span>
+        <span class="top-trust-item">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <strong>Доставка по РФ:</strong> СДЭК, Деловые Линии, ПЭК
+        </span>
+        <span class="top-trust-item">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <strong>Официальная гарантия:</strong> 24 месяца
+        </span>
+        <span class="top-trust-item">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <strong>Склад дилера:</strong> г. Кемерово
+        </span>
       </div>
 
       <div class="top-contacts-block">
         <a href="tel:+79502720440" class="top-phone-link">
-          <span>📞</span> 8 (950) 272-04-40
+          <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          8 (950) 272-04-40
         </a>
-        <a href="mailto:Timetry-bikes@yandex.ru" class="top-email-link">
-          Timetry-bikes@yandex.ru
-        </a>
-        <div style="display: flex; gap: 6px;">
+        <a href="mailto:Timetry-bikes@yandex.ru" class="top-email-link">Timetry-bikes@yandex.ru</a>
+        <div style="display: flex; gap: 8px; align-items: center;">
           <a href="https://t.me/timetry_bikes" target="_blank" class="top-social-link">Telegram</a>
           <a href="https://vk.com/timetry" target="_blank" class="top-social-link">VK</a>
+          <button class="theme-toggle-btn" id="theme-toggle-top" onclick="toggleTheme()" aria-label="Переключить тему оформления">
+            <span class="icon-sun"><svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+            <span class="icon-moon"><svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+          </button>
         </div>
       </div>
     </div>
@@ -49,7 +73,6 @@
        ======================================================================== -->
   <header class="main-header">
     <div class="container header-center-wrap">
-      <!-- Centered Large Official Logo -->
       <a href="index.html" class="centered-logo-link" title="TIMETRY BIKES RUSSIA">
         <img src="logo.png" alt="TIMETRY BIKES" class="centered-logo-img" />
       </a>
@@ -62,7 +85,9 @@
       <!-- Action Bar: Search, Favorites, Cart, Callback -->
       <div class="header-action-bar">
         <div class="header-search-box">
-          <span class="header-search-icon">🔍</span>
+          <span class="header-search-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </span>
           <input 
             type="text" 
             class="header-search-input" 
@@ -73,17 +98,20 @@
 
         <div class="header-buttons-row">
           <button class="btn-header-fav" onclick="openModal('favorites-modal')" title="Избранные модели">
-            <span>❤️ Избранное</span>
-            <span class="cart-qty-badge" id="fav-counter" style="background: #ef4444;">0</span>
-          </button>
-
-          <button class="btn-header-cart" onclick="toggleCartDrawer()" title="Корзина покупателя">
-            <span>🛒 Корзина</span>
-            <span class="cart-qty-badge" id="cart-counter">0</span>
+            <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span>Избранное</span>
+            <span class="fav-qty-badge" id="fav-counter">0</span>
           </button>
 
           <button class="btn-outline" onclick="openModal('callback-modal')">
-            📞 Заказать звонок
+            <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Заказ звонка
+          </button>
+
+          <button class="btn-header-cart" onclick="toggleCartDrawer()" title="Корзина">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span>Корзина</span>
+            <span class="cart-qty-badge" id="cart-counter">0</span>
           </button>
         </div>
       </div>
@@ -91,47 +119,56 @@
   </header>
 
   <!-- ========================================================================
-       DIRECT STORE & CATALOG (No fluff, straight to products)
+       MAIN STORE: CATEGORIES, SIDEBAR FILTERS, PRODUCTS GRID
        ======================================================================== -->
-  <section class="store-section" id="catalog-section">
+  <section class="main-store-section" id="catalog-section">
     <div class="container">
-      
-      <!-- Category Quick Filter Pills Bar -->
+
+      <!-- Category Filter Pills -->
       <div class="category-pills-wrap">
-        <button class="cat-btn active" data-cat="all">Все велосипеды (213)</button>
+        <button class="cat-btn active" data-cat="all">Все модели (213)</button>
         <button class="cat-btn" data-cat="Горные (MTB)">Горные (MTB)</button>
         <button class="cat-btn" data-cat="Гравийные">Гравийные (Gravel)</button>
         <button class="cat-btn" data-cat="Двухподвесы">Двухподвесы</button>
-        <button class="cat-btn" data-cat="Фэтбайки">Фэтбайки и полуфэт</button>
-        <button class="cat-btn" data-cat="Городские">Городские и шоссе</button>
+        <button class="cat-btn" data-cat="Городские">Городские / Дорожные</button>
+        <button class="cat-btn" data-cat="Фэтбайки">Фэтбайки</button>
         <button class="cat-btn" data-cat="Подростковые">Подростковые</button>
       </div>
 
-      <!-- Main 2-Column Catalog Layout -->
+      <!-- Catalog Layout: Filters Sidebar + Grid -->
       <div class="catalog-grid-layout">
         
-        <!-- Sidebar Faceted Filters -->
+        <!-- Sidebar Filters -->
         <aside class="store-sidebar">
-          <div class="sidebar-title-row">
-            <span class="sidebar-title">Фильтры</span>
-            <button class="btn-reset-sidebar" onclick="resetAllFilters()">Сбросить всё</button>
+          <div class="sidebar-head">
+            <h3 class="sidebar-title">Фильтры подбора</h3>
+            <button class="btn-reset-filters" onclick="resetAllFilters()">Сбросить</button>
           </div>
 
-          <!-- Wheel Diameter -->
-          <div class="filter-block">
-            <span class="filter-block-title">Диаметр колес</span>
-            <div class="filter-tags-grid">
-              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="29&quot;">29" (Найнеры)</button>
-              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="27.5&quot;">27.5"</button>
-              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="700C">700C (Гравий)</button>
-              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="26&quot;">26"</button>
-              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="24&quot;">24"</button>
+          <!-- Price Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Цена, ₽</label>
+            <div class="price-inputs-row">
+              <input type="number" id="min-price-input" placeholder="От 15 000" />
+              <span>—</span>
+              <input type="number" id="max-price-input" placeholder="До 150 000" />
             </div>
           </div>
 
-          <!-- Rider Height -->
-          <div class="filter-block">
-            <span class="filter-block-title">Рост райдера</span>
+          <!-- Wheel Size Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Диаметр колёс</label>
+            <div class="filter-tags-grid">
+              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="29&quot;">29"</button>
+              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="27.5&quot;">27.5"</button>
+              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="700C">700C</button>
+              <button class="filter-tag-btn" data-filter-type="wheel" data-filter-val="26&quot;">26"</button>
+            </div>
+          </div>
+
+          <!-- Rider Height Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Рост райдера</label>
             <div class="filter-tags-grid">
               <button class="filter-tag-btn" data-filter-type="height" data-filter-val="150-165">150–165 см (S)</button>
               <button class="filter-tag-btn" data-filter-type="height" data-filter-val="165-178">165–178 см (M)</button>
@@ -140,47 +177,43 @@
             </div>
           </div>
 
-          <!-- Frame Material -->
-          <div class="filter-block">
-            <span class="filter-block-title">Материал рамы</span>
+          <!-- Frame Material Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Материал рамы</label>
             <div class="filter-tags-grid">
               <button class="filter-tag-btn" data-filter-type="material" data-filter-val="Алюминий">Алюминий 6061</button>
-              <button class="filter-tag-btn" data-filter-type="material" data-filter-val="Карбон">Карбон</button>
-              <button class="filter-tag-btn" data-filter-type="material" data-filter-val="Хромомолибден">Cr-Mo сталь</button>
+              <button class="filter-tag-btn" data-filter-type="material" data-filter-val="Карбон">Карбон (Carbon)</button>
             </div>
           </div>
 
-          <!-- Brakes -->
-          <div class="filter-block">
-            <span class="filter-block-title">Тормоза</span>
+          <!-- Brakes Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Тормозная система</label>
             <div class="filter-tags-grid">
-              <button class="filter-tag-btn" data-filter-type="brakes" data-filter-val="гидравл">Гидравлические</button>
-              <button class="filter-tag-btn" data-filter-type="brakes" data-filter-val="механич">Механические</button>
+              <button class="filter-tag-btn" data-filter-type="brakes" data-filter-val="гидравл">Гидравлика</button>
+              <button class="filter-tag-btn" data-filter-type="brakes" data-filter-val="механич">Механика</button>
             </div>
           </div>
 
-          <!-- Price Range -->
-          <div class="filter-block">
-            <span class="filter-block-title">Цена, ₽</span>
-            <div class="price-inputs-flex">
-              <input type="number" class="price-box-input" id="min-price-input" placeholder="От 20 000" min="0" onchange="AppState.activeFilters.minPrice = +this.value || 0; applyFilters();" />
-              <span style="color: var(--text-dim);">-</span>
-              <input type="number" class="price-box-input" id="max-price-input" placeholder="До 150 000" min="0" onchange="AppState.activeFilters.maxPrice = +this.value || 200000; applyFilters();" />
+          <!-- Warehouse Direct Notice -->
+          <div style="background: var(--bg-surface); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; margin-top: 10px;">
+            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              Прямая отгрузка
             </div>
+            Все велосипеды в заводских коробках готовы к отправке из г. Кемерово. Протяжка и настройка перед отправкой.
           </div>
         </aside>
 
-        <!-- Main Product Stream -->
-        <main class="store-main-content">
-          <!-- Catalog Toolbar -->
-          <div class="catalog-header-bar">
-            <div class="results-count-text">
-              Найдено моделей: <strong id="catalog-count">0</strong>
+        <!-- Catalog Products Content -->
+        <main class="catalog-content">
+          <div class="catalog-top-bar">
+            <div class="catalog-found-text">
+              Найдено: <strong id="catalog-count">0</strong> моделей в наличии
             </div>
-
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 0.85rem; color: var(--text-muted);">Сортировка:</span>
-              <select class="catalog-sort-select" id="catalog-sort-select" aria-label="Сортировка моделей">
+            <div class="catalog-sort-box">
+              <label for="catalog-sort-select">Сортировка:</label>
+              <select id="catalog-sort-select">
                 <option value="popular">По популярности</option>
                 <option value="price_asc">Сначала недорогие</option>
                 <option value="price_desc">Сначала премиум</option>
@@ -189,13 +222,13 @@
             </div>
           </div>
 
-          <!-- Products Grid -->
+          <!-- Products Cards Grid -->
           <div class="products-cards-grid" id="products-grid">
-            <!-- Rendered by app.js -->
+            <!-- Rendered dynamically by app.js -->
           </div>
         </main>
-
       </div>
+
     </div>
   </section>
 
@@ -206,7 +239,9 @@
     <div class="container">
       <div class="dealer-trust-grid">
         <div class="dealer-trust-card">
-          <span class="dealer-trust-icon">⚙️</span>
+          <div class="dealer-trust-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
           <h3 class="dealer-trust-title">Предпродажная настройка</h3>
           <p class="dealer-trust-desc">
             Каждый велосипед перед отправкой проходит протяжку спиц, настройку тормозов и переключателей скоростей на стенде веломехаником.
@@ -214,7 +249,9 @@
         </div>
 
         <div class="dealer-trust-card">
-          <span class="dealer-trust-icon">📦</span>
+          <div class="dealer-trust-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
           <h3 class="dealer-trust-title">Заводская броне-упаковка</h3>
           <p class="dealer-trust-desc">
             5-слойный жесткий картон, демпферы на осях и раме. Велосипед доезжает в идеальном товарном виде в любой город РФ.
@@ -222,7 +259,9 @@
         </div>
 
         <div class="dealer-trust-card">
-          <span class="dealer-trust-icon">🛡️</span>
+          <div class="dealer-trust-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
           <h3 class="dealer-trust-title">Гарантия дилера 24 мес.</h3>
           <p class="dealer-trust-desc">
             Официальная гарантия ИП Ефимов Д.М. Запасные петухи, оси и фирменные комплектующие всегда в наличии на складе в Кемерово.
@@ -230,7 +269,9 @@
         </div>
 
         <div class="dealer-trust-card">
-          <span class="dealer-trust-icon">💳</span>
+          <div class="dealer-trust-icon">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
           <h3 class="dealer-trust-title">Оплата при осмотре</h3>
           <p class="dealer-trust-desc">
             Возможность вскрыть коробку и осмотреть байк в пункте выдачи СДЭК / ТК перед окончательной оплатой. Без риска.
@@ -241,65 +282,61 @@
   </section>
 
   <!-- ========================================================================
-       CLEAN LIGHT LEGAL FOOTER (152-ФЗ compliant, real details)
+       CLEAN LIGHT LEGAL FOOTER
        ======================================================================== -->
-  <footer class="light-footer">
+  <footer class="main-footer">
     <div class="container">
       <div class="footer-grid-4">
         <div>
-          <div style="font-family: var(--font-display); font-weight: 900; font-size: 1.25rem; color: #0f172a; margin-bottom: 8px;">
-            TIMETRY<span style="color: var(--accent-orange);">.BIKES</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">
-            Официальные поставки оригинальных велосипедов TIMETRY. Собственный склад дилера, предпродажная проверка и настройка перед отправкой покупателю.
+          <h4 class="footer-col-title">TIMETRY BIKES RUSSIA</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+            Официальный оптово-розничный склад и магазин велосипедов TIMETRY. Прямые поставки с завода, гарантийный сервис и отправка по всей территории РФ.
           </p>
-          <div style="font-size: 0.82rem; color: var(--text-muted);">
-            📞 <strong>8 (950) 272-04-40</strong><br />
-            ✉️ Timetry-bikes@yandex.ru<br />
-            📍 Кемеровская область, г. Кемерово
+          <div style="font-size: 0.8rem; color: var(--text-dim);">
+            ИП Ефимов Дмитрий Михайлович<br />
+            ИНН: 420533538981 | ОГРНИП: 321420500057211
           </div>
         </div>
 
         <div>
-          <h4 class="footer-col-title">Каталог</h4>
+          <h4 class="footer-col-title">Каталог моделей</h4>
           <ul class="footer-links-list">
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Горные (MTB)')">Горные хардтейлы 29"</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Гравийные')">Гравийные велосипеды 700C</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Двухподвесы')">Двухподвесы на RockShox</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Фэтбайки')">Фэтбайки и полуфэт</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Подростковые')">Подростковые легкие</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Горные (MTB)')">Горные велосипеды (MTB)</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Гравийные')">Гравийные (Gravel)</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Двухподвесы')">Двухподвесные байки</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Городские')">Городские и дорожные</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Фэтбайки')">Фэтбайки (Fatbike)</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Подростковые')">Подростковые модели</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="footer-col-title">Информация</h4>
+          <h4 class="footer-col-title">Покупателю</h4>
           <ul class="footer-links-list">
-            <li><a href="javascript:void(0)" onclick="openModal('delivery-info-modal')">Доставка СДЭК и ТК</a></li>
-            <li><a href="javascript:void(0)" onclick="openModal('policy-modal')">Политика конфиденциальности 152-ФЗ</a></li>
+            <li><a href="javascript:void(0)" onclick="openModal('delivery-info-modal')">Условия доставки СДЭК</a></li>
+            <li><a href="javascript:void(0)" onclick="openModal('policy-modal')">Политика 152-ФЗ</a></li>
             <li><a href="javascript:void(0)" onclick="openModal('consent-modal')">Согласие на обработку данных</a></li>
-            <li><a href="tel:+79502720440">Консультация отдела продаж</a></li>
+            <li><a href="javascript:void(0)" onclick="openModal('callback-modal')">Консультация механика</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="footer-col-title">Реквизиты дилера</h4>
-          <div class="footer-legal-card">
-            <strong>ИП Ефимов Дмитрий Михайлович</strong><br />
-            ИНН: 420533538981<br />
-            ОГРНИП: 321420500057211<br />
-            Склад отгрузки: г. Кемерово<br />
-            Все велосипеды сертифицированы ЕАС.
+          <h4 class="footer-col-title">Склад в Кемерово</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+            г. Кемерово, ул. Тухачевского, 50/1 (Центральный распределительный склад)
+          </p>
+          <a href="tel:+79502720440" style="font-size: 1.1rem; font-weight: 800; color: var(--accent-orange); text-decoration: none; display: block; margin-bottom: 8px;">
+            8 (950) 272-04-40
+          </a>
+          <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 12px;">
+            Ежедневно с 09:00 до 20:00 (МСК+4)
           </div>
         </div>
       </div>
 
       <div class="footer-bottom-line">
-        <div>
-          © 2026 TIMETRY BIKES RUSSIA. ИП Ефимов Д.М. Все права защищены.
-        </div>
-        <div>
-          Разработка и техническая поддержка — LocalWeb
-        </div>
+        <div>© 2026 TIMETRY BIKES RUSSIA. Все права защищены. Официальный дилер.</div>
+        <div>152-ФЗ Персональные данные защищены.</div>
       </div>
     </div>
   </footer>
@@ -307,20 +344,11 @@
   <!-- ========================================================================
        MODALS & DRAWERS
        ======================================================================== -->
-
-  <!-- Quick View Modal -->
-  <div class="modal-overlay" id="quick-view-modal">
-    <div class="modal-card">
-      <button class="modal-close-cross" onclick="closeModal('quick-view-modal')">✕</button>
-      <div id="quick-view-content"></div>
-    </div>
-  </div>
-
   <!-- 1-Click Quick Order Modal -->
   <div class="modal-overlay" id="quick-order-modal">
     <div class="modal-card" style="max-width: 480px;">
       <button class="modal-close-cross" onclick="closeModal('quick-order-modal')">✕</button>
-      <h3 style="font-size: 1.3rem; color: var(--text-main); margin-bottom: 6px;">⚡ Быстрый заказ в 1 клик</h3>
+      <h3 style="font-size: 1.3rem; color: var(--text-main); margin-bottom: 6px;">Быстрый заказ в 1 клик</h3>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
         Менеджер склада свяжется с вами для подтверждения заказа и адреса доставки.
       </p>
@@ -352,7 +380,10 @@
   <!-- Shopping Cart Drawer -->
   <aside class="cart-drawer-panel" id="cart-drawer" aria-label="Корзина покупок">
     <div class="cart-drawer-head">
-      <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main);">🛒 Корзина товаров</h3>
+      <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+        <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Корзина товаров
+      </h3>
       <button class="modal-close-cross" style="position: static;" onclick="toggleCartDrawer()">✕</button>
     </div>
     <div class="cart-drawer-body" id="cart-drawer-items"></div>
@@ -371,7 +402,7 @@
   <div class="modal-overlay" id="checkout-modal">
     <div class="modal-card" style="max-width: 520px;">
       <button class="modal-close-cross" onclick="closeModal('checkout-modal')">✕</button>
-      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 14px;">📦 Оформление заказа</h3>
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 14px;">Оформление заказа</h3>
       <form onsubmit="handleCheckoutSubmit(event)">
         <div style="margin-bottom: 12px;">
           <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 4px;">ФИО получателя</label>
@@ -412,7 +443,7 @@
   <div class="modal-overlay" id="favorites-modal">
     <div class="modal-card" style="max-width: 680px;">
       <button class="modal-close-cross" onclick="closeModal('favorites-modal')">✕</button>
-      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 14px;">❤️ Избранные модели</h3>
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 14px;">Избранные модели</h3>
       <div id="favorites-list-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; max-height: 60vh; overflow-y: auto;"></div>
     </div>
   </div>
@@ -421,7 +452,7 @@
   <div class="modal-overlay" id="callback-modal">
     <div class="modal-card" style="max-width: 440px;">
       <button class="modal-close-cross" onclick="closeModal('callback-modal')">✕</button>
-      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">📞 Заказать звонок</h3>
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">Заказать звонок</h3>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
         Консультант дилера перезвонит в течение 10 минут и ответит на все вопросы.
       </p>
@@ -437,7 +468,7 @@
   <div class="modal-overlay" id="delivery-info-modal">
     <div class="modal-card" style="max-width: 640px;">
       <button class="modal-close-cross" onclick="closeModal('delivery-info-modal')">✕</button>
-      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">🚚 Доставка велосипедов по РФ</h3>
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">Доставка велосипедов по РФ</h3>
       <div style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
         <p><strong>1. Отгрузка со склада:</strong> Все отправления осуществляются напрямую с официального оптово-розничного склада в <strong>г. Кемерово</strong>.</p>
         <p style="margin-top: 8px;"><strong>2. Транспортные компании:</strong> СДЭК (курьер до двери или пункт выдачи), «Деловые Линии», «ПЭК», «Энергия».</p>
@@ -475,15 +506,17 @@
   <div class="modal-overlay" id="order-success-modal">
     <div class="modal-card" style="max-width: 480px; text-align: center; padding: 32px 24px;">
       <button class="modal-close-cross" onclick="closeModal('order-success-modal')">✕</button>
-      <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
-      <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Заказ успешно принят!</h3>
+      <div style="margin-bottom: 14px;">
+        <svg class="svg-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 15 8 12"/></svg>
+      </div>
+      <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">Заказ успешно принят!</h3>
       <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
         Спасибо! Ваш заказ зафиксирован и передан на склад дилера в г. Кемерово. Менеджер свяжется с вами по телефону в течение 10–15 минут для подтверждения адреса доставки СДЭК.
       </p>
       <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; font-size: 0.82rem; color: var(--text-muted); text-align: left; margin-bottom: 20px;">
-        <div>📦 <strong>Номер заказа:</strong> <span id="success-order-id" style="color: var(--accent-orange); font-weight: 800;">TM-0000</span></div>
-        <div style="margin-top: 4px;">🚚 <strong>Склад отгрузки:</strong> г. Кемерово (день в день)</div>
-        <div style="margin-top: 4px;">📞 <strong>Прямая связь со складом:</strong> 8 (950) 272-04-40</div>
+        <div><strong>Номер заказа:</strong> <span id="success-order-id" style="color: var(--accent-orange); font-weight: 800;">TM-0000</span></div>
+        <div style="margin-top: 4px;"><strong>Склад отгрузки:</strong> г. Кемерово (день в день)</div>
+        <div style="margin-top: 4px;"><strong>Прямая связь со складом:</strong> 8 (950) 272-04-40</div>
       </div>
       <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('order-success-modal')">
         Отлично, жду звонка
@@ -494,20 +527,23 @@
   <!-- Mobile Sticky Action Bar -->
   <div class="mobile-sticky-bar">
     <button class="mobile-bar-btn" style="background: var(--bg-surface); color: var(--text-main);" onclick="document.getElementById('catalog-section').scrollIntoView({behavior: 'smooth'})">
-      <span>🔍</span> Каталог
+      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Каталог
     </button>
     <button class="mobile-bar-btn mobile-bar-cart" onclick="toggleCartDrawer()">
-      <span>🛒</span> Корзина (<span id="mobile-cart-count">0</span>)
+      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Корзина (<span id="mobile-cart-count">0</span>)
     </button>
     <a href="tel:+79502720440" class="mobile-bar-btn mobile-bar-call">
-      <span>📞</span> Склад
+      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Склад
     </a>
   </div>
 
   <!-- Toast Container -->
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Script -->
+  <!-- Engine Script -->
   <script src="app.js"></script>
 </body>
 </html>
