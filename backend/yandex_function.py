@@ -1,11 +1,18 @@
 """
-Микро-шлюз приёма заявок для Yandex Cloud Functions (Python 3.11 / 3.12)
+Микро-шлюз приёма заявок и брифов для Yandex Cloud Functions (Python 3.11 / 3.12)
 100% соответствие 152-ФЗ: первичная фиксация данных происходит в ЦОД Яндекса (г. Москва),
-после чего заявка мгновенно пересылается в Telegram администратору/клиенту.
+после чего заявка мгновенно пересылается в Telegram администратору и/или на Email.
 
 Переменные окружения (Environment Variables) в Yandex Cloud:
 - TELEGRAM_BOT_TOKEN: токен вашего Telegram-бота (получен в @BotFather)
 - TELEGRAM_CHAT_ID: ваш ID или ID группы/канала (узнаётся в @userinfobot)
+
+Опционально для отправки на Email (SMTP):
+- SMTP_HOST: например, smtp.yandex.ru или smtp.mail.ru
+- SMTP_PORT: 465 (SSL) или 587
+- SMTP_USER: логин почты (например, lead@local-web.ru)
+- SMTP_PASSWORD: пароль приложения для почты
+- SMTP_TO: ваш email для получения заявок и брифов (например, timetry-bikes@yandex.ru или mrrebrik@yandex.ru)
 """
 
 import json
@@ -13,6 +20,10 @@ import os
 import base64
 import html
 import socket
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.header import Header
 import urllib.request
 import urllib.error
 
@@ -40,10 +51,50 @@ def escape_safe(val):
     return html.escape(s) if s else '—'
 
 
+def send_email_smtp(subject, text_content, html_content=None):
+    """Отправка email через SMTP (если настроены переменные окружения)."""
+    smtp_host = os.environ.get('SMTP_HOST', '').strip()
+    smtp_user = os.environ.get('SMTP_USER', '').strip()
+    smtp_pass = os.environ.get('SMTP_PASSWORD', '').strip()
+    smtp_to = os.environ.get('SMTP_TO', os.environ.get('NOTIFICATION_EMAIL', '')).strip()
+    smtp_port = int(os.environ.get('SMTP_PORT', '465'))
+
+    if not (smtp_host and smtp_user and smtp_pass and smtp_to):
+        return False, "SMTP credentials not configured"
+
+    try:
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = Header(subject, 'utf-8')
+        msg['From'] = smtp_user
+        msg['To'] = smtp_to
+
+        part1 = MIMEText(text_content, 'plain', 'utf-8')
+        msg.attach(part1)
+
+        if html_content:
+            part2 = MIMEText(html_content, 'html', 'utf-8')
+            msg.attach(part2)
+
+        if smtp_port == 465:
+            server = smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=10)
+        else:
+            server = smtplib.SMTP(smtp_host, smtp_port, timeout=10)
+            server.starttls()
+
+        server.login(smtp_user, smtp_pass)
+        server.sendmail(smtp_user, [smtp_to], msg.as_string())
+        server.quit()
+        print(f"[SUCCESS] Email успешно отправлен на {smtp_to}")
+        return True, "Email sent successfully"
+    except Exception as e:
+        print(f"[ERROR] Ошибка отправки Email: {e}")
+        return False, str(e)
+
+
 def handler(event, context):
     """
     Точка входа Yandex Cloud Function.
-    Принимает HTTP-запрос от формы лендинга.
+    Принимает HTTP-запрос от формы лендинга или страницы брифа.
     """
     http_method = event.get('httpMethod', 'GET').upper()
 
@@ -83,44 +134,82 @@ def handler(event, context):
         }
 
     # 3. Фиксация в российском реестре логов (152-ФЗ, дата-центр РФ)
-    # Все print() в Yandex Cloud Functions автоматически пишутся в Yandex Cloud Logging
     lead_id = context.request_id if hasattr(context, 'request_id') else 'local'
     print(f"[152-FZ RECORD] LeadID: {lead_id} | Payload: {json.dumps(data, ensure_ascii=False)}")
 
-    # 4. Сбор и подготовка полей заявки
-    name = escape_safe(data.get('name'))
-    surname = escape_safe(data.get('surname'))
-    full_name = f"{name} {surname}".strip() if surname != '—' else name
-    company = escape_safe(data.get('company'))
-    niche = escape_safe(data.get('niche'))
-    messenger = escape_safe(data.get('messenger'))
-    contact = escape_safe(data.get('contact'))
-    notes = escape_safe(data.get('notes'))
+    is_brief = (data.get('type') == 'briefing') or ('brief_answers' in data) or ('project_code' in data)
+
+    # 4. Формирование текстов сообщения для Telegram и Email
     timestamp = escape_safe(data.get('timestamp'))
     source = escape_safe(data.get('source'))
 
-    # 5. Формирование красивого сообщения для Telegram
-    tg_text = (
-        f"🚀 <b>НОВАЯ ЗАЯВКА С САЙТА LocalWeb!</b>\n"
-        f"━━━━━━━━━━━━━━━━━━━\n"
-        f"👤 <b>Клиент:</b> {full_name}\n"
-        f"🏢 <b>Компания:</b> {company}\n"
-        f"💼 <b>Сфера:</b> {niche}\n"
-        f"💬 <b>Канал связи:</b> {messenger}\n"
-        f"📞 <b>Контакт:</b> <code>{contact}</code>\n"
-    )
+    if is_brief:
+        # Режим обработки брифа
+        code = escape_safe(data.get('project_code') or data.get('code'))
+        company = escape_safe(data.get('company') or data.get('project_name'))
+        client_name = escape_safe(data.get('name') or data.get('client_name'))
+        contact = escape_safe(data.get('contact') or data.get('phone'))
+        email = escape_safe(data.get('email'))
+        answers_formatted = data.get('answers_text', '')
 
-    if notes and notes != '—':
-        tg_text += f"📝 <b>Пожелания:</b> <i>{notes}</i>\n"
+        # Если ответы переданы словарём, форматируем их
+        if not answers_formatted and isinstance(data.get('brief_answers'), dict):
+            parts = []
+            for k, v in data.get('brief_answers', {}).items():
+                parts.append(f"• <b>{html.escape(str(k))}:</b> {html.escape(str(v))}")
+            answers_formatted = "\n".join(parts)
 
-    tg_text += (
-        f"━━━━━━━━━━━━━━━━━━━\n"
-        f"🕒 <b>Время:</b> {timestamp}\n"
-        f"🌐 <b>Источник:</b> {source}\n"
-        f"🆔 <b>ID записи РФ:</b> <code>{lead_id}</code>"
-    )
+        tg_text = (
+            f"📋 <b>НОВЫЙ ЗАПОЛНЕННЫЙ БРИФ ПРОЕКТА!</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"🔑 <b>Код проекта:</b> <code>{code}</code>\n"
+            f"🏢 <b>Компания:</b> {company}\n"
+            f"👤 <b>Контакт:</b> {client_name}\n"
+            f"📞 <b>Телефон:</b> <code>{contact}</code>\n"
+            f"✉️ <b>Email:</b> {email}\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"<b>КЛЮЧЕВЫЕ ТРЕБОВАНИЯ:</b>\n"
+            f"{answers_formatted[:3000]}\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"🕒 <b>Время:</b> {timestamp}\n"
+            f"🌐 <b>Источник:</b> {source}\n"
+            f"🆔 <b>ID записи РФ:</b> <code>{lead_id}</code>"
+        )
+        email_subj = f"📋 Заполнен бриф проекта: {company} (код {code})"
+        email_body = f"Заполнен новый бриф проекта {company} (код: {code})\nКонтактное лицо: {client_name}, {contact}, {email}\n\nТребования:\n{answers_formatted}"
+    else:
+        # Стандартная заявка с лендинга
+        name = escape_safe(data.get('name'))
+        surname = escape_safe(data.get('surname'))
+        full_name = f"{name} {surname}".strip() if surname != '—' else name
+        company = escape_safe(data.get('company'))
+        niche = escape_safe(data.get('niche'))
+        messenger = escape_safe(data.get('messenger'))
+        contact = escape_safe(data.get('contact'))
+        notes = escape_safe(data.get('notes'))
 
-    # 6. Отправка в Telegram
+        tg_text = (
+            f"🚀 <b>НОВАЯ ЗАЯВКА С САЙТА LocalWeb!</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"👤 <b>Клиент:</b> {full_name}\n"
+            f"🏢 <b>Компания:</b> {company}\n"
+            f"💼 <b>Сфера:</b> {niche}\n"
+            f"💬 <b>Канал связи:</b> {messenger}\n"
+            f"📞 <b>Контакт:</b> <code>{contact}</code>\n"
+        )
+        if notes and notes != '—':
+            tg_text += f"📝 <b>Пожелания:</b> <i>{notes}</i>\n"
+
+        tg_text += (
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"🕒 <b>Время:</b> {timestamp}\n"
+            f"🌐 <b>Источник:</b> {source}\n"
+            f"🆔 <b>ID записи РФ:</b> <code>{lead_id}</code>"
+        )
+        email_subj = f"🚀 Новая заявка с сайта LocalWeb: {full_name} ({company})"
+        email_body = f"Новая заявка!\nИмя: {full_name}\nКомпания: {company}\nСфера: {niche}\nКонтакт: {contact} ({messenger})\nПожелания: {notes}"
+
+    # 5. Отправка в Telegram
     bot_token = os.environ.get('TELEGRAM_BOT_TOKEN', '').strip().strip('\'"')
     chat_id = os.environ.get('TELEGRAM_CHAT_ID', '').strip().strip('\'"')
 
@@ -159,17 +248,21 @@ def handler(event, context):
             print(f"[ERROR] Исключение при отправке в Telegram: {te}")
     else:
         tg_debug = f"Missing env tokens: token_len={len(bot_token)}, chat_id_len={len(chat_id)}"
-        print(f"[NOTICE] {tg_debug}")
 
-    # 7. Ответ сайту с детальной диагностикой
+    # 6. Отправка на Email через SMTP (если настроено)
+    email_sent, email_debug = send_email_smtp(email_subj, email_body)
+
+    # 7. Ответ клиенту
     return {
         'statusCode': 200,
         'headers': CORS_HEADERS,
         'body': json.dumps({
             'status': 'success',
-            'message': 'Заявка принята и зафиксирована в реестре РФ',
+            'message': 'Данные успешно зафиксированы и переданы',
             'lead_id': lead_id,
             'tg_notified': tg_sent,
-            'tg_debug': tg_debug
+            'tg_debug': tg_debug,
+            'email_notified': email_sent,
+            'email_debug': email_debug
         }, ensure_ascii=False)
     }

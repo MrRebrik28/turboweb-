@@ -1,0 +1,31 @@
+{
+  "TIMETRY": {
+    "projectName": "Интернет-магазин TIMETRY BIKES RUSSIA",
+    "clientName": "ИП Ефимов Дмитрий Михайлович",
+    "website": "timetry-bikes.ru",
+    "niche": "Официальная дистрибуция и розничная продажа велосипедов TIMETRY в РФ",
+    "welcomeMessage": "Здравствуйте, Дмитрий Михайлович! Данный бриф подготовлен командой LocalWeb для фиксации конкретных технических и коммерческих требований к новому интернет-магазину TIMETRY.",
+    "customNotes": "Перенос 213 моделей с LPmotor, фасетные фильтры по росту и колесам, интеграция СДЭК и онлайн-оплаты."
+  },
+  "TIMETRY2026": {
+    "projectName": "Интернет-магазин TIMETRY BIKES RUSSIA",
+    "clientName": "ИП Ефимов Дмитрий Михайлович",
+    "website": "timetry-bikes.ru",
+    "niche": "Велосипеды TIMETRY",
+    "welcomeMessage": "Здравствуйте, Дмитрий Михайлович! Данный бриф подготовлен командой LocalWeb для запуска модернизации timetry-bikes.ru."
+  },
+  "LOCALWEB": {
+    "projectName": "Разработка интернет-магазина (LocalWeb Client)",
+    "clientName": "",
+    "website": "",
+    "niche": "Электронная коммерция / E-Commerce",
+    "welcomeMessage": "Добро пожаловать в персональный бриф разработки от веб-агентства LocalWeb!"
+  },
+  "VIP": {
+    "projectName": "Индивидуальный проект разработки (VIP)",
+    "clientName": "",
+    "website": "",
+    "niche": "E-Commerce / Корпоративный сайт",
+    "welcomeMessage": "Здравствуйте! Заполните бриф для согласования технических требований и подготовки сметы."
+  }
+}
