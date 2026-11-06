@@ -182,15 +182,35 @@ function initContactForm() {
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
 
-    // Сбор и строгая валидация длины данных формы
+    const name = (form.querySelector('#user-name')?.value || '').trim().slice(0, 60);
+    const surname = (form.querySelector('#user-surname')?.value || '').trim().slice(0, 60);
+    const company = (form.querySelector('#user-company')?.value || '').trim().slice(0, 100);
+    const niche = (form.querySelector('#user-niche')?.value || '').trim().slice(0, 100);
+    const messenger = form.querySelector('#selected-messenger')?.value || 'Telegram';
+    const contact = (form.querySelector('#contact-input')?.value || '').trim().slice(0, 100);
+    const notes = (form.querySelector('#user-notes')?.value || '').trim().slice(0, 1000);
+
+    // Валидация от случайных и мусорных кликов
+    if (name.length < 2) {
+      alert('Пожалуйста, укажите имя (не менее 2 букв).');
+      form.querySelector('#user-name')?.focus();
+      return;
+    }
+    if (contact.length < 3) {
+      alert('Пожалуйста, укажите контакт для связи (телефон, @username или email).');
+      form.querySelector('#contact-input')?.focus();
+      return;
+    }
+
+    // Сбор и подготовка данных формы
     const payload = {
-      name: (form.querySelector('#user-name')?.value || '').trim().slice(0, 60),
-      surname: (form.querySelector('#user-surname')?.value || '').trim().slice(0, 60),
-      company: (form.querySelector('#user-company')?.value || '').trim().slice(0, 100),
-      niche: (form.querySelector('#user-niche')?.value || '').trim().slice(0, 100),
-      messenger: form.querySelector('#selected-messenger')?.value || 'Telegram',
-      contact: (form.querySelector('#contact-input')?.value || '').trim().slice(0, 100),
-      notes: (form.querySelector('#user-notes')?.value || '').trim().slice(0, 1000),
+      name,
+      surname,
+      company,
+      niche,
+      messenger,
+      contact,
+      notes,
       timestamp: new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }),
       source: window.location.href.slice(0, 200)
     };

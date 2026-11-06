@@ -181,33 +181,47 @@ def handler(event, context):
         # Стандартная заявка с лендинга
         name = escape_safe(data.get('name'))
         surname = escape_safe(data.get('surname'))
-        full_name = f"{name} {surname}".strip() if surname != '—' else name
+        full_name = f"{name} {surname}".strip() if (surname and surname != '—') else name
         company = escape_safe(data.get('company'))
         niche = escape_safe(data.get('niche'))
         messenger = escape_safe(data.get('messenger'))
         contact = escape_safe(data.get('contact'))
         notes = escape_safe(data.get('notes'))
 
-        tg_text = (
-            f"🚀 <b>НОВАЯ ЗАЯВКА С САЙТА LocalWeb!</b>\n"
-            f"━━━━━━━━━━━━━━━━━━━\n"
-            f"👤 <b>Клиент:</b> {full_name}\n"
-            f"🏢 <b>Компания:</b> {company}\n"
-            f"💼 <b>Сфера:</b> {niche}\n"
-            f"💬 <b>Канал связи:</b> {messenger}\n"
-            f"📞 <b>Контакт:</b> <code>{contact}</code>\n"
-        )
-        if notes and notes != '—':
-            tg_text += f"📝 <b>Пожелания:</b> <i>{notes}</i>\n"
+        # Кликабельный контакт для Telegram
+        contact_display = f"<code>{contact}</code>"
+        if messenger == 'Telegram' and contact != '—':
+            clean_tg = contact.replace('@', '').replace('https://t.me/', '').replace('t.me/', '').strip()
+            if clean_tg and not clean_tg.startswith('+') and not clean_tg.isdigit():
+                contact_display = f'<a href="https://t.me/{clean_tg}">{contact}</a>'
 
-        tg_text += (
-            f"━━━━━━━━━━━━━━━━━━━\n"
-            f"🕒 <b>Время:</b> {timestamp}\n"
-            f"🌐 <b>Источник:</b> {source}\n"
+        lines = [
+            "🚀 <b>НОВАЯ ЗАЯВКА С САЙТА LocalWeb!</b>",
+            "━━━━━━━━━━━━━━━━━━━",
+            f"👤 <b>Клиент:</b> {full_name}"
+        ]
+
+        if company and company != '—':
+            lines.append(f"🏢 <b>Компания:</b> {company}")
+        if niche and niche != '—':
+            lines.append(f"💼 <b>Сфера:</b> {niche}")
+
+        lines.append(f"💬 <b>Канал связи:</b> {messenger}")
+        lines.append(f"📞 <b>Контакт:</b> {contact_display}")
+
+        if notes and notes != '—':
+            lines.append(f"📝 <b>Пожелания:</b> <i>{notes}</i>")
+
+        lines.extend([
+            "━━━━━━━━━━━━━━━━━━━",
+            f"🕒 <b>Время:</b> {timestamp}",
+            f"🌐 <b>Источник:</b> {source}",
             f"🆔 <b>ID записи РФ:</b> <code>{lead_id}</code>"
-        )
-        email_subj = f"🚀 Новая заявка с сайта LocalWeb: {full_name} ({company})"
-        email_body = f"Новая заявка!\nИмя: {full_name}\nКомпания: {company}\nСфера: {niche}\nКонтакт: {contact} ({messenger})\nПожелания: {notes}"
+        ])
+
+        tg_text = "\n".join(lines)
+        email_subj = f"🚀 Новая заявка с сайта LocalWeb: {full_name}" + (f" ({company})" if company and company != '—' else "")
+        email_body = f"Новая заявка!\nИмя: {full_name}\n" + (f"Компания: {company}\n" if company and company != '—' else "") + (f"Сфера: {niche}\n" if niche and niche != '—' else "") + f"Контакт: {contact} ({messenger})\n" + (f"Пожелания: {notes}\n" if notes and notes != '—' else "")
 
     # 5. Отправка в Telegram
     bot_token = os.environ.get('TELEGRAM_BOT_TOKEN', '').strip().strip('\'"')
