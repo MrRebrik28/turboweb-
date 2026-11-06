@@ -200,6 +200,47 @@
   </section>
 
   <!-- ========================================================================
+       DEALER TRUST & ADVANTAGES SECTION
+       ======================================================================== -->
+  <section class="dealer-trust-section">
+    <div class="container">
+      <div class="dealer-trust-grid">
+        <div class="dealer-trust-card">
+          <span class="dealer-trust-icon">⚙️</span>
+          <h3 class="dealer-trust-title">Предпродажная настройка</h3>
+          <p class="dealer-trust-desc">
+            Каждый велосипед перед отправкой проходит протяжку спиц, настройку тормозов и переключателей скоростей на стенде веломехаником.
+          </p>
+        </div>
+
+        <div class="dealer-trust-card">
+          <span class="dealer-trust-icon">📦</span>
+          <h3 class="dealer-trust-title">Заводская броне-упаковка</h3>
+          <p class="dealer-trust-desc">
+            5-слойный жесткий картон, демпферы на осях и раме. Велосипед доезжает в идеальном товарном виде в любой город РФ.
+          </p>
+        </div>
+
+        <div class="dealer-trust-card">
+          <span class="dealer-trust-icon">🛡️</span>
+          <h3 class="dealer-trust-title">Гарантия дилера 24 мес.</h3>
+          <p class="dealer-trust-desc">
+            Официальная гарантия ИП Ефимов Д.М. Запасные петухи, оси и фирменные комплектующие всегда в наличии на складе в Кемерово.
+          </p>
+        </div>
+
+        <div class="dealer-trust-card">
+          <span class="dealer-trust-icon">💳</span>
+          <h3 class="dealer-trust-title">Оплата при осмотре</h3>
+          <p class="dealer-trust-desc">
+            Возможность вскрыть коробку и осмотреть байк в пункте выдачи СДЭК / ТК перед окончательной оплатой. Без риска.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
        CLEAN LIGHT LEGAL FOOTER (152-ФЗ compliant, real details)
        ======================================================================== -->
   <footer class="light-footer">
@@ -334,24 +375,24 @@
       <form onsubmit="handleCheckoutSubmit(event)">
         <div style="margin-bottom: 12px;">
           <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 4px;">ФИО получателя</label>
-          <input type="text" required placeholder="Иванов Иван Иванович" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;" />
+          <input type="text" id="checkout-name" required placeholder="Иванов Иван Иванович" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;" />
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
           <div>
             <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 4px;">Телефон</label>
-            <input type="tel" required placeholder="+7 (___) ___-__-__" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;" />
+            <input type="tel" id="checkout-phone" required placeholder="+7 (___) ___-__-__" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;" />
           </div>
           <div>
             <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 4px;">Город доставки</label>
-            <input type="text" required placeholder="Например, Москва" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;" />
+            <input type="text" id="checkout-city" required placeholder="Например, Москва" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;" />
           </div>
         </div>
         <div style="margin-bottom: 14px;">
           <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 4px;">Способ оплаты</label>
-          <select style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;">
-            <option>Оплата картой онлайн или СБП (0% комиссии)</option>
-            <option>Оплата при получении в пункте СДЭК / ТК</option>
-            <option>Беспроцентная рассрочка 0-0-12</option>
+          <select id="checkout-payment" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px;">
+            <option value="Онлайн картой / СБП (0%)">Оплата картой онлайн или СБП (0% комиссии)</option>
+            <option value="При получении в СДЭК / ТК">Оплата при получении в пункте СДЭК / ТК</option>
+            <option value="Рассрочка 0-0-12">Беспроцентная рассрочка 0-0-12</option>
           </select>
         </div>
         <div style="margin-bottom: 16px; font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 8px;">
@@ -360,7 +401,7 @@
             Согласен на обработку персональных данных ИП Ефимов Д.М. по 152-ФЗ.
           </label>
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+        <button type="submit" id="checkout-submit-btn" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
           Подтвердить заказ
         </button>
       </form>
@@ -384,10 +425,10 @@
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
         Консультант дилера перезвонит в течение 10 минут и ответит на все вопросы.
       </p>
-      <form onsubmit="event.preventDefault(); showToast('Спасибо! Мы скоро перезвоним.'); closeModal('callback-modal');">
-        <input type="text" required placeholder="Ваше имя" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px; margin-bottom: 10px;" />
-        <input type="tel" required placeholder="Номер телефона" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px; margin-bottom: 14px;" />
-        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Жду звонка</button>
+      <form onsubmit="handleCallbackSubmit(event)">
+        <input type="text" id="callback-name" required placeholder="Ваше имя" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px; margin-bottom: 10px;" />
+        <input type="tel" id="callback-phone" required placeholder="Номер телефона" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px; margin-bottom: 14px;" />
+        <button type="submit" id="callback-submit-btn" class="btn-primary" style="width: 100%; justify-content: center;">Жду звонка</button>
       </form>
     </div>
   </div>
@@ -428,6 +469,39 @@
         <p>Оставляя заявку или оформляя заказ на сайте <strong>timetry-bikes.ru</strong>, Пользователь дает согласие <strong>ИП Ефимову Дмитрию Михайловичу</strong> (ИНН 420533538981) на обработку персональных данных в соответствии со статьей 9 Федерального закона № 152-ФЗ исключительно в целях оформления и доставки товаров.</p>
       </div>
     </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div class="modal-overlay" id="order-success-modal">
+    <div class="modal-card" style="max-width: 480px; text-align: center; padding: 32px 24px;">
+      <button class="modal-close-cross" onclick="closeModal('order-success-modal')">✕</button>
+      <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
+      <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Заказ успешно принят!</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+        Спасибо! Ваш заказ зафиксирован и передан на склад дилера в г. Кемерово. Менеджер свяжется с вами по телефону в течение 10–15 минут для подтверждения адреса доставки СДЭК.
+      </p>
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; font-size: 0.82rem; color: var(--text-muted); text-align: left; margin-bottom: 20px;">
+        <div>📦 <strong>Номер заказа:</strong> <span id="success-order-id" style="color: var(--accent-orange); font-weight: 800;">TM-0000</span></div>
+        <div style="margin-top: 4px;">🚚 <strong>Склад отгрузки:</strong> г. Кемерово (день в день)</div>
+        <div style="margin-top: 4px;">📞 <strong>Прямая связь со складом:</strong> 8 (950) 272-04-40</div>
+      </div>
+      <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('order-success-modal')">
+        Отлично, жду звонка
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Sticky Action Bar -->
+  <div class="mobile-sticky-bar">
+    <button class="mobile-bar-btn" style="background: var(--bg-surface); color: var(--text-main);" onclick="document.getElementById('catalog-section').scrollIntoView({behavior: 'smooth'})">
+      <span>🔍</span> Каталог
+    </button>
+    <button class="mobile-bar-btn mobile-bar-cart" onclick="toggleCartDrawer()">
+      <span>🛒</span> Корзина (<span id="mobile-cart-count">0</span>)
+    </button>
+    <a href="tel:+79502720440" class="mobile-bar-btn mobile-bar-call">
+      <span>📞</span> Склад
+    </a>
   </div>
 
   <!-- Toast Container -->

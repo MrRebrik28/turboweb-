@@ -609,6 +609,217 @@ button {
   color: #ffffff;
 }
 
+.badge-tag.stock {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.badge-tag.new {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+/* Cross-Sell Accessories in Quick View & Cart */
+.qv-acc-section {
+  margin: 18px 0;
+  padding: 14px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+.qv-acc-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.qv-acc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.qv-acc-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+.qv-acc-item:hover {
+  border-color: var(--accent-orange);
+}
+.qv-acc-item.checked {
+  border-color: var(--accent-orange);
+  background: #fff7ed;
+}
+.qv-acc-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+.qv-acc-name {
+  font-weight: 700;
+  color: #0f172a;
+}
+.qv-acc-price {
+  color: var(--accent-orange);
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+/* Height & Frame Matching Widget */
+.height-picker-widget {
+  margin: 16px 0;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+.height-picker-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.height-chips-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.height-chip-btn {
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.height-chip-btn:hover {
+  border-color: var(--accent-orange);
+  color: var(--text-main);
+}
+.height-chip-btn.active {
+  background: #fff7ed;
+  border-color: var(--accent-orange);
+  color: #c2410c;
+  font-weight: 700;
+}
+.height-recommendation-box {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  font-size: 0.78rem;
+  color: #166534;
+  line-height: 1.35;
+}
+
+/* Dealer Trust Section */
+.dealer-trust-section {
+  padding: 48px 0;
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  margin-top: 40px;
+}
+.dealer-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.dealer-trust-card {
+  padding: 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+}
+.dealer-trust-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #cbd5e1;
+}
+.dealer-trust-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+.dealer-trust-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+.dealer-trust-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Mobile Sticky Bottom Bar */
+.mobile-sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  z-index: 50;
+  padding: 8px 14px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 70px;
+  }
+  .mobile-sticky-bar {
+    display: flex;
+  }
+  .mobile-bar-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 100%;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+  .mobile-bar-cart {
+    background: var(--accent-orange);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 85, 0, 0.3);
+  }
+  .mobile-bar-call {
+    background: #0f172a;
+    color: #ffffff;
+  }
+}
+
 .btn-card-fav {
   pointer-events: auto;
   background: rgba(255, 255, 255, 0.9);
