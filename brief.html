@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Закрытый доступ: страница не индексируется поисковыми роботами -->
   <meta name="robots" content="noindex, nofollow" />
-  <title>Персональный бриф разработки проекта — LocalWeb</title>
+  <title>Бриф по дизайну и карточкам товаров TIMETRY — LocalWeb</title>
 
   <!-- Tailwind CSS & Inter Font -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,24 +19,23 @@
       background-color: #f8fafc;
       color: #0f172a;
     }
-    .step-card {
-      display: none;
-    }
-    .step-card.active {
-      display: block;
-      animation: fadeIn 0.25s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
     .custom-checkbox:checked + label {
-      border-color: #2563eb;
-      background-color: #eff6ff;
+      border-color: #ff5500;
+      background-color: #fff7ed;
+      color: #9a3412;
     }
     .custom-radio:checked + label {
-      border-color: #2563eb;
-      background-color: #eff6ff;
+      border-color: #ff5500;
+      background-color: #fff7ed;
+      box-shadow: 0 0 0 2px rgba(255, 85, 0, 0.2);
+    }
+    .design-variant-card {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .design-variant-radio:checked + .design-variant-card {
+      border-color: #ff5500;
+      box-shadow: 0 10px 25px -5px rgba(255, 85, 0, 0.2), 0 0 0 3px #ff5500;
+      transform: translateY(-3px);
     }
   </style>
 </head>
@@ -50,20 +48,20 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="javascript:void(0)" class="flex items-center gap-2">
-          <span class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-extrabold text-lg shadow-sm">L</span>
-          <span class="text-xl font-black text-slate-900 tracking-tight">Local<span class="text-blue-600">Web</span>.</span>
+          <span class="w-8 h-8 rounded-lg bg-[#ff5500] flex items-center justify-center text-white font-extrabold text-lg shadow-sm">T</span>
+          <span class="text-xl font-black text-slate-900 tracking-tight">TIMETRY<span class="text-[#ff5500]">.DESIGN</span></span>
         </a>
-        <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
-          🔒 Закрытый бриф проекта
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200">
+          🎨 Согласование визуального стиля
         </span>
       </div>
 
       <div class="flex items-center gap-4 text-xs sm:text-sm text-slate-500">
-        <div id="project-badge" class="hidden items-center gap-1.5 font-medium text-slate-700 bg-blue-50 border border-blue-200 px-3 py-1 rounded-md">
-          📁 Проект: <strong id="project-badge-name" class="text-blue-700">Загрузка...</strong>
+        <div id="project-badge" class="inline-flex items-center gap-1.5 font-medium text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-md">
+          📁 Проект: <strong class="text-slate-900">timetry-bikes.ru</strong>
         </div>
-        <a href="tel:+79698400151" class="hidden md:inline font-semibold text-slate-700 hover:text-blue-600 transition">
-          +7 (969) 840-01-51
+        <a href="tel:+79698400151" class="hidden md:inline font-semibold text-slate-700 hover:text-[#ff5500] transition">
+          LocalWeb: +7 (969) 840-01-51
         </a>
       </div>
     </div>
@@ -74,221 +72,256 @@
        ======================================================================== -->
   <main id="gate-screen" class="flex-grow flex items-center justify-center p-4 sm:p-6 my-auto">
     <div class="max-w-md w-full bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-8 text-center">
-      <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5 shadow-sm border border-blue-100">
-        🔐
+      <div class="w-16 h-16 bg-orange-50 text-[#ff5500] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5 shadow-sm border border-orange-100">
+        🚴
       </div>
 
       <h1 class="text-2xl font-extrabold text-slate-900 mb-2">
-        Персональный бриф разработки
+        Бриф по дизайну и карточкам TIMETRY
       </h1>
       <p class="text-sm text-slate-600 mb-6 leading-relaxed">
-        Данный раздел предназначен для согласования технических и коммерческих требований к проекту. Введите ваш код доступа:
+        Согласование внешнего вида магазина, оформления карточек и структуры характеристик. Введите ваш код доступа:
       </p>
 
       <form id="gate-form" onsubmit="handleGateSubmit(event)" class="space-y-4">
         <div>
-          <label for="access-code-input" class="sr-only">Код доступа к проекту</label>
+          <label for="access-code-input" class="sr-only">Код доступа</label>
           <input
             type="text"
             id="access-code-input"
             required
             placeholder="Введите код (например, TIMETRY)"
-            class="w-full text-center tracking-widest uppercase font-mono font-bold text-lg sm:text-xl py-3.5 px-4 bg-slate-50 border-2 border-slate-300 rounded-xl focus:border-blue-600 focus:bg-white focus:outline-none transition shadow-inner"
+            class="w-full text-center tracking-widest uppercase font-mono font-bold text-lg sm:text-xl py-3.5 px-4 bg-slate-50 border-2 border-slate-300 rounded-xl focus:border-[#ff5500] focus:bg-white focus:outline-none transition shadow-inner"
             autocomplete="off"
             autofocus
           />
-          <p id="gate-error" class="hidden text-xs text-rose-600 font-semibold mt-2"></p>
         </div>
 
         <button
           type="submit"
-          id="gate-submit-btn"
-          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-500/25 transition active:scale-[0.99] flex items-center justify-center gap-2"
+          class="w-full bg-[#ff5500] hover:bg-[#e04a00] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-orange-500/25 transition active:scale-[0.99] flex items-center justify-center gap-2"
         >
-          <span>Открыть вопросы брифа</span>
+          <span>Перейти к выбору дизайна</span>
           <span>→</span>
         </button>
       </form>
-
-      <div class="mt-6 pt-5 border-t border-slate-100 text-xs text-slate-400">
-        Код доступа предоставляется вашим персональным менеджером LocalWeb
-      </div>
     </div>
   </main>
 
   <!-- ========================================================================
-       STATE 2: BRIEFING QUESTIONNAIRE
+       STATE 2: VISUAL & PRODUCT-CENTRIC BRIEFING
        ======================================================================== -->
   <main id="brief-screen" class="hidden flex-grow max-w-4xl w-full mx-auto p-4 sm:p-6 lg:p-8">
     
     <!-- Client Welcome Banner -->
-    <div id="client-welcome-card" class="bg-gradient-to-r from-blue-900 to-slate-900 text-white rounded-2xl p-6 sm:p-8 mb-8 shadow-lg">
-      <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-300 mb-2">
-        <span>✨ Персональный бриф</span>
+    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-6 sm:p-8 mb-8 shadow-lg border border-slate-700">
+      <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-orange-400 mb-2">
+        <span>TIMETRY BIKES RUSSIA</span>
         <span>•</span>
-        <span id="welcome-code-badge" class="bg-blue-800/80 px-2.5 py-0.5 rounded text-white font-mono">TIMETRY</span>
+        <span class="bg-orange-600/80 px-2.5 py-0.5 rounded text-white font-mono">ИП Ефимов Д.М.</span>
       </div>
-      <h2 id="welcome-title" class="text-xl sm:text-2xl font-black mb-2 text-white">
-        Технический бриф на разработку проекта
+      <h2 class="text-xl sm:text-2xl font-black mb-2 text-white">
+        Выбор концепции дизайна и наполнения магазина
       </h2>
-      <p id="welcome-desc" class="text-sm text-slate-300 max-w-2xl leading-relaxed">
-        Пожалуйста, ответьте на ключевые вопросы. Чем точнее требования, тем быстрее мы согласуем функционал, зафиксируем смету и передадим проект в разработку.
+      <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
+        Дмитрий Михайлович, мы уже знаем структуру вашего ассортимента (213 моделей) и логистику. В этом брифе сосредоточимся исключительно на <strong>внешнем виде</strong>, <strong>карточках товаров</strong> и <strong>удобстве покупателя</strong>.
       </p>
     </div>
 
-    <!-- Progress Indicator -->
-    <div class="mb-8">
-      <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
-        <span id="progress-step-text">Шаг 1 из 7: Контактные данные</span>
-        <span id="progress-percent-text">14% заполнено</span>
-      </div>
-      <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-        <div id="progress-bar-fill" class="bg-blue-600 h-full rounded-full transition-all duration-300" style="width: 14%;"></div>
-      </div>
-    </div>
-
-    <!-- Questionnaire Multi-step Form -->
-    <form id="briefing-form" onsubmit="handleBriefSubmit(event)" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+    <!-- The Form -->
+    <form id="briefing-form" onsubmit="handleBriefSubmit(event)" class="space-y-8">
 
       <!-- ==================================================================
-           STEP 1: Контакты и вводные данные
+           SECTION 1: ВЫБОР ИЗ 3 ВАРИАНТОВ ДИЗАЙНА
            ================================================================== -->
-      <div class="step-card active" data-step="1">
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Шаг 1 из 7</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Контакты и вводная информация</h3>
-          <p class="text-sm text-slate-500 mt-1">Кто будет курировать разработку и согласовывать этапы проекта.</p>
+          <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 1</span>
+          <h3 class="text-xl font-extrabold text-slate-900">Выберите понравившуюся концепцию дизайна</h3>
+          <p class="text-sm text-slate-500 mt-1">Мы сгенерировали 3 различных направления. Выберите вариант, который лучше всего передает дух Timetry:</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div class="sm:col-span-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Название компании / магазина <span class="text-rose-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="company"
-              id="field-company"
-              required
-              placeholder="Например, TIMETRY BIKES (ИП Ефимов Д.М.)"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
+          <!-- ВАРИАНТ 1: Clean Sport Light -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              ФИО контактного лица <span class="text-rose-500">*</span>
+            <input type="radio" id="design-var-1" name="design_concept" value="Вариант 1: Clean Sport Light (Светлый чистый минимализм)" class="hidden design-variant-radio" checked />
+            <label for="design-var-1" class="design-variant-card block border-2 border-slate-200 rounded-2xl p-4 cursor-pointer bg-white hover:border-slate-300">
+              
+              <!-- Mini Mockup 1 -->
+              <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 mb-4 shadow-sm">
+                <!-- Mini Header -->
+                <div class="h-6 bg-white border border-slate-200 rounded flex items-center justify-center px-2 mb-2">
+                  <span class="font-black text-[9px] tracking-widest text-slate-900">TIMETRY</span>
+                </div>
+                <!-- Mini Card -->
+                <div class="bg-white rounded border border-slate-200 p-2 shadow-xs">
+                  <div class="h-16 bg-slate-100 rounded flex items-center justify-center text-xs mb-1.5 overflow-hidden">
+                    <img src="https://m-files.cdn1.cc/lpfile/7/e/f/7efd1b47f41ce98e22b2139c71cbfc26.jpeg" class="h-full object-contain" alt="" />
+                  </div>
+                  <div class="h-2 w-16 bg-slate-800 rounded mb-1"></div>
+                  <div class="flex items-center justify-between">
+                    <div class="h-2.5 w-10 bg-[#ff5500] rounded"></div>
+                    <div class="h-3 w-8 bg-[#ff5500] rounded"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-extrabold text-slate-900 text-sm">1. Clean Sport Light</h4>
+                <span class="text-xs bg-orange-100 text-[#ff5500] font-bold px-2 py-0.5 rounded-full">Хит</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Белоснежный дилерский стиль. Крупный логотип по центру, оранжевые акценты, чистые белые карточки. Максимум света, фокус на байке и характеристиках.
+              </p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-white border border-slate-300"></span>
+                <span class="w-3 h-3 rounded-full bg-slate-900"></span>
+                <span class="w-3 h-3 rounded-full bg-[#ff5500]"></span>
+                <span class="text-[11px] text-slate-400 ml-auto font-medium">Белый / Графит / Оранж</span>
+              </div>
             </label>
-            <input
-              type="text"
-              name="client_name"
-              id="field-client-name"
-              required
-              placeholder="Ефимов Дмитрий Михайлович"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
           </div>
 
+          <!-- ВАРИАНТ 2: Stealth Carbon Dark -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Номер телефона <span class="text-rose-500">*</span>
+            <input type="radio" id="design-var-2" name="design_concept" value="Вариант 2: Stealth Carbon Dark (Премиальный темный кибер-спорт)" class="hidden design-variant-radio" />
+            <label for="design-var-2" class="design-variant-card block border-2 border-slate-200 rounded-2xl p-4 cursor-pointer bg-white hover:border-slate-300">
+              
+              <!-- Mini Mockup 2 -->
+              <div class="bg-[#0b0f14] rounded-xl p-3 border border-slate-800 mb-4 shadow-sm">
+                <!-- Mini Header -->
+                <div class="h-6 bg-[#161f2c] border border-slate-700 rounded flex items-center justify-center px-2 mb-2">
+                  <span class="font-black text-[9px] tracking-widest text-white">TIMETRY</span>
+                </div>
+                <!-- Mini Card -->
+                <div class="bg-[#121820] rounded border border-slate-800 p-2 shadow-xs">
+                  <div class="h-16 bg-[#182230] rounded flex items-center justify-center text-xs mb-1.5 overflow-hidden">
+                    <img src="https://m-files.cdn1.cc/lpfile/7/e/f/7efd1b47f41ce98e22b2139c71cbfc26.jpeg" class="h-full object-contain brightness-95" alt="" />
+                  </div>
+                  <div class="h-2 w-16 bg-slate-300 rounded mb-1"></div>
+                  <div class="flex items-center justify-between">
+                    <div class="h-2.5 w-10 bg-emerald-400 rounded"></div>
+                    <div class="h-3 w-8 bg-[#ff5500] rounded"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-extrabold text-slate-900 text-sm">2. Stealth Carbon Dark</h4>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Атмосферный темный кибер-спорт. Матовый графит, карбоновые мотивы, неоновые акценты. Подчеркивает технологичность двухподвесов и трейловых линеек.
+              </p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-[#0d1117] border border-slate-700"></span>
+                <span class="w-3 h-3 rounded-full bg-[#1e293b]"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                <span class="text-[11px] text-slate-400 ml-auto font-medium">Графит / Карбон / Неон</span>
+              </div>
             </label>
-            <input
-              type="tel"
-              name="phone"
-              id="field-phone"
-              required
-              placeholder="+7 (950) 272-04-40"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
           </div>
 
+          <!-- ВАРИАНТ 3: Active Outdoor Pro -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Email для документов и отчетов
+            <input type="radio" id="design-var-3" name="design_concept" value="Вариант 3: Active Outdoor Pro (Динамичный спортивный ритейл)" class="hidden design-variant-radio" />
+            <label for="design-var-3" class="design-variant-card block border-2 border-slate-200 rounded-2xl p-4 cursor-pointer bg-white hover:border-slate-300">
+              
+              <!-- Mini Mockup 3 -->
+              <div class="bg-slate-100 rounded-xl p-3 border border-slate-300 mb-4 shadow-sm">
+                <!-- Mini Header -->
+                <div class="h-6 bg-[#0f172a] rounded flex items-center justify-center px-2 mb-2">
+                  <span class="font-black text-[9px] tracking-widest text-[#ff5500]">TIMETRY</span>
+                </div>
+                <!-- Mini Card -->
+                <div class="bg-white rounded border border-slate-200 p-2 shadow-xs">
+                  <div class="h-16 bg-white rounded flex items-center justify-center text-xs mb-1.5 overflow-hidden">
+                    <img src="https://m-files.cdn1.cc/lpfile/7/e/f/7efd1b47f41ce98e22b2139c71cbfc26.jpeg" class="h-full object-contain" alt="" />
+                  </div>
+                  <div class="flex gap-1 mb-1">
+                    <span class="h-1.5 w-4 bg-blue-600 rounded"></span>
+                    <span class="h-1.5 w-4 bg-emerald-600 rounded"></span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="h-2.5 w-10 bg-slate-900 rounded"></div>
+                    <div class="h-3 w-8 bg-blue-600 rounded"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="font-extrabold text-slate-900 text-sm">3. Active Outdoor Pro</h4>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Контрастный динамичный ритейл. Темная контрастная шапка, яркие технические бейджи (Shimano, 29", RockShox), акцент на активный туризм и гравийники.
+              </p>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-[#f1f5f9] border border-slate-300"></span>
+                <span class="w-3 h-3 rounded-full bg-[#0f172a]"></span>
+                <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+                <span class="text-[11px] text-slate-400 ml-auto font-medium">Светлый / Navy / Синий</span>
+              </div>
             </label>
-            <input
-              type="email"
-              name="email"
-              id="field-email"
-              placeholder="timetry-bikes@yandex.ru"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
           </div>
 
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Telegram или WhatsApp для оперативной связи
-            </label>
-            <input
-              type="text"
-              name="messenger_contact"
-              id="field-messenger"
-              placeholder="@username или номер"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
-          </div>
-
-          <div class="sm:col-span-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Адрес текущего сайта (если есть)
-            </label>
-            <input
-              type="url"
-              name="current_site"
-              id="field-site"
-              placeholder="https://timetry-bikes.ru"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
-          </div>
         </div>
-      </div>
+      </section>
 
       <!-- ==================================================================
-           STEP 2: Цели проекта и дедлайн
+           SECTION 2: ОФОРМЛЕНИЕ КАРТОЧЕК ТОВАРОВ В КАТАЛОГЕ
            ================================================================== -->
-      <div class="step-card" data-step="2">
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Шаг 2 из 7</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Бизнес-цели и сроки запуска</h3>
-          <p class="text-sm text-slate-500 mt-1">Определяем ключевые критерии успеха и дедлайн готовности.</p>
+          <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 2</span>
+          <h3 class="text-xl font-extrabold text-slate-900">Внешний вид карточки товара в каталоге</h3>
+          <p class="text-sm text-slate-500 mt-1">Что покупатель должен видеть на карточке сразу, не открывая товар детально:</p>
         </div>
 
         <div class="space-y-6">
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Главные задачи разработки (выберите всё подходящее):
+              1. Какие характеристики выносить прямо на фасад карточки (бейджи-чипы):
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div>
-                <input type="checkbox" id="goal-1" name="goals" value="Увеличение конверсии и продаж" class="hidden custom-checkbox" />
-                <label for="goal-1" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
-                  <span class="text-lg">📈</span>
-                  <span class="font-medium text-slate-800">Увеличение конверсии и продаж</span>
+                <input type="checkbox" id="card-spec-1" name="card_specs" value="Диаметр колес (29, 27.5, 700C)" class="hidden custom-checkbox" checked />
+                <label for="card-spec-1" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>🔘</span> <span class="font-medium text-slate-900">Диаметр колес (29", 27.5", 700C)</span>
                 </label>
               </div>
 
               <div>
-                <input type="checkbox" id="goal-2" name="goals" value="Замена медленного конструктора LPmotor" class="hidden custom-checkbox" />
-                <label for="goal-2" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
-                  <span class="text-lg">⚡</span>
-                  <span class="font-medium text-slate-800">Замена медленного конструктора LPmotor</span>
+                <input type="checkbox" id="card-spec-2" name="card_specs" value="Ростовка рамы (рекомендуемый рост покупателя)" class="hidden custom-checkbox" checked />
+                <label for="card-spec-2" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>🧍</span> <span class="font-medium text-slate-900">Подсказка по росту (например, 175–188 см / L)</span>
                 </label>
               </div>
 
               <div>
-                <input type="checkbox" id="goal-3" name="goals" value="Выход в топ поисковой выдачи Яндекса (SEO)" class="hidden custom-checkbox" />
-                <label for="goal-3" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
-                  <span class="text-lg">🎯</span>
-                  <span class="font-medium text-slate-800">Выход в топ выдачи Яндекса (SEO по моделям)</span>
+                <input type="checkbox" id="card-spec-3" name="card_specs" value="Тип тормозов (гидравлика / дисковая механика)" class="hidden custom-checkbox" checked />
+                <label for="card-spec-3" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>🛑</span> <span class="font-medium text-slate-900">Тормоза (Гидравлика / Механика)</span>
                 </label>
               </div>
 
               <div>
-                <input type="checkbox" id="goal-4" name="goals" value="Подключение онлайн-оплаты и корзины" class="hidden custom-checkbox" />
-                <label for="goal-4" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
-                  <span class="text-lg">💳</span>
-                  <span class="font-medium text-slate-800">Подключение онлайн-оплаты и корзины</span>
+                <input type="checkbox" id="card-spec-4" name="card_specs" value="Модель навески (Shimano Cues / Deore / S-Ride)" class="hidden custom-checkbox" checked />
+                <label for="card-spec-4" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>⚙️</span> <span class="font-medium text-slate-900">Навеска (Shimano Cues, S-Ride и т.д.)</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="card-spec-5" name="card_specs" value="Материал рамы (Алюминий 6061 / Карбон)" class="hidden custom-checkbox" checked />
+                <label for="card-spec-5" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>📐</span> <span class="font-medium text-slate-900">Материал рамы (Алюминий / Карбон)</span>
+                </label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="card-spec-6" name="card_specs" value="Количество скоростей (10 ск., 12 ск.)" class="hidden custom-checkbox" />
+                <label for="card-spec-6" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>⚡</span> <span class="font-medium text-slate-900">Количество скоростей (1x10, 1x11, 2x9)</span>
                 </label>
               </div>
             </div>
@@ -296,102 +329,22 @@
 
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Желаемый срок запуска сайта в работу: <span class="text-rose-500">*</span>
-            </label>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-              <div>
-                <input type="radio" id="deadline-1" name="deadline" value="К началу сезона (срочно, 7-10 дней)" class="hidden custom-radio" required />
-                <label for="deadline-1" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer text-center hover:border-slate-300 transition">
-                  <div class="font-bold text-slate-900">К началу сезона</div>
-                  <div class="text-xs text-slate-500 mt-1">7–10 рабочих дней</div>
-                </label>
-              </div>
-
-              <div>
-                <input type="radio" id="deadline-2" name="deadline" value="В течение 2-3 недель" class="hidden custom-radio" />
-                <label for="deadline-2" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer text-center hover:border-slate-300 transition">
-                  <div class="font-bold text-slate-900">Плановый запуск</div>
-                  <div class="text-xs text-slate-500 mt-1">14–20 рабочих дней</div>
-                </label>
-              </div>
-
-              <div>
-                <input type="radio" id="deadline-3" name="deadline" value="Не критично, главное качество" class="hidden custom-radio" />
-                <label for="deadline-3" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer text-center hover:border-slate-300 transition">
-                  <div class="font-bold text-slate-900">Без спешки</div>
-                  <div class="text-xs text-slate-500 mt-1">По готовности</div>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================================================================
-           STEP 3: Каталог и структура товаров
-           ================================================================== -->
-      <div class="step-card" data-step="3">
-        <div class="mb-6 pb-4 border-b border-slate-100">
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Шаг 3 из 7</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Каталог товаров и параметры</h3>
-          <p class="text-sm text-slate-500 mt-1">Объем базы, структура характеристик и фильтров.</p>
-        </div>
-
-        <div class="space-y-6">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Примерное количество моделей / позиций в каталоге:
-            </label>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-              <div>
-                <input type="radio" id="volume-1" name="catalog_volume" value="До 50 моделей" class="hidden custom-radio" />
-                <label for="volume-1" class="block p-3 border border-slate-200 rounded-xl cursor-pointer text-center">
-                  <span class="font-bold text-slate-900">До 50 товаров</span>
-                </label>
-              </div>
-              <div>
-                <input type="radio" id="volume-2" name="catalog_volume" value="100-300 моделей (как у Timetry, 213 позиций)" class="hidden custom-radio" checked />
-                <label for="volume-2" class="block p-3 border border-slate-200 rounded-xl cursor-pointer text-center">
-                  <span class="font-bold text-slate-900">100 – 300 товаров</span>
-                  <div class="text-xs text-slate-500 mt-0.5">Текущий каталог ~213 позиций</div>
-                </label>
-              </div>
-              <div>
-                <input type="radio" id="volume-3" name="catalog_volume" value="Более 300 позиций" class="hidden custom-radio" />
-                <label for="volume-3" class="block p-3 border border-slate-200 rounded-xl cursor-pointer text-center">
-                  <span class="font-bold text-slate-900">Более 300 товаров</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Как сейчас ведутся остатки и цены?
+              2. Кнопки действий на карточке в каталоге:
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div>
-                <input type="checkbox" id="sync-1" name="inventory_source" value="Таблицы Excel / Google Sheets" class="hidden custom-checkbox" />
-                <label for="sync-1" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  📊 <span>Таблицы Excel / Google Sheets</span>
+                <input type="radio" id="btn-mode-1" name="card_buttons_mode" value="Две кнопки: «В корзину» + экспресс-заказ «В 1 клик»" class="hidden custom-radio" checked />
+                <label for="btn-mode-1" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                  <div class="font-bold text-slate-900">Две кнопки: «В корзину» + «1 клик»</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Максимальная конверсия: те, кто не любит корзины, заказывают сразу по номеру телефона</div>
                 </label>
               </div>
+
               <div>
-                <input type="checkbox" id="sync-2" name="inventory_source" value="1С: Предприятие / МойСклад" class="hidden custom-checkbox" />
-                <label for="sync-2" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  🗄️ <span>1С: Предприятие / МойСклад</span>
-                </label>
-              </div>
-              <div>
-                <input type="checkbox" id="sync-3" name="inventory_source" value="Выгрузка со старого сайта LPmotor" class="hidden custom-checkbox" />
-                <label for="sync-3" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  📥 <span>Прямой перенос из LPmotor</span>
-                </label>
-              </div>
-              <div>
-                <input type="checkbox" id="sync-4" name="inventory_source" value="Ручное наполнение через панель управления" class="hidden custom-checkbox" />
-                <label for="sync-4" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  ✍️ <span>Ручное обновление в админке</span>
+                <input type="radio" id="btn-mode-2" name="card_buttons_mode" value="Одна основная кнопка «В корзину»" class="hidden custom-radio" />
+                <label for="btn-mode-2" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                  <div class="font-bold text-slate-900">Только «В корзину»</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Классический строгий минимализм</div>
                 </label>
               </div>
             </div>
@@ -399,60 +352,52 @@
 
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Ключевые фильтры для подбора товаров:
+              3. Маркетинговые бейджи на фотографии велосипеда:
             </label>
-            <p class="text-xs text-slate-500 mb-2">Отметьте параметры, критичные для удобства покупателя:</p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              <span class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium">✓ Диаметр колес (29, 27.5, 700C)</span>
-              <span class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium">✓ Рост райдера (S, M, L, XL)</span>
-              <span class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium">✓ Материал рамы (алюминий, карбон)</span>
-              <span class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium">✓ Тормоза (гидравлика / механика)</span>
+              <span class="p-2.5 bg-orange-50 border border-orange-200 text-orange-800 font-bold rounded-lg text-center">🔥 «Хит продаж»</span>
+              <span class="p-2.5 bg-red-50 border border-red-200 text-red-700 font-bold rounded-lg text-center">🏷️ «Скидка -15%»</span>
+              <span class="p-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold rounded-lg text-center">✅ «В наличии (Кемерово)»</span>
+              <span class="p-2.5 bg-blue-50 border border-blue-200 text-blue-800 font-bold rounded-lg text-center">✨ «Новинка 2026»</span>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- ==================================================================
-           STEP 4: Оплата и онлайн-эквайринг
+           SECTION 3: СТРАНИЦА ТОВАРА / БЫСТРЫЙ ПРОСМОТР
            ================================================================== -->
-      <div class="step-card" data-step="4">
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Шаг 4 из 7</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Платежи и онлайн-эквайринг</h3>
-          <p class="text-sm text-slate-500 mt-1">Какими способами покупатели смогут рассчитываться за заказы.</p>
+          <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 3</span>
+          <h3 class="text-xl font-extrabold text-slate-900">Детальное модальное окно / карточка товара</h3>
+          <p class="text-sm text-slate-500 mt-1">Как преподносить велосипед при клике на него:</p>
         </div>
 
         <div class="space-y-6">
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Предпочитаемый сервис интернет-эквайринга:
+              Фотогалерея и визуальные материалы:
             </label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <div class="space-y-3 text-sm">
               <div>
-                <input type="checkbox" id="pay-1" name="payment_methods" value="Т-Банк (Тинькофф Эквайринг)" class="hidden custom-checkbox" />
-                <label for="pay-1" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  💛 <span class="font-medium text-slate-900">Т-Банк (Тинькофф Эквайринг)</span>
+                <input type="checkbox" id="gallery-1" name="gallery_features" value="Крупные фото узлов крупным планом (переключатель, тормоза, вилка)" class="hidden custom-checkbox" checked />
+                <label for="gallery-1" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>📸</span> <span class="font-medium text-slate-900">Детальные фото узлов (крупным планом задний переключатель, вилка, каретка, руль)</span>
                 </label>
               </div>
 
               <div>
-                <input type="checkbox" id="pay-2" name="payment_methods" value="СБП (Система быстрых платежей 0.4-0.7%)" class="hidden custom-checkbox" />
-                <label for="pay-2" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  ⚡ <span class="font-medium text-slate-900">СБП по QR-коду (низкая комиссия)</span>
+                <input type="checkbox" id="gallery-2" name="gallery_features" value="Интерактивная таблица подбора размера рамы под рост" class="hidden custom-checkbox" checked />
+                <label for="gallery-2" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>📏</span> <span class="font-medium text-slate-900">Интерактивная таблица / подсказка: какой рост подходит под данную раму</span>
                 </label>
               </div>
 
               <div>
-                <input type="checkbox" id="pay-3" name="payment_methods" value="ЮKassa (Яндекс)" class="hidden custom-checkbox" />
-                <label for="pay-3" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  🟣 <span class="font-medium text-slate-900">ЮKassa</span>
-                </label>
-              </div>
-
-              <div>
-                <input type="checkbox" id="pay-4" name="payment_methods" value="Сбербанк Эквайринг" class="hidden custom-checkbox" />
-                <label for="pay-4" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  🟢 <span class="font-medium text-slate-900">СберБанк</span>
+                <input type="checkbox" id="gallery-3" name="gallery_features" value="Короткие видеообзоры моделей (RuTube / VK Video)" class="hidden custom-checkbox" checked />
+                <label for="gallery-3" class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                  <span>▶️</span> <span class="font-medium text-slate-900">Встроенный видеоплеер с короткими видеообзорами на байки (RuTube / VK Видео)</span>
                 </label>
               </div>
             </div>
@@ -460,236 +405,113 @@
 
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Дополнительные способы расчетов:
+              Сопутствующие товары («Вместе с этим велосипедом покупают»):
             </label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              <div>
-                <input type="checkbox" id="extra-pay-1" name="extra_payments" value="Оплата при получении (наложенный платеж СДЭК/ТК)" class="hidden custom-checkbox" checked />
-                <label for="extra-pay-1" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  📦 <span>Оплата при получении в пункте выдачи</span>
-                </label>
-              </div>
-
-              <div>
-                <input type="checkbox" id="extra-pay-2" name="extra_payments" value="Беспроцентная рассрочка 0-0-12 / Долями" class="hidden custom-checkbox" />
-                <label for="extra-pay-2" class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer">
-                  🎁 <span>Рассрочка без переплат / «Долями»</span>
-                </label>
-              </div>
+            <p class="text-xs text-slate-500 mb-2">Планируете ли сразу предлагать допы при просмотре байка?</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Крылья и брызговики</label>
+              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Фляги и держатели</label>
+              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Насосы и ремкомплекты</label>
+              <label class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center font-semibold text-slate-700">Шлемы и перчатки</label>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- ==================================================================
-           STEP 5: Доставка и логистика
+           SECTION 4: ШАПКА И НАВИГАЦИЯ
            ================================================================== -->
-      <div class="step-card" data-step="5">
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Шаг 5 из 7</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Доставка и логистика</h3>
-          <p class="text-sm text-slate-500 mt-1">Организация логистики велосипедов по регионам России.</p>
-        </div>
-
-        <div class="space-y-6">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Используемые транспортные компании:
-            </label>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
-              <div>
-                <input type="checkbox" id="tc-1" name="carriers" value="СДЭК" class="hidden custom-checkbox" checked />
-                <label for="tc-1" class="block p-3 border border-slate-200 rounded-xl cursor-pointer text-center font-bold text-slate-900">
-                  СДЭК
-                </label>
-              </div>
-              <div>
-                <input type="checkbox" id="tc-2" name="carriers" value="Деловые Линии" class="hidden custom-checkbox" checked />
-                <label for="tc-2" class="block p-3 border border-slate-200 rounded-xl cursor-pointer text-center font-bold text-slate-900">
-                  Деловые Линии
-                </label>
-              </div>
-              <div>
-                <input type="checkbox" id="tc-3" name="carriers" value="ПЭК" class="hidden custom-checkbox" />
-                <label for="tc-3" class="block p-3 border border-slate-200 rounded-xl cursor-pointer text-center font-bold text-slate-900">
-                  ПЭК
-                </label>
-              </div>
-              <div>
-                <input type="checkbox" id="tc-4" name="carriers" value="Энергия / Самовывоз" class="hidden custom-checkbox" checked />
-                <label for="tc-4" class="block p-3 border border-slate-200 rounded-xl cursor-pointer text-center font-bold text-slate-900">
-                  Самовывоз / ТК
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Основной адрес / город склада отгрузки:
-            </label>
-            <input
-              type="text"
-              name="warehouse_city"
-              id="field-warehouse"
-              value="г. Кемерово"
-              placeholder="г. Кемерово"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Условия бесплатной доставки (порог суммы):
-            </label>
-            <input
-              type="text"
-              name="free_shipping_threshold"
-              value="От 40 000 ₽ до терминала ТК"
-              placeholder="Например, от 40 000 ₽"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================================================================
-           STEP 6: Дизайн и фирменный стиль
-           ================================================================== -->
-      <div class="step-card" data-step="6">
-        <div class="mb-6 pb-4 border-b border-slate-100">
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Шаг 6 из 7</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Дизайн и визуальный стиль</h3>
-          <p class="text-sm text-slate-500 mt-1">Визуальная концепция, цветовая гамма и материалы.</p>
-        </div>
-
-        <div class="space-y-6">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
-              Предпочитаемая стилистика магазина:
-            </label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              <div>
-                <input type="radio" id="style-1" name="design_style" value="Чистый светлый e-commerce (как в согласованном MVP)" class="hidden custom-radio" checked />
-                <label for="style-1" class="block p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
-                  <div class="font-bold text-slate-900">☀️ Чистый светлый e-commerce</div>
-                  <div class="text-xs text-slate-500 mt-1">Белые карточки, крупный 3D-логотип по центру, оранжевые акценты (как в согласованном MVP)</div>
-                </label>
-              </div>
-
-              <div>
-                <input type="radio" id="style-2" name="design_style" value="Темный технологичный спорт (карбон, графит)" class="hidden custom-radio" />
-                <label for="style-2" class="block p-4 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-300 transition">
-                  <div class="font-bold text-slate-900">🌙 Темный спортивный стиль</div>
-                  <div class="text-xs text-slate-500 mt-1">Графитовые и черные тона, неоновые акценты, кибер-спорт</div>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Ссылки на сайты, которые нравятся (референсы):
-            </label>
-            <textarea
-              name="references"
-              rows="2"
-              placeholder="Ссылки на сайты конкурентов или магазинов, где нравится структура или удобство"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            ></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================================================================
-           STEP 7: Доступы, хостинг и юр. реквизиты
-           ================================================================== -->
-      <div class="step-card" data-step="7">
-        <div class="mb-6 pb-4 border-b border-slate-100">
-          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Шаг 7 из 7</span>
-          <h3 class="text-xl font-extrabold text-slate-900">Доступы, хостинг и отправка</h3>
-          <p class="text-sm text-slate-500 mt-1">Финальные данные для юридической чистоты и развертывания.</p>
+          <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 4</span>
+          <h3 class="text-xl font-extrabold text-slate-900">Шапка магазина и контакты</h3>
+          <p class="text-sm text-slate-500 mt-1">Организация верхней части страницы:</p>
         </div>
 
         <div class="space-y-5">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                Юридическое лицо и ИНН для 152-ФЗ:
-              </label>
-              <input
-                type="text"
-                name="legal_entity"
-                id="field-legal"
-                placeholder="ИП Ефимов Д.М., ИНН 420533538981"
-                class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-              />
-            </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
+              Расположение и размер логотипа TIMETRY:
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div>
+                <input type="radio" id="logo-pos-1" name="logo_position" value="Крупный объемный 3D-логотип по центру (как в утвержденном концепте)" class="hidden custom-radio" checked />
+                <label for="logo-pos-1" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                  <div class="font-bold text-slate-900">Крупный 3D-логотип по центру</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Максимальная солидность, бренд на первом плане</div>
+                </label>
+              </div>
 
-            <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                Где зарегистрирован домен (регистратор):
-              </label>
-              <input
-                type="text"
-                name="domain_registrar"
-                placeholder="Например, Reg.ru / Beget / Ru-Center"
-                class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-              />
+              <div>
+                <input type="radio" id="logo-pos-2" name="logo_position" value="Компактный логотип слева, рядом меню и поиск" class="hidden custom-radio" />
+                <label for="logo-pos-2" class="block p-3.5 border border-slate-200 rounded-xl cursor-pointer">
+                  <div class="font-bold text-slate-900">Компактный логотип слева</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Строгий классический e-commerce</div>
+                </label>
+              </div>
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Дополнительные пожелания, важные нюансы или вопросы:
+              Телефон и мессенджеры в шапке:
             </label>
-            <textarea
-              name="notes"
-              rows="3"
-              placeholder="Напишите любые особые требования, пожелания по интеграциям или этапам оплаты"
-              class="w-full py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:border-blue-600 focus:outline-none"
-            ></textarea>
-          </div>
-
-          <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-start gap-3">
-            <span class="text-lg">🛡️</span>
-            <div>
-              <strong>Конфиденциальность гарантирована:</strong> Вся переданная информация фиксируется на защищенном российском сервере в соответствии со 152-ФЗ и используется исключительно для подготовки ТЗ и реализации проекта.
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <input
+                type="text"
+                name="header_phone"
+                value="8 (950) 272-04-40"
+                class="py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm font-bold text-slate-900"
+              />
+              <input
+                type="text"
+                name="header_hours"
+                value="Склад в Кемерово • Отгрузка ТК день в день"
+                class="py-2.5 px-3.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-700"
+              />
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Navigation & Action Buttons -->
-      <div class="mt-8 pt-5 border-t border-slate-200 flex items-center justify-between">
-        <button
-          type="button"
-          id="btn-prev-step"
-          onclick="navigateStep(-1)"
-          class="hidden px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition"
-        >
-          ← Назад
-        </button>
-
-        <div class="ml-auto flex items-center gap-3">
-          <button
-            type="button"
-            id="btn-next-step"
-            onclick="navigateStep(1)"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl text-sm shadow-md transition"
-          >
-            Далее →
-          </button>
-
-          <button
-            type="submit"
-            id="btn-submit-brief"
-            class="hidden bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 px-8 rounded-xl text-sm shadow-lg shadow-emerald-600/20 transition flex items-center gap-2"
-          >
-            <span>🚀 Отправить бриф в LocalWeb</span>
-          </button>
+      <!-- ==================================================================
+           SECTION 5: ДОПОЛНИТЕЛЬНЫЕ ПОЖЕЛАНИЯ
+           ================================================================== -->
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <div class="mb-4 pb-3 border-b border-slate-100">
+          <span class="text-xs font-bold text-[#ff5500] uppercase tracking-wider">Раздел 5</span>
+          <h3 class="text-xl font-extrabold text-slate-900">Ваши персональные пожелания по визуалу</h3>
         </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">
+            Что ещё обязательно учесть или добавить в дизайн?
+          </label>
+          <textarea
+            name="custom_wishes"
+            rows="3"
+            placeholder="Например: сделать оранжевый цвет чуть ярче, добавить на карточки шильдик 'Официальный дилер', закрепить кнопку звонка внизу на смартфонах..."
+            class="w-full py-3 px-4 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:border-[#ff5500] focus:outline-none"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <div class="pt-4 flex items-center justify-between">
+        <div class="text-xs text-slate-500">
+          Данные моментально передаются дизайнерам LocalWeb для финальной отрисовки.
+        </div>
+
+        <button
+          type="submit"
+          id="btn-submit-brief"
+          class="bg-[#ff5500] hover:bg-[#e04a00] text-white font-black py-4 px-8 rounded-xl text-base shadow-xl shadow-orange-500/25 transition active:scale-[0.99] flex items-center gap-2"
+        >
+          <span>🚀 Утвердить бриф по дизайну</span>
+          <span>→</span>
+        </button>
       </div>
+
     </form>
   </main>
 
@@ -697,39 +519,30 @@
        STATE 3: SUCCESS CONFIRMATION SCREEN
        ======================================================================== -->
   <main id="success-screen" class="hidden flex-grow flex items-center justify-center p-4 sm:p-6 my-auto">
-    <div class="max-w-lg w-full bg-white rounded-2xl border border-slate-200 shadow-xl p-8 text-center">
+    <div class="max-w-md w-full bg-white rounded-2xl border border-slate-200 shadow-xl p-8 text-center">
       <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
         ✓
       </div>
       <h2 class="text-2xl font-black text-slate-900 mb-2">
-        Бриф успешно принят в работу!
+        Бриф по дизайну принят!
       </h2>
       <p class="text-sm text-slate-600 mb-6 leading-relaxed">
-        Данные зафиксированы и мгновенно направлены в Telegram-бот и на почту ведущему разработчику LocalWeb. Мы свяжемся с вами в течение 1 рабочего дня для утверждения финального ТЗ и графика запуска.
+        Спасибо, Дмитрий Михайлович! Ваши предпочтения по концепции, карточкам и визуалу зафиксированы и уже переданы веб-разработчикам LocalWeb.
       </p>
 
       <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-left text-xs text-slate-600 space-y-1.5 mb-6">
-        <div>📁 <strong>Проект:</strong> <span id="summary-project-name">—</span></div>
-        <div>👤 <strong>Контакт:</strong> <span id="summary-client-name">—</span></div>
-        <div>📞 <strong>Телефон:</strong> <span id="summary-phone">—</span></div>
-        <div>🕒 <strong>Время фиксации:</strong> <span id="summary-time">—</span></div>
+        <div>🎨 <strong>Выбранный стиль:</strong> <span id="summary-design" class="text-slate-900 font-bold">—</span></div>
+        <div>🔘 <strong>Кнопки карточки:</strong> <span id="summary-buttons">—</span></div>
+        <div>🕒 <strong>Время:</strong> <span id="summary-time">—</span></div>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-3">
-        <button
-          onclick="downloadBriefCopy()"
-          class="flex-1 px-4 py-2.5 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition"
-        >
-          📄 Скачать копию брифа (.txt)
-        </button>
-        <a
-          href="https://t.me/LocalWebRu"
-          target="_blank"
-          class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5"
-        >
-          Написать в Telegram
-        </a>
-      </div>
+      <a
+        href="https://t.me/LocalWebRu"
+        target="_blank"
+        class="block w-full py-3 bg-[#ff5500] hover:bg-[#e04a00] text-white rounded-xl text-sm font-bold transition shadow-md"
+      >
+        Написать в Telegram @LocalWebRu
+      </a>
     </div>
   </main>
 
@@ -738,232 +551,49 @@
        ======================================================================== -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400">
     <div class="max-w-5xl mx-auto px-4">
-      © 2026 LocalWeb Digital Agency. Все права защищены. Конфиденциальный внутренний документ.
+      © 2026 TIMETRY BIKES RUSSIA & LocalWeb Digital Agency. Все права защищены.
     </div>
   </footer>
 
   <!-- ========================================================================
-       APPLICATION LOGIC SCRIPT
+       SCRIPT LOGIC
        ======================================================================== -->
   <script>
-    // Endpoints from LocalWeb architecture
     window.LEAD_ENDPOINT = window.LEAD_ENDPOINT || 'https://script.google.com/macros/s/AKfycbygm5pShoTm9MsR8gA2FM3y47aojBNUVxFz_TjOrC4zvUZsDEu-6A1UZgwSxcIJVSQD/exec';
     window.YANDEX_152FZ_ENDPOINT = window.YANDEX_152FZ_ENDPOINT || 'https://functions.yandexcloud.net/d4e23a85l1pnpv0skdum';
 
-    // Current State
-    let currentStep = 1;
-    const totalSteps = 7;
-    let activeProjectCode = '';
-    let projectsConfig = {};
-    let submittedBriefPayload = null;
-
-    // Load projects configuration
-    document.addEventListener('DOMContentLoaded', async () => {
-      await loadProjectsConfig();
+    document.addEventListener('DOMContentLoaded', () => {
       checkUrlCode();
-      restoreFormDraft();
     });
 
-    async function loadProjectsConfig() {
-      try {
-        const res = await fetch('brief_projects.json');
-        if (res.ok) {
-          projectsConfig = await res.json();
-        }
-      } catch (e) {
-        // Fallback default dictionary
-        projectsConfig = {
-          "TIMETRY": {
-            projectName: "Интернет-магазин TIMETRY BIKES",
-            clientName: "ИП Ефимов Дмитрий Михайлович",
-            website: "https://timetry-bikes.ru",
-            warehouse: "г. Кемерово",
-            legal: "ИП Ефимов Дмитрий Михайлович, ИНН 420533538981",
-            welcome: "Здравствуйте, Дмитрий Михайлович! Бриф подготовлен для фиксации конкретных требований к новому интернет-магазину TIMETRY."
-          },
-          "TIMETRY2026": {
-            projectName: "Интернет-магазин TIMETRY BIKES",
-            clientName: "ИП Ефимов Дмитрий Михайлович",
-            website: "https://timetry-bikes.ru"
-          },
-          "LOCALWEB": {
-            projectName: "E-Commerce магазин (LocalWeb)",
-            welcome: "Добро пожаловать в персональный бриф разработки LocalWeb!"
-          }
-        };
-      }
-    }
-
-    // Check if ?code=XYZ is passed in URL
     function checkUrlCode() {
       const params = new URLSearchParams(window.location.search);
       const urlCode = params.get('code');
       if (urlCode && urlCode.trim()) {
-        const input = document.getElementById('access-code-input');
-        if (input) input.value = urlCode.trim();
         unlockBrief(urlCode.trim());
       }
     }
 
-    // Gate submission
     function handleGateSubmit(e) {
       e.preventDefault();
-      const codeInput = document.getElementById('access-code-input');
-      const code = (codeInput.value || '').trim().toUpperCase();
+      const code = document.getElementById('access-code-input').value.trim();
       if (!code) return;
       unlockBrief(code);
     }
 
-    // Unlock Briefing questionnaire
     function unlockBrief(code) {
-      const cleanCode = code.toUpperCase();
-      const config = projectsConfig[cleanCode] || projectsConfig['LOCALWEB'] || {
-        projectName: `Проект ${cleanCode}`,
-        welcome: "Заполните персональный бриф для старта работ над вашим проектом."
-      };
-
-      activeProjectCode = cleanCode;
-
-      // Update UI Header & Welcome
-      document.getElementById('project-badge').classList.remove('hidden');
-      document.getElementById('project-badge').classList.add('inline-flex');
-      document.getElementById('project-badge-name').textContent = config.projectName || cleanCode;
-
-      document.getElementById('welcome-code-badge').textContent = cleanCode;
-      if (config.welcome) {
-        document.getElementById('welcome-desc').textContent = config.welcome;
-      }
-      if (config.projectName) {
-        document.getElementById('welcome-title').textContent = `Бриф: ${config.projectName}`;
-      }
-
-      // Pre-fill fields if known
-      if (config.clientName && !document.getElementById('field-client-name').value) {
-        document.getElementById('field-client-name').value = config.clientName;
-      }
-      if (config.company && !document.getElementById('field-company').value) {
-        document.getElementById('field-company').value = config.company;
-      } else if (cleanCode.includes('TIMETRY') && !document.getElementById('field-company').value) {
-        document.getElementById('field-company').value = 'TIMETRY BIKES RUSSIA (ИП Ефимов Д.М.)';
-      }
-      if (config.website && !document.getElementById('field-site').value) {
-        document.getElementById('field-site').value = config.website;
-      }
-      if (config.warehouse && !document.getElementById('field-warehouse').value) {
-        document.getElementById('field-warehouse').value = config.warehouse;
-      }
-      if (config.legal && !document.getElementById('field-legal').value) {
-        document.getElementById('field-legal').value = config.legal;
-      }
-
-      // Transition screen
       document.getElementById('gate-screen').classList.add('hidden');
       document.getElementById('brief-screen').classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Navigation across steps
-    function navigateStep(direction) {
-      const form = document.getElementById('briefing-form');
-      const currentCard = document.querySelector(`.step-card[data-step="${currentStep}"]`);
-
-      // If moving forward, validate required fields in current step
-      if (direction > 0 && currentCard) {
-        const requiredInputs = currentCard.querySelectorAll('input[required]');
-        for (const input of requiredInputs) {
-          if (!input.checkValidity()) {
-            input.reportValidity();
-            return;
-          }
-        }
-      }
-
-      const nextStep = currentStep + direction;
-      if (nextStep < 1 || nextStep > totalSteps) return;
-
-      currentStep = nextStep;
-      renderCurrentStep();
-      saveFormDraft();
-    }
-
-    function renderCurrentStep() {
-      document.querySelectorAll('.step-card').forEach(card => {
-        card.classList.remove('active');
-        if (+card.dataset.step === currentStep) {
-          card.classList.add('active');
-        }
-      });
-
-      // Update buttons
-      const btnPrev = document.getElementById('btn-prev-step');
-      const btnNext = document.getElementById('btn-next-step');
-      const btnSubmit = document.getElementById('btn-submit-brief');
-
-      btnPrev.classList.toggle('hidden', currentStep === 1);
-      btnNext.classList.toggle('hidden', currentStep === totalSteps);
-      btnSubmit.classList.toggle('hidden', currentStep !== totalSteps);
-
-      // Update progress bar
-      const pct = Math.round((currentStep / totalSteps) * 100);
-      document.getElementById('progress-bar-fill').style.width = `${pct}%`;
-      document.getElementById('progress-percent-text').textContent = `${pct}% заполнено`;
-
-      const titles = [
-        'Контакты и вводные данные',
-        'Бизнес-цели и сроки запуска',
-        'Каталог товаров и параметры',
-        'Платежи и онлайн-эквайринг',
-        'Доставка и логистика',
-        'Дизайн и визуальный стиль',
-        'Доступы, хостинг и отправка'
-      ];
-      document.getElementById('progress-step-text').textContent = `Шаг ${currentStep} из ${totalSteps}: ${titles[currentStep - 1]}`;
-
-      window.scrollTo({ top: 120, behavior: 'smooth' });
-    }
-
-    // Auto-save & restore draft
-    function saveFormDraft() {
-      const form = document.getElementById('briefing-form');
-      const formData = new FormData(form);
-      const data = {};
-      formData.forEach((val, key) => {
-        if (data[key]) {
-          if (!Array.isArray(data[key])) data[key] = [data[key]];
-          data[key].push(val);
-        } else {
-          data[key] = val;
-        }
-      });
-      localStorage.setItem('localweb_brief_draft_' + activeProjectCode, JSON.stringify(data));
-    }
-
-    function restoreFormDraft() {
-      try {
-        const saved = localStorage.getItem('localweb_brief_draft_' + activeProjectCode);
-        if (!saved) return;
-        const data = JSON.parse(saved);
-        const form = document.getElementById('briefing-form');
-        for (const [key, val] of Object.entries(data)) {
-          const input = form.querySelector(`[name="${key}"]`);
-          if (input && typeof val === 'string') {
-            input.value = val;
-          }
-        }
-      } catch (e) {}
-    }
-
-    // Submission handler
     async function handleBriefSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('briefing-form');
       const submitBtn = document.getElementById('btn-submit-brief');
-      const originalText = submitBtn.innerHTML;
-
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<span>⏳ Отправка брифа...</span>`;
 
-      // Extract all form values
       const formData = new FormData(form);
       const values = {};
       formData.forEach((val, key) => {
@@ -975,112 +605,79 @@
         }
       });
 
-      // Prepare human-readable text for Telegram / Email
       const formatList = (val) => Array.isArray(val) ? val.join(', ') : (val || '—');
-      
+
       const answersText = `
-🏢 <b>Компания:</b> ${values.company || '—'}
-👤 <b>Контакт:</b> ${values.client_name || '—'}
-📞 <b>Телефон:</b> ${values.phone || '—'}
-✉️ <b>Email:</b> ${values.email || '—'}
-💬 <b>Мессенджер:</b> ${values.messenger_contact || '—'}
-🌐 <b>Текущий сайт:</b> ${values.current_site || '—'}
+🎨 <b>ВЫБРАННЫЙ ДИЗАЙН:</b>
+${values.design_concept || '—'}
 
-🎯 <b>Цели:</b> ${formatList(values.goals)}
-⏱️ <b>Дедлайн:</b> ${values.deadline || '—'}
+📦 <b>КАРТОЧКИ ТОВАРОВ В КАТАЛОГЕ:</b>
+• Характеристики на фасаде: ${formatList(values.card_specs)}
+• Кнопки заказа: ${values.card_buttons_mode || '—'}
 
-📦 <b>Каталог:</b> ${values.catalog_volume || '—'}
-📊 <b>Учет остатков:</b> ${formatList(values.inventory_source)}
+🖼️ <b>СТРАНИЦА И ДЕТАЛЬНЫЙ ПРОСМОТР:</b>
+• Фотогалерея и опции: ${formatList(values.gallery_features)}
 
-💳 <b>Оплата:</b> ${formatList(values.payment_methods)}
-🎁 <b>Доп. платежи:</b> ${formatList(values.extra_payments)}
+🔝 <b>ШАПКА И КОНТАКТЫ:</b>
+• Логотип: ${values.logo_position || '—'}
+• Телефон: ${values.header_phone || '—'}
+• Склад/часы: ${values.header_hours || '—'}
 
-🚚 <b>Транспортные компании:</b> ${formatList(values.carriers)}
-📍 <b>Склад отгрузки:</b> ${values.warehouse_city || '—'}
-🎁 <b>Бесплатная доставка:</b> ${values.free_shipping_threshold || '—'}
-
-🎨 <b>Стиль дизайна:</b> ${values.design_style || '—'}
-🔗 <b>Референсы:</b> ${values.references || '—'}
-
-🏛️ <b>Реквизиты/152-ФЗ:</b> ${values.legal_entity || '—'}
-🌐 <b>Регистратор домена:</b> ${values.domain_registrar || '—'}
-📝 <b>Пожелания:</b> ${values.notes || '—'}
+📝 <b>ПОЖЕЛАНИЯ ПО ВИЗУАЛУ:</b>
+${values.custom_wishes || 'Без дополнительных правок'}
       `.trim();
 
       const payload = {
         type: 'briefing',
         is_brief: true,
-        project_code: activeProjectCode,
-        company: values.company || activeProjectCode,
-        client_name: values.client_name,
-        name: values.client_name,
-        phone: values.phone,
-        contact: values.phone,
-        email: values.email || '—',
-        messenger: values.messenger_contact || 'Telegram',
+        project_code: 'TIMETRY',
+        company: 'TIMETRY BIKES RUSSIA (ИП Ефимов Д.М.)',
+        client_name: 'Ефимов Дмитрий Михайлович',
+        name: 'Ефимов Дмитрий Михайлович',
+        phone: values.header_phone || '8 (950) 272-04-40',
+        contact: values.header_phone || '8 (950) 272-04-40',
+        email: 'timetry-bikes@yandex.ru',
+        messenger: 'Telegram',
         brief_answers: values,
         answers_text: answersText,
         timestamp: new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }),
         source: window.location.href
       };
 
-      submittedBriefPayload = payload;
-
       try {
         const payloadString = JSON.stringify(payload);
 
-        // 1. Google Script Webhook (Google Sheets + Email)
+        // 1. Google Script Webhook (Sheets + Email)
         if (window.LEAD_ENDPOINT && window.LEAD_ENDPOINT.trim() !== '') {
           fetch(window.LEAD_ENDPOINT, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: payloadString
-          }).catch(err => console.debug('Google script sync:', err));
+          }).catch(e => console.debug('Google sync:', e));
         }
 
-        // 2. Yandex Cloud Function (152-FZ ЦОД РФ + Telegram Bot + SMTP Email)
+        // 2. Yandex Cloud Function (Telegram bot + Email)
         if (window.YANDEX_152FZ_ENDPOINT && window.YANDEX_152FZ_ENDPOINT.trim() !== '') {
           await fetch(window.YANDEX_152FZ_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: payloadString
-          }).catch(err => console.debug('Yandex sync:', err));
+          }).catch(e => console.debug('Yandex sync:', e));
         }
       } catch (err) {
         console.warn('Network notice:', err);
       }
 
-      // Clear draft
-      localStorage.removeItem('localweb_brief_draft_' + activeProjectCode);
-
-      // Display Success Screen
+      // Success
       document.getElementById('brief-screen').classList.add('hidden');
       document.getElementById('success-screen').classList.remove('hidden');
 
-      document.getElementById('summary-project-name').textContent = payload.company || activeProjectCode;
-      document.getElementById('summary-client-name').textContent = payload.client_name || '—';
-      document.getElementById('summary-phone').textContent = payload.phone || '—';
+      document.getElementById('summary-design').textContent = values.design_concept ? values.design_concept.split(':')[0] : 'Вариант 1';
+      document.getElementById('summary-buttons').textContent = values.card_buttons_mode || '—';
       document.getElementById('summary-time').textContent = payload.timestamp;
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Download text copy
-    function downloadBriefCopy() {
-      if (!submittedBriefPayload) return;
-      const cleanText = `БРИФ ПРОЕКТА LOCALWEB\nПроект: ${submittedBriefPayload.company} (Код: ${submittedBriefPayload.project_code})\nДата: ${submittedBriefPayload.timestamp}\n\n` +
-        submittedBriefPayload.answers_text.replace(/<[^>]+>/g, '');
-
-      const blob = new Blob([cleanText], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Brief_${submittedBriefPayload.project_code}_${Date.now()}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
     }
   </script>
 </body>
