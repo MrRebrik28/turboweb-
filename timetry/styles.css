@@ -1093,11 +1093,12 @@ input::placeholder, textarea::placeholder {
    DEALER TRUST & ADVANTAGES SECTION
    -------------------------------------------------------------------------- */
 .dealer-trust-section {
-  padding: 48px 0;
+  padding: 56px 0;
   background: var(--bg-card);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  margin-top: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
 }
 
@@ -1212,6 +1213,73 @@ input::placeholder, textarea::placeholder {
   margin-bottom: 14px;
   overflow: hidden;
   position: relative;
+  cursor: zoom-in;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.product-main-view .zoom-hint-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+  opacity: 0.88;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  z-index: 4;
+}
+
+.product-main-view:hover .zoom-hint-badge {
+  opacity: 1;
+  color: var(--accent-orange);
+  border-color: var(--accent-orange);
+}
+
+.product-main-view .gallery-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  z-index: 6;
+}
+
+.product-main-view .gallery-nav-arrow:hover {
+  opacity: 1;
+  background: var(--accent-orange);
+  color: #ffffff;
+  border-color: var(--accent-orange);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.product-main-view .gallery-prev-arrow {
+  left: 10px;
+}
+
+.product-main-view .gallery-next-arrow {
+  right: 10px;
 }
 
 .product-main-img {
@@ -1481,11 +1549,13 @@ input::placeholder, textarea::placeholder {
 /* --------------------------------------------------------------------------
    FOOTER (152-ФЗ Compliant)
    -------------------------------------------------------------------------- */
+footer,
+.main-footer,
 .light-footer {
   background: var(--bg-card);
   border-top: 1px solid var(--border-color);
-  padding: 40px 0 20px;
-  margin-top: 40px;
+  padding: 60px 0 32px;
+  margin-top: 75px !important;
   transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
 }
 
@@ -1661,6 +1731,167 @@ input::placeholder, textarea::placeholder {
 .qv-thumb img {
   max-height: 100%;
   object-fit: contain;
+}
+
+/* ==========================================================================
+   FULLSCREEN IMAGE LIGHTBOX MODAL
+   ========================================================================== */
+.image-lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.image-lightbox-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 29, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  max-height: 92vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.lightbox-img-wrapper {
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.lightbox-img-wrapper img {
+  max-width: 100%;
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease;
+}
+
+.lightbox-btn-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-btn-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.08);
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.lightbox-nav-btn:hover {
+  background: rgba(249, 115, 22, 0.95);
+  border-color: rgba(249, 115, 22, 1);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+.lightbox-counter-bar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .lightbox-btn-close {
+    top: 14px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+  }
+  .lightbox-nav-btn {
+    width: 42px;
+    height: 42px;
+    background: rgba(0, 0, 0, 0.55);
+  }
+  .lightbox-prev {
+    left: 8px;
+  }
+  .lightbox-next {
+    right: 8px;
+  }
+  .lightbox-counter-bar {
+    bottom: 16px;
+    font-size: 0.8rem;
+    padding: 4px 12px;
+  }
 }
 
 /* Cart Drawer */
@@ -2027,6 +2258,33 @@ input::placeholder, textarea::placeholder {
   .product-main-view {
     height: 250px !important;
     width: 100% !important;
+  }
+
+  .product-main-view .gallery-nav-arrow {
+    width: 32px;
+    height: 32px;
+    opacity: 0.85;
+  }
+
+  .product-main-view .gallery-prev-arrow {
+    left: 6px;
+  }
+
+  .product-main-view .gallery-next-arrow {
+    right: 6px;
+  }
+
+  .dealer-trust-section {
+    padding: 36px 0;
+    margin-top: 36px;
+    margin-bottom: 40px;
+  }
+
+  footer,
+  .main-footer,
+  .light-footer {
+    padding: 48px 0 100px !important;
+    margin-top: 60px !important;
   }
 
   .product-title-h1 {

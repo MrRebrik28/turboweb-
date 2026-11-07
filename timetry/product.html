@@ -484,6 +484,32 @@
     </div>
   </div>
 
+  <!-- Fullscreen Image Lightbox Modal -->
+  <div class="image-lightbox-modal" id="image-lightbox-modal" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+    <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-btn-close" onclick="closeLightbox()" aria-label="Закрыть">
+        <svg class="svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <button class="lightbox-nav-btn lightbox-prev" onclick="prevLightboxImage(event)" aria-label="Предыдущее фото">
+        <svg class="svg-icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      <div class="lightbox-img-wrapper" id="lightbox-img-wrapper">
+        <img id="lightbox-img" src="" alt="Увеличенное фото TIMETRY" />
+      </div>
+
+      <button class="lightbox-nav-btn lightbox-next" onclick="nextLightboxImage(event)" aria-label="Следующее фото">
+        <svg class="svg-icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <div class="lightbox-counter-bar">
+        <span id="lightbox-counter">1 / 1</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Mobile Sticky Action Bar -->
   <div class="mobile-sticky-bar">
     <a href="index.html" class="mobile-bar-btn" style="background: var(--bg-surface); color: var(--text-main); text-decoration: none;">
