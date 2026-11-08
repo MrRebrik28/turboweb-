@@ -2238,6 +2238,363 @@ footer,
   to { opacity: 1; transform: translateX(0); }
 }
 
+/* ==========================================================================
+   SKELETON SHIMMER LOADER
+   ========================================================================== */
+@keyframes shimmerAnim {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmerAnim 1.6s infinite ease-in-out;
+  border-radius: var(--radius-sm);
+}
+
+[data-theme="light"] .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f8fafc 50%,
+    #e2e8f0 75%
+  );
+  background-size: 200% 100%;
+}
+
+.skeleton-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 480px;
+}
+
+.skeleton-photo-box {
+  width: 100%;
+  height: 220px;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+}
+
+.skeleton-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 4px;
+}
+
+.skeleton-specs-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.skeleton-chip {
+  height: 24px;
+  border-radius: 6px;
+}
+
+.skeleton-bottom-actions {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skeleton-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   MODEL FILTER IN SIDEBAR
+   ========================================================================== */
+.model-search-filter-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.model-search-filter-box .model-search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.model-filter-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 10px 32px 10px 36px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.model-filter-input:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px var(--accent-orange-glow);
+}
+
+.model-filter-clear-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 50%;
+  transition: color 0.2s;
+}
+
+.model-filter-clear-btn:hover {
+  color: var(--accent-orange);
+}
+
+.model-brand-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.model-quick-select {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.model-quick-select:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+}
+
+/* ==========================================================================
+   SHARE BUTTON ON PRODUCT PAGE
+   ========================================================================== */
+.product-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.btn-share-model {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-share-model:hover {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+  background: var(--bg-card);
+  transform: translateY(-1px);
+}
+
+.btn-share-model:active {
+  transform: translateY(0);
+}
+
+.btn-share-model.copied {
+  background: #16a34a !important;
+  border-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   MOBILE FLOATING BUY BAR & FLOATING ACTIONS (FOR PHONES)
+   ========================================================================== */
+.mobile-floating-buy-bar {
+  display: none;
+}
+
+.mobile-floating-catalog-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-floating-buy-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.35);
+    padding: 10px 14px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transform: translateY(115%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+  }
+
+  .mobile-floating-buy-bar.visible {
+    transform: translateY(0);
+  }
+
+  .mfb-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .mfb-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .mfb-details {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .mfb-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  .mfb-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .mfb-price {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--accent-orange);
+    line-height: 1;
+  }
+
+  .mfb-color-badge {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 110px;
+  }
+
+  .mfb-buy-btn {
+    padding: 10px 20px !important;
+    font-size: 0.95rem !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px var(--accent-orange-glow);
+  }
+
+  /* Catalog floating mobile button */
+  .mobile-floating-catalog-btn {
+    display: inline-flex;
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    z-index: 950;
+    background: var(--accent-orange);
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: inherit;
+    box-shadow: 0 6px 20px var(--accent-orange-glow);
+    cursor: pointer;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .mobile-floating-catalog-btn:active {
+    transform: scale(0.95);
+  }
+}
+
 /* --------------------------------------------------------------------------
    MOBILE STICKY BOTTOM BAR
    -------------------------------------------------------------------------- */

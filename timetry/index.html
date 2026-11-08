@@ -154,6 +154,41 @@
             <button class="btn-reset-filters" onclick="resetAllFilters()">Сбросить</button>
           </div>
 
+          <!-- Model Filter (Search & Brand Picker) -->
+          <div class="filter-group" id="filter-group-model">
+            <label class="filter-label" for="model-filter-input">
+              <span>Подбор по модели</span>
+              <span class="filter-label-hint" id="model-filter-count-hint" style="font-size: 0.75rem; color: var(--accent-orange); font-weight: 600;">31 модель</span>
+            </label>
+            <div class="model-search-filter-box">
+              <svg class="svg-icon model-search-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input 
+                type="text" 
+                id="model-filter-input" 
+                class="model-filter-input" 
+                placeholder="Название модели (TT428, T55, X1...)" 
+                autocomplete="off"
+              />
+              <button type="button" id="model-filter-clear" class="model-filter-clear-btn" style="display: none;" title="Очистить">&times;</button>
+            </div>
+            
+            <!-- Quick Brand Chips -->
+            <div class="model-brand-chips">
+              <button type="button" class="filter-tag-btn active" data-filter-type="brand" data-filter-val="all">Все</button>
+              <button type="button" class="filter-tag-btn" data-filter-type="brand" data-filter-val="TIMETRY">TIMETRY</button>
+              <button type="button" class="filter-tag-btn" data-filter-type="brand" data-filter-val="SHUSTER">SHUSTER</button>
+              <button type="button" class="filter-tag-btn" data-filter-type="brand" data-filter-val="YUEH">YUEH</button>
+              <button type="button" class="filter-tag-btn" data-filter-type="brand" data-filter-val="GT">GT</button>
+            </div>
+
+            <!-- Specific Model Dropdown Picker -->
+            <div style="margin-top: 8px;">
+              <select id="model-quick-select" class="model-quick-select" aria-label="Быстрый выбор точной модели">
+                <option value="all">— Выбрать конкретную модель —</option>
+              </select>
+            </div>
+          </div>
+
           <!-- Price Filter -->
           <div class="filter-group">
             <label class="filter-label">Цена, ₽</label>
@@ -235,7 +270,67 @@
 
           <!-- Products Cards Grid -->
           <div class="products-cards-grid" id="products-grid">
-            <!-- Rendered dynamically by app.js -->
+            <!-- Initial Skeleton Shimmer Cards -->
+            <div class="skeleton-card">
+              <div class="skeleton-photo-box skeleton-shimmer"></div>
+              <div class="skeleton-info">
+                <div class="skeleton-shimmer skeleton-line" style="width: 40%; height: 12px; margin-bottom: 8px;"></div>
+                <div class="skeleton-shimmer skeleton-line" style="width: 80%; height: 20px; margin-bottom: 12px;"></div>
+                <div class="skeleton-specs-row">
+                  <div class="skeleton-shimmer skeleton-chip" style="width: 75px;"></div>
+                  <div class="skeleton-shimmer skeleton-chip" style="width: 85px;"></div>
+                </div>
+              </div>
+              <div class="skeleton-bottom-actions">
+                <div class="skeleton-price-row">
+                  <div class="skeleton-shimmer skeleton-line" style="width: 100px; height: 24px;"></div>
+                </div>
+                <div class="skeleton-btn-row">
+                  <div class="skeleton-shimmer" style="height: 40px; flex: 1; border-radius: 6px;"></div>
+                  <div class="skeleton-shimmer" style="height: 40px; width: 65px; border-radius: 6px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-photo-box skeleton-shimmer"></div>
+              <div class="skeleton-info">
+                <div class="skeleton-shimmer skeleton-line" style="width: 35%; height: 12px; margin-bottom: 8px;"></div>
+                <div class="skeleton-shimmer skeleton-line" style="width: 75%; height: 20px; margin-bottom: 12px;"></div>
+                <div class="skeleton-specs-row">
+                  <div class="skeleton-shimmer skeleton-chip" style="width: 70px;"></div>
+                  <div class="skeleton-shimmer skeleton-chip" style="width: 90px;"></div>
+                </div>
+              </div>
+              <div class="skeleton-bottom-actions">
+                <div class="skeleton-price-row">
+                  <div class="skeleton-shimmer skeleton-line" style="width: 90px; height: 24px;"></div>
+                </div>
+                <div class="skeleton-btn-row">
+                  <div class="skeleton-shimmer" style="height: 40px; flex: 1; border-radius: 6px;"></div>
+                  <div class="skeleton-shimmer" style="height: 40px; width: 65px; border-radius: 6px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skeleton-card">
+              <div class="skeleton-photo-box skeleton-shimmer"></div>
+              <div class="skeleton-info">
+                <div class="skeleton-shimmer skeleton-line" style="width: 45%; height: 12px; margin-bottom: 8px;"></div>
+                <div class="skeleton-shimmer skeleton-line" style="width: 85%; height: 20px; margin-bottom: 12px;"></div>
+                <div class="skeleton-specs-row">
+                  <div class="skeleton-shimmer skeleton-chip" style="width: 80px;"></div>
+                  <div class="skeleton-shimmer skeleton-chip" style="width: 80px;"></div>
+                </div>
+              </div>
+              <div class="skeleton-bottom-actions">
+                <div class="skeleton-price-row">
+                  <div class="skeleton-shimmer skeleton-line" style="width: 110px; height: 24px;"></div>
+                </div>
+                <div class="skeleton-btn-row">
+                  <div class="skeleton-shimmer" style="height: 40px; flex: 1; border-radius: 6px;"></div>
+                  <div class="skeleton-shimmer" style="height: 40px; width: 65px; border-radius: 6px;"></div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Catalog Pagination / Load More -->
@@ -569,6 +664,13 @@
       </div>
     </div>
   </div>
+
+  <!-- Mobile Floating Catalog Quick Filter Button -->
+  <button type="button" class="mobile-floating-catalog-btn" id="mobile-floating-catalog-btn" onclick="scrollToCatalogFilters()" aria-label="Открыть фильтры моделей">
+    <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+    <span>Фильтры</span>
+    <span class="filter-count-badge" id="mobile-filter-badge" style="display: none; background: #ffffff; color: var(--accent-orange); border-radius: 10px; padding: 1px 6px; font-size: 0.72rem; font-weight: 800;"></span>
+  </button>
 
   <!-- Mobile Sticky Action Bar -->
   <div class="mobile-sticky-bar">

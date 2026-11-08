@@ -648,6 +648,10 @@
       }
 
       renderCheckoutSummary();
+      if (typeof initPhoneMask === 'function') {
+        const phoneInput = document.getElementById('c-phone');
+        if (phoneInput) initPhoneMask(phoneInput);
+      }
     });
 
     function renderCheckoutSummary() {

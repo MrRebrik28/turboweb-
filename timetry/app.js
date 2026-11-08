@@ -56,6 +56,9 @@ const AppState = {
   productPageSelectedHeight: null,
   activeFilters: {
     category: 'all',
+    brand: 'all',
+    modelQuery: '',
+    specificModel: 'all',
     wheel: 'all',
     height: 'all',
     material: 'all',
@@ -66,6 +69,113 @@ const AppState = {
     sort: 'popular'
   }
 };
+
+// ==========================================
+// PHONE NUMBER MASK (+7 (XXX) XXX-XX-XX)
+// ==========================================
+function initPhoneMask(input) {
+  if (!input || input._phoneMaskAttached) return;
+  input._phoneMaskAttached = true;
+
+  function onPhoneInput(e) {
+    let inputNumbersValue = input.value.replace(/\D/g, '');
+    let formattedInputValue = '';
+    const selectionStart = input.selectionStart;
+
+    if (!inputNumbersValue) {
+      input.value = '';
+      return;
+    }
+
+    if (['7', '8', '9'].indexOf(inputNumbersValue[0]) > -1) {
+      if (inputNumbersValue[0] === '9') inputNumbersValue = '7' + inputNumbersValue;
+      formattedInputValue = '+7 ';
+      if (inputNumbersValue.length > 1) {
+        formattedInputValue += '(' + inputNumbersValue.substring(1, 4);
+      }
+      if (inputNumbersValue.length >= 5) {
+        formattedInputValue += ') ' + inputNumbersValue.substring(4, 7);
+      }
+      if (inputNumbersValue.length >= 8) {
+        formattedInputValue += '-' + inputNumbersValue.substring(7, 9);
+      }
+      if (inputNumbersValue.length >= 10) {
+        formattedInputValue += '-' + inputNumbersValue.substring(9, 11);
+      }
+    } else {
+      formattedInputValue = '+' + inputNumbersValue.substring(0, 16);
+    }
+
+    input.value = formattedInputValue;
+  }
+
+  function onPhoneKeyDown(e) {
+    if (e.keyCode === 8 && input.value.replace(/\D/g, '').length === 1) {
+      input.value = '';
+    }
+  }
+
+  function onPhonePaste(e) {
+    const pasted = e.clipboardData || window.clipboardData;
+    if (pasted) {
+      const pasteText = pasted.getData('Text');
+      if (/\D/g.test(pasteText)) {
+        setTimeout(() => onPhoneInput(e), 0);
+      }
+    }
+  }
+
+  input.addEventListener('input', onPhoneInput);
+  input.addEventListener('keydown', onPhoneKeyDown);
+  input.addEventListener('paste', onPhonePaste);
+
+  if (input.value && input.value.trim().length > 0) {
+    onPhoneInput({ target: input });
+  }
+}
+
+function initAllPhoneMasks() {
+  const phoneInputs = document.querySelectorAll('input[type="tel"], #c-phone, #quick-order-phone, #checkout-phone, #callback-phone');
+  phoneInputs.forEach(input => initPhoneMask(input));
+}
+
+// Expose globally for other scripts & inline handlers
+window.initPhoneMask = initPhoneMask;
+window.initAllPhoneMasks = initAllPhoneMasks;
+
+// ==========================================
+// SKELETON LOADER
+// ==========================================
+function renderSkeletonCatalog(count = 6) {
+  const grid = document.getElementById('products-grid');
+  if (!grid) return;
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    html += `
+      <div class="skeleton-card">
+        <div class="skeleton-photo-box skeleton-shimmer"></div>
+        <div class="skeleton-info">
+          <div class="skeleton-shimmer skeleton-line" style="width: 40%; height: 12px; margin-bottom: 8px;"></div>
+          <div class="skeleton-shimmer skeleton-line" style="width: 80%; height: 20px; margin-bottom: 12px;"></div>
+          <div class="skeleton-specs-row">
+            <div class="skeleton-shimmer skeleton-chip" style="width: 75px;"></div>
+            <div class="skeleton-shimmer skeleton-chip" style="width: 85px;"></div>
+          </div>
+        </div>
+        <div class="skeleton-bottom-actions">
+          <div class="skeleton-price-row">
+            <div class="skeleton-shimmer skeleton-line" style="width: 100px; height: 24px;"></div>
+          </div>
+          <div class="skeleton-btn-row">
+            <div class="skeleton-shimmer" style="height: 40px; flex: 1; border-radius: 6px;"></div>
+            <div class="skeleton-shimmer" style="height: 40px; width: 65px; border-radius: 6px;"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  grid.innerHTML = html;
+}
 
 // ==========================================
 // THEME SWITCHER (LIGHT / DARK)
@@ -94,15 +204,55 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('products-grid')) {
     initCatalog();
     initEventListeners();
+    initCatalogMobileScroll();
   }
+  initAllPhoneMasks();
   updateCartBadge();
   updateFavoritesCount();
 });
+
+function initCatalogMobileScroll() {
+  const btn = document.getElementById('mobile-floating-catalog-btn');
+  if (!btn) return;
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    btn.style.display = scrollY > 280 ? 'inline-flex' : 'none';
+  }, { passive: true });
+}
+
+function scrollToCatalogFilters() {
+  const sidebar = document.querySelector('.store-sidebar');
+  if (sidebar) {
+    sidebar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const input = document.getElementById('model-filter-input');
+    if (input) setTimeout(() => input.focus(), 350);
+  }
+}
+
+function populateModelQuickSelect() {
+  const select = document.getElementById('model-quick-select');
+  if (!select) return;
+  const seen = new Set();
+  const models = AppState.products
+    .map(p => ({ name: p.name, slug: p.slug || ('item-' + p.id) }))
+    .filter(m => !seen.has(m.name) && seen.add(m.name))
+    .sort((a, b) => a.name.localeCompare(b.name, 'ru', { numeric: true }));
+
+  select.innerHTML = `<option value="all">— Выбрать конкретную модель (${models.length}) —</option>` + 
+    models.map(m => `<option value="${m.slug}">${m.name}</option>`).join('');
+
+  if (AppState.activeFilters.specificModel) {
+    select.value = AppState.activeFilters.specificModel;
+  }
+}
 
 async function initCatalog() {
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
+
+  // Instant skeleton loading state
+  renderSkeletonCatalog(6);
 
   try {
     const custom = localStorage.getItem('timetry_custom_products');
@@ -124,6 +274,9 @@ async function initCatalog() {
   } catch (e) {
     // Offline / fallback catalog active
   }
+
+  // Populate dynamic model picker dropdown
+  populateModelQuickSelect();
 
   // Update dynamic count on all-category pill
   const allBtn = document.getElementById('cat-all-btn');
@@ -270,6 +423,14 @@ function syncFiltersUI() {
       pill.classList.toggle('active', AppState.activeFilters[type] === val);
     }
   });
+
+  const modelInput = document.getElementById('model-filter-input');
+  if (modelInput) modelInput.value = AppState.activeFilters.modelQuery || '';
+  const modelClear = document.getElementById('model-filter-clear');
+  if (modelClear) modelClear.style.display = AppState.activeFilters.modelQuery ? 'block' : 'none';
+  const modelSelect = document.getElementById('model-quick-select');
+  if (modelSelect) modelSelect.value = AppState.activeFilters.specificModel || 'all';
+
   const searchInput = document.getElementById('catalog-search-input');
   if (searchInput) searchInput.value = AppState.activeFilters.search || '';
   const sortSelect = document.getElementById('catalog-sort-select');
@@ -289,6 +450,27 @@ function applyFilters() {
   // Category
   if (AppState.activeFilters.category !== 'all') {
     list = list.filter(p => p.bike_type === AppState.activeFilters.category);
+  }
+
+  // Brand / Lineup (TIMETRY, SHUSTER, YUEH, GT)
+  if (AppState.activeFilters.brand && AppState.activeFilters.brand !== 'all') {
+    const bUpper = AppState.activeFilters.brand.toUpperCase();
+    list = list.filter(p => p.name.toUpperCase().includes(bUpper));
+  }
+
+  // Model Query (text filter in sidebar)
+  if (AppState.activeFilters.modelQuery && AppState.activeFilters.modelQuery.trim()) {
+    const mq = AppState.activeFilters.modelQuery.toLowerCase().trim();
+    list = list.filter(p => 
+      p.name.toLowerCase().includes(mq) || 
+      (p.slug && p.slug.toLowerCase().includes(mq)) ||
+      (p.sku && p.sku.toLowerCase().includes(mq))
+    );
+  }
+
+  // Specific Model Picker (dropdown)
+  if (AppState.activeFilters.specificModel && AppState.activeFilters.specificModel !== 'all') {
+    list = list.filter(p => p.slug === AppState.activeFilters.specificModel || p.name === AppState.activeFilters.specificModel);
   }
 
   // Wheel size
@@ -337,6 +519,35 @@ function applyFilters() {
     list.sort((a, b) => b.name.localeCompare(a.name, 'ru', { numeric: true }));
   } else {
     list.sort((a, b) => (b.images?.length || 0) - (a.images?.length || 0));
+  }
+
+  // Update model filter hint
+  const hintEl = document.getElementById('model-filter-count-hint');
+  if (hintEl) {
+    hintEl.textContent = `${list.length} ${declOfNum(list.length, ['модель', 'модели', 'моделей'])}`;
+  }
+
+  // Mobile active filters badge count
+  let activeFilterCount = 0;
+  if (AppState.activeFilters.category !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.brand !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.modelQuery.trim()) activeFilterCount++;
+  if (AppState.activeFilters.specificModel !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.wheel !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.height !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.material !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.brakes !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.minPrice > 0 || AppState.activeFilters.maxPrice < 500000) activeFilterCount++;
+  if (AppState.activeFilters.search.trim()) activeFilterCount++;
+
+  const mobileBadge = document.getElementById('mobile-filter-badge');
+  if (mobileBadge) {
+    if (activeFilterCount > 0) {
+      mobileBadge.style.display = 'inline-block';
+      mobileBadge.textContent = activeFilterCount;
+    } else {
+      mobileBadge.style.display = 'none';
+    }
   }
 
   AppState.filteredProducts = list;
@@ -635,7 +846,15 @@ async function initProductPage() {
         ${p.price > 45000 ? `<span class="badge-tag hit">${ICONS.flame} Хит продаж</span>` : ''}
       </div>
 
-      <h1 class="product-title-h1">${p.name}</h1>
+      <div class="product-title-row">
+        <h1 class="product-title-h1">${p.name}</h1>
+        <button type="button" class="btn-share-model" id="btn-share-product" 
+          onclick="shareProductLink('${modelSlug}', '${p.name.replace(/'/g, "\\'")}', ${p.price})" 
+          title="Поделиться ссылкой на модель" aria-label="Поделиться">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span class="share-btn-label">Поделиться</span>
+        </button>
+      </div>
       <div class="product-sku-code">Артикул: <strong>${p.sku}</strong> | Гарантия дилера: 24 месяца</div>
 
       <!-- Pricing Box -->
@@ -738,6 +957,12 @@ async function initProductPage() {
 
   // Initialize gallery gestures & swipe
   initGalleryGestures();
+
+  // Initialize mobile floating buy bar for smartphones
+  initMobileFloatingBar(p);
+
+  // Initialize phone input masks
+  initAllPhoneMasks();
 }
 
 function renderRelatedCard(p) {
@@ -938,6 +1163,139 @@ function selectProductColor(colorName, btn) {
   if (buyBtn && currentProductItem) {
     const slug = currentProductItem.slug || currentProductItem.id;
     buyBtn.href = `checkout.html?model=${slug}&color=${encodeURIComponent(colorName)}`;
+  }
+
+  // Keep mobile floating bar in sync with chosen color
+  const mfbColor = document.getElementById('mfb-color-badge');
+  if (mfbColor) mfbColor.textContent = colorName;
+  const mfbBuy = document.getElementById('mfb-buy-link');
+  if (mfbBuy && currentProductItem) {
+    const slug = currentProductItem.slug || currentProductItem.id;
+    mfbBuy.href = `checkout.html?model=${slug}&color=${encodeURIComponent(colorName)}`;
+  }
+}
+
+// ==========================================
+// SHARE PRODUCT LINK UTILITY
+// ==========================================
+function shareProductLink(slug, title, price) {
+  const canonicalUrl = `https://timetry-bikes.ru/${slug}`;
+  const isCustomDomain = window.location.hostname.includes('timetry-bikes.ru');
+  const shareUrl = isCustomDomain 
+    ? canonicalUrl 
+    : (window.location.origin + window.location.pathname.replace(/[^\/]*$/, slug));
+
+  const btn = document.getElementById('btn-share-product');
+  const labelEl = btn ? btn.querySelector('.share-btn-label') : null;
+
+  function markCopied() {
+    if (btn) {
+      btn.classList.add('copied');
+      if (labelEl) labelEl.textContent = 'Скопировано!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (labelEl) labelEl.textContent = 'Поделиться';
+      }, 2500);
+    }
+  }
+
+  function copyToClipboardFallback() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        markCopied();
+        showToast('Ссылка на модель скопирована: ' + shareUrl);
+      }).catch(() => {
+        execCopy();
+      });
+    } else {
+      execCopy();
+    }
+  }
+
+  function execCopy() {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = shareUrl;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      markCopied();
+      showToast('Ссылка на модель скопирована: ' + shareUrl);
+    } catch (e) {
+      prompt('Скопируйте ссылку на модель:', shareUrl);
+    }
+  }
+
+  if (navigator.share) {
+    navigator.share({
+      title: `Велосипед ${title} | TIMETRY BIKES RUSSIA`,
+      text: `Велосипед ${title} (${price ? price.toLocaleString('ru-RU') + ' ₽' : ''}) со склада дилера в Кемерово:`,
+      url: shareUrl
+    }).then(() => {
+      showToast('Ссылка успешно отправлена!');
+    }).catch(err => {
+      if (err.name !== 'AbortError') {
+        copyToClipboardFallback();
+      }
+    });
+  } else {
+    copyToClipboardFallback();
+  }
+}
+
+// ==========================================
+// MOBILE FLOATING BUY BAR FOR SMARTPHONES
+// ==========================================
+function initMobileFloatingBar(product) {
+  const bar = document.getElementById('mobile-floating-buy-bar');
+  if (!bar || !product) return;
+
+  const thumb = document.getElementById('mfb-thumb');
+  const title = document.getElementById('mfb-title');
+  const price = document.getElementById('mfb-price');
+  const colorBadge = document.getElementById('mfb-color-badge');
+  const buyLink = document.getElementById('mfb-buy-link');
+
+  const mainImg = (product.images && product.images.length > 0) ? product.images[0] : 'https://placehold.co/100x100/ffffff/0f172a?text=TIMETRY';
+  const initialColor = (product.colors && product.colors.length > 0) ? product.colors[0].name : 'Базовый';
+  const slug = product.slug || product.id;
+
+  if (thumb) {
+    thumb.src = mainImg;
+    thumb.alt = product.name;
+  }
+  if (title) title.textContent = product.name;
+  if (price) price.textContent = product.price.toLocaleString('ru-RU') + ' ₽';
+  if (colorBadge) colorBadge.textContent = initialColor;
+  if (buyLink) buyLink.href = `checkout.html?model=${slug}&color=${encodeURIComponent(initialColor)}`;
+
+  const buyBtn = document.getElementById('btn-buy-now');
+  if (buyBtn) {
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+            bar.classList.add('visible');
+          } else {
+            bar.classList.remove('visible');
+          }
+        });
+      }, { threshold: 0 });
+      observer.observe(buyBtn);
+    } else {
+      window.addEventListener('scroll', () => {
+        const rect = buyBtn.getBoundingClientRect();
+        if (rect.bottom < 0) {
+          bar.classList.add('visible');
+        } else {
+          bar.classList.remove('visible');
+        }
+      }, { passive: true });
+    }
   }
 }
 
@@ -1339,6 +1697,9 @@ function resetAllFilters() {
   resetCatalogPagination();
   AppState.activeFilters = {
     category: 'all',
+    brand: 'all',
+    modelQuery: '',
+    specificModel: 'all',
     wheel: 'all',
     height: 'all',
     material: 'all',
@@ -1350,7 +1711,21 @@ function resetAllFilters() {
   };
 
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
-  document.querySelectorAll('.filter-tag-btn').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.filter-tag-btn').forEach(p => {
+    if (p.dataset.filterVal === 'all') {
+      p.classList.add('active');
+    } else {
+      p.classList.remove('active');
+    }
+  });
+
+  const modelInput = document.getElementById('model-filter-input');
+  if (modelInput) modelInput.value = '';
+  const modelClear = document.getElementById('model-filter-clear');
+  if (modelClear) modelClear.style.display = 'none';
+  const modelSelect = document.getElementById('model-quick-select');
+  if (modelSelect) modelSelect.value = 'all';
+
   const searchInput = document.getElementById('catalog-search-input');
   if (searchInput) searchInput.value = '';
   const sortSelect = document.getElementById('catalog-sort-select');
@@ -1374,6 +1749,7 @@ function openModal(id) {
       renderFavoritesModal();
     }
     modal.classList.add('active');
+    initAllPhoneMasks();
   }
 }
 
@@ -1437,6 +1813,45 @@ function initEventListeners() {
       applyFilters();
     });
   });
+
+  // Model search input in sidebar
+  const modelInput = document.getElementById('model-filter-input');
+  const modelClear = document.getElementById('model-filter-clear');
+  if (modelInput) {
+    let timeout = null;
+    modelInput.addEventListener('input', (e) => {
+      clearTimeout(timeout);
+      const val = e.target.value;
+      if (modelClear) modelClear.style.display = val ? 'block' : 'none';
+      timeout = setTimeout(() => {
+        resetCatalogPagination();
+        AppState.activeFilters.modelQuery = val;
+        applyFilters();
+      }, 150);
+    });
+  }
+  if (modelClear) {
+    modelClear.addEventListener('click', () => {
+      if (modelInput) {
+        modelInput.value = '';
+        modelInput.focus();
+      }
+      modelClear.style.display = 'none';
+      resetCatalogPagination();
+      AppState.activeFilters.modelQuery = '';
+      applyFilters();
+    });
+  }
+
+  // Model quick select dropdown
+  const modelSelect = document.getElementById('model-quick-select');
+  if (modelSelect) {
+    modelSelect.addEventListener('change', (e) => {
+      resetCatalogPagination();
+      AppState.activeFilters.specificModel = e.target.value;
+      applyFilters();
+    });
+  }
 
   // Search input
   const searchInput = document.getElementById('catalog-search-input');
