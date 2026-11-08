@@ -92,7 +92,7 @@
 
       <!-- Action Bar: Back to catalog, Favorites, Cart -->
       <div class="header-action-bar">
-        <a href="index.html" class="btn-outline" style="text-decoration: none;">
+        <a href="index.html" class="btn-outline" style="text-decoration: none;" onclick="goBackToCatalog(event)">
           <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Вернуться в каталог
         </a>
@@ -135,9 +135,9 @@
       
       <!-- Breadcrumbs -->
       <nav class="breadcrumbs-bar" aria-label="Навигация по сайту">
-        <a href="index.html">Главная</a>
+        <a href="index.html" onclick="goBackToCatalog(event)">Главная</a>
         <span class="breadcrumbs-sep">/</span>
-        <a href="index.html">Каталог</a>
+        <a href="index.html" onclick="goBackToCatalog(event)">Каталог</a>
         <span class="breadcrumbs-sep">/</span>
         <span id="crumb-category" style="color: var(--text-muted);">Категория</span>
         <span class="breadcrumbs-sep">/</span>
@@ -512,7 +512,7 @@
 
   <!-- Mobile Sticky Action Bar -->
   <div class="mobile-sticky-bar">
-    <a href="index.html" class="mobile-bar-btn" style="background: var(--bg-surface); color: var(--text-main); text-decoration: none;">
+    <a href="index.html" class="mobile-bar-btn" onclick="goBackToCatalog(event)" style="background: var(--bg-surface); color: var(--text-main); text-decoration: none;">
       <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       Каталог
     </a>

@@ -1089,6 +1089,86 @@ input::placeholder, textarea::placeholder {
   font-size: 0.9rem;
 }
 
+/* ==========================================================================
+   CATALOG PAGINATION ("ПОКАЗАТЬ ЕЩЁ")
+   ========================================================================== */
+.catalog-pagination-wrap {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn-load-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border: 1.5px solid var(--border-color);
+  padding: 14px 34px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+  min-width: 260px;
+}
+
+.btn-load-more:hover {
+  background: var(--accent-orange);
+  color: #ffffff;
+  border-color: var(--accent-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--accent-orange-glow);
+}
+
+.btn-load-more:active {
+  transform: translateY(0);
+}
+
+.btn-load-more svg {
+  transition: transform 0.25s ease;
+}
+
+.btn-load-more:hover svg {
+  transform: translateY(2px);
+}
+
+.pagination-info {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Card Return Highlight Animation */
+@keyframes cardReturnPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+    border-color: var(--border-color);
+  }
+  30% {
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.45);
+    border-color: var(--accent-orange);
+    transform: translateY(-2px);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+    border-color: var(--border-color);
+    transform: translateY(0);
+  }
+}
+
+.store-card.card-return-highlight {
+  animation: cardReturnPulse 1.8s ease-out;
+  border-color: var(--accent-orange) !important;
+}
+
 /* --------------------------------------------------------------------------
    DEALER TRUST & ADVANTAGES SECTION
    -------------------------------------------------------------------------- */
@@ -2242,6 +2322,18 @@ footer,
     max-width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box;
+  }
+
+  .catalog-pagination-wrap {
+    margin-top: 24px;
+    gap: 10px;
+  }
+
+  .btn-load-more {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 14px 20px;
+    font-size: 0.9rem;
   }
 
   .product-layout-grid {

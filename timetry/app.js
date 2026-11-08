@@ -50,6 +50,8 @@ const AppState = {
   filteredProducts: [],
   cart: JSON.parse(localStorage.getItem('timetry_cart') || '[]'),
   favorites: Array.from(new Set(JSON.parse(localStorage.getItem('timetry_favs') || '[]'))),
+  visibleCount: 30,
+  pageSize: 30,
   productPageSelectedAccs: new Set(),
   productPageSelectedHeight: null,
   activeFilters: {
@@ -98,6 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function initCatalog() {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
   try {
     const res = await fetch('products.json');
     if (res.ok) {
@@ -133,7 +139,137 @@ async function initCatalog() {
     });
   }
 
+  // Restore saved pagination & scroll state if returning from product card
+  let savedState = null;
+  try {
+    const raw = sessionStorage.getItem('timetry_catalog_state');
+    if (raw) {
+      savedState = JSON.parse(raw);
+      if (savedState && (Date.now() - (savedState.timestamp || 0) < 7200000)) {
+        if (savedState.visibleCount && savedState.visibleCount > AppState.visibleCount) {
+          AppState.visibleCount = savedState.visibleCount;
+        }
+        if (savedState.filters && !catParam && !searchParam) {
+          AppState.activeFilters = Object.assign({}, AppState.activeFilters, savedState.filters);
+          syncFiltersUI();
+        }
+      }
+    }
+  } catch (e) {}
+
   applyFilters();
+
+  if (savedState && (savedState.scrollY || savedState.lastId)) {
+    restoreCatalogScrollPosition(savedState.scrollY, savedState.lastId);
+  }
+}
+
+// BFCache (back/forward) restoration support
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem('timetry_catalog_state') || 'null');
+      if (saved && saved.lastId) {
+        const card = document.querySelector(`.store-card[data-id="${saved.lastId}"]`);
+        if (card) {
+          card.classList.add('card-return-highlight');
+          setTimeout(() => card.classList.remove('card-return-highlight'), 2200);
+        }
+      }
+    } catch (e) {}
+  }
+});
+
+function declOfNum(n, titles) {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return titles[(n % 100 > 4 && n % 100 < 20) ? 2 : cases[(n % 10 < 5) ? n % 10 : 5]];
+}
+
+function resetCatalogPagination() {
+  AppState.visibleCount = AppState.pageSize;
+  try {
+    sessionStorage.removeItem('timetry_catalog_state');
+  } catch (e) {}
+}
+
+function saveCatalogState(productId) {
+  try {
+    const state = {
+      scrollY: window.scrollY || window.pageYOffset || 0,
+      lastId: productId,
+      visibleCount: AppState.visibleCount,
+      filters: AppState.activeFilters,
+      timestamp: Date.now()
+    };
+    sessionStorage.setItem('timetry_catalog_state', JSON.stringify(state));
+  } catch (e) {}
+}
+
+function loadMoreProducts() {
+  AppState.visibleCount += AppState.pageSize;
+  try {
+    const raw = sessionStorage.getItem('timetry_catalog_state');
+    const saved = raw ? JSON.parse(raw) : {};
+    saved.visibleCount = AppState.visibleCount;
+    saved.timestamp = Date.now();
+    sessionStorage.setItem('timetry_catalog_state', JSON.stringify(saved));
+  } catch (e) {}
+  renderCatalog(AppState.filteredProducts);
+}
+
+function restoreCatalogScrollPosition(targetY, targetId) {
+  const doRestore = () => {
+    let scrolled = false;
+    if (targetId) {
+      const card = document.querySelector(`.store-card[data-id="${targetId}"]`);
+      if (card) {
+        card.scrollIntoView({ block: 'center', inline: 'nearest' });
+        card.classList.add('card-return-highlight');
+        setTimeout(() => card.classList.remove('card-return-highlight'), 2200);
+        scrolled = true;
+      }
+    }
+    if (!scrolled && typeof targetY === 'number' && targetY > 0) {
+      window.scrollTo(0, targetY);
+    }
+  };
+
+  requestAnimationFrame(doRestore);
+  setTimeout(doRestore, 80);
+}
+
+function goBackToCatalog(e) {
+  if (e) {
+    try { e.preventDefault(); } catch (err) {}
+  }
+  if (window.history.length > 1 && document.referrer && document.referrer.includes(window.location.host)) {
+    window.history.back();
+  } else {
+    window.location.href = 'index.html';
+  }
+}
+
+function syncFiltersUI() {
+  if (AppState.activeFilters.category) {
+    document.querySelectorAll('.cat-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === AppState.activeFilters.category);
+    });
+  }
+  document.querySelectorAll('.filter-tag-btn').forEach(pill => {
+    const type = pill.dataset.filterType;
+    const val = pill.dataset.filterVal;
+    if (type && val) {
+      pill.classList.toggle('active', AppState.activeFilters[type] === val);
+    }
+  });
+  const searchInput = document.getElementById('catalog-search-input');
+  if (searchInput) searchInput.value = AppState.activeFilters.search || '';
+  const sortSelect = document.getElementById('catalog-sort-select');
+  if (sortSelect) sortSelect.value = AppState.activeFilters.sort || 'popular';
+  const minPriceInput = document.getElementById('min-price-input');
+  if (minPriceInput && AppState.activeFilters.minPrice > 0) minPriceInput.value = AppState.activeFilters.minPrice;
+  const maxPriceInput = document.getElementById('max-price-input');
+  if (maxPriceInput && AppState.activeFilters.maxPrice < 500000) maxPriceInput.value = AppState.activeFilters.maxPrice;
 }
 
 // ==========================================
@@ -205,6 +341,19 @@ function renderCatalog(items) {
 
   if (!grid) return;
 
+  // Bind click delegation to ensure state is saved on product navigation
+  if (!grid._stateBound) {
+    grid._stateBound = true;
+    grid.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href*="product.html"]');
+      if (link) {
+        const card = link.closest('.store-card');
+        const cardId = card ? Number(card.dataset.id) : null;
+        if (cardId) saveCatalogState(cardId);
+      }
+    });
+  }
+
   if (items.length === 0) {
     grid.innerHTML = `
       <div class="catalog-empty-notice">
@@ -213,10 +362,16 @@ function renderCatalog(items) {
         <button class="btn-primary" onclick="resetAllFilters()">Сбросить все фильтры</button>
       </div>
     `;
+    const paginationWrap = document.getElementById('catalog-pagination');
+    if (paginationWrap) paginationWrap.style.display = 'none';
     return;
   }
 
-  grid.innerHTML = items.map((p, index) => {
+  // Pagination slicing (display 30 items initially, then +30 per load)
+  const totalItems = items.length;
+  const visibleItems = items.slice(0, AppState.visibleCount);
+
+  grid.innerHTML = visibleItems.map((p, index) => {
     const isFav = AppState.favorites.includes(p.id);
     const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
     const discount = p.old_price ? Math.round(((p.old_price - p.price) / p.old_price) * 100) : null;
@@ -245,7 +400,7 @@ function renderCatalog(items) {
           </button>
         </div>
 
-        <a href="product.html?id=${p.id}" class="card-photo-box" style="display: block; text-decoration: none;">
+        <a href="product.html?id=${p.id}" onclick="saveCatalogState(${p.id})" class="card-photo-box" style="display: block; text-decoration: none;">
           <img src="${mainImg}" alt="${p.name}" loading="lazy" />
         </a>
 
@@ -255,7 +410,7 @@ function renderCatalog(items) {
             <span style="font-size: 0.72rem; color: #10b981; font-weight: 700;">● Склад Кемерово</span>
           </div>
           <h3 class="card-model-name">
-            <a href="product.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.name}</a>
+            <a href="product.html?id=${p.id}" onclick="saveCatalogState(${p.id})" style="color: inherit; text-decoration: none;">${p.name}</a>
           </h3>
           
           <div class="card-specs-flex">
@@ -271,7 +426,7 @@ function renderCatalog(items) {
             ${p.old_price ? `<span class="price-old-strikethrough">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
           </div>
           <div class="card-buttons-pair">
-            <a href="product.html?id=${p.id}" class="btn-card-cart" style="text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px;">
+            <a href="product.html?id=${p.id}" onclick="saveCatalogState(${p.id})" class="btn-card-cart" style="text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px;">
               ${ICONS.cartSmall}
               <span>Подробнее</span>
             </a>
@@ -283,6 +438,39 @@ function renderCatalog(items) {
       </article>
     `;
   }).join('');
+
+  // Update pagination UI
+  const paginationWrap = document.getElementById('catalog-pagination');
+  const loadMoreBtn = document.getElementById('btn-load-more');
+  const paginationInfo = document.getElementById('pagination-info');
+
+  if (paginationWrap) {
+    if (totalItems <= AppState.pageSize) {
+      paginationWrap.style.display = 'none';
+    } else if (visibleItems.length < totalItems) {
+      paginationWrap.style.display = 'flex';
+      const remaining = totalItems - visibleItems.length;
+      const nextBatch = Math.min(AppState.pageSize, remaining);
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'inline-flex';
+        const span = loadMoreBtn.querySelector('span');
+        if (span) {
+          span.textContent = `Показать ещё ${nextBatch} ${declOfNum(nextBatch, ['модель', 'модели', 'моделей'])}`;
+        }
+      }
+      if (paginationInfo) {
+        paginationInfo.textContent = `Показано ${visibleItems.length} из ${totalItems} моделей`;
+      }
+    } else {
+      paginationWrap.style.display = 'flex';
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'none';
+      }
+      if (paginationInfo) {
+        paginationInfo.textContent = `Показаны все ${totalItems} моделей`;
+      }
+    }
+  }
 }
 
 // ==========================================
@@ -1065,6 +1253,7 @@ function renderFavoritesModal() {
 // CATEGORY SHORTCUT & RESET
 // ==========================================
 function setCategoryFilter(cat) {
+  resetCatalogPagination();
   document.querySelectorAll('.cat-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.cat === cat);
   });
@@ -1078,6 +1267,7 @@ function setCategoryFilter(cat) {
 }
 
 function resetAllFilters() {
+  resetCatalogPagination();
   AppState.activeFilters = {
     category: 'all',
     wheel: 'all',
@@ -1151,6 +1341,7 @@ function initEventListeners() {
   // Category pills
   document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      resetCatalogPagination();
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       AppState.activeFilters.category = btn.dataset.cat;
@@ -1161,6 +1352,7 @@ function initEventListeners() {
   // Filter tags in sidebar
   document.querySelectorAll('.filter-tag-btn').forEach(pill => {
     pill.addEventListener('click', () => {
+      resetCatalogPagination();
       const type = pill.dataset.filterType;
       const val = pill.dataset.filterVal;
       const groupPills = pill.parentElement.querySelectorAll('.filter-tag-btn');
@@ -1184,6 +1376,7 @@ function initEventListeners() {
     searchInput.addEventListener('input', (e) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
+        resetCatalogPagination();
         AppState.activeFilters.search = e.target.value;
         applyFilters();
       }, 200);
@@ -1194,6 +1387,7 @@ function initEventListeners() {
   const sortSelect = document.getElementById('catalog-sort-select');
   if (sortSelect) {
     sortSelect.addEventListener('change', (e) => {
+      resetCatalogPagination();
       AppState.activeFilters.sort = e.target.value;
       applyFilters();
     });
@@ -1204,12 +1398,14 @@ function initEventListeners() {
   const maxPriceInput = document.getElementById('max-price-input');
   if (minPriceInput) {
     minPriceInput.addEventListener('input', (e) => {
+      resetCatalogPagination();
       AppState.activeFilters.minPrice = Number(e.target.value) || 0;
       applyFilters();
     });
   }
   if (maxPriceInput) {
     maxPriceInput.addEventListener('input', (e) => {
+      resetCatalogPagination();
       AppState.activeFilters.maxPrice = Number(e.target.value) || 500000;
       applyFilters();
     });
