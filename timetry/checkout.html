@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Оформление заказа | TIMETRY BIKES RUSSIA</title>
+  <meta name="description" content="Оформление заказа на официальном складе велосипедов TIMETRY и SHUSTER. Доставка по РФ, оплата после осмотра в СДЭК." />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .checkout-page-wrap {
+      padding: 40px 0 80px;
+    }
+    .checkout-title-h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .checkout-sub-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+    }
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .checkout-card-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .checkout-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-group-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-field {
+      margin-bottom: 16px;
+    }
+    .form-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-size: 0.92rem;
+      transition: all var(--transition-fast);
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.18);
+    }
+    .delivery-options-grid,
+    .payment-options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .radio-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .radio-card:hover {
+      border-color: var(--accent-orange);
+    }
+    .radio-card input[type="radio"] {
+      margin-top: 3px;
+      accent-color: var(--accent-orange);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .radio-card.active {
+      border-color: var(--accent-orange);
+      background: rgba(249, 115, 22, 0.06);
+    }
+    .radio-card-body {
+      flex: 1;
+    }
+    .radio-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .radio-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .radio-card-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--accent-orange);
+      background: rgba(249, 115, 22, 0.15);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Summary Sticky Box */
+    .checkout-summary-box {
+      position: sticky;
+      top: 100px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+    }
+    .summary-product-item {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .summary-product-img {
+      width: 90px;
+      height: 70px;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      object-fit: contain;
+      padding: 4px;
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    .summary-product-info {
+      flex: 1;
+    }
+    .summary-product-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+    .summary-product-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .summary-color-circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .summary-price-bold {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-orange);
+    }
+    .summary-calc-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .summary-calc-line.total {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .summary-calc-line.total .total-amount {
+      color: var(--accent-orange);
+    }
+    .btn-submit-order {
+      width: 100%;
+      background: var(--accent-orange);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all var(--transition-fast);
+      box-shadow: 0 4px 16px var(--accent-orange-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-submit-order:hover {
+      background: var(--accent-orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-orange-glow);
+    }
+
+    /* Success Order Screen */
+    .order-success-card {
+      text-align: center;
+      padding: 60px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      max-width: 680px;
+      margin: 40px auto;
+      box-shadow: var(--shadow-lg);
+    }
+    .order-success-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .order-number-pill {
+      display: inline-block;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent-orange);
+      margin: 12px 0 20px;
+    }
+
+    @media (max-width: 900px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+      .checkout-summary-box {
+        position: static;
+        order: -1;
+      }
+      .form-group-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Top Bar -->
+  <header class="site-header">
+    <div class="header-top-bar">
+      <div class="container top-contacts-block">
+        <a href="index.html" class="brand-logo-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+          <img src="logo.png" alt="TIMETRY BIKES RUSSIA" style="height: 38px; width: auto; object-fit: contain;" />
+          <div>
+            <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); letter-spacing: 0.5px;">TIMETRY BIKES</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Официальный дилерский склад</div>
+          </div>
+        </a>
+
+        <div style="display: flex; align-items: center; gap: 20px;">
+          <div style="text-align: right;">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Центральный склад в Кемерово</div>
+            <a href="tel:+79502720440" style="color: var(--accent-orange); font-weight: 800; font-size: 1.05rem; text-decoration: none;">8 (950) 272-04-40</a>
+          </div>
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключить тему" aria-label="Переключить тему">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container checkout-page-wrap">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs-bar" aria-label="Навигация" style="margin-bottom: 20px;">
+      <a href="index.html">Главная</a>
+      <span class="breadcrumbs-sep">/</span>
+      <a href="index.html">Каталог</a>
+      <span class="breadcrumbs-sep">/</span>
+      <span style="color: var(--text-muted);">Оформление заказа</span>
+    </nav>
+
+    <!-- Normal Checkout Container -->
+    <div id="checkout-view-container">
+      <h1 class="checkout-title-h1">Оформление заказа</h1>
+      <p class="checkout-sub-desc">Прямая отгрузка со склада завода (г. Кемерово). Оплата после получения и осмотра байка в пункте СДЭК.</p>
+
+      <form id="checkout-order-form" onsubmit="submitCheckoutOrder(event)">
+        <div class="checkout-grid">
+          <!-- Left Column: Form Details -->
+          <div class="checkout-form-col">
+            <!-- 1. Customer Contacts -->
+            <div class="checkout-card-section">
+              <h2 class="checkout-card-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                1. Контактные данные получателя
+              </h2>
+              <div class="form-group-row">
+                <div class="form-field">
+                  <label for="c-name">Имя и фамилия</label>
+                  <input type="text" id="c-name" placeholder="Иван Иванов" />
+                </div>
+                <div class="form-field">
+                  <label for="c-phone">Номер телефона</label>
+                  <input type="tel" id="c-phone" placeholder="+7 (999) 000-00-00" />
+                </div>
+              </div>
+              <div class="form-group-row">
+                <div class="form-field">
+                  <label for="c-email">E-mail (для трек-номера и чека)</label>
+                  <input type="email" id="c-email" placeholder="example@mail.ru" />
+                </div>
+                <div class="form-field">
+                  <label for="c-city">Город получения</label>
+                  <input type="text" id="c-city" placeholder="Например: Кемерово, Москва..." value="Кемерово" />
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Delivery Method -->
+            <div class="checkout-card-section">
+              <h2 class="checkout-card-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                2. Способ доставки
+              </h2>
+              <div class="delivery-options-grid">
+                <label class="radio-card active">
+                  <input type="radio" name="delivery" value="cdek_pvz" checked onchange="handleDeliveryChange(this)" />
+                  <div class="radio-card-body">
+                    <div class="radio-card-title">
+                      <span>СДЭК — До пункта выдачи (ПВЗ)</span>
+                      <span class="radio-card-badge">Рекомендуем</span>
+                    </div>
+                    <div class="radio-card-desc">3–6 дней. Осмотр байка перед оплатой. Бесплатно доставим до терминала отправки.</div>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="delivery" value="cdek_door" onchange="handleDeliveryChange(this)" />
+                  <div class="radio-card-body">
+                    <div class="radio-card-title">
+                      <span>СДЭК — Курьером до двери</span>
+                    </div>
+                    <div class="radio-card-desc">Доставка прямо к вам домой или на работу в удобный интервал времени.</div>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="delivery" value="tk_lines" onchange="handleDeliveryChange(this)" />
+                  <div class="radio-card-body">
+                    <div class="radio-card-title">
+                      <span>ТК Деловые Линии / ПЭК</span>
+                    </div>
+                    <div class="radio-card-desc">Отправка в жестком деревянном паллетном борте для дальних регионов РФ.</div>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="delivery" value="pickup" onchange="handleDeliveryChange(this)" />
+                  <div class="radio-card-body">
+                    <div class="radio-card-title">
+                      <span>Самовывоз со склада (г. Кемерово)</span>
+                      <span style="color: #10b981; font-weight: 700; font-size: 0.8rem;">Сегодня</span>
+                    </div>
+                    <div class="radio-card-desc">ул. Тухачевского, 50/1. Бесплатная выдача собранного и настроенного байка.</div>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-field" style="margin-top: 16px;">
+                <label for="c-address">Адрес доставки или адрес удобного пункта СДЭК</label>
+                <input type="text" id="c-address" placeholder="Укажите улицу и дом или номер пункта СДЭК" />
+              </div>
+            </div>
+
+            <!-- 3. Payment Method -->
+            <div class="checkout-card-section">
+              <h2 class="checkout-card-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                3. Способ оплаты
+              </h2>
+              <div class="payment-options-grid">
+                <label class="radio-card active">
+                  <input type="radio" name="payment" value="cod" checked onchange="handlePaymentChange(this)" />
+                  <div class="radio-card-body">
+                    <div class="radio-card-title">
+                      <span>Оплата при получении после осмотра</span>
+                      <span class="radio-card-badge">0 риска</span>
+                    </div>
+                    <div class="radio-card-desc">Вскрываете заводскую коробку в ПВЗ СДЭК, осматриваете байк и только потом оплачиваете картой или наличными.</div>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="payment" value="sbp" onchange="handlePaymentChange(this)" />
+                  <div class="radio-card-body">
+                    <div class="radio-card-title">
+                      <span>Онлайн-оплата СБП / Картой</span>
+                      <span style="color: #10b981; font-weight: 700; font-size: 0.8rem;">Скидка 3%</span>
+                    </div>
+                    <div class="radio-card-desc">Мгновенный перевод по QR-коду СБП или банковской картой любого банка РФ с электронным чеком 54-ФЗ.</div>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="payment" value="split" onchange="handlePaymentChange(this)" />
+                  <div class="radio-card-body">
+                    <div class="radio-card-title">
+                      <span>Беспроцентный Сплит / Долями</span>
+                    </div>
+                    <div class="radio-card-desc">Оплата частями на 4 или 6 платежей без переплат и кредитных договоров.</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- 4. Dealer Prep (Free) & Note -->
+            <div class="checkout-card-section">
+              <h2 class="checkout-card-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                4. Дилерская подготовка и комментарий
+              </h2>
+              <div style="background: var(--bg-surface); padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.84rem; color: var(--text-main); border: 1px solid var(--border-color);">
+                <div style="font-weight: 700; color: #10b981; margin-bottom: 4px;">Включено в ваш заказ бесплатно:</div>
+                <div style="color: var(--text-muted);">• Протяжка спиц и юстировка тормозов/переключателей на стенде механиком</div>
+                <div style="color: var(--text-muted);">• 5-слойный броне-картон + фирменные защитные демпферы на осях</div>
+                <div style="color: var(--text-muted);">• Официальный гарантийный талон ИП Ефимов Д.М. на 24 месяца</div>
+              </div>
+
+              <div class="form-field">
+                <label for="c-comment">Комментарий или пожелания к заказу</label>
+                <textarea id="c-comment" rows="2" placeholder="Например: желаемое время звонка, цвет аксессуаров..."></textarea>
+              </div>
+
+              <div style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.78rem; color: var(--text-muted); margin-top: 12px;">
+                <input type="checkbox" id="c-agree" checked />
+                <label for="c-agree">
+                  Согласен на обработку персональных данных по 152-ФЗ в целях оформления и доставки заказа.
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Order Summary (Sticky) -->
+          <div class="checkout-summary-col">
+            <div class="checkout-summary-box">
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <span>Состав заказа</span>
+                <span id="summary-items-count" style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal;">1 товар</span>
+              </h3>
+
+              <div id="checkout-items-list">
+                <!-- Injected via JS -->
+              </div>
+
+              <!-- Calculations -->
+              <div class="summary-calc-line">
+                <span>Товары:</span>
+                <span id="summary-subtotal">0 ₽</span>
+              </div>
+              <div class="summary-calc-line">
+                <span>Предпродажная настройка:</span>
+                <span style="color: #10b981; font-weight: 700;">Бесплатно</span>
+              </div>
+              <div class="summary-calc-line">
+                <span>Доставка до терминала:</span>
+                <span style="color: #10b981; font-weight: 700;">0 ₽</span>
+              </div>
+              <div class="summary-calc-line total">
+                <span>К оплате:</span>
+                <span class="total-amount" id="summary-grand-total">0 ₽</span>
+              </div>
+
+              <button type="submit" class="btn-submit-order" id="btn-submit-order">
+                <svg class="svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                <span>Подтвердить заказ</span>
+              </button>
+
+              <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--text-main); font-weight: 700;">
+                  <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Безопасная покупка без риска
+                </div>
+                <div>Оплата только после проверки комплектации и отсутствия повреждений в пункте СДЭК.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Success Screen (Shown after submit) -->
+    <div id="checkout-success-view" style="display: none;">
+      <div class="order-success-card">
+        <div class="order-success-icon">
+          <svg class="svg-icon" viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">Заказ успешно оформлен!</h2>
+        <div class="order-number-pill" id="order-success-number">Заказ №TM-84920</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">
+          Спасибо за выбор официального дилера TIMETRY BIKES! Менеджер центрального склада свяжется с вами по указанному телефону для подтверждения деталей отгрузки.
+        </p>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; text-align: left; margin-bottom: 24px; font-size: 0.88rem; line-height: 1.7;">
+          <div style="color: var(--text-main); font-weight: 700; margin-bottom: 6px;">Детали заказа:</div>
+          <div>• <strong>Статус:</strong> <span style="color: #10b981; font-weight: 700;">Принят в обработку (Склад Кемерово)</span></div>
+          <div>• <strong>Оплата:</strong> <span id="success-payment-desc">Оплата при получении после осмотра</span></div>
+          <div>• <strong>Доставка:</strong> <span id="success-delivery-desc">СДЭК по РФ</span></div>
+          <div>• <strong>Итоговая сумма:</strong> <span id="success-total-sum" style="color: var(--accent-orange); font-weight: 800;">0 ₽</span></div>
+        </div>
+
+        <a href="index.html" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; text-decoration: none;">
+          <span>Вернуться в каталог моделей</span>
+          <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    let checkoutItems = [];
+    let checkoutGrandTotal = 0;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Ensure catalog is loaded
+      if (!AppState.products || AppState.products.length === 0) {
+        try {
+          const custom = localStorage.getItem('timetry_custom_products');
+          if (custom) {
+            AppState.products = JSON.parse(custom);
+          } else {
+            const res = await fetch('products.json');
+            AppState.products = await res.json();
+          }
+        } catch (e) {
+          AppState.products = [...FALLBACK_PRODUCTS];
+        }
+      }
+
+      // 2. Check URL parameters (?model=... or ?id=...)
+      const urlParams = new URLSearchParams(window.location.search);
+      const modelSlug = urlParams.get('model');
+      const productId = Number(urlParams.get('id'));
+      const selectedColorParam = urlParams.get('color') || '';
+
+      let targetProduct = null;
+      if (modelSlug) {
+        targetProduct = AppState.products.find(p => p.slug === modelSlug || (p.url && p.url.replace(/^\//, '') === modelSlug));
+      }
+      if (!targetProduct && productId) {
+        targetProduct = AppState.products.find(p => p.id === productId);
+      }
+
+      if (targetProduct) {
+        // Direct buy of single model
+        const colorObj = (targetProduct.colors && targetProduct.colors.length > 0)
+          ? (targetProduct.colors.find(c => c.name === selectedColorParam) || targetProduct.colors[0])
+          : { name: 'Фирменный цвет', hex: '#f97316' };
+
+        checkoutItems = [{
+          id: targetProduct.id,
+          name: targetProduct.name,
+          sku: targetProduct.sku,
+          price: targetProduct.price,
+          image: (targetProduct.images && targetProduct.images[0]) || '',
+          color: colorObj.name,
+          colorHex: colorObj.hex,
+          size: targetProduct.rider_height || 'Универсал',
+          qty: 1,
+          slug: targetProduct.slug
+        }];
+      } else {
+        // From shopping cart
+        const cart = JSON.parse(localStorage.getItem('timetry_cart') || '[]');
+        if (cart.length > 0) {
+          checkoutItems = cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            sku: item.sku || 'TIMETRY',
+            price: item.price,
+            image: item.image || '',
+            color: item.color || 'Фирменный',
+            colorHex: item.colorHex || '#f97316',
+            size: item.wheel || 'Стандарт',
+            qty: item.qty || 1,
+            slug: item.slug || ''
+          }));
+        } else if (AppState.products && AppState.products.length > 0) {
+          // Fallback to flagship model
+          const p = AppState.products[0];
+          checkoutItems = [{
+            id: p.id,
+            name: p.name,
+            sku: p.sku,
+            price: p.price,
+            image: (p.images && p.images[0]) || '',
+            color: (p.colors && p.colors[0] && p.colors[0].name) || 'Чёрный матовый',
+            colorHex: (p.colors && p.colors[0] && p.colors[0].hex) || '#1e1e1e',
+            size: p.rider_height || 'Универсал',
+            qty: 1,
+            slug: p.slug
+          }];
+        }
+      }
+
+      renderCheckoutSummary();
+    });
+
+    function renderCheckoutSummary() {
+      const container = document.getElementById('checkout-items-list');
+      if (!container) return;
+
+      let total = 0;
+      let totalQty = 0;
+
+      container.innerHTML = checkoutItems.map((item, idx) => {
+        total += item.price * item.qty;
+        totalQty += item.qty;
+        const itemSlug = item.slug || ('item-' + item.id);
+
+        return `
+          <div class="summary-product-item">
+            <img src="${item.image || 'https://placehold.co/100x70/ffffff/0f172a?text=BIKE'}" class="summary-product-img" alt="${item.name}" />
+            <div class="summary-product-info">
+              <h4 class="summary-product-name">
+                <a href="product.html?model=${itemSlug}" style="color: inherit; text-decoration: none;">${item.name}</a>
+              </h4>
+              <div class="summary-product-meta">
+                <span class="summary-color-circle" style="background-color: ${item.colorHex || '#f97316'};"></span>
+                <span>${item.color || 'Цвет'}</span>
+                <span>•</span>
+                <span>${item.size || 'Размер'}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem;">
+                  <button type="button" onclick="changeCheckoutQty(${idx}, -1)" class="btn-outline" style="padding: 2px 8px; font-size: 0.8rem; border-radius: 4px;">-</button>
+                  <strong style="color: var(--text-main);">${item.qty} шт</strong>
+                  <button type="button" onclick="changeCheckoutQty(${idx}, 1)" class="btn-outline" style="padding: 2px 8px; font-size: 0.8rem; border-radius: 4px;">+</button>
+                </div>
+                <div class="summary-price-bold">${(item.price * item.qty).toLocaleString('ru-RU')} ₽</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      checkoutGrandTotal = total;
+      const countEl = document.getElementById('summary-items-count');
+      if (countEl) countEl.textContent = `${totalQty} шт`;
+
+      const subtotalEl = document.getElementById('summary-subtotal');
+      if (subtotalEl) subtotalEl.textContent = `${total.toLocaleString('ru-RU')} ₽`;
+
+      const grandTotalEl = document.getElementById('summary-grand-total');
+      if (grandTotalEl) grandTotalEl.textContent = `${total.toLocaleString('ru-RU')} ₽`;
+    }
+
+    function changeCheckoutQty(idx, delta) {
+      if (!checkoutItems[idx]) return;
+      checkoutItems[idx].qty += delta;
+      if (checkoutItems[idx].qty <= 0) {
+        checkoutItems.splice(idx, 1);
+      }
+      if (checkoutItems.length === 0 && AppState.products && AppState.products.length > 0) {
+        const p = AppState.products[0];
+        checkoutItems = [{
+          id: p.id,
+          name: p.name,
+          sku: p.sku,
+          price: p.price,
+          image: (p.images && p.images[0]) || '',
+          color: (p.colors && p.colors[0] && p.colors[0].name) || 'Чёрный матовый',
+          colorHex: (p.colors && p.colors[0] && p.colors[0].hex) || '#1e1e1e',
+          size: p.rider_height || 'Универсал',
+          qty: 1,
+          slug: p.slug
+        }];
+      }
+      renderCheckoutSummary();
+    }
+
+    function handleDeliveryChange(radio) {
+      document.querySelectorAll('input[name="delivery"]').forEach(r => {
+        r.closest('.radio-card').classList.toggle('active', r.checked);
+      });
+    }
+
+    function handlePaymentChange(radio) {
+      document.querySelectorAll('input[name="payment"]').forEach(r => {
+        r.closest('.radio-card').classList.toggle('active', r.checked);
+      });
+    }
+
+    function submitCheckoutOrder(e) {
+      e.preventDefault();
+
+      const orderNumber = 'TM-' + Math.floor(10000 + Math.random() * 90000);
+      const name = document.getElementById('c-name').value.trim() || 'Покупатель';
+      const phone = document.getElementById('c-phone').value.trim() || 'Уточняется';
+      const email = document.getElementById('c-email').value.trim() || '';
+      const city = document.getElementById('c-city').value.trim() || 'Кемерово';
+      const address = document.getElementById('c-address').value.trim() || 'ПВЗ СДЭК';
+      const comment = document.getElementById('c-comment').value.trim() || '';
+
+      const deliveryRadio = document.querySelector('input[name="delivery"]:checked');
+      const deliveryVal = deliveryRadio ? deliveryRadio.value : 'cdek_pvz';
+      const deliveryTitles = {
+        cdek_pvz: 'СДЭК — До пункта самовывоза (ПВЗ)',
+        cdek_door: 'СДЭК — Курьером до двери',
+        tk_lines: 'ТК Деловые Линии / ПЭК',
+        pickup: 'Самовывоз со склада (г. Кемерово, ул. Тухачевского, 50/1)'
+      };
+
+      const paymentRadio = document.querySelector('input[name="payment"]:checked');
+      const paymentVal = paymentRadio ? paymentRadio.value : 'cod';
+      const paymentTitles = {
+        cod: 'Оплата при получении после осмотра',
+        sbp: 'Онлайн-оплата СБП / Картой',
+        split: 'Беспроцентный Сплит / Долями'
+      };
+
+      const newOrder = {
+        orderId: orderNumber,
+        date: new Date().toLocaleString('ru-RU'),
+        customerName: name,
+        phone: phone,
+        email: email,
+        city: city,
+        address: address,
+        deliveryType: deliveryTitles[deliveryVal] || deliveryVal,
+        paymentType: paymentTitles[paymentVal] || paymentVal,
+        comment: comment,
+        items: [...checkoutItems],
+        totalAmount: checkoutGrandTotal,
+        status: 'Новый'
+      };
+
+      // Save to localStorage for owner/admin panel
+      try {
+        const orders = JSON.parse(localStorage.getItem('timetry_orders') || '[]');
+        orders.unshift(newOrder);
+        localStorage.setItem('timetry_orders', JSON.stringify(orders));
+      } catch (err) {}
+
+      // Clear shopping cart
+      try {
+        localStorage.setItem('timetry_cart', '[]');
+      } catch (err) {}
+
+      // Show success screen
+      document.getElementById('checkout-view-container').style.display = 'none';
+      const successView = document.getElementById('checkout-success-view');
+      successView.style.display = 'block';
+
+      document.getElementById('order-success-number').textContent = `Заказ №${orderNumber}`;
+      document.getElementById('success-delivery-desc').textContent = deliveryTitles[deliveryVal] || deliveryVal;
+      document.getElementById('success-payment-desc').textContent = paymentTitles[paymentVal] || paymentVal;
+      document.getElementById('success-total-sum').textContent = `${checkoutGrandTotal.toLocaleString('ru-RU')} ₽`;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
