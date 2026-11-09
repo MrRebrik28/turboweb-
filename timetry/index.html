@@ -134,13 +134,22 @@
 
       <!-- Category Filter Pills -->
       <div class="category-pills-wrap">
-        <button class="cat-btn active" data-cat="all" id="cat-all-btn">Все модели (106)</button>
+        <button class="cat-btn active" data-cat="all" id="cat-all-btn">Все модели (31)</button>
         <button class="cat-btn" data-cat="Горные (MTB)">Горные (MTB)</button>
-        <button class="cat-btn" data-cat="Гравийные">Гравийные (Gravel)</button>
         <button class="cat-btn" data-cat="Двухподвесы">Двухподвесы</button>
-        <button class="cat-btn" data-cat="Городские">Городские / Дорожные</button>
+        <button class="cat-btn" data-cat="Гравийные">Гравийные</button>
+        <button class="cat-btn" data-cat="Городские">Городские</button>
+        <button class="cat-btn" data-cat="Дорожные">Дорожные</button>
+        <button class="cat-btn" data-cat="Шоссейные">Шоссейные</button>
         <button class="cat-btn" data-cat="Фэтбайки">Фэтбайки</button>
+        <button class="cat-btn" data-cat="Полуфэтбайки">Полуфэтбайки</button>
         <button class="cat-btn" data-cat="Подростковые">Подростковые</button>
+        <button class="cat-btn" data-cat="Детские">Детские</button>
+        <button class="cat-btn" data-cat="Женские">Женские</button>
+        <button class="cat-btn" data-cat="BMX">BMX и др.</button>
+        <button class="cat-btn" data-cat="Складные">Складные</button>
+        <button class="cat-btn" data-cat="Трейловые">Трейловые</button>
+        <button class="cat-btn" data-cat="Электровелосипеды">Электровелосипеды</button>
       </div>
 
       <!-- Catalog Layout: Filters Sidebar + Grid -->
@@ -157,7 +166,7 @@
           <div class="filter-group" id="filter-group-model">
             <label class="filter-label" for="model-filter-input">
               <span>Подбор по модели</span>
-              <span class="filter-label-hint" id="model-filter-count-hint" style="font-size: 0.75rem; color: var(--accent-orange); font-weight: 600;">31 модель</span>
+              <span class="filter-label-hint" id="model-filter-count-hint" style="font-size: 0.75rem; color: var(--text-dim); font-weight: 500;">31 модель</span>
             </label>
             <div class="model-search-filter-box">
               <svg class="svg-icon model-search-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -429,11 +438,13 @@
           <h4 class="footer-col-title">Каталог моделей</h4>
           <ul class="footer-links-list">
             <li><a href="javascript:void(0)" onclick="setCategoryFilter('Горные (MTB)')">Горные велосипеды (MTB)</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Гравийные')">Гравийные (Gravel)</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Гравийные')">Гравийные велосипеды</a></li>
             <li><a href="javascript:void(0)" onclick="setCategoryFilter('Двухподвесы')">Двухподвесные байки</a></li>
             <li><a href="javascript:void(0)" onclick="setCategoryFilter('Городские')">Городские и дорожные</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Фэтбайки')">Фэтбайки (Fatbike)</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Подростковые')">Подростковые модели</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Шоссейные')">Шоссейные велосипеды</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Фэтбайки')">Фэтбайки и полуфэтбайки</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Подростковые')">Подростковые и детские</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategoryFilter('Женские')">Женские велосипеды</a></li>
           </ul>
         </div>
 
@@ -452,7 +463,7 @@
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
             г. Кемерово, пер. Щегловский д.10 (Центральный распределительный склад)
           </p>
-          <a href="tel:+79502720440" style="font-size: 1.1rem; font-weight: 800; color: var(--accent-orange); text-decoration: none; display: block; margin-bottom: 8px;">
+          <a href="tel:+79502720440" style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); text-decoration: none; display: block; margin-bottom: 8px;">
             8 (950) 272-04-40
           </a>
           <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 12px;">
@@ -517,7 +528,7 @@
     <div class="cart-drawer-foot">
       <div class="cart-drawer-total-row">
         <span>Итого:</span>
-        <span id="cart-drawer-total" style="color: var(--accent-orange);">0 ₽</span>
+        <span id="cart-drawer-total" style="color: var(--text-main); font-weight: 600;">0 ₽</span>
       </div>
       <button class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;" onclick="openCheckoutModal()">
         Перейти к оформлению заказа →
@@ -702,12 +713,12 @@
       <div style="margin-bottom: 14px;">
         <svg class="svg-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 15 8 12"/></svg>
       </div>
-      <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">Заказ успешно принят!</h3>
+      <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">Заказ успешно принят!</h3>
       <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
         Спасибо! Ваш заказ зафиксирован и передан на склад дилера в г. Кемерово. Менеджер свяжется с вами по телефону в течение 10–15 минут для подтверждения адреса доставки СДЭК.
       </p>
       <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; font-size: 0.82rem; color: var(--text-muted); text-align: left; margin-bottom: 20px;">
-        <div><strong>Номер заказа:</strong> <span id="success-order-id" style="color: var(--accent-orange); font-weight: 800;">TM-0000</span></div>
+        <div><strong>Номер заказа:</strong> <span id="success-order-id" style="color: var(--text-main); font-weight: 600;">TM-0000</span></div>
         <div style="margin-top: 4px;"><strong>Склад отгрузки:</strong> г. Кемерово (день в день)</div>
         <div style="margin-top: 4px;"><strong>Прямая связь со складом:</strong> 8 (950) 272-04-40</div>
       </div>
@@ -756,7 +767,7 @@
   <button type="button" class="mobile-floating-catalog-btn" id="mobile-floating-catalog-btn" onclick="scrollToCatalogFilters()" aria-label="Открыть фильтры моделей">
     <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
     <span>Фильтры</span>
-    <span class="filter-count-badge" id="mobile-filter-badge" style="display: none; background: #ffffff; color: var(--accent-orange); border-radius: 10px; padding: 1px 6px; font-size: 0.72rem; font-weight: 800;"></span>
+    <span class="filter-count-badge" id="mobile-filter-badge" style="display: none; background: var(--btn-primary-bg); color: var(--btn-primary-text); border-radius: 10px; padding: 1px 6px; font-size: 0.72rem; font-weight: 600;"></span>
   </button>
 
   <!-- Mobile Sticky Action Bar -->

@@ -372,6 +372,29 @@ function syncFilterTagsWithProducts() {
     });
   }
 
+  // 5. Category pills in quick filter bar
+  const catWrap = document.querySelector('.category-pills-wrap');
+  if (catWrap) {
+    const existingCats = new Set(Array.from(catWrap.querySelectorAll('.cat-btn')).map(b => b.dataset.cat));
+    AppState.products.forEach(p => {
+      if (p.bike_type && !existingCats.has(p.bike_type)) {
+        existingCats.add(p.bike_type);
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn';
+        btn.dataset.cat = p.bike_type;
+        btn.textContent = p.bike_type;
+        btn.addEventListener('click', () => {
+          resetCatalogPagination();
+          document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          AppState.activeFilters.category = p.bike_type;
+          applyFilters();
+        });
+        catWrap.appendChild(btn);
+      }
+    });
+  }
+
   // Sync active states on all filter tags
   syncFiltersUI();
 }
@@ -580,9 +603,25 @@ function syncFiltersUI() {
 function applyFilters() {
   let list = [...AppState.products];
 
-  // Category
+  // Category (matches primary bike_type or any category tag)
   if (AppState.activeFilters.category !== 'all') {
-    list = list.filter(p => p.bike_type === AppState.activeFilters.category);
+    const rawCat = AppState.activeFilters.category;
+    const targetCat = rawCat.toLowerCase().replace(/\s*\(.*?\)/, '').trim();
+    list = list.filter(p => {
+      // Direct match on bike_type
+      if (p.bike_type) {
+        const btLow = p.bike_type.toLowerCase();
+        if (p.bike_type === rawCat || btLow.includes(targetCat) || targetCat.includes(btLow)) return true;
+      }
+      // Match on p.categories array if present
+      if (Array.isArray(p.categories)) {
+        return p.categories.some(c => {
+          const cLow = String(c).toLowerCase();
+          return cLow.includes(targetCat) || targetCat.includes(cLow);
+        });
+      }
+      return false;
+    });
   }
 
   // Brand / Lineup (TIMETRY, SHUSTER, YUEH, GT)
@@ -778,69 +817,72 @@ function renderCatalog(items) {
     const productUrl = `product.html?model=${modelSlug}`;
     const checkoutUrl = `checkout.html?model=${modelSlug}`;
     
-    // Marketing badges logic (clean SVG icons, zero emojis)
-    let badges = [];
-    if (discount && discount > 0) {
-      badges.push(`<span class="badge-tag sale">${ICONS.tag} -${discount}%</span>`);
+    // Minimalist tag logic (clean, lightweight like Samsung/Huawei)
+    let badgeHtml = '';
+    if (index % 3 === 0 || (p.sku && p.sku.includes('TT4'))) {
+      badgeHtml = `<span class="badge-tag new">Новинка</span>`;
+    } else if (discount && discount > 0) {
+      badgeHtml = `<span class="badge-tag sale">-${discount}%</span>`;
     }
-    if (p.price >= 42000 || index % 3 === 0) {
-      badges.push(`<span class="badge-tag hit">${ICONS.flame} Хит продаж</span>`);
+
+    let variantsHtml = '';
+    if (p.colors && p.colors.length > 0) {
+      const heightStr = p.rider_height ? p.rider_height.replace(/см\s*/, '') : '17-19" (M)';
+      const lines = p.colors.slice(0, 2).map(c => `<div class="card-variant-line">${c.name}: ${heightStr}</div>`).join('');
+      variantsHtml = `<div class="card-variants-list">${lines}</div>`;
+    } else {
+      variantsHtml = `<div class="card-variants-list"><div class="card-variant-line">Колёса: ${p.wheel_size} | ${p.frame_material ? p.frame_material.split(' ')[0] : 'Алюминий'}</div></div>`;
     }
-    if (p.sku && (p.sku.includes('TT4') || p.sku.includes('TT8') || p.price > 50000)) {
-      badges.push(`<span class="badge-tag new">${ICONS.sparkle} Новинка 2026</span>`);
-    }
-    badges.push(`<span class="badge-tag stock">${ICONS.check} В наличии (Кемерово)</span>`);
+
+    const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
+    const cashback = Math.round(p.price * 0.02);
 
     return `
       <article class="store-card" data-id="${p.id}" data-slug="${modelSlug}">
         <div class="card-top-badges">
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; max-width: 82%;">
-            ${badges.slice(0, 2).join(' ')}
+          <div>
+            ${badgeHtml}
           </div>
           <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное" aria-label="В избранное">
             ${isFav ? ICONS.heartFilled : ICONS.heart}
           </button>
         </div>
 
-        <a href="${productUrl}" onclick="saveCatalogState(${p.id})" class="card-photo-box" style="display: block; text-decoration: none;">
+        <a href="${productUrl}" onclick="saveCatalogState(${p.id})" class="card-photo-box" style="display: flex; text-decoration: none;">
           <img src="${mainImg}" alt="${p.name}" loading="lazy" />
         </a>
 
-        <div class="card-info">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <span class="card-cat-label">${p.bike_type}</span>
-            <span style="font-size: 0.72rem; color: #10b981; font-weight: 700;">● Склад Кемерово</span>
-          </div>
-          <h3 class="card-model-name">
-            <a href="${productUrl}" onclick="saveCatalogState(${p.id})" style="color: inherit; text-decoration: none;">${p.name}</a>
-          </h3>
-
-          ${p.colors && p.colors.length > 0 ? `
-            <div class="card-colors-row" title="Цвета в наличии: ${p.colors.map(c => c.name).join(', ')}">
-              ${p.colors.map(c => `<span class="card-color-dot" style="background-color: ${c.hex};" title="${c.name}"></span>`).join('')}
-              <span class="card-colors-count">${p.colors.length} цв.</span>
-            </div>
-          ` : ''}
-          
-          <div class="card-specs-flex">
-            <span class="spec-chip">Колёса: ${p.wheel_size}</span>
-            ${p.speeds ? `<span class="spec-chip">${p.speeds.replace(/скорост(ей|и|ь)/, 'ск.').trim()}</span>` : ''}
-            <span class="spec-chip">${p.brakes && p.brakes.includes('гидравл') ? 'Гидравлика' : 'Дисковые'}</span>
-            <span class="spec-chip">Рост: ${p.height_category ? p.height_category + ' см' : 'Универсал'}</span>
-          </div>
+        <div class="card-photo-indicator">
+          <span class="photo-indicator-bar"></span>
         </div>
 
-        <div class="card-bottom-actions">
+        <div class="card-rating">★★★★★</div>
+
+        <div class="card-info">
+          <h3 class="card-model-name">
+            <a href="${productUrl}" onclick="saveCatalogState(${p.id})" style="color: inherit; text-decoration: none;">${displayName}</a>
+          </h3>
+
+          ${variantsHtml}
+
+          <div class="card-meta-line">
+            <span class="stock-badge-dot">• В наличии</span>
+            <span class="product-code-label">Код товара: ${p.id}</span>
+          </div>
+
           <div class="card-prices-line">
             <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
             ${p.old_price ? `<span class="price-old-strikethrough">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
           </div>
+          <div class="cashback-bonus-line">+ ${cashback.toLocaleString('ru-RU')} на счет</div>
+        </div>
+
+        <div class="card-bottom-actions">
           <div class="card-buttons-pair">
             <a href="${productUrl}" onclick="saveCatalogState(${p.id})" class="btn-card-details">
               <span>Подробнее</span>
             </a>
             <a href="${checkoutUrl}" class="btn-card-buy">
-              ${ICONS.cartSmall}
               <span>Купить</span>
             </a>
           </div>
@@ -1147,26 +1189,30 @@ async function initProductPage() {
 
 function renderRelatedCard(p) {
   const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
+  const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
   return `
     <article class="store-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-      <a href="product.html?id=${p.id}" class="card-photo-box" style="display: block; text-decoration: none;">
+      <a href="product.html?id=${p.id}" class="card-photo-box" style="display: flex; text-decoration: none;">
         <img src="${mainImg}" alt="${p.name}" loading="lazy" />
       </a>
+      <div class="card-photo-indicator">
+        <span class="photo-indicator-bar"></span>
+      </div>
+      <div class="card-rating">★★★★★</div>
       <div class="card-info">
-        <span class="card-cat-label">${p.bike_type}</span>
         <h3 class="card-model-name">
-          <a href="product.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.name}</a>
+          <a href="product.html?id=${p.id}" style="color: inherit; text-decoration: none;">${displayName}</a>
         </h3>
-        <div class="card-specs-flex">
-          <span class="spec-chip">Колёса: ${p.wheel_size}</span>
-          <span class="spec-chip">${p.brakes && p.brakes.includes('гидравл') ? 'Гидравлика' : 'Дисковые'}</span>
+        <div class="card-meta-line" style="margin-top: 4px;">
+          <span class="stock-badge-dot">• В наличии</span>
+          <span class="product-code-label">Код: ${p.id}</span>
         </div>
       </div>
       <div class="card-bottom-actions">
         <div class="card-prices-line">
           <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
         </div>
-        <a href="product.html?id=${p.id}" class="btn-card-cart" style="text-decoration: none; justify-content: center;">
+        <a href="product.html?id=${p.id}" class="btn-card-buy" style="text-decoration: none; justify-content: center; width: 100%;">
           <span>Подробнее</span>
         </a>
       </div>
