@@ -50,8 +50,8 @@ const AppState = {
   filteredProducts: [],
   cart: JSON.parse(localStorage.getItem('timetry_cart') || '[]'),
   favorites: Array.from(new Set(JSON.parse(localStorage.getItem('timetry_favs') || '[]'))),
-  visibleCount: 30,
-  pageSize: 30,
+  visibleCount: 15,
+  pageSize: 15,
   productPageSelectedAccs: new Set(),
   productPageSelectedHeight: null,
   activeFilters: {
