@@ -204,21 +204,42 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('products-grid')) {
     initCatalog();
     initEventListeners();
-    initCatalogMobileScroll();
+    initCatalogScrollActions();
   }
   initAllPhoneMasks();
   updateCartBadge();
   updateFavoritesCount();
 });
 
-function initCatalogMobileScroll() {
-  const btn = document.getElementById('mobile-floating-catalog-btn');
-  if (!btn) return;
-  window.addEventListener('scroll', () => {
+function initCatalogScrollActions() {
+  const scrollTopBtn = document.getElementById('btn-scroll-top');
+  const mobileFilterBtn = document.getElementById('mobile-floating-catalog-btn');
+
+  function onScroll() {
     const scrollY = window.scrollY || window.pageYOffset || 0;
-    btn.style.display = scrollY > 280 ? 'inline-flex' : 'none';
-  }, { passive: true });
+    if (scrollTopBtn) {
+      if (scrollY > 350) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    }
+    if (mobileFilterBtn) {
+      mobileFilterBtn.style.display = scrollY > 280 ? 'inline-flex' : 'none';
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+window.scrollToTop = scrollToTop;
 
 function scrollToCatalogFilters() {
   const sidebar = document.querySelector('.store-sidebar');
@@ -960,6 +981,9 @@ async function initProductPage() {
 
   // Initialize mobile floating buy bar for smartphones
   initMobileFloatingBar(p);
+
+  // Initialize scroll to top button
+  initCatalogScrollActions();
 
   // Initialize phone input masks
   initAllPhoneMasks();

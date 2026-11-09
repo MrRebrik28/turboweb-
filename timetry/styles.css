@@ -2461,6 +2461,72 @@ footer,
 }
 
 /* ==========================================================================
+   SCROLL TO TOP FLOATING BUTTON (ON THE RIGHT)
+   ========================================================================== */
+.btn-scroll-top {
+  position: fixed;
+  right: 28px;
+  bottom: 32px;
+  z-index: 990;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 30px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(18px) scale(0.92);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.3s,
+              background-color 0.2s,
+              border-color 0.2s,
+              color 0.2s,
+              box-shadow 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-scroll-top svg {
+  color: var(--accent-orange);
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.btn-scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.btn-scroll-top:hover {
+  background: var(--accent-orange);
+  color: #ffffff;
+  border-color: var(--accent-orange);
+  box-shadow: 0 10px 28px var(--accent-orange-glow);
+  transform: translateY(-3px) scale(1.03);
+}
+
+.btn-scroll-top:hover svg {
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.btn-scroll-top:active {
+  transform: translateY(0) scale(0.96);
+}
+
+/* ==========================================================================
    MOBILE FLOATING BUY BAR & FLOATING ACTIONS (FOR PHONES)
    ========================================================================== */
 .mobile-floating-buy-bar {
@@ -2472,6 +2538,20 @@ footer,
 }
 
 @media (max-width: 768px) {
+  .btn-scroll-top {
+    right: 14px;
+    bottom: 80px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-scroll-top span {
+    display: none;
+  }
+
   .mobile-floating-buy-bar {
     display: flex;
     position: fixed;
@@ -2573,7 +2653,8 @@ footer,
     display: inline-flex;
     position: fixed;
     bottom: 80px;
-    right: 16px;
+    left: 14px;
+    right: auto;
     z-index: 950;
     background: var(--accent-orange);
     color: #ffffff;
