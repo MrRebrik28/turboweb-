@@ -566,6 +566,172 @@ function goBackToCatalog(e) {
   }
 }
 
+// Global images cache for silky-smooth hover scrubbing
+window.CatalogImagesCache = window.CatalogImagesCache || {};
+
+window.preloadCardImages = function(productId) {
+  const images = window.CatalogImagesCache[productId];
+  if (!images || images.length <= 1) return;
+  const count = Math.min(images.length, 6);
+  for (let i = 1; i < count; i++) {
+    const pre = new Image();
+    pre.src = images[i];
+  }
+};
+
+window.handleCardScrub = function(event, productId) {
+  const images = window.CatalogImagesCache[productId];
+  if (!images || images.length <= 1) return;
+  const box = event.currentTarget;
+  const rect = box.getBoundingClientRect();
+  const x = Math.max(0, Math.min(event.clientX - rect.left, rect.width - 1));
+  const count = Math.min(images.length, 6);
+  const index = Math.min(Math.floor((x / rect.width) * count), count - 1);
+
+  const img = document.getElementById(`card-img-${productId}`);
+  if (img && img.dataset.currentIdx !== String(index)) {
+    img.dataset.currentIdx = String(index);
+    img.src = images[index];
+  }
+
+  const indicator = document.getElementById(`card-indicator-${productId}`);
+  if (indicator) {
+    const dashes = indicator.querySelectorAll('.photo-dash');
+    dashes.forEach((d, i) => {
+      if (i === index) d.classList.add('active');
+      else d.classList.remove('active');
+    });
+  }
+};
+
+window.resetCardScrub = function(productId) {
+  const images = window.CatalogImagesCache[productId];
+  if (!images || images.length === 0) return;
+  const img = document.getElementById(`card-img-${productId}`);
+  if (img && img.dataset.currentIdx !== '0') {
+    img.dataset.currentIdx = '0';
+    img.src = images[0];
+  }
+  const indicator = document.getElementById(`card-indicator-${productId}`);
+  if (indicator) {
+    const dashes = indicator.querySelectorAll('.photo-dash');
+    dashes.forEach((d, i) => {
+      if (i === 0) d.classList.add('active');
+      else d.classList.remove('active');
+    });
+  }
+};
+
+window.handleCardClick = function(productId, url, event) {
+  if (event.target.closest('.btn-quick-view') || event.target.closest('.btn-card-fav')) {
+    return;
+  }
+  saveCatalogState(productId);
+  window.location.href = url;
+};
+
+window.openQuickViewModal = function(productId, event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch (err) {}
+  }
+  const p = (AppState.products || []).find(item => item.id === productId);
+  if (!p) return;
+
+  const modal = document.getElementById('quick-view-modal');
+  const container = document.getElementById('quick-view-content');
+  if (!modal || !container) return;
+
+  const images = (p.images && p.images.length > 0) ? p.images : ['https://placehold.co/600x450/ffffff/0f172a?text=TIMETRY'];
+  const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
+  const cashback = Math.round(p.price * 0.02);
+  const productUrl = `product.html?id=${p.id}`;
+  const checkoutUrl = `checkout.html?id=${p.id}`;
+
+  const thumbsHtml = images.map((img, i) => `
+    <button type="button" class="qv-thumb-btn ${i === 0 ? 'active' : ''}" onclick="switchQuickViewImg('${img}', this)" aria-label="Ракурс ${i+1}">
+      <img src="${img}" alt="${p.name} - ракурс ${i+1}" loading="lazy" />
+    </button>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="qv-gallery-col">
+      <div class="qv-main-photo-wrap">
+        <img id="qv-active-img" src="${images[0]}" alt="${p.name}" />
+      </div>
+      <div class="qv-thumbs-row">
+        ${thumbsHtml}
+      </div>
+    </div>
+    <div class="qv-info-col">
+      <div class="card-rating">★★★★★ 5.0 (проверенная модель)</div>
+      <h2 class="qv-title">${displayName}</h2>
+      <div class="qv-meta-row">
+        <span class="stock-badge-dot">• В наличии на складе (г. Кемерово)</span>
+        <span class="product-code-label">Арт. ${p.model_code || p.id}</span>
+      </div>
+      <div class="qv-prices-row">
+        <span class="qv-price-val">${p.price.toLocaleString('ru-RU')} ₽</span>
+        ${p.old_price ? `<span class="qv-price-old">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
+        <span class="cashback-bonus-line">+ ${cashback.toLocaleString('ru-RU')} на счет</span>
+      </div>
+      <div class="qv-specs-mini">
+        <div class="qv-spec-item">
+          <span class="qv-spec-lbl">Диаметр колёс</span>
+          <span class="qv-spec-val">${p.wheel_size || '—'}</span>
+        </div>
+        <div class="qv-spec-item">
+          <span class="qv-spec-lbl">Материал рамы</span>
+          <span class="qv-spec-val">${p.frame_material || 'Алюминий 6061'}</span>
+        </div>
+        <div class="qv-spec-item">
+          <span class="qv-spec-lbl">Скорости</span>
+          <span class="qv-spec-val">${p.speeds ? p.speeds + ' ск.' : '10 ск.'}</span>
+        </div>
+        <div class="qv-spec-item">
+          <span class="qv-spec-lbl">Тормоза</span>
+          <span class="qv-spec-val">${p.brakes || 'Дисковые гидравлические'}</span>
+        </div>
+        <div class="qv-spec-item">
+          <span class="qv-spec-lbl">Рекомендованный рост</span>
+          <span class="qv-spec-val">${p.rider_height || '165–185 см'}</span>
+        </div>
+        <div class="qv-spec-item">
+          <span class="qv-spec-lbl">Гарантия</span>
+          <span class="qv-spec-val">24 месяца со склада</span>
+        </div>
+      </div>
+      <div class="qv-actions-row">
+        <a href="${checkoutUrl}" class="btn-primary" style="justify-content: center; padding: 12px; font-size: 0.95rem; text-decoration: none;">
+          Оформить заказ сейчас
+        </a>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <button type="button" class="btn-outline" style="justify-content: center;" onclick="addToCartQuick(${p.id})">
+            В корзину
+          </button>
+          <a href="${productUrl}" class="btn-outline" style="justify-content: center; text-decoration: none;" onclick="saveCatalogState(${p.id})">
+            Все детали →
+          </a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  openModal('quick-view-modal');
+};
+
+window.switchQuickViewImg = function(imgSrc, btn) {
+  const activeImg = document.getElementById('qv-active-img');
+  if (activeImg) activeImg.src = imgSrc;
+  document.querySelectorAll('.qv-thumb-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+};
+
+window.addToCartQuick = function(productId) {
+  addToCart(productId);
+  closeModal('quick-view-modal');
+  toggleCartDrawer();
+};
+
 function syncFiltersUI() {
   if (AppState.activeFilters.category) {
     document.querySelectorAll('.cat-btn').forEach(b => {
@@ -816,6 +982,10 @@ function renderCatalog(items) {
     const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
     const productUrl = `product.html?model=${modelSlug}`;
     const checkoutUrl = `checkout.html?model=${modelSlug}`;
+
+    // Cache product images for instant hover scrubbing
+    const pImages = (p.images && p.images.length > 0) ? p.images : [mainImg];
+    window.CatalogImagesCache[p.id] = pImages;
     
     // Minimalist tag logic (clean, lightweight like Samsung/Huawei)
     let badgeHtml = '';
@@ -824,6 +994,12 @@ function renderCatalog(items) {
     } else if (discount && discount > 0) {
       badgeHtml = `<span class="badge-tag sale">-${discount}%</span>`;
     }
+
+    // Scrubber dashes
+    const dashCount = Math.min(pImages.length, 6);
+    const dashesHtml = Array.from({length: dashCount}, (_, idx) => 
+      `<span class="photo-dash ${idx === 0 ? 'active' : ''}" data-idx="${idx}"></span>`
+    ).join('');
 
     let variantsHtml = '';
     if (p.colors && p.colors.length > 0) {
@@ -839,28 +1015,40 @@ function renderCatalog(items) {
 
     return `
       <article class="store-card" data-id="${p.id}" data-slug="${modelSlug}">
-        <div class="card-top-badges">
-          <div>
-            ${badgeHtml}
+        <div class="card-photo-box" 
+             id="card-photo-${p.id}" 
+             onmouseenter="preloadCardImages(${p.id})"
+             onmousemove="handleCardScrub(event, ${p.id})" 
+             onmouseleave="resetCardScrub(${p.id})"
+             onclick="handleCardClick(${p.id}, '${productUrl}', event)">
+          <div class="card-top-badges">
+            <div>
+              ${badgeHtml}
+            </div>
+            <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное" aria-label="В избранное">
+              ${isFav ? ICONS.heartFilled : ICONS.heart}
+            </button>
           </div>
-          <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное" aria-label="В избранное">
-            ${isFav ? ICONS.heartFilled : ICONS.heart}
-          </button>
+
+          <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
+
+          <div class="card-quick-view-overlay">
+            <button type="button" class="btn-quick-view" onclick="openQuickViewModal(${p.id}, event)">
+              <svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Быстрый просмотр</span>
+            </button>
+          </div>
         </div>
 
-        <a href="${productUrl}" onclick="saveCatalogState(${p.id})" class="card-photo-box" style="display: flex; text-decoration: none;">
-          <img src="${mainImg}" alt="${p.name}" loading="lazy" />
-        </a>
-
-        <div class="card-photo-indicator">
-          <span class="photo-indicator-bar"></span>
+        <div class="card-photo-indicator" id="card-indicator-${p.id}">
+          ${dashesHtml}
         </div>
 
         <div class="card-rating">★★★★★</div>
 
         <div class="card-info">
           <h3 class="card-model-name">
-            <a href="${productUrl}" onclick="saveCatalogState(${p.id})" style="color: inherit; text-decoration: none;">${displayName}</a>
+            <a href="${productUrl}" onclick="saveCatalogState(${p.id})">${displayName}</a>
           </h3>
 
           ${variantsHtml}
@@ -1190,30 +1378,50 @@ async function initProductPage() {
 function renderRelatedCard(p) {
   const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
   const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
+  const pImages = (p.images && p.images.length > 0) ? p.images : [mainImg];
+  window.CatalogImagesCache[p.id] = pImages;
+  const productUrl = `product.html?id=${p.id}`;
+
+  const dashCount = Math.min(pImages.length, 6);
+  const dashesHtml = Array.from({length: dashCount}, (_, idx) => 
+    `<span class="photo-dash ${idx === 0 ? 'active' : ''}" data-idx="${idx}"></span>`
+  ).join('');
+
   return `
-    <article class="store-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-      <a href="product.html?id=${p.id}" class="card-photo-box" style="display: flex; text-decoration: none;">
-        <img src="${mainImg}" alt="${p.name}" loading="lazy" />
-      </a>
-      <div class="card-photo-indicator">
-        <span class="photo-indicator-bar"></span>
+    <article class="store-card">
+      <div class="card-photo-box" 
+           id="card-photo-${p.id}" 
+           onmouseenter="preloadCardImages(${p.id})"
+           onmousemove="handleCardScrub(event, ${p.id})" 
+           onmouseleave="resetCardScrub(${p.id})"
+           onclick="handleCardClick(${p.id}, '${productUrl}', event)">
+        <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
+        <div class="card-quick-view-overlay">
+          <button type="button" class="btn-quick-view" onclick="openQuickViewModal(${p.id}, event)">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>Быстрый просмотр</span>
+          </button>
+        </div>
+      </div>
+      <div class="card-photo-indicator" id="card-indicator-${p.id}">
+        ${dashesHtml}
       </div>
       <div class="card-rating">★★★★★</div>
       <div class="card-info">
         <h3 class="card-model-name">
-          <a href="product.html?id=${p.id}" style="color: inherit; text-decoration: none;">${displayName}</a>
+          <a href="${productUrl}">${displayName}</a>
         </h3>
         <div class="card-meta-line" style="margin-top: 4px;">
           <span class="stock-badge-dot">• В наличии</span>
           <span class="product-code-label">Код: ${p.id}</span>
         </div>
-      </div>
-      <div class="card-bottom-actions">
         <div class="card-prices-line">
           <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
         </div>
-        <a href="product.html?id=${p.id}" class="btn-card-buy" style="text-decoration: none; justify-content: center; width: 100%;">
-          <span>Подробнее</span>
+      </div>
+      <div class="card-bottom-actions">
+        <a href="${productUrl}" class="btn-card-buy" style="text-decoration: none; justify-content: center; width: 100%;">
+          <span>Купить</span>
         </a>
       </div>
     </article>

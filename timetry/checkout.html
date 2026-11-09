@@ -30,12 +30,16 @@
       align-items: start;
     }
     .checkout-card-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 22px;
-      margin-bottom: 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-color);
+      border-radius: 0;
+      padding: 24px 0;
+      margin-bottom: 0;
       box-shadow: none;
+    }
+    .checkout-card-section:first-child {
+      padding-top: 0;
     }
     .checkout-card-title {
       font-size: 1.05rem;
@@ -140,14 +144,14 @@
       border-radius: 4px;
     }
 
-    /* Summary Sticky Box */
+    /* Summary Sticky Box - Seamless Minimalist */
     .checkout-summary-box {
       position: sticky;
       top: 100px;
-      background: var(--bg-card);
+      background: transparent;
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 22px;
+      border-radius: var(--radius-sm);
+      padding: 24px;
       box-shadow: none;
     }
     .summary-product-item {

@@ -482,6 +482,16 @@
   <!-- ========================================================================
        MODALS & DRAWERS
        ======================================================================== -->
+  <!-- Quick View Modal (Tech Minimalist Modal) -->
+  <div class="modal-overlay" id="quick-view-modal">
+    <div class="modal-card quick-view-modal-card">
+      <button class="modal-close-cross" onclick="closeModal('quick-view-modal')">✕</button>
+      <div class="quick-view-grid" id="quick-view-content">
+        <!-- Injected dynamically by openQuickViewModal -->
+      </div>
+    </div>
+  </div>
+
   <!-- 1-Click Quick Order Modal -->
   <div class="modal-overlay" id="quick-order-modal">
     <div class="modal-card" style="max-width: 480px;">
