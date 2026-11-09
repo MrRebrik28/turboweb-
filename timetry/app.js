@@ -60,6 +60,7 @@ const AppState = {
     modelQuery: '',
     specificModel: 'all',
     wheel: 'all',
+    speeds: 'all',
     height: 'all',
     material: 'all',
     brakes: 'all',
@@ -267,6 +268,114 @@ function populateModelQuickSelect() {
   }
 }
 
+function syncFilterTagsWithProducts() {
+  if (!AppState.products || !AppState.products.length) return;
+
+  // 1. Wheel sizes: ensure all wheel sizes in catalog are available as clickable chips
+  const wheelGrid = document.getElementById('filter-wheel-grid');
+  if (wheelGrid) {
+    const existingWheelKeys = new Set(
+      Array.from(wheelGrid.querySelectorAll('[data-filter-type="wheel"]'))
+        .map(b => String(b.dataset.filterVal).replace(/["”\s]/g, '').toLowerCase())
+    );
+
+    const uniqueWheels = Array.from(new Set(AppState.products.map(p => p.wheel_size).filter(Boolean)));
+    uniqueWheels.forEach(w => {
+      const key = String(w).replace(/["”\s]/g, '').toLowerCase();
+      if (!existingWheelKeys.has(key)) {
+        existingWheelKeys.add(key);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'filter-tag-btn';
+        btn.dataset.filterType = 'wheel';
+        btn.dataset.filterVal = w;
+        btn.textContent = w;
+        wheelGrid.appendChild(btn);
+      }
+    });
+  }
+
+  // 2. Speeds: ensure all speeds in catalog are available as clickable chips
+  const speedsGrid = document.getElementById('filter-speeds-grid');
+  if (speedsGrid) {
+    const existingSpeedKeys = new Set(
+      Array.from(speedsGrid.querySelectorAll('[data-filter-type="speeds"]'))
+        .map(b => String(b.dataset.filterVal).trim().toLowerCase())
+    );
+
+    const uniqueSpeeds = Array.from(new Set(AppState.products.map(p => p.speeds).filter(Boolean)));
+    uniqueSpeeds.forEach(s => {
+      const numMatch = String(s).match(/\d+/);
+      const speedVal = numMatch ? numMatch[0] : String(s).trim();
+      const speedLabel = numMatch ? `${numMatch[0]} ск.` : s;
+      if (!existingSpeedKeys.has(speedVal.toLowerCase())) {
+        existingSpeedKeys.add(speedVal.toLowerCase());
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'filter-tag-btn';
+        btn.dataset.filterType = 'speeds';
+        btn.dataset.filterVal = speedVal;
+        btn.textContent = speedLabel;
+        speedsGrid.appendChild(btn);
+      }
+    });
+  }
+
+  // 3. Materials
+  const materialGrid = document.getElementById('filter-material-grid');
+  if (materialGrid) {
+    const existingMatKeys = new Set(
+      Array.from(materialGrid.querySelectorAll('[data-filter-type="material"]'))
+        .map(b => String(b.dataset.filterVal).trim().toLowerCase())
+    );
+    const uniqueMaterials = Array.from(new Set(AppState.products.map(p => p.frame_material).filter(Boolean)));
+    uniqueMaterials.forEach(m => {
+      const isAlloy = m.toLowerCase().includes('алюм');
+      const isCarbon = m.toLowerCase().includes('карбон');
+      const isCrMo = m.toLowerCase().includes('хром') || m.toLowerCase().includes('cr-mo');
+      const isSteel = m.toLowerCase().includes('сталь') || m.toLowerCase().includes('hi-ten');
+      if (!isAlloy && !isCarbon && !isCrMo && !isSteel) {
+        const shortName = m.split('(')[0].trim();
+        if (shortName && !existingMatKeys.has(shortName.toLowerCase())) {
+          existingMatKeys.add(shortName.toLowerCase());
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'filter-tag-btn';
+          btn.dataset.filterType = 'material';
+          btn.dataset.filterVal = shortName;
+          btn.textContent = shortName;
+          materialGrid.appendChild(btn);
+        }
+      }
+    });
+  }
+
+  // 4. Brands
+  const brandChips = document.querySelector('.model-brand-chips');
+  if (brandChips) {
+    const existingBrands = new Set(
+      Array.from(brandChips.querySelectorAll('[data-filter-type="brand"]'))
+        .map(b => String(b.dataset.filterVal).toUpperCase())
+    );
+    AppState.products.forEach(p => {
+      const firstWord = (p.name || '').trim().split(/\s+/)[0];
+      if (firstWord && firstWord.length > 1 && !existingBrands.has(firstWord.toUpperCase())) {
+        existingBrands.add(firstWord.toUpperCase());
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'filter-tag-btn';
+        btn.dataset.filterType = 'brand';
+        btn.dataset.filterVal = firstWord;
+        btn.textContent = firstWord;
+        brandChips.appendChild(btn);
+      }
+    });
+  }
+
+  // Sync active states on all filter tags
+  syncFiltersUI();
+}
+
 async function initCatalog() {
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -298,6 +407,9 @@ async function initCatalog() {
 
   // Populate dynamic model picker dropdown
   populateModelQuickSelect();
+
+  // Dynamically sync and discover wheel sizes, speeds, and brands from catalog
+  syncFilterTagsWithProducts();
 
   // Update dynamic count on all-category pill
   const allBtn = document.getElementById('cat-all-btn');
@@ -494,24 +606,66 @@ function applyFilters() {
     list = list.filter(p => p.slug === AppState.activeFilters.specificModel || p.name === AppState.activeFilters.specificModel);
   }
 
-  // Wheel size
+  // Wheel size (normalized matching to support 24", 20", 26", 27.5", 29", 700C etc.)
   if (AppState.activeFilters.wheel !== 'all') {
-    list = list.filter(p => p.wheel_size === AppState.activeFilters.wheel);
+    const targetWheel = String(AppState.activeFilters.wheel).replace(/["”\s]/g, '').toLowerCase();
+    list = list.filter(p => {
+      if (!p.wheel_size) return false;
+      const pw = String(p.wheel_size).replace(/["”\s]/g, '').toLowerCase();
+      return p.wheel_size === AppState.activeFilters.wheel || pw === targetWheel;
+    });
+  }
+
+  // Speeds filter (matches number of gears: 1, 7, 8, 9, 10, 11, 12, 21, 24, etc.)
+  if (AppState.activeFilters.speeds && AppState.activeFilters.speeds !== 'all') {
+    const targetSp = String(AppState.activeFilters.speeds).trim().toLowerCase();
+    const targetNum = targetSp.match(/\d+/)?.[0] || targetSp;
+    list = list.filter(p => {
+      if (!p.speeds) return false;
+      const str = String(p.speeds).toLowerCase();
+      const pNum = str.match(/\d+/)?.[0];
+      return pNum === targetNum || str === targetSp || str.includes(targetSp);
+    });
   }
 
   // Height
   if (AppState.activeFilters.height !== 'all') {
-    list = list.filter(p => p.height_category === AppState.activeFilters.height);
+    list = list.filter(p => {
+      if (!p.height_category) return false;
+      if (AppState.activeFilters.height === 'Универсал') {
+        return p.height_category.toLowerCase().includes('универсал');
+      }
+      return p.height_category === AppState.activeFilters.height;
+    });
   }
 
   // Material
   if (AppState.activeFilters.material !== 'all') {
-    list = list.filter(p => p.frame_material && p.frame_material.includes(AppState.activeFilters.material));
+    const matQuery = AppState.activeFilters.material.toLowerCase();
+    list = list.filter(p => {
+      if (!p.frame_material) return false;
+      const fm = p.frame_material.toLowerCase();
+      if (matQuery.includes('хром')) {
+        return fm.includes('хром') || fm.includes('cr-mo');
+      }
+      if (matQuery.includes('сталь')) {
+        return fm.includes('сталь') || fm.includes('hi-ten');
+      }
+      return fm.includes(matQuery);
+    });
   }
 
   // Brakes
   if (AppState.activeFilters.brakes !== 'all') {
-    list = list.filter(p => p.brakes && p.brakes.includes(AppState.activeFilters.brakes));
+    const bQuery = AppState.activeFilters.brakes.toLowerCase();
+    list = list.filter(p => {
+      if (!p.brakes) return false;
+      const b = p.brakes.toLowerCase();
+      if (bQuery.includes('обод')) {
+        return b.includes('обод') || b.includes('v-brake');
+      }
+      return b.includes(bQuery);
+    });
   }
 
   // Price range
@@ -555,6 +709,7 @@ function applyFilters() {
   if (AppState.activeFilters.modelQuery.trim()) activeFilterCount++;
   if (AppState.activeFilters.specificModel !== 'all') activeFilterCount++;
   if (AppState.activeFilters.wheel !== 'all') activeFilterCount++;
+  if (AppState.activeFilters.speeds && AppState.activeFilters.speeds !== 'all') activeFilterCount++;
   if (AppState.activeFilters.height !== 'all') activeFilterCount++;
   if (AppState.activeFilters.material !== 'all') activeFilterCount++;
   if (AppState.activeFilters.brakes !== 'all') activeFilterCount++;
@@ -669,6 +824,7 @@ function renderCatalog(items) {
           
           <div class="card-specs-flex">
             <span class="spec-chip">Колёса: ${p.wheel_size}</span>
+            ${p.speeds ? `<span class="spec-chip">${p.speeds.replace(/скорост(ей|и|ь)/, 'ск.').trim()}</span>` : ''}
             <span class="spec-chip">${p.brakes && p.brakes.includes('гидравл') ? 'Гидравлика' : 'Дисковые'}</span>
             <span class="spec-chip">Рост: ${p.height_category ? p.height_category + ' см' : 'Универсал'}</span>
           </div>
@@ -1725,6 +1881,7 @@ function resetAllFilters() {
     modelQuery: '',
     specificModel: 'all',
     wheel: 'all',
+    speeds: 'all',
     height: 'all',
     material: 'all',
     brakes: 'all',
@@ -1818,17 +1975,26 @@ function initEventListeners() {
     });
   });
 
-  // Filter tags in sidebar
-  document.querySelectorAll('.filter-tag-btn').forEach(pill => {
-    pill.addEventListener('click', () => {
+  // Filter tags in sidebar (using event delegation to support both static and dynamically discovered tags)
+  const sidebarEl = document.querySelector('.store-sidebar');
+  if (sidebarEl) {
+    sidebarEl.addEventListener('click', (e) => {
+      const pill = e.target.closest('.filter-tag-btn');
+      if (!pill) return;
+
       resetCatalogPagination();
       const type = pill.dataset.filterType;
       const val = pill.dataset.filterVal;
       const groupPills = pill.parentElement.querySelectorAll('.filter-tag-btn');
 
       if (pill.classList.contains('active')) {
+        if (type === 'brand' && val === 'all') return;
         pill.classList.remove('active');
         AppState.activeFilters[type] = 'all';
+        if (type === 'brand') {
+          const allBtn = pill.parentElement.querySelector('[data-filter-val="all"]');
+          if (allBtn) allBtn.classList.add('active');
+        }
       } else {
         groupPills.forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
@@ -1836,7 +2002,7 @@ function initEventListeners() {
       }
       applyFilters();
     });
-  });
+  }
 
   // Model search input in sidebar
   const modelInput = document.getElementById('model-filter-input');
