@@ -110,6 +110,17 @@
         </div>
 
         <div class="header-buttons-row">
+          <button class="btn-outline btn-header-sizing" onclick="openModal('bike-sizing-modal')" title="Умный калькулятор подбора размера рамы">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.5 0l-1.5-1.5c-1-1-1-2.5 0-3.5L16.3 3.7c1-1 2.5-1 3.5 0l1.5 1.5c1 1 1 2.5 0 3.5z"/><path d="m14.5 5.5 2 2"/><path d="m11.5 8.5 2 2"/><path d="m8.5 11.5 2 2"/><path d="m5.5 14.5 2 2"/></svg>
+            <span>Ростовка</span>
+          </button>
+
+          <button class="btn-header-fav" id="btn-header-compare" onclick="openModal('compare-modal')" title="Сравнение характеристик">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+            <span>Сравнение</span>
+            <span class="fav-qty-badge" id="compare-counter">0</span>
+          </button>
+
           <button class="btn-header-fav" onclick="openModal('favorites-modal')" title="Избранные модели">
             <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span>Избранное</span>
@@ -190,6 +201,130 @@
         <p id="product-full-description" style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;">
           <!-- Description text -->
         </p>
+      </section>
+
+      <!-- Interactive Accessories Bundle Builder -->
+      <section class="product-bundle-builder-section" id="product-bundle-builder-section">
+        <div class="bundle-builder-header">
+          <div>
+            <span class="badge-tag sale" style="font-size: 0.75rem; margin-bottom: 6px; display: inline-block;">Выгода комплекта</span>
+            <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">
+              Собери комплект со скидкой
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
+              Выберите проверенную фирменную экипировку и аксессуары. Мы упакуем их прямо в заводскую коробку с велосипедом со склада в Кемерово.
+            </p>
+          </div>
+        </div>
+
+        <div class="bundle-items-grid" id="bundle-items-list">
+          <!-- Dynamically populated by renderProductBundleBuilder(p) -->
+        </div>
+
+        <div class="bundle-total-panel" id="bundle-total-panel">
+          <!-- Dynamically populated by renderProductBundleBuilder(p) -->
+        </div>
+      </section>
+
+      <!-- PDI & What's In The Box Section -->
+      <section class="product-pdi-section" id="product-pdi-section">
+        <div class="pdi-header-row">
+          <div>
+            <span class="badge-tag stock" style="font-size: 0.75rem; margin-bottom: 6px; display: inline-block;">Контроль качества</span>
+            <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">
+              Предпродажная подготовка и комплектация
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
+              Каждый велосипед перед отправкой из г. Кемерово проходит стендовую проверку механиком.
+            </p>
+          </div>
+          <button type="button" class="btn-outline" onclick="openModal('ask-mechanic-modal')" style="padding: 10px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px;">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <span>Вопрос веломеханику</span>
+          </button>
+        </div>
+
+        <div class="pdi-tabs-wrap">
+          <div class="pdi-tabs-nav" role="tablist">
+            <button type="button" class="pdi-tab-btn active" onclick="switchPdiTab('tuning', this)" role="tab">
+              1. Стендовая настройка
+            </button>
+            <button type="button" class="pdi-tab-btn" onclick="switchPdiTab('unboxing', this)" role="tab">
+              2. Что внутри коробки (85%)
+            </button>
+            <button type="button" class="pdi-tab-btn" onclick="switchPdiTab('assembly', this)" role="tab">
+              3. Экспресс-сборка за 15 мин
+            </button>
+          </div>
+
+          <div class="pdi-tabs-content">
+            <div class="pdi-tab-pane active" id="pdi-tab-tuning">
+              <div class="pdi-cards-grid">
+                <div class="pdi-feature-card">
+                  <div class="pdi-feature-num">01</div>
+                  <h4>Протяжка спиц тензометром</h4>
+                  <p>Механик устраняет радиальные и боковые биения (восьмерки) на промышленном центровочном стенде с контролем натяжения каждой спицы.</p>
+                </div>
+                <div class="pdi-feature-card">
+                  <div class="pdi-feature-num">02</div>
+                  <h4>Юстировка переключателей</h4>
+                  <p>Точная настройка натяжения тросов, упорных винтов L/H и угла B-tension. Переключение передач работает четко и бесшумно из коробки.</p>
+                </div>
+                <div class="pdi-feature-card">
+                  <div class="pdi-feature-num">03</div>
+                  <h4>Калибровка гидравлических тормозов</h4>
+                  <p>Выравнивание калиперов относительно ротора, исключение трения колодок и проверка герметичности гидролиний Shimano/Tektro.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pdi-tab-pane" id="pdi-tab-unboxing" style="display: none;">
+              <div class="pdi-cards-grid">
+                <div class="pdi-feature-card">
+                  <div class="pdi-feature-num">85%</div>
+                  <h4>Собранный фреймсет</h4>
+                  <p>Рама, заднее колесо, кареточный узел, система шатунов, цепь и задний переключатель уже установлены и настроены на заводе.</p>
+                </div>
+                <div class="pdi-feature-card">
+                  <div class="pdi-feature-num">DOC</div>
+                  <h4>Фирменный паспорт и талон</h4>
+                  <p>Официальный гарантийный талон ИП Ефимов Д.М. на 24 месяца с указанием серийного номера рамы и штампом ОТК дилера.</p>
+                </div>
+                <div class="pdi-feature-card">
+                  <div class="pdi-feature-num">TOOL</div>
+                  <h4>Комплект для финишной сборки</h4>
+                  <p>Фирменные платформенные педали с резьбой 9/16", быстросъемный эксцентрик / ось переднего колеса и ключи.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pdi-tab-pane" id="pdi-tab-assembly" style="display: none;">
+              <div class="pdi-steps-list">
+                <div class="pdi-step-item">
+                  <div class="pdi-step-badge">Шаг 1</div>
+                  <div>
+                    <strong>Установка руля в вынос</strong>
+                    <p>Снимите лицевую планку выноса (4 болта), поместите руль по центральной насечке и равномерно затяните болты крест-накрест.</p>
+                  </div>
+                </div>
+                <div class="pdi-step-item">
+                  <div class="pdi-step-badge">Шаг 2</div>
+                  <div>
+                    <strong>Установка переднего колеса</strong>
+                    <p>Вставьте диск ротора в прорезь тормозного калипера, посадите ось в дропауты вилки и затяните эксцентрик / Thru-Axle ось.</p>
+                  </div>
+                </div>
+                <div class="pdi-step-item">
+                  <div class="pdi-step-badge">Шаг 3</div>
+                  <div>
+                    <strong>Вкручивание педалей (L и R)</strong>
+                    <p>Обратите внимание на метки: правая педаль (R) закручивается по часовой стрелке, левая (L) — против часовой стрелки.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Related Products -->
@@ -577,6 +712,97 @@
       <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal('order-success-modal')">
         Отлично, жду звонка
       </button>
+    </div>
+  </div>
+
+  <!-- Comparison Modal -->
+  <div class="modal-overlay" id="compare-modal">
+    <div class="modal-card compare-modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h3 class="modal-title" style="margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Сравнение моделей</h3>
+          <span class="compare-badge-count" id="compare-modal-count">0/4</span>
+        </div>
+        <button class="modal-close-cross" onclick="closeModal('compare-modal')" aria-label="Закрыть">✕</button>
+      </div>
+      <div id="compare-content-box" style="margin-top: 14px;">
+        <!-- Dynamically rendered by renderCompareModal() -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Smart Bike Sizing Modal -->
+  <div class="modal-overlay" id="bike-sizing-modal">
+    <div class="modal-card sizing-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" style="margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Подбор ростовки райдера</h3>
+        <button class="modal-close-cross" onclick="closeModal('bike-sizing-modal')" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="sizing-modal-body" style="padding-top: 12px;">
+        <p class="sizing-lead-text">
+          Укажите ваш рост в сантиметрах, и система подберет подходящий размер рамы и геометрию колес для комфортной и правильной посадки.
+        </p>
+
+        <div class="sizing-slider-wrap">
+          <div class="sizing-height-val-display">
+            <span>Ваш рост:</span>
+            <span class="sizing-cm-number" id="sizing-height-val">175 см</span>
+          </div>
+          <input type="range" min="140" max="205" value="175" step="1" id="sizing-range-slider" class="sizing-range-slider" oninput="updateSizingSlider(this.value)" />
+          <div class="sizing-scale-marks">
+            <span>140 см (подростки)</span>
+            <span>170 см</span>
+            <span>185 см</span>
+            <span>205 см (высокий рост)</span>
+          </div>
+        </div>
+
+        <div class="sizing-result-card" id="sizing-result-card">
+          <!-- Dynamically populated by updateSizingSlider -->
+        </div>
+
+        <div class="sizing-modal-actions">
+          <button type="button" class="btn-primary" id="btn-apply-sizing-filter" onclick="applySizingFilterFromModal()" style="flex: 1; padding: 12px 20px; justify-content: center;">
+            Показать модели в каталоге →
+          </button>
+          <button type="button" class="btn-outline" onclick="closeModal('bike-sizing-modal'); openModal('ask-mechanic-modal');">
+            Консультация механика
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ask Mechanic Modal -->
+  <div class="modal-overlay" id="ask-mechanic-modal">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title" style="margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Консультация веломеханика</h3>
+        <button class="modal-close-cross" onclick="closeModal('ask-mechanic-modal')" aria-label="Закрыть">✕</button>
+      </div>
+      <form onsubmit="submitMechanicQuestion(event)" style="padding-top: 12px;">
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+          Сомневаетесь в ростовке, ходе вилки или навесном оборудовании? Наш дежурный веломеханик с центрального склада в Кемерово ответит на технические вопросы и поможет подобрать оптимальную комплектацию.
+        </p>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main);">Ваше имя</label>
+          <input type="text" class="form-input" id="mech-name" placeholder="Как к вам обращаться?" required />
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main);">Телефон для связи</label>
+          <input type="tel" class="form-input" id="mech-phone" placeholder="+7 (___) ___-__-__" required />
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main);">Вопрос или рост/вес райдера</label>
+          <textarea class="form-input" id="mech-question" rows="3" placeholder="Например: Мой рост 178 см, вес 82 кг. Подойдет ли мне рама M или лучше взять L?"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; justify-content: center;">
+          Получить ответ механика
+        </button>
+        <p style="font-size: 0.72rem; color: var(--text-dim); text-align: center; margin-top: 10px;">
+          Нажимая кнопку, вы соглашаетесь с условиями обработки персональных данных в соответствии с 152-ФЗ.
+        </p>
+      </form>
     </div>
   </div>
 
