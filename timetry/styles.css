@@ -408,7 +408,10 @@ input::placeholder, textarea::placeholder {
   transition: filter var(--transition-smooth);
 }
 
-[data-theme="dark"] .header-logo-text,
+[data-theme="dark"] .header-logo-text {
+  filter: invert(0.92) brightness(1.2);
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .header-logo-text {
     filter: invert(0.92) brightness(1.2);

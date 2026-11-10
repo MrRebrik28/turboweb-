@@ -29,13 +29,53 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=2.8.0" />
+  <link rel="stylesheet" href="styles.css?v=2.8.1" />
   <style>
+    .checkout-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding-block: 12px;
+      width: 100%;
+    }
+    .checkout-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-width: 0;
+    }
+    .checkout-logo-link {
+      min-width: 0;
+      flex-shrink: 1;
+    }
+    .checkout-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+      min-width: 0;
+    }
+    .checkout-header-contact {
+      text-align: right;
+      line-height: 1.3;
+    }
+    .checkout-header-city {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .checkout-header-phone {
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
     .checkout-page-wrap {
-      padding: 36px 0 80px;
+      padding-block: 36px 80px;
     }
     .checkout-title-h1 {
-      font-size: 1.85rem;
+      font-size: clamp(1.45rem, 4vw, 1.85rem);
       font-weight: 600;
       color: var(--text-main);
       margin-bottom: 8px;
@@ -44,14 +84,21 @@
     .checkout-sub-desc {
       color: var(--text-muted);
       font-size: 0.9rem;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       line-height: 1.5;
+      overflow-wrap: break-word;
     }
     .checkout-grid {
       display: grid;
-      grid-template-columns: 1.45fr 1fr;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
       gap: 48px;
       align-items: start;
+      width: 100%;
+    }
+    .checkout-form-col,
+    .checkout-summary-col {
+      min-width: 0;
+      max-width: 100%;
     }
     .checkout-card-section {
       background: transparent !important;
@@ -61,6 +108,8 @@
       padding: 28px 0;
       margin-bottom: 0;
       box-shadow: none !important;
+      min-width: 0;
+      max-width: 100%;
     }
     .checkout-card-section:first-child {
       padding-top: 0;
@@ -74,18 +123,22 @@
       align-items: center;
       gap: 8px;
       letter-spacing: -0.01em;
+      min-width: 0;
     }
     .checkout-card-title .svg-icon {
       color: var(--text-muted);
     }
     .form-group-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 16px;
       margin-bottom: 16px;
+      width: 100%;
     }
     .form-field {
       margin-bottom: 16px;
+      min-width: 0;
+      max-width: 100%;
     }
     .form-field label {
       display: block;
@@ -98,6 +151,8 @@
     .form-field select,
     .form-field textarea {
       width: 100%;
+      max-width: 100%;
+      min-width: 0;
       background: var(--bg-input);
       border: 1px solid var(--border-color);
       border-radius: 0 !important;
@@ -122,6 +177,7 @@
       display: flex;
       flex-direction: column;
       gap: 0;
+      min-width: 0;
     }
     .radio-card {
       display: flex;
@@ -135,6 +191,8 @@
       cursor: pointer;
       transition: background-color var(--transition-fast);
       box-shadow: none !important;
+      min-width: 0;
+      max-width: 100%;
     }
     .radio-card:last-child {
       border-bottom: none !important;
@@ -159,6 +217,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      overflow-wrap: break-word;
     }
     .radio-card.active .radio-card-title {
       font-weight: 600;
@@ -167,9 +226,31 @@
       font-size: 0.82rem;
       color: var(--text-muted);
       line-height: 1.45;
+      overflow-wrap: break-word;
     }
     .radio-card-badge {
       display: none !important;
+    }
+    .checkout-agree-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+      line-height: 1.45;
+      min-width: 0;
+    }
+    .checkout-agree-row input[type="checkbox"] {
+      margin-top: 3px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .checkout-agree-row label {
+      cursor: pointer;
+      min-width: 0;
+      flex: 1;
+      overflow-wrap: break-word;
     }
 
     /* Summary Sticky Box - Seamless Minimalist with 1px Vertical Divider */
@@ -182,6 +263,8 @@
       border-radius: 0 !important;
       padding: 0 0 0 40px !important;
       box-shadow: none !important;
+      min-width: 0;
+      max-width: 100%;
     }
     .summary-product-item {
       display: flex;
@@ -189,6 +272,7 @@
       padding-bottom: 16px;
       margin-bottom: 16px;
       border-bottom: 1px solid var(--border-color);
+      min-width: 0;
     }
     .summary-product-img {
       width: 76px;
@@ -210,6 +294,7 @@
       color: var(--text-main);
       margin-bottom: 4px;
       line-height: 1.35;
+      overflow-wrap: break-word;
     }
     .summary-product-meta {
       font-size: 0.78rem;
@@ -217,7 +302,9 @@
       margin-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+      min-width: 0;
     }
     .summary-color-circle {
       width: 11px;
@@ -225,6 +312,7 @@
       border-radius: 50%;
       display: inline-block;
       border: 1px solid rgba(0, 0, 0, 0.15);
+      flex-shrink: 0;
     }
     [data-theme="dark"] .summary-color-circle {
       border-color: rgba(255, 255, 255, 0.25);
@@ -233,20 +321,28 @@
       font-size: 1rem;
       font-weight: 600;
       color: var(--text-main);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .summary-calc-line {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
+      gap: 12px;
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-bottom: 10px;
+    }
+    .summary-calc-line > span:last-child,
+    .summary-calc-line .total-amount {
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .summary-calc-line.total {
       margin-top: 18px;
       padding-top: 18px;
       border-top: 1px solid var(--border-color);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 600;
       color: var(--text-main);
     }
@@ -314,42 +410,111 @@
 
     @media (max-width: 900px) {
       .checkout-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
       }
       .checkout-summary-box {
         position: static;
         order: -1;
         border-left: none !important;
         border-bottom: 1px solid var(--border-color) !important;
-        padding: 0 0 28px !important;
-        margin-bottom: 8px;
+        padding: 0 0 24px !important;
+        margin-bottom: 4px;
       }
       .form-group-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .checkout-page-wrap {
+        padding-block: 20px 56px;
+        padding-inline: 16px;
+      }
+      .checkout-header-inner {
+        padding-inline: 16px;
+        gap: 10px;
+      }
+      .checkout-header-city {
+        display: none;
+      }
+      .checkout-logo-link {
+        gap: 8px !important;
+      }
+      .checkout-logo-link .header-logo-icon {
+        width: 28px;
+        height: 28px;
+      }
+      .checkout-logo-link .header-logo-text {
+        height: 16px;
+        max-width: 112px;
+      }
+      .checkout-header-right {
+        gap: 10px;
+      }
+      .checkout-header-phone {
+        font-size: 0.84rem;
+      }
+      .checkout-card-section {
+        padding: 22px 0;
+      }
+      .summary-product-img {
+        width: 64px;
+        height: 52px;
+      }
+      .summary-calc-line.total {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .checkout-header-inner {
+        padding-inline: 14px;
+        gap: 8px;
+      }
+      .checkout-page-wrap {
+        padding-inline: 14px;
+      }
+      .checkout-logo-link {
+        gap: 6px !important;
+      }
+      .checkout-logo-link .header-logo-icon {
+        width: 24px;
+        height: 24px;
+      }
+      .checkout-logo-link .header-logo-text {
+        height: 14px;
+        max-width: 90px;
+        flex-shrink: 1;
+        min-width: 0;
+      }
+      .checkout-header-right {
+        gap: 8px;
+      }
+      .checkout-header-phone {
+        font-size: 0.78rem;
       }
     }
   </style>
 </head>
 <body>
   <!-- Global Top Bar -->
-  <header class="site-header">
-    <div class="header-top-bar">
-      <div class="container top-contacts-block">
-        <a href="index.html" class="header-logo-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-          <img src="logo-icon.png" alt="TIMETRY" class="header-logo-icon" style="width: 34px; height: 34px; object-fit: contain;" />
-          <img src="logo.png" alt="TIMETRY BIKES" class="header-logo-text" style="height: 22px; width: auto; object-fit: contain;" />
-        </a>
+  <header class="checkout-header">
+    <div class="container checkout-header-inner">
+      <a href="index.html" class="header-logo-link checkout-logo-link">
+        <img src="logo-icon.png" alt="TIMETRY" class="header-logo-icon" />
+        <img src="logo.png" alt="TIMETRY BIKES" class="header-logo-text" />
+      </a>
 
-        <div style="display: flex; align-items: center; gap: 20px;">
-          <div style="text-align: right;">
-            <div style="font-size: 0.75rem; color: var(--text-muted);">Центральный склад в Кемерово</div>
-            <a href="tel:+79502720440" style="color: var(--text-main); font-weight: 600; font-size: 0.95rem; text-decoration: none;">8 (950) 272-04-40</a>
-          </div>
-          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключить тему" aria-label="Переключить тему">
-            <svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          </button>
+      <div class="checkout-header-right">
+        <div class="checkout-header-contact">
+          <span class="checkout-header-city">Центральный склад в Кемерово</span>
+          <a href="tel:+79502720440" class="checkout-header-phone">8 (950) 272-04-40</a>
         </div>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключить тему" aria-label="Переключить тему">
+          <span class="icon-sun"><svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          <span class="icon-moon"><svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        </button>
       </div>
     </div>
   </header>
@@ -506,9 +671,9 @@
                 <textarea id="c-comment" rows="2" placeholder="Например: удобное время звонка, цвет аксессуаров..."></textarea>
               </div>
 
-              <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: var(--text-muted); margin-top: 14px; line-height: 1.45;">
-                <input type="checkbox" id="c-agree" style="margin-top: 3px; cursor: pointer;" />
-                <label for="c-agree" style="cursor: pointer;">
+              <div class="checkout-agree-row">
+                <input type="checkbox" id="c-agree" />
+                <label for="c-agree">
                   Я согласен с условиями <a href="javascript:void(0)" onclick="openModal('policy-modal')" style="color: var(--text-main); text-decoration: underline;">пользовательского соглашения</a> и даю <a href="javascript:void(0)" onclick="openModal('consent-modal')" style="color: var(--text-main); text-decoration: underline;">согласие на обработку персональных данных</a>.
                 </label>
               </div>
@@ -586,9 +751,9 @@
   <!-- Terms of Service & Privacy Policy Modal -->
   <div class="modal-overlay" id="policy-modal">
     <div class="modal-card" style="max-width: 760px; max-height: 85vh; display: flex; flex-direction: column;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color);">
-        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin: 0;">Пользовательское соглашение и правила продажи (Публичная оферта)</h3>
-        <button class="modal-close-cross" onclick="closeModal('policy-modal')" style="position: static; font-size: 1.4rem;">✕</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color);">
+        <h3 style="font-size: clamp(1rem, 2.5vw, 1.25rem); font-weight: 800; color: var(--text-main); margin: 0; min-width: 0;">Пользовательское соглашение и правила продажи (Публичная оферта)</h3>
+        <button class="modal-close-cross" onclick="closeModal('policy-modal')" style="position: static; font-size: 1.4rem; flex-shrink: 0;">✕</button>
       </div>
       <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; overflow-y: auto; padding-right: 8px;">
         <p><strong>1. Общие положения и акцепт оферты</strong><br />
@@ -636,9 +801,9 @@
   <!-- 152-FZ Consent Modal -->
   <div class="modal-overlay" id="consent-modal">
     <div class="modal-card" style="max-width: 720px; max-height: 85vh; display: flex; flex-direction: column;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color);">
-        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin: 0;">Согласие на обработку персональных данных (152-ФЗ)</h3>
-        <button class="modal-close-cross" onclick="closeModal('consent-modal')" style="position: static; font-size: 1.4rem;">✕</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color);">
+        <h3 style="font-size: clamp(1rem, 2.5vw, 1.25rem); font-weight: 800; color: var(--text-main); margin: 0; min-width: 0;">Согласие на обработку персональных данных (152-ФЗ)</h3>
+        <button class="modal-close-cross" onclick="closeModal('consent-modal')" style="position: static; font-size: 1.4rem; flex-shrink: 0;">✕</button>
       </div>
       <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; overflow-y: auto; padding-right: 8px;">
         <p><strong>1. Субъект и Оператор персональных данных</strong><br />
@@ -673,7 +838,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=2.8.0"></script>
+  <script src="app.js?v=2.8.1"></script>
   <script>
     let checkoutItems = [];
     let checkoutGrandTotal = 0;
