@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=2.7.9" />
+  <link rel="stylesheet" href="styles.css?v=2.8.0" />
 </head>
 <body>
 
@@ -101,12 +101,6 @@
         </div>
 
         <div class="header-buttons-row">
-          <button class="btn-header-fav" id="btn-header-compare" onclick="openModal('compare-modal')" title="Сравнение характеристик">
-            <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
-            <span>Сравнение</span>
-            <span class="fav-qty-badge" id="compare-counter">0</span>
-          </button>
-
           <button class="btn-header-fav" onclick="openModal('favorites-modal')" title="Избранные модели">
             <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span>Избранное</span>
@@ -528,21 +522,7 @@
     </div>
   </div>
 
-  <!-- Comparison Modal -->
-  <div class="modal-overlay" id="compare-modal">
-    <div class="modal-card compare-modal-card">
-      <div class="modal-header">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <h3 class="modal-title" style="margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Сравнение моделей</h3>
-          <span class="compare-badge-count" id="compare-modal-count">0/4</span>
-        </div>
-        <button class="modal-close-cross" onclick="closeModal('compare-modal')" aria-label="Закрыть">✕</button>
-      </div>
-      <div id="compare-content-box" style="margin-top: 14px;">
-        <!-- Dynamically rendered by renderCompareModal() -->
-      </div>
-    </div>
-  </div>
+
 
 
 
@@ -619,7 +599,7 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Engine Script -->
-  <script src="app.js?v=2.7.9"></script>
+  <script src="app.js?v=2.8.0"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       initProductPage();

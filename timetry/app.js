@@ -20,8 +20,6 @@ const ICONS = {
   cartSmall: `<svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
   heart: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
   heartFilled: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="#ef4444" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
-  scale: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>`,
-  ruler: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.5 0l-1.5-1.5c-1-1-1-2.5 0-3.5L16.3 3.7c1-1 2.5-1 3.5 0l1.5 1.5c1 1 1 2.5 0 3.5z"/><path d="m14.5 5.5 2 2"/><path d="m11.5 8.5 2 2"/><path d="m8.5 11.5 2 2"/><path d="m5.5 14.5 2 2"/></svg>`,
   wrench: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
   search: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
   phone: `<svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
@@ -73,57 +71,6 @@ const DELIVERY_CITIES = [
   { name: 'Хабаровск', time: '5–7 дней', price: 1550, note: 'СДЭК / ТК' }
 ];
 
-// Smart Bike Sizing Logic
-function getBikeSizingRecommendation(heightCm) {
-  const h = Number(heightCm) || 175;
-  if (h < 155) {
-    return {
-      frameLetter: 'XS / S',
-      frameInches: '13–15"',
-      frameCm: '46–48 см',
-      wheelSize: '24" или 26"',
-      fitType: 'Подростковая / Компактная',
-      desc: 'Низкая верхняя труба, комфортное расстояние до руля, полный контроль над байком.'
-    };
-  } else if (h <= 168) {
-    return {
-      frameLetter: 'S',
-      frameInches: '15–16"',
-      frameCm: '48–52 см',
-      wheelSize: '27.5" (или 26")',
-      fitType: 'Компактная посадка (S)',
-      desc: 'Отличная маневренность, легкий старт и уверенная опора ногами на остановках.'
-    };
-  } else if (h <= 180) {
-    return {
-      frameLetter: 'M',
-      frameInches: '17–18"',
-      frameCm: '52–55 см',
-      wheelSize: '27.5" или 29" (Найнер)',
-      fitType: 'Золотой стандарт (M)',
-      desc: 'Самый популярный размер. Идеальный баланс наката и управляемости на бездорожье и асфальте.'
-    };
-  } else if (h <= 192) {
-    return {
-      frameLetter: 'L',
-      frameInches: '19–20"',
-      frameCm: '56–58 см',
-      wheelSize: '29" (Найнер) или 700C',
-      fitType: 'Увеличенная база (L)',
-      desc: 'Удлиненный передний треугольник рамы, максимальный накат больших колес 29 дюймов.'
-    };
-  } else {
-    return {
-      frameLetter: 'XL',
-      frameInches: '21–22"',
-      frameCm: '59–62 см',
-      wheelSize: '29" (Найнер)',
-      fitType: 'Максимальный размер (XL)',
-      desc: 'Усиленные перья и высокая подседельная труба для райдеров ростом от 188 см и выше.'
-    };
-  }
-}
-
 // ==========================================
 // STATE MANAGEMENT
 // ==========================================
@@ -132,7 +79,6 @@ const AppState = {
   filteredProducts: [],
   cart: JSON.parse(localStorage.getItem('timetry_cart') || '[]'),
   favorites: Array.from(new Set(JSON.parse(localStorage.getItem('timetry_favs') || '[]'))),
-  compare: Array.from(new Set(JSON.parse(localStorage.getItem('timetry_compare') || '[]'))),
   visibleCount: 15,
   pageSize: 15,
   productPageSelectedAccs: new Set(),
@@ -830,7 +776,6 @@ window.handleCardClick = function(productId, url, event) {
   }
   if (event.target.closest('.btn-quick-view') || 
       event.target.closest('.btn-card-fav') || 
-      event.target.closest('.btn-card-compare') ||
       event.target.closest('.btn-hover-action') ||
       event.target.closest('.card-photo-indicator') ||
       event.target.closest('.photo-dash')) {
@@ -936,231 +881,6 @@ window.addToCartQuick = function(productId) {
   addToCart(productId);
   closeModal('quick-view-modal');
   toggleCartDrawer();
-};
-
-// ==========================================
-// TOP-TIER STORE: COMPARISON MATRIX
-// ==========================================
-window.toggleCompare = function(productId, event) {
-  if (event) {
-    try { event.preventDefault(); event.stopPropagation(); } catch (e) {}
-  }
-  const id = Number(productId);
-  const idx = AppState.compare.indexOf(id);
-  if (idx > -1) {
-    AppState.compare.splice(idx, 1);
-    showToast('Модель убрана из сравнения');
-  } else {
-    if (AppState.compare.length >= 4) {
-      showToast('В сравнение можно добавить максимум 4 модели', true);
-      return;
-    }
-    AppState.compare.push(id);
-    const p = AppState.products.find(x => x.id === id);
-    const name = p ? p.name : 'Модель';
-    showToast(`"${name}" добавлена к сравнению (${AppState.compare.length}/4)`);
-  }
-  try {
-    localStorage.setItem('timetry_compare', JSON.stringify(AppState.compare));
-  } catch (e) {}
-
-  updateCompareUI();
-};
-
-window.updateCompareUI = function() {
-  const count = AppState.compare.length;
-  document.querySelectorAll('#compare-counter').forEach(el => {
-    el.textContent = count;
-  });
-
-  document.querySelectorAll('.btn-card-compare').forEach(btn => {
-    const card = btn.closest('.store-card');
-    if (card) {
-      const cardId = Number(card.dataset.id);
-      const isComp = AppState.compare.includes(cardId);
-      btn.classList.toggle('active', isComp);
-      btn.title = isComp ? 'Удалить из сравнения' : 'Добавить в сравнение';
-    }
-  });
-
-  const modal = document.getElementById('compare-modal');
-  if (modal && modal.classList.contains('active')) {
-    renderCompareModal();
-  }
-};
-
-window.clearCompare = function() {
-  AppState.compare = [];
-  try {
-    localStorage.setItem('timetry_compare', JSON.stringify(AppState.compare));
-  } catch (e) {}
-  updateCompareUI();
-  renderCompareModal();
-  showToast('Список сравнения очищен');
-};
-
-window.removeCompareItem = function(productId) {
-  const id = Number(productId);
-  const idx = AppState.compare.indexOf(id);
-  if (idx > -1) {
-    AppState.compare.splice(idx, 1);
-    try {
-      localStorage.setItem('timetry_compare', JSON.stringify(AppState.compare));
-    } catch (e) {}
-    updateCompareUI();
-    renderCompareModal();
-  }
-};
-
-window.renderCompareModal = function(onlyDiffs = false) {
-  const container = document.getElementById('compare-content-box');
-  if (!container) return;
-
-  const comparedProducts = AppState.compare
-    .map(id => AppState.products.find(p => p.id === id))
-    .filter(Boolean);
-
-  if (comparedProducts.length === 0) {
-    container.innerHTML = `
-      <div class="compare-empty-state">
-        <div style="font-size: 2.2rem; color: var(--text-dim); margin-bottom: 12px;">${ICONS.scale}</div>
-        <h3 style="font-size: 1.2rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">Список сравнения пуст</h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px; max-width: 420px; margin-left: auto; margin-right: auto;">
-          Нажимайте на значок весов в карточке любого велосипеда в каталоге, чтобы сопоставить характеристики и выбрать лучший вариант.
-        </p>
-        <button class="btn-primary" onclick="closeModal('compare-modal')">Перейти в каталог</button>
-      </div>
-    `;
-    return;
-  }
-
-  const specRows = [
-    { label: 'Категория', key: 'bike_type' },
-    { label: 'Диаметр колёс', key: 'wheel_size' },
-    { label: 'Материал рамы', key: 'frame_material' },
-    { label: 'Скорости', key: 'speeds' },
-    { label: 'Тормозная система', key: 'brakes' },
-    { label: 'Рекомендованный рост', key: 'rider_height' },
-    { label: 'Артикул / Код', key: 'sku' },
-    { label: 'Склад', getVal: () => 'г. Кемерово (в наличии)' },
-    { label: 'Гарантия', getVal: () => '24 мес. дилера' }
-  ];
-
-  // Filter rows if onlyDiffs is checked
-  const activeRows = specRows.filter(row => {
-    if (!onlyDiffs) return true;
-    const values = comparedProducts.map(p => row.getVal ? row.getVal(p) : (p[row.key] || '—'));
-    return new Set(values).size > 1;
-  });
-
-  const colsHtml = comparedProducts.map(p => {
-    const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
-    const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
-    return `
-      <div class="compare-col-card">
-        <button type="button" class="compare-remove-btn" onclick="removeCompareItem(${p.id})" title="Удалить из сравнения">✕</button>
-        <div class="compare-photo-wrap">
-          <img src="${mainImg}" alt="${p.name}" />
-        </div>
-        <div class="compare-model-name">${p.name}</div>
-        <div class="compare-price-val">${p.price.toLocaleString('ru-RU')} ₽</div>
-        <div class="compare-actions-bar">
-          <a href="checkout.html?model=${modelSlug}" class="btn-primary" style="padding: 7px 12px; font-size: 0.8rem; text-decoration: none;">Купить</a>
-          <a href="product.html?model=${modelSlug}" class="btn-outline" style="padding: 7px 10px; font-size: 0.8rem; text-decoration: none;">Детали</a>
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  const tableRowsHtml = activeRows.map(row => {
-    const values = comparedProducts.map(p => row.getVal ? row.getVal(p) : (p[row.key] || '—'));
-    const isDiff = new Set(values).size > 1;
-    return `
-      <tr class="${isDiff ? 'row-diff' : ''}">
-        <td class="compare-spec-name">${row.label}</td>
-        ${values.map(val => `<td class="compare-spec-val ${isDiff ? 'val-highlight' : ''}">${val}</td>`).join('')}
-      </tr>
-    `;
-  }).join('');
-
-  container.innerHTML = `
-    <div class="compare-top-controls">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <label class="compare-diff-toggle">
-          <input type="checkbox" id="compare-diff-checkbox" ${onlyDiffs ? 'checked' : ''} onchange="renderCompareModal(this.checked)" />
-          <span>Показать только различия</span>
-        </label>
-      </div>
-      <button class="btn-reset-filters" onclick="clearCompare()">Очистить сравнение</button>
-    </div>
-
-    <div class="compare-matrix-scroll">
-      <div class="compare-grid-header" style="grid-template-columns: 200px repeat(${comparedProducts.length}, minmax(180px, 1fr));">
-        <div></div>
-        ${colsHtml}
-      </div>
-
-      <table class="compare-table-specs" style="grid-template-columns: 200px repeat(${comparedProducts.length}, minmax(180px, 1fr));">
-        <tbody>
-          ${tableRowsHtml}
-        </tbody>
-      </table>
-    </div>
-  `;
-};
-
-// ==========================================
-// TOP-TIER STORE: SMART SIZING CALCULATOR
-// ==========================================
-window.updateSizingSlider = function(val) {
-  const height = Number(val);
-  const display = document.getElementById('sizing-height-val');
-  if (display) display.textContent = `${height} см`;
-
-  const rec = getBikeSizingRecommendation(height);
-  const card = document.getElementById('sizing-result-card');
-  if (card) {
-    card.innerHTML = `
-      <div class="sizing-rec-badge">Рекомендованный размер: <strong>${rec.frameLetter} (${rec.frameInches})</strong></div>
-      <div class="sizing-rec-details">
-        <div><strong>Диаметр колёс:</strong> ${rec.wheelSize}</div>
-        <div><strong>Высота рамы:</strong> ${rec.frameCm}</div>
-        <div><strong>Посадка:</strong> ${rec.fitType}</div>
-      </div>
-      <p class="sizing-rec-desc">${rec.desc}</p>
-    `;
-  }
-
-  const applyBtn = document.getElementById('btn-apply-sizing-filter');
-  if (applyBtn) {
-    applyBtn.dataset.height = height;
-    let filterVal = '165-178';
-    if (height < 165) filterVal = '150-165';
-    else if (height <= 178) filterVal = '165-178';
-    else if (height <= 188) filterVal = '175-188';
-    else filterVal = '185+';
-    applyBtn.dataset.filterVal = filterVal;
-    applyBtn.textContent = `Показать модели для роста ${height} см в каталоге →`;
-  }
-};
-
-window.applySizingFilterFromModal = function() {
-  const applyBtn = document.getElementById('btn-apply-sizing-filter');
-  const filterVal = applyBtn ? applyBtn.dataset.filterVal : '165-178';
-  closeModal('bike-sizing-modal');
-
-  // If on product page, go to catalog with filter
-  if (!document.getElementById('products-grid')) {
-    window.location.href = `index.html?height=${encodeURIComponent(filterVal)}`;
-    return;
-  }
-
-  AppState.activeFilters.height = filterVal;
-  syncFiltersUI();
-  applyFilters();
-  const catSection = document.getElementById('catalog-section');
-  if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
-  showToast(`Применен фильтр ростовки: ${filterVal} см`);
 };
 
 // ==========================================
@@ -1613,7 +1333,6 @@ function renderCatalog(items) {
 
   grid.innerHTML = visibleItems.map((p, index) => {
     const isFav = AppState.favorites.includes(p.id);
-    const isCompared = AppState.compare.includes(p.id);
     const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
     const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
     const productUrl = `product.html?model=${modelSlug}`;
@@ -1655,9 +1374,6 @@ function renderCatalog(items) {
           <div class="card-top-badges">
             <div></div>
             <div style="display: flex; gap: 6px; pointer-events: auto;">
-              <button class="btn-card-compare ${isCompared ? 'active' : ''}" onclick="toggleCompare(${p.id}, event)" title="${isCompared ? 'Удалить из сравнения' : 'Добавить в сравнение'}" aria-label="Сравнить">
-                ${ICONS.scale}
-              </button>
               <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное" aria-label="В избранное">
                 ${isFav ? ICONS.heartFilled : ICONS.heart}
               </button>
@@ -1982,7 +1698,6 @@ async function initProductPage() {
 
 function renderRelatedCard(p) {
   const isFav = AppState.favorites.includes(p.id);
-  const isCompared = AppState.compare.includes(p.id);
   const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
   const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
   const pImages = (p.images && p.images.length > 0) ? p.images : [mainImg];
@@ -2011,9 +1726,6 @@ function renderRelatedCard(p) {
         <div class="card-top-badges">
           <div></div>
           <div style="display: flex; gap: 6px; pointer-events: auto;">
-            <button class="btn-card-compare ${isCompared ? 'active' : ''}" onclick="toggleCompare(${p.id}, event)" title="${isCompared ? 'Удалить из сравнения' : 'Добавить в сравнение'}" aria-label="Сравнить">
-              ${ICONS.scale}
-            </button>
             <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное" aria-label="В избранное">
               ${isFav ? ICONS.heartFilled : ICONS.heart}
             </button>
@@ -2826,13 +2538,6 @@ function openModal(id) {
   if (modal) {
     if (id === 'favorites-modal') {
       renderFavoritesModal();
-    } else if (id === 'compare-modal') {
-      renderCompareModal();
-    } else if (id === 'bike-sizing-modal') {
-      const slider = document.getElementById('sizing-range-slider');
-      if (slider && window.updateSizingSlider) {
-        updateSizingSlider(slider.value || 175);
-      }
     }
     modal.classList.add('active');
     initAllPhoneMasks();
