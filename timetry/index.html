@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=2.7.7" />
+  <link rel="stylesheet" href="styles.css?v=2.7.8" />
 </head>
 <body>
 
@@ -73,20 +73,16 @@
   </div>
 
   <!-- ========================================================================
-       MAIN HEADER: CENTERED LARGE TIMETRY LOGO
+       MAIN HEADER: LOGO ON LEFT OF SEARCH BOX
        ======================================================================== -->
   <header class="main-header">
-    <div class="container header-center-wrap">
-      <a href="index.html" class="centered-logo-link" title="TIMETRY BIKES RUSSIA">
-        <img src="logo.png" alt="TIMETRY BIKES" class="centered-logo-img" />
-      </a>
-      
-      <div class="header-sub-caption">
-        <span class="badge-official">Официальный магазин</span>
-      </div>
-
-      <!-- Action Bar: Search, Favorites, Cart, Callback -->
+    <div class="container">
       <div class="header-action-bar">
+        <a href="index.html" class="header-logo-link" title="TIMETRY BIKES RUSSIA">
+          <img src="logo-icon.png" alt="TIMETRY" class="header-logo-icon" />
+          <img src="logo.png" alt="TIMETRY BIKES" class="header-logo-text" />
+        </a>
+
         <div class="header-search-box">
           <span class="header-search-icon">
             <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -899,6 +895,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Engine Script -->
-  <script src="app.js?v=2.7.7"></script>
+  <script src="app.js?v=2.7.8"></script>
 </body>
 </html>

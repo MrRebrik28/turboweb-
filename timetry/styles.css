@@ -359,100 +359,74 @@ input::placeholder, textarea::placeholder {
 .main-header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
-  padding: 24px 0 20px;
+  padding: 14px 0;
   box-shadow: var(--shadow-sm);
   position: relative;
   transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
 }
 
-.header-center-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-}
-
-.centered-logo-link {
-  display: inline-block;
-  max-width: 680px;
-  width: 90%;
-  margin: 0 auto;
-  transition: transform var(--transition-smooth);
-}
-
-.centered-logo-link:hover {
-  transform: scale(1.02);
-}
-
-.centered-logo-img {
-  width: 100%;
-  height: auto;
-  max-height: 85px;
-  object-fit: contain;
-  margin: 0 auto;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
-  transition: filter var(--transition-smooth);
-}
-
-[data-theme="dark"] .centered-logo-img,
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .centered-logo-img {
-    filter: invert(0.92) brightness(1.2) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1));
-  }
-}
-
-.header-sub-caption {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.header-sub-caption span.badge-official {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-/* Sticky Action Bar right below header */
 .header-action-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-color);
+  gap: 20px;
   width: 100%;
+}
+
+.header-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.header-logo-link:hover {
+  opacity: 0.85;
+}
+
+.header-logo-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .header-logo-icon {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.45));
+}
+
+.header-logo-text {
+  height: 22px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+  transition: filter var(--transition-smooth);
+}
+
+[data-theme="dark"] .header-logo-text,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .header-logo-text {
+    filter: invert(0.92) brightness(1.2);
+  }
 }
 
 .header-search-box {
   position: relative;
   flex: 1;
-  max-width: 480px;
-  min-width: 260px;
+  max-width: 520px;
+  min-width: 220px;
 }
 
 .header-search-input {
   width: 100%;
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   color: var(--text-main);
   font-size: 0.9rem;
   padding: 10px 14px 10px 38px;
@@ -461,8 +435,8 @@ input::placeholder, textarea::placeholder {
 
 .header-search-input:focus {
   background: var(--bg-input);
-  border-color: var(--border-focus);
-  box-shadow: 0 0 0 1px var(--border-focus);
+  border-color: var(--text-main);
+  box-shadow: none;
 }
 
 .header-search-icon {
@@ -477,13 +451,13 @@ input::placeholder, textarea::placeholder {
 .header-buttons-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .btn-header-cart {
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text) !important;
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   padding: 8px 16px;
   font-weight: 500;
   font-size: 0.88rem;
@@ -506,7 +480,7 @@ input::placeholder, textarea::placeholder {
   font-weight: 600;
   min-width: 18px;
   height: 18px;
-  border-radius: 9px;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -517,7 +491,7 @@ input::placeholder, textarea::placeholder {
 .btn-header-fav {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   padding: 8px 14px;
   font-weight: 500;
   font-size: 0.88rem;

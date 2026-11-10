@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=2.7.7" />
+  <link rel="stylesheet" href="styles.css?v=2.7.8" />
 </head>
 <body>
 
@@ -72,21 +72,17 @@
   </div>
 
   <!-- ========================================================================
-       MAIN HEADER
+       MAIN HEADER: LOGO ON LEFT OF SEARCH BOX
        ======================================================================== -->
   <header class="main-header">
-    <div class="container header-center-wrap">
-      <a href="index.html" class="centered-logo-link" title="TIMETRY BIKES RUSSIA">
-        <img src="logo.png" alt="TIMETRY BIKES" class="centered-logo-img" />
-      </a>
-      
-      <div class="header-sub-caption">
-        <span class="badge-official">Официальный магазин</span>
-      </div>
-
-      <!-- Action Bar: Back to catalog, Favorites, Cart -->
+    <div class="container">
       <div class="header-action-bar">
-        <a href="index.html" class="btn-outline" style="text-decoration: none;" onclick="goBackToCatalog(event)">
+        <a href="index.html" class="header-logo-link" title="TIMETRY BIKES RUSSIA">
+          <img src="logo-icon.png" alt="TIMETRY" class="header-logo-icon" />
+          <img src="logo.png" alt="TIMETRY BIKES" class="header-logo-text" />
+        </a>
+
+        <a href="index.html" class="btn-outline" style="text-decoration: none; flex-shrink: 0;" onclick="goBackToCatalog(event)">
           <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Вернуться в каталог
         </a>
@@ -623,7 +619,7 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Engine Script -->
-  <script src="app.js?v=2.7.7"></script>
+  <script src="app.js?v=2.7.8"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       initProductPage();
