@@ -2226,7 +2226,7 @@ function renderCartDrawer() {
     return `
       <div class="cart-line-item">
         ${item.image ? `<img class="cart-line-img" src="${item.image}" alt="${item.name}" />` : `<div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); border-radius: 6px;">${ICONS.box}</div>`}
-        <div style="flex: 1; padding: 0 8px;">
+        <div style="flex: 1; min-width: 0; padding: 0 8px;">
           <h4 class="cart-line-title">${item.name}</h4>
           <div class="cart-line-price">${item.price.toLocaleString('ru-RU')} ₽</div>
         </div>
