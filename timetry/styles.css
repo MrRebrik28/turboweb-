@@ -1047,25 +1047,80 @@ input::placeholder, textarea::placeholder {
 }
 
 /* Desktop Hover Quick View Button */
+/* Card Hover Dual Actions: "Купить" & "Характеристики" */
+.card-hover-actions,
 .card-quick-view-overlay {
   position: absolute;
-  bottom: 12px;
-  left: 0;
-  right: 0;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
   display: flex;
+  gap: 8px;
   justify-content: center;
   align-items: center;
   opacity: 0;
   transform: translateY(6px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   z-index: 5;
 }
 
+.store-card:hover .card-hover-actions,
 .store-card:hover .card-quick-view-overlay {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+.btn-hover-action {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-hover-buy {
+  background: var(--text-main);
+  color: var(--bg-card) !important;
+  border: 1px solid var(--text-main);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-hover-buy:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.btn-hover-specs {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .btn-hover-specs {
+  background: rgba(30, 41, 59, 0.92);
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.btn-hover-specs:hover {
+  border-color: var(--text-main);
+  transform: translateY(-1px);
 }
 
 .btn-quick-view {
@@ -1128,11 +1183,15 @@ input::placeholder, textarea::placeholder {
 }
 
 .card-rating {
-  font-size: 0.72rem;
-  letter-spacing: 2px;
-  color: #94a3b8;
-  margin-bottom: 6px;
-  line-height: 1;
+  display: none !important;
+}
+
+.product-code-label {
+  display: none !important;
+}
+
+.cashback-bonus-line {
+  display: none !important;
 }
 
 .card-info {

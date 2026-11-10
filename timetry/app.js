@@ -746,16 +746,12 @@ window.openQuickViewModal = function(productId, event) {
       </div>
     </div>
     <div class="qv-info-col">
-      <div class="card-rating">★★★★★ 5.0 (проверенная модель)</div>
       <h2 class="qv-title">${displayName}</h2>
       <div class="qv-meta-row">
         <span class="stock-badge-dot">• В наличии на складе (г. Кемерово)</span>
-        <span class="product-code-label">Арт. ${p.model_code || p.id}</span>
       </div>
       <div class="qv-prices-row">
         <span class="qv-price-val">${p.price.toLocaleString('ru-RU')} ₽</span>
-        ${p.old_price ? `<span class="qv-price-old">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
-        <span class="cashback-bonus-line">+ ${cashback.toLocaleString('ru-RU')} на счет</span>
       </div>
       <div class="qv-specs-mini">
         <div class="qv-spec-item">
@@ -1389,8 +1385,6 @@ function applyFilters() {
     list.sort((a, b) => a.price - b.price);
   } else if (AppState.activeFilters.sort === 'price_desc') {
     list.sort((a, b) => b.price - a.price);
-  } else if (AppState.activeFilters.sort === 'discount') {
-    list.sort((a, b) => ((b.old_price || b.price) - b.price) - ((a.old_price || a.price) - a.price));
   } else if (AppState.activeFilters.sort === 'model_asc') {
     list.sort((a, b) => a.name.localeCompare(b.name, 'ru', { numeric: true }));
   } else if (AppState.activeFilters.sort === 'model_desc') {
@@ -1477,7 +1471,6 @@ function renderCatalog(items) {
     const isFav = AppState.favorites.includes(p.id);
     const isCompared = AppState.compare.includes(p.id);
     const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
-    const discount = p.old_price ? Math.round(((p.old_price - p.price) / p.old_price) * 100) : null;
     const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
     const productUrl = `product.html?model=${modelSlug}`;
     const checkoutUrl = `checkout.html?model=${modelSlug}`;
@@ -1485,14 +1478,6 @@ function renderCatalog(items) {
     // Cache product images for instant hover scrubbing
     const pImages = (p.images && p.images.length > 0) ? p.images : [mainImg];
     window.CatalogImagesCache[p.id] = pImages;
-    
-    // Minimalist tag logic (clean, lightweight like Samsung/Huawei)
-    let badgeHtml = '';
-    if (index % 3 === 0 || (p.sku && p.sku.includes('TT4'))) {
-      badgeHtml = `<span class="badge-tag new">Новинка</span>`;
-    } else if (discount && discount > 0) {
-      badgeHtml = `<span class="badge-tag sale">-${discount}%</span>`;
-    }
 
     // Scrubber dashes
     const dashCount = Math.min(pImages.length, 6);
@@ -1510,7 +1495,6 @@ function renderCatalog(items) {
     }
 
     const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
-    const cashback = Math.round(p.price * 0.02);
 
     return `
       <article class="store-card" data-id="${p.id}" data-slug="${modelSlug}">
@@ -1521,9 +1505,7 @@ function renderCatalog(items) {
              onmouseleave="resetCardScrub(${p.id})"
              onclick="handleCardClick(${p.id}, '${productUrl}', event)">
           <div class="card-top-badges">
-            <div>
-              ${badgeHtml}
-            </div>
+            <div></div>
             <div style="display: flex; gap: 6px; pointer-events: auto;">
               <button class="btn-card-compare ${isCompared ? 'active' : ''}" onclick="toggleCompare(${p.id}, event)" title="${isCompared ? 'Удалить из сравнения' : 'Добавить в сравнение'}" aria-label="Сравнить">
                 ${ICONS.scale}
@@ -1536,10 +1518,12 @@ function renderCatalog(items) {
 
           <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
 
-          <div class="card-quick-view-overlay">
-            <button type="button" class="btn-quick-view" onclick="openQuickViewModal(${p.id}, event)">
-              <svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              <span>Быстрый просмотр</span>
+          <div class="card-hover-actions">
+            <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
+              Купить
+            </a>
+            <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
+              Характеристики
             </button>
           </div>
         </div>
@@ -1547,8 +1531,6 @@ function renderCatalog(items) {
         <div class="card-photo-indicator" id="card-indicator-${p.id}">
           ${dashesHtml}
         </div>
-
-        <div class="card-rating">★★★★★</div>
 
         <div class="card-info">
           <h3 class="card-model-name">
@@ -1559,20 +1541,17 @@ function renderCatalog(items) {
 
           <div class="card-meta-line">
             <span class="stock-badge-dot">• В наличии</span>
-            <span class="product-code-label">Код товара: ${p.id}</span>
           </div>
 
           <div class="card-prices-line">
             <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
-            ${p.old_price ? `<span class="price-old-strikethrough">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
           </div>
-          <div class="cashback-bonus-line">+ ${cashback.toLocaleString('ru-RU')} на счет</div>
         </div>
 
         <div class="card-bottom-actions">
           <div class="card-buttons-pair">
             <a href="${productUrl}" onclick="saveCatalogState(${p.id})" class="btn-card-details">
-              <span>Подробнее</span>
+              <span>Характеристики</span>
             </a>
             <a href="${checkoutUrl}" class="btn-card-buy">
               <span>Купить</span>
@@ -1753,8 +1732,6 @@ async function initProductPage() {
       <div class="product-badge-row">
         <span class="card-cat-label">${p.bike_type}</span>
         <span class="badge-tag stock">${ICONS.check} В наличии (Кемерово)</span>
-        ${discount ? `<span class="badge-tag sale">${ICONS.tag} -${discount}%</span>` : ''}
-        ${p.price > 45000 ? `<span class="badge-tag hit">${ICONS.flame} Хит продаж</span>` : ''}
       </div>
 
       <div class="product-title-row">
@@ -1771,8 +1748,6 @@ async function initProductPage() {
       <!-- Pricing Box -->
       <div class="product-pricing-box">
         <span class="product-price-current">${p.price.toLocaleString('ru-RU')} ₽</span>
-        ${p.old_price ? `<span class="product-price-old">${p.old_price.toLocaleString('ru-RU')} ₽</span>` : ''}
-        ${discount ? `<span class="badge-tag sale" style="font-size: 0.8rem;">Экономия ${(p.old_price - p.price).toLocaleString('ru-RU')} ₽</span>` : ''}
       </div>
 
       <!-- Interactive Color Selector -->
@@ -1909,7 +1884,9 @@ function renderRelatedCard(p) {
   const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
   const pImages = (p.images && p.images.length > 0) ? p.images : [mainImg];
   window.CatalogImagesCache[p.id] = pImages;
-  const productUrl = `product.html?id=${p.id}`;
+  const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
+  const productUrl = `product.html?model=${modelSlug}`;
+  const checkoutUrl = `checkout.html?model=${modelSlug}`;
 
   const dashCount = Math.min(pImages.length, 6);
   const dashesHtml = Array.from({length: dashCount}, (_, idx) => 
@@ -1917,7 +1894,7 @@ function renderRelatedCard(p) {
   ).join('');
 
   return `
-    <article class="store-card" data-id="${p.id}">
+    <article class="store-card" data-id="${p.id}" data-slug="${modelSlug}">
       <div class="card-photo-box" 
            id="card-photo-${p.id}" 
            onmouseenter="preloadCardImages(${p.id})"
@@ -1925,7 +1902,7 @@ function renderRelatedCard(p) {
            onmouseleave="resetCardScrub(${p.id})"
            onclick="handleCardClick(${p.id}, '${productUrl}', event)">
         <div class="card-top-badges">
-          <span class="badge-tag stock">В наличии</span>
+          <div></div>
           <div style="display: flex; gap: 6px; pointer-events: auto;">
             <button class="btn-card-compare ${isCompared ? 'active' : ''}" onclick="toggleCompare(${p.id}, event)" title="${isCompared ? 'Удалить из сравнения' : 'Добавить в сравнение'}" aria-label="Сравнить">
               ${ICONS.scale}
@@ -1936,33 +1913,38 @@ function renderRelatedCard(p) {
           </div>
         </div>
         <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
-        <div class="card-quick-view-overlay">
-          <button type="button" class="btn-quick-view" onclick="openQuickViewModal(${p.id}, event)">
-            <svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            <span>Быстрый просмотр</span>
+        <div class="card-hover-actions">
+          <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
+            Купить
+          </a>
+          <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
+            Характеристики
           </button>
         </div>
       </div>
       <div class="card-photo-indicator" id="card-indicator-${p.id}">
         ${dashesHtml}
       </div>
-      <div class="card-rating">★★★★★</div>
       <div class="card-info">
         <h3 class="card-model-name">
           <a href="${productUrl}">${displayName}</a>
         </h3>
         <div class="card-meta-line" style="margin-top: 4px;">
           <span class="stock-badge-dot">• В наличии</span>
-          <span class="product-code-label">Код: ${p.id}</span>
         </div>
         <div class="card-prices-line">
           <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
         </div>
       </div>
       <div class="card-bottom-actions">
-        <a href="${productUrl}" class="btn-card-buy" style="text-decoration: none; justify-content: center; width: 100%;">
-          <span>Купить</span>
-        </a>
+        <div class="card-buttons-pair">
+          <a href="${productUrl}" class="btn-card-details">
+            <span>Характеристики</span>
+          </a>
+          <a href="${checkoutUrl}" class="btn-card-buy">
+            <span>Купить</span>
+          </a>
+        </div>
       </div>
     </article>
   `;
