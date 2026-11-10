@@ -1517,15 +1517,6 @@ function renderCatalog(items) {
           </div>
 
           <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
-
-          <div class="card-hover-actions">
-            <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
-              Купить
-            </a>
-            <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
-              Характеристики
-            </button>
-          </div>
         </div>
 
         <div class="card-photo-indicator" id="card-indicator-${p.id}">
@@ -1546,16 +1537,14 @@ function renderCatalog(items) {
           <div class="card-prices-line">
             <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
           </div>
-        </div>
 
-        <div class="card-bottom-actions">
-          <div class="card-buttons-pair">
-            <a href="${productUrl}" onclick="saveCatalogState(${p.id})" class="btn-card-details">
-              <span>Характеристики</span>
+          <div class="card-hover-actions">
+            <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
+              Купить
             </a>
-            <a href="${checkoutUrl}" class="btn-card-buy">
-              <span>Купить</span>
-            </a>
+            <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
+              Характеристики
+            </button>
           </div>
         </div>
       </article>
@@ -1913,14 +1902,6 @@ function renderRelatedCard(p) {
           </div>
         </div>
         <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
-        <div class="card-hover-actions">
-          <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
-            Купить
-          </a>
-          <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
-            Характеристики
-          </button>
-        </div>
       </div>
       <div class="card-photo-indicator" id="card-indicator-${p.id}">
         ${dashesHtml}
@@ -1935,15 +1916,14 @@ function renderRelatedCard(p) {
         <div class="card-prices-line">
           <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
         </div>
-      </div>
-      <div class="card-bottom-actions">
-        <div class="card-buttons-pair">
-          <a href="${productUrl}" class="btn-card-details">
-            <span>Характеристики</span>
+
+        <div class="card-hover-actions">
+          <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
+            Купить
           </a>
-          <a href="${checkoutUrl}" class="btn-card-buy">
-            <span>Купить</span>
-          </a>
+          <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
+            Характеристики
+          </button>
         </div>
       </div>
     </article>

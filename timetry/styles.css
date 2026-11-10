@@ -1047,29 +1047,45 @@ input::placeholder, textarea::placeholder {
 }
 
 /* Desktop Hover Quick View Button */
-/* Card Hover Dual Actions: "Купить" & "Характеристики" */
-.card-hover-actions,
-.card-quick-view-overlay {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  display: flex;
+/* Card Hover Dual Actions: "Купить" & "Характеристики" directly under price */
+.card-hover-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-  z-index: 5;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.store-card:hover .card-hover-actions,
-.store-card:hover .card-quick-view-overlay {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+@media (min-width: 769px) {
+  .card-hover-actions {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.2s;
+  }
+
+  .store-card:hover .card-hover-actions {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-hover-actions {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    margin-top: 10px;
+  }
+}
+
+.card-quick-view-overlay {
+  display: none !important;
 }
 
 .btn-hover-action {
@@ -1275,24 +1291,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .card-bottom-actions {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-@media (min-width: 769px) {
-  .card-bottom-actions {
-    display: none !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .card-bottom-actions {
-    display: flex !important;
-  }
+  display: none !important;
 }
 
 .card-prices-line {
