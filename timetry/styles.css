@@ -1615,13 +1615,15 @@ input::placeholder, textarea::placeholder {
   margin-left: 2px;
 }
 
-/* Product Page Color Selector */
+/* Product Page Color Selector - Seamless Thin Line Design */
 .product-color-selector {
-  margin: 16px 0;
-  padding: 14px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  margin: 0 !important;
+  padding: 18px 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .product-color-label {
@@ -1629,55 +1631,59 @@ input::placeholder, textarea::placeholder {
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
-  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 12px;
 }
 
 .product-color-current {
   color: var(--text-main);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .product-colors-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .product-color-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  font-size: 0.82rem;
+  padding: 8px 16px;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .product-color-btn:hover {
-  border-color: var(--text-muted);
-  background: var(--bg-card-hover);
+  border-color: var(--text-main) !important;
+  background: var(--bg-card-hover) !important;
 }
 
 .product-color-btn.active {
-  border-color: var(--text-main);
-  background: var(--bg-surface);
-  color: var(--text-main);
-  box-shadow: none;
+  border-color: var(--text-main) !important;
+  background: transparent !important;
+  color: var(--text-main) !important;
+  box-shadow: inset 0 0 0 1px var(--text-main) !important;
 }
 
 .color-swatch-circle {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .color-swatch-circle {
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 /* Empty Catalog State */
@@ -1906,8 +1912,8 @@ input::placeholder, textarea::placeholder {
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  border-radius: 0 !important;
   margin-bottom: 12px;
   overflow: hidden;
   position: relative;
@@ -1921,13 +1927,13 @@ input::placeholder, textarea::placeholder {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   color: #475569;
   font-size: 0.72rem;
   font-weight: 500;
   padding: 4px 10px;
-  border-radius: 20px;
+  border-radius: 0 !important;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1945,9 +1951,9 @@ input::placeholder, textarea::placeholder {
   transform: translateY(-50%);
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   color: #0f172a;
   display: flex;
   align-items: center;
@@ -1961,7 +1967,7 @@ input::placeholder, textarea::placeholder {
 .product-main-view .gallery-nav-arrow:hover {
   opacity: 1;
   background: #ffffff;
-  transform: translateY(-50%) scale(1.04);
+  transform: translateY(-50%);
 }
 
 .product-main-view .gallery-prev-arrow {
@@ -1996,7 +2002,7 @@ input::placeholder, textarea::placeholder {
   width: 68px;
   height: 52px;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  border-radius: 0 !important;
   background: #ffffff;
   cursor: pointer;
   display: flex;
@@ -2033,17 +2039,50 @@ input::placeholder, textarea::placeholder {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   margin-bottom: 12px;
+}
+
+.product-badge-row .card-cat-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.product-badge-row .badge-tag.stock {
+  background: transparent !important;
+  color: #10b981 !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 0.82rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.product-badge-row .badge-tag.stock svg {
+  width: 14px;
+  height: 14px;
+}
+
+.product-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
 }
 
 .product-title-h1 {
   font-family: var(--font-sans);
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   font-weight: 600;
   color: var(--text-main);
-  line-height: 1.3;
-  margin-bottom: 6px;
+  line-height: 1.25;
+  margin: 0;
   letter-spacing: -0.01em;
 }
 
@@ -2057,28 +2096,93 @@ input::placeholder, textarea::placeholder {
   color: var(--text-muted);
 }
 
+/* Pricing Box - Seamless Thin Line Design */
 .product-pricing-box {
   display: flex;
   align-items: baseline;
   gap: 14px;
-  padding: 12px 16px;
-  background: var(--bg-surface);
-  border-radius: var(--radius-md);
-  margin-bottom: 20px;
-  border: 1px solid var(--border-color);
+  padding: 18px 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-top: 1px solid var(--border-color) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
 }
 
 .product-price-current {
   font-family: var(--font-sans);
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 600;
   color: var(--text-main);
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
 .product-price-old {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text-dim);
   text-decoration: line-through;
+}
+
+/* Product Actions Row - Seamless Tech Minimalist */
+.product-actions-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 22px 0 !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  margin: 0 !important;
+}
+
+.product-btn-buy,
+#btn-buy-now {
+  flex: 1;
+  min-width: 180px;
+  padding: 14px 24px;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 0 !important;
+  background: var(--text-main);
+  color: var(--bg-card) !important;
+  border: 1px solid var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.product-btn-buy:hover,
+#btn-buy-now:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: #ffffff !important;
+}
+
+.product-btn-cart,
+#product-add-cart-btn {
+  padding: 14px 22px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 0 !important;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.product-btn-cart:hover,
+#product-add-cart-btn:hover {
+  border-color: var(--text-main);
+  background: var(--bg-card-hover);
 }
 
 /* Height Picker Widget */
@@ -2935,12 +3039,12 @@ footer,
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: var(--bg-surface);
-  color: var(--text-main);
+  background: transparent !important;
+  color: var(--text-muted);
   border: 1px solid var(--border-color);
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
+  padding: 8px 14px;
+  border-radius: 0 !important;
+  font-size: 0.82rem;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
@@ -2951,9 +3055,9 @@ footer,
 }
 
 .btn-share-model:hover {
-  border-color: var(--text-muted);
+  border-color: var(--text-main);
   color: var(--text-main);
-  background: var(--bg-card);
+  background: transparent;
 }
 
 .btn-share-model:active {
@@ -3435,18 +3539,20 @@ footer,
   }
 
   .product-gallery-box {
-    padding: 12px;
+    padding: 0 !important;
     width: 100% !important;
   }
 
   .product-main-view {
-    height: 250px !important;
+    height: 280px !important;
     width: 100% !important;
+    border-radius: 0 !important;
   }
 
   .product-main-view .gallery-nav-arrow {
     width: 32px;
     height: 32px;
+    border-radius: 0 !important;
     opacity: 0.85;
   }
 
@@ -3456,6 +3562,21 @@ footer,
 
   .product-main-view .gallery-next-arrow {
     right: 6px;
+  }
+
+  .product-actions-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 18px 0 !important;
+  }
+
+  .product-btn-buy,
+  #btn-buy-now,
+  .product-btn-cart,
+  #product-add-cart-btn {
+    width: 100% !important;
+    text-align: center;
+    border-radius: 0 !important;
   }
 
   .dealer-trust-section {
@@ -3849,13 +3970,14 @@ footer,
   flex-wrap: wrap;
 }
 
-/* Shipping Calculator Widget on Product Detail */
+/* Shipping Calculator Widget on Product Detail - Seamless Thin Line Design */
 .product-shipping-calc-box {
-  margin-top: 20px;
-  padding: 16px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  margin-top: 0 !important;
+  padding: 22px 0 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .shipping-calc-header {
@@ -3863,7 +3985,7 @@ footer,
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
@@ -3872,62 +3994,91 @@ footer,
   align-items: center;
   gap: 8px;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-main);
 }
 
+.shipping-calc-title svg {
+  color: var(--text-muted);
+}
+
 .shipping-city-select {
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: 0.82rem;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
+  font-weight: 500;
+  border-radius: 0 !important;
+  background: var(--bg-input);
   border: 1px solid var(--border-color);
   color: var(--text-main);
   cursor: pointer;
   outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.shipping-city-select:focus {
+  border-color: var(--text-main);
+}
+
+[data-theme="light"] .shipping-city-select {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.16);
+}
+
+[data-theme="dark"] .shipping-city-select {
+  background: #111827;
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .shipping-quote-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 .shipping-quote-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.82rem;
-  padding: 6px 0;
+  font-size: 0.85rem;
+  padding: 11px 0;
   border-bottom: 1px solid var(--border-color);
 }
 
 .shipping-quote-row:last-of-type {
-  border-bottom: none;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .shipping-quote-method {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   color: var(--text-main);
+  font-weight: 400;
+}
+
+.shipping-quote-method svg {
+  color: var(--text-muted);
 }
 
 .shipping-quote-time {
   color: var(--text-muted);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .shipping-quote-price {
-  font-weight: 700;
-  color: var(--accent-orange);
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 0.85rem;
 }
 
 .shipping-quote-note {
-  margin-top: 6px;
-  font-size: 0.75rem;
+  margin-top: 10px;
+  font-size: 0.78rem;
   color: var(--text-dim);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* Accessories Bundle Builder */

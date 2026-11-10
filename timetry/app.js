@@ -1747,12 +1747,12 @@ async function initProductPage() {
       </div>
 
       <!-- Action Buttons -->
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <a href="checkout.html?model=${modelSlug}&color=${encodeURIComponent(initialColor)}" id="btn-buy-now" class="btn-primary" style="flex: 1; min-width: 200px; padding: 14px 24px; justify-content: center; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+      <div class="product-actions-row">
+        <a href="checkout.html?model=${modelSlug}&color=${encodeURIComponent(initialColor)}" id="btn-buy-now" class="btn-primary product-btn-buy">
           ${ICONS.cart}
           <span>Купить</span>
         </a>
-        <button id="product-add-cart-btn" class="btn-outline" style="padding: 14px 20px; font-size: 1rem;" onclick="addProductPageToCart()">
+        <button id="product-add-cart-btn" class="btn-outline product-btn-cart" onclick="addProductPageToCart()">
           <span>В корзину (${p.price.toLocaleString('ru-RU')} ₽)</span>
         </button>
       </div>
