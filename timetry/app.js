@@ -262,8 +262,20 @@ function renderSkeletonCatalog(count = 6) {
 }
 
 // ==========================================
-// THEME SWITCHER (LIGHT / DARK)
+// THEME SYNC & SWITCHER (LIGHT / DARK)
 // ==========================================
+function syncThemeFromStorage() {
+  try {
+    const saved = localStorage.getItem('timetry_theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      if (meta) meta.content = saved;
+    }
+  } catch (e) {}
+}
+syncThemeFromStorage();
+
 function toggleTheme() {
   const currentTheme = document.documentElement.getAttribute('data-theme') || 
     (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -284,6 +296,7 @@ function toggleTheme() {
 // INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+  syncThemeFromStorage();
   // If index.html is loaded
   if (document.getElementById('products-grid')) {
     initCatalog();
