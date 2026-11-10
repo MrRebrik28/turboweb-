@@ -3,6 +3,19 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*secret*
+*credentials*
 *.temp.html
 *.db
+*.log
+*.csv
+*.xlsx
+scratch/
+vault/
+.obsidian/
 
