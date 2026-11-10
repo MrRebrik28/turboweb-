@@ -1705,15 +1705,6 @@ async function initProductPage() {
           </div>
         `).join('')}
       </div>
-
-      <div style="margin-top: 20px; padding: 14px; background: var(--bg-surface); border-radius: var(--radius-md); font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; border: 1px solid var(--border-color);">
-        <div style="font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-          ${ICONS.truck} Отгрузка со склада в Кемерово
-        </div>
-        <div>• Предпродажная настройка тормозов и переключателей</div>
-        <div>• Фирменная заводская упаковка (пятислойный картон)</div>
-        <div>• Доставка СДЭК / ТК по всей территории РФ</div>
-      </div>
     </div>
 
     <!-- Info & Purchase Column -->
@@ -1732,7 +1723,6 @@ async function initProductPage() {
           <span class="share-btn-label">Поделиться</span>
         </button>
       </div>
-      <div class="product-sku-code">Артикул: <strong>${p.sku}</strong> | Гарантия дилера: 24 месяца</div>
 
       <!-- Pricing Box -->
       <div class="product-pricing-box">
@@ -1756,23 +1746,6 @@ async function initProductPage() {
         </div>
       </div>
 
-      <!-- Interactive Height Picker Widget -->
-      <div class="height-picker-widget" style="margin-bottom: 24px; padding: 14px; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-        <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-          <span>Подбор ростовки райдера:</span>
-          <span id="p-selected-size-desc" style="color: var(--accent-orange); font-weight: 800;">Размер ${p.rider_height || 'Универсал'}</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
-          ${heightOptions.map(h => `
-            <button type="button" class="btn-outline height-opt-btn ${h.cat === AppState.productPageSelectedHeight ? 'active' : ''}" 
-              style="padding: 8px 4px; font-size: 0.78rem; text-align: center; border-radius: 6px;"
-              onclick="selectProductHeight('${h.cat}', '${h.size}', this)">
-              ${h.label}
-            </button>
-          `).join('')}
-        </div>
-      </div>
-
       <!-- Action Buttons -->
       <div style="display: flex; gap: 12px; flex-wrap: wrap;">
         <a href="checkout.html?model=${modelSlug}&color=${encodeURIComponent(initialColor)}" id="btn-buy-now" class="btn-primary" style="flex: 1; min-width: 200px; padding: 14px 24px; justify-content: center; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
@@ -1782,13 +1755,6 @@ async function initProductPage() {
         <button id="product-add-cart-btn" class="btn-outline" style="padding: 14px 20px; font-size: 1rem;" onclick="addProductPageToCart()">
           <span>В корзину (${p.price.toLocaleString('ru-RU')} ₽)</span>
         </button>
-      </div>
-
-      <!-- Security & Guarantee Badges -->
-      <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.82rem; color: var(--text-muted);">
-        <span style="display: inline-flex; align-items: center; gap: 6px;">${ICONS.shield} Гарантия 24 мес</span>
-        <span style="display: inline-flex; align-items: center; gap: 6px;">${ICONS.truck} Доставка СДЭК / ТК</span>
-        <span style="display: inline-flex; align-items: center; gap: 6px;">${ICONS.check} Оплата при получении</span>
       </div>
 
       <!-- Interactive Shipping Calculator Widget -->
