@@ -1482,7 +1482,10 @@ input::placeholder, textarea::placeholder {
   max-width: 900px !important;
   width: 94% !important;
   max-height: 90vh;
+  max-block-size: 90dvb;
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
   padding: 28px !important;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1492,15 +1495,21 @@ input::placeholder, textarea::placeholder {
 
 .quick-view-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: 32px;
   align-items: start;
+  width: 100%;
+  min-width: 0;
+  min-inline-size: 0;
 }
 
 .qv-gallery-col {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-width: 0;
+  min-inline-size: 0;
+  max-width: 100%;
 }
 
 .qv-main-photo-wrap {
@@ -1531,7 +1540,11 @@ input::placeholder, textarea::placeholder {
   display: flex;
   gap: 8px;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   padding-bottom: 4px;
+  min-width: 0;
+  min-inline-size: 0;
+  max-width: 100%;
 }
 
 .qv-thumb-btn {
@@ -1565,6 +1578,9 @@ input::placeholder, textarea::placeholder {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
+  min-inline-size: 0;
+  max-width: 100%;
 }
 
 .qv-title {
@@ -1573,15 +1589,19 @@ input::placeholder, textarea::placeholder {
   color: var(--text-main);
   line-height: 1.3;
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .qv-meta-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
   font-size: 0.8rem;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-color);
+  min-width: 0;
 }
 
 .qv-prices-row {
@@ -1605,18 +1625,23 @@ input::placeholder, textarea::placeholder {
 
 .qv-specs-mini {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px 12px;
   padding: 14px 0;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   font-size: 0.82rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .qv-spec-item {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
+  min-inline-size: 0;
+  overflow-wrap: break-word;
 }
 
 .qv-spec-lbl {
@@ -1634,15 +1659,48 @@ input::placeholder, textarea::placeholder {
   flex-direction: column;
   gap: 10px;
   margin-top: 8px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.qv-actions-row .btn-primary,
+.qv-actions-row .btn-outline {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+.qv-actions-sub {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: 768px) {
   .quick-view-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
   }
   .qv-main-photo-wrap {
-    height: 240px;
+    height: 220px;
+    padding: 10px;
+  }
+  .qv-title {
+    font-size: 1.15rem;
+  }
+  .qv-price-val {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .qv-specs-mini,
+  .qv-actions-sub {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -2491,6 +2549,7 @@ footer,
   align-items: center;
   justify-content: center;
   padding: 16px;
+  overscroll-behavior: contain;
 }
 
 .modal-overlay.active {
@@ -2506,7 +2565,10 @@ footer,
   max-width: 800px;
   width: 100%;
   max-height: 90vh;
+  max-block-size: 90dvb;
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
   box-shadow: var(--shadow-lg);
   position: relative;
   padding: 28px;
@@ -2516,6 +2578,7 @@ footer,
   position: absolute;
   top: 16px;
   right: 16px;
+  z-index: 6;
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   color: var(--text-muted);
@@ -2538,14 +2601,9 @@ footer,
 /* Quick View Modal Gallery */
 .qv-grid-split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 28px;
-}
-
-.qv-gallery-col {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  min-width: 0;
 }
 
 .qv-main-img-box {
@@ -2566,12 +2624,6 @@ footer,
   max-height: 95%;
   max-width: 95%;
   object-fit: contain;
-}
-
-.qv-thumbs-row {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
 }
 
 .qv-thumb {
@@ -3728,11 +3780,23 @@ footer,
     display: flex;
   }
 
-  .modal-card {
-    width: calc(100% - 24px) !important;
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-card,
+  .quick-view-modal-card {
+    width: 100% !important;
     max-width: 100% !important;
-    margin: 12px;
-    padding: 20px 16px !important;
+    margin: 0 !important;
+    padding: 18px 14px !important;
+    max-height: 92dvh;
+    max-block-size: 92dvb;
+  }
+
+  .quick-view-modal-card .modal-close-cross {
+    top: 10px;
+    right: 10px;
   }
 
   .cart-drawer-panel {

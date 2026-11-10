@@ -1628,6 +1628,9 @@ window.openQuickViewModal = function(productId, event) {
     `;
   }).join('');
 
+  const speedsRaw = String(p.speeds || '10 ск.').trim();
+  const speedsDisplay = /ск/i.test(speedsRaw) ? speedsRaw : `${speedsRaw} ск.`;
+
   container.innerHTML = `
     <div class="qv-gallery-col">
       <div class="qv-main-photo-wrap">
@@ -1664,7 +1667,7 @@ window.openQuickViewModal = function(productId, event) {
         </div>
         <div class="qv-spec-item">
           <span class="qv-spec-lbl">Скорости</span>
-          <span class="qv-spec-val">${p.speeds ? p.speeds + ' ск.' : '10 ск.'}</span>
+          <span class="qv-spec-val">${speedsDisplay}</span>
         </div>
         <div class="qv-spec-item">
           <span class="qv-spec-lbl">Тормоза</span>
@@ -1684,7 +1687,7 @@ window.openQuickViewModal = function(productId, event) {
           onclick="if(this.classList.contains('is-disabled')){event.preventDefault();showToast('Выбранный цвет временно отсутствует');}">
           ${summary.anyInStock ? 'Оформить заказ сейчас' : 'Нет в наличии'}
         </a>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div class="qv-actions-sub">
           <button type="button" id="qv-add-cart-btn" class="btn-outline ${summary.anyInStock ? '' : 'is-disabled'}" style="justify-content: center;" onclick="addToCartQuick(${p.id})">
             В корзину
           </button>
