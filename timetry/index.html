@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=2.7.8" />
+  <link rel="stylesheet" href="styles.css?v=2.7.9" />
 </head>
 <body>
 
@@ -139,10 +139,23 @@
         
         <!-- Sidebar Filters -->
         <aside class="store-sidebar">
-          <div class="sidebar-head">
-            <h3 class="sidebar-title">Фильтры подбора</h3>
-            <button class="btn-reset-filters" onclick="resetAllFilters()">Сбросить</button>
-          </div>
+          <button type="button" class="mobile-filters-trigger-btn" id="mobile-filters-trigger" onclick="toggleMobileFilters()">
+            <span class="mobile-filter-btn-left">
+              <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              <span>Фильтры подбора</span>
+              <span class="mobile-active-filters-count" id="mobile-active-filters-count" style="display: none;">0</span>
+            </span>
+            <span class="mobile-filter-btn-right">
+              <span class="mobile-filter-action-label" id="mobile-filter-action-label">Показать</span>
+              <svg class="svg-icon chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+
+          <div class="store-sidebar-content" id="store-sidebar-content">
+            <div class="sidebar-head">
+              <h3 class="sidebar-title">Фильтры подбора</h3>
+              <button class="btn-reset-filters" onclick="resetAllFilters()">Сбросить</button>
+            </div>
 
           <!-- Model Filter (Search & Brand Picker) -->
           <div class="filter-group" id="filter-group-model">
@@ -250,7 +263,15 @@
               <button class="filter-tag-btn" data-filter-type="brakes" data-filter-val="Ободные">Ободные</button>
             </div>
           </div>
-        </aside>
+
+          <!-- Mobile Apply Button at bottom of opened filters -->
+          <div class="mobile-filters-apply-box">
+            <button type="button" class="btn-mobile-apply-filters" onclick="toggleMobileFilters()">
+              Показать модели (<span id="mobile-apply-count">0</span>)
+            </button>
+          </div>
+        </div>
+      </aside>
 
         <!-- Catalog Products Content -->
         <main class="catalog-content">
@@ -895,6 +916,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Engine Script -->
-  <script src="app.js?v=2.7.8"></script>
+  <script src="app.js?v=2.7.9"></script>
 </body>
 </html>

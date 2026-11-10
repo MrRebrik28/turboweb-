@@ -338,7 +338,28 @@ function scrollToTop() {
 }
 window.scrollToTop = scrollToTop;
 
+window.toggleMobileFilters = function() {
+  const content = document.getElementById('store-sidebar-content');
+  const trigger = document.getElementById('mobile-filters-trigger');
+  const label = document.getElementById('mobile-filter-action-label');
+  if (!content) return;
+  const isOpen = content.classList.toggle('open');
+  if (trigger) trigger.classList.toggle('open', isOpen);
+  if (label) label.textContent = isOpen ? 'Скрыть' : 'Показать';
+};
+
+window.openMobileFilters = function() {
+  const content = document.getElementById('store-sidebar-content');
+  const trigger = document.getElementById('mobile-filters-trigger');
+  const label = document.getElementById('mobile-filter-action-label');
+  if (!content) return;
+  content.classList.add('open');
+  if (trigger) trigger.classList.add('open');
+  if (label) label.textContent = 'Скрыть';
+};
+
 function scrollToCatalogFilters() {
+  openMobileFilters();
   const sidebar = document.querySelector('.store-sidebar');
   if (sidebar) {
     sidebar.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -673,6 +694,27 @@ window.preloadCardImages = function(productId) {
   }
 };
 
+window.setCardPhotoIndex = function(productId, index) {
+  const images = window.CatalogImagesCache[productId];
+  if (!images || images.length === 0) return;
+  const validIdx = Math.max(0, Math.min(index, images.length - 1));
+
+  const img = document.getElementById(`card-img-${productId}`);
+  if (img && img.dataset.currentIdx !== String(validIdx)) {
+    img.dataset.currentIdx = String(validIdx);
+    img.src = images[validIdx];
+  }
+
+  const indicator = document.getElementById(`card-indicator-${productId}`);
+  if (indicator) {
+    const dashes = indicator.querySelectorAll('.photo-dash');
+    dashes.forEach((d, i) => {
+      if (i === validIdx) d.classList.add('active');
+      else d.classList.remove('active');
+    });
+  }
+};
+
 window.handleCardScrub = function(event, productId) {
   const images = window.CatalogImagesCache[productId];
   if (!images || images.length <= 1) return;
@@ -682,42 +724,116 @@ window.handleCardScrub = function(event, productId) {
   const count = Math.min(images.length, 6);
   const index = Math.min(Math.floor((x / rect.width) * count), count - 1);
 
-  const img = document.getElementById(`card-img-${productId}`);
-  if (img && img.dataset.currentIdx !== String(index)) {
-    img.dataset.currentIdx = String(index);
-    img.src = images[index];
-  }
-
-  const indicator = document.getElementById(`card-indicator-${productId}`);
-  if (indicator) {
-    const dashes = indicator.querySelectorAll('.photo-dash');
-    dashes.forEach((d, i) => {
-      if (i === index) d.classList.add('active');
-      else d.classList.remove('active');
-    });
-  }
+  setCardPhotoIndex(productId, index);
 };
 
 window.resetCardScrub = function(productId) {
-  const images = window.CatalogImagesCache[productId];
-  if (!images || images.length === 0) return;
+  setCardPhotoIndex(productId, 0);
+};
+
+// Touch gestures & swiping on mobile cards
+let cardTouchState = {
+  productId: null,
+  startX: 0,
+  startY: 0,
+  lastX: 0,
+  isSwiping: false,
+  hasSwiped: false,
+  startTime: 0,
+  initialIndex: 0
+};
+
+window.handleCardTouchStart = function(event, productId) {
+  if (event.touches.length !== 1) return;
+  preloadCardImages(productId);
+  const touch = event.touches[0];
   const img = document.getElementById(`card-img-${productId}`);
-  if (img && img.dataset.currentIdx !== '0') {
-    img.dataset.currentIdx = '0';
-    img.src = images[0];
+  const currentIdx = img ? parseInt(img.dataset.currentIdx || '0', 10) : 0;
+  cardTouchState = {
+    productId: productId,
+    startX: touch.clientX,
+    startY: touch.clientY,
+    lastX: touch.clientX,
+    isSwiping: false,
+    hasSwiped: false,
+    startTime: Date.now(),
+    initialIndex: currentIdx
+  };
+};
+
+window.handleCardTouchMove = function(event, productId) {
+  if (event.touches.length !== 1 || cardTouchState.productId !== productId) return;
+  const touch = event.touches[0];
+  const diffX = touch.clientX - cardTouchState.startX;
+  const diffY = touch.clientY - cardTouchState.startY;
+
+  if (!cardTouchState.isSwiping) {
+    if (Math.abs(diffX) > 8 && Math.abs(diffX) > Math.abs(diffY)) {
+      cardTouchState.isSwiping = true;
+    } else if (Math.abs(diffY) > 8) {
+      return;
+    }
   }
-  const indicator = document.getElementById(`card-indicator-${productId}`);
-  if (indicator) {
-    const dashes = indicator.querySelectorAll('.photo-dash');
-    dashes.forEach((d, i) => {
-      if (i === 0) d.classList.add('active');
-      else d.classList.remove('active');
-    });
+
+  if (cardTouchState.isSwiping) {
+    if (event.cancelable) event.preventDefault();
+    cardTouchState.hasSwiped = true;
+    cardTouchState.lastX = touch.clientX;
+
+    const box = event.currentTarget;
+    const rect = box.getBoundingClientRect();
+    const x = Math.max(0, Math.min(touch.clientX - rect.left, rect.width - 1));
+    const images = window.CatalogImagesCache[productId];
+    if (images && images.length > 1) {
+      const count = Math.min(images.length, 6);
+      const index = Math.min(Math.floor((x / rect.width) * count), count - 1);
+      setCardPhotoIndex(productId, index);
+    }
   }
 };
 
+window.handleCardTouchEnd = function(event, productId) {
+  if (cardTouchState.productId !== productId) return;
+  const box = event.currentTarget;
+
+  if (cardTouchState.hasSwiped) {
+    box._preventCardClick = true;
+    setTimeout(() => { box._preventCardClick = false; }, 350);
+
+    const diffX = cardTouchState.lastX - cardTouchState.startX;
+    const elapsed = Date.now() - cardTouchState.startTime;
+    const images = window.CatalogImagesCache[productId];
+    if (images && images.length > 1 && elapsed < 350 && Math.abs(diffX) > 20) {
+      const count = Math.min(images.length, 6);
+      if (diffX < 0) {
+        // Swiped left -> next photo
+        const nextIdx = Math.min(cardTouchState.initialIndex + 1, count - 1);
+        setCardPhotoIndex(productId, nextIdx);
+      } else {
+        // Swiped right -> prev photo
+        const prevIdx = Math.max(cardTouchState.initialIndex - 1, 0);
+        setCardPhotoIndex(productId, prevIdx);
+      }
+    }
+  }
+  cardTouchState.isSwiping = false;
+};
+
+window.handleCardTouchCancel = function(event, productId) {
+  cardTouchState.isSwiping = false;
+};
+
 window.handleCardClick = function(productId, url, event) {
-  if (event.target.closest('.btn-quick-view') || event.target.closest('.btn-card-fav') || event.target.closest('.btn-card-compare')) {
+  if (event.currentTarget && event.currentTarget._preventCardClick) {
+    try { event.preventDefault(); event.stopPropagation(); } catch (err) {}
+    return;
+  }
+  if (event.target.closest('.btn-quick-view') || 
+      event.target.closest('.btn-card-fav') || 
+      event.target.closest('.btn-card-compare') ||
+      event.target.closest('.btn-hover-action') ||
+      event.target.closest('.card-photo-indicator') ||
+      event.target.closest('.photo-dash')) {
     return;
   }
   saveCatalogState(productId);
@@ -1436,6 +1552,21 @@ function applyFilters() {
     }
   }
 
+  const mobileTriggerCount = document.getElementById('mobile-active-filters-count');
+  if (mobileTriggerCount) {
+    if (activeFilterCount > 0) {
+      mobileTriggerCount.style.display = 'inline-flex';
+      mobileTriggerCount.textContent = activeFilterCount;
+    } else {
+      mobileTriggerCount.style.display = 'none';
+    }
+  }
+
+  const mobileApplyCount = document.getElementById('mobile-apply-count');
+  if (mobileApplyCount) {
+    mobileApplyCount.textContent = list.length;
+  }
+
   AppState.filteredProducts = list;
   renderCatalog(list);
 }
@@ -1495,7 +1626,7 @@ function renderCatalog(items) {
     // Scrubber dashes
     const dashCount = Math.min(pImages.length, 6);
     const dashesHtml = Array.from({length: dashCount}, (_, idx) => 
-      `<span class="photo-dash ${idx === 0 ? 'active' : ''}" data-idx="${idx}"></span>`
+      `<span class="photo-dash ${idx === 0 ? 'active' : ''}" data-idx="${idx}" onclick="event.stopPropagation(); setCardPhotoIndex(${p.id}, ${idx})"></span>`
     ).join('');
 
     let variantsHtml = '';
@@ -1516,6 +1647,10 @@ function renderCatalog(items) {
              onmouseenter="preloadCardImages(${p.id})"
              onmousemove="handleCardScrub(event, ${p.id})" 
              onmouseleave="resetCardScrub(${p.id})"
+             ontouchstart="handleCardTouchStart(event, ${p.id})"
+             ontouchmove="handleCardTouchMove(event, ${p.id})"
+             ontouchend="handleCardTouchEnd(event, ${p.id})"
+             ontouchcancel="handleCardTouchCancel(event, ${p.id})"
              onclick="handleCardClick(${p.id}, '${productUrl}', event)">
           <div class="card-top-badges">
             <div></div>
@@ -1858,7 +1993,7 @@ function renderRelatedCard(p) {
 
   const dashCount = Math.min(pImages.length, 6);
   const dashesHtml = Array.from({length: dashCount}, (_, idx) => 
-    `<span class="photo-dash ${idx === 0 ? 'active' : ''}" data-idx="${idx}"></span>`
+    `<span class="photo-dash ${idx === 0 ? 'active' : ''}" data-idx="${idx}" onclick="event.stopPropagation(); setCardPhotoIndex(${p.id}, ${idx})"></span>`
   ).join('');
 
   return `
@@ -1868,6 +2003,10 @@ function renderRelatedCard(p) {
            onmouseenter="preloadCardImages(${p.id})"
            onmousemove="handleCardScrub(event, ${p.id})" 
            onmouseleave="resetCardScrub(${p.id})"
+           ontouchstart="handleCardTouchStart(event, ${p.id})"
+           ontouchmove="handleCardTouchMove(event, ${p.id})"
+           ontouchend="handleCardTouchEnd(event, ${p.id})"
+           ontouchcancel="handleCardTouchCancel(event, ${p.id})"
            onclick="handleCardClick(${p.id}, '${productUrl}', event)">
         <div class="card-top-badges">
           <div></div>
