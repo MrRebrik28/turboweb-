@@ -1,89 +1,193 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Панель управления каталогом | TIMETRY BIKES RUSSIA</title>
-  <meta name="color-scheme" content="dark light" />
-  <link rel="stylesheet" href="styles.css?v=2.8.2" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Anti-FOUC Theme Sync -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('timetry_theme');
+        if (saved) {
+          document.documentElement.setAttribute('data-theme', saved);
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = saved;
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = 'dark';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = 'light';
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=2.9.0" />
+
   <style>
-    /* Admin Specific Styling */
-    .admin-body {
-      background: #090d16;
-      color: #e2e8f0;
-      min-height: 100vh;
+    :root {
+      color-scheme: light dark;
     }
+
+    .admin-body {
+      background: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Sticky Minimalist Header */
     .admin-header {
-      background: #111827;
-      border-bottom: 1px solid #1f2937;
-      padding: 16px 24px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
     }
+
+    .admin-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+
     .admin-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
-      color: #ffffff;
+      color: var(--text-main);
     }
+
+    .admin-brand-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-left: 1px solid var(--border-color);
+      padding-left: 12px;
+    }
+
     .admin-badge-status {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
       color: #10b981;
-      font-size: 0.76rem;
-      font-weight: 700;
+      font-size: 0.74rem;
+      font-weight: 600;
       padding: 4px 10px;
-      border-radius: 20px;
     }
-    .admin-nav-tabs {
-      display: flex;
-      gap: 6px;
-      background: #111827;
-      padding: 12px 24px;
-      border-bottom: 1px solid #1f2937;
-      overflow-x: auto;
+
+    .admin-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
     }
-    .admin-tab-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: #94a3b8;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
+
+    .admin-header-actions {
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .admin-tab-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.05);
-    }
-    .admin-tab-btn.active {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
+      flex-wrap: wrap;
     }
 
-    /* Admin Container */
+    .admin-btn-sm {
+      padding: 7px 13px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 0 !important;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Navigation Tabs */
+    .admin-nav-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--bg-card);
+      padding: 0 24px;
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .admin-nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .admin-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      padding: 13px 16px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .admin-tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .admin-tab-btn.active {
+      color: var(--text-main);
+      font-weight: 600;
+      border-bottom-color: var(--text-main);
+    }
+
+    .admin-tab-count {
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    .admin-tab-btn.active .admin-tab-count {
+      background: var(--text-main);
+      color: var(--bg-card);
+      border-color: var(--text-main);
+    }
+
+    /* Container */
     .admin-container {
-      max-width: 1400px;
+      max-width: 1420px;
       margin: 0 auto;
       padding: 24px;
     }
+
     .admin-tab-content {
       display: none;
     }
+
     .admin-tab-content.active {
       display: block;
     }
@@ -91,422 +195,711 @@
     /* KPI Grid */
     .admin-kpi-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: 1px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
       margin-bottom: 24px;
+      background: var(--bg-card);
     }
+
     .kpi-card {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: none;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 22px;
+      min-width: 0;
     }
+
     .kpi-label {
-      font-size: 0.8rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      color: #94a3b8;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    .kpi-val {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-    .kpi-sub {
-      font-size: 0.78rem;
-      color: #10b981;
-      margin-top: 4px;
+      gap: 8px;
     }
 
-    /* Table Styles - Seamless Minimalist */
-    .admin-table-box {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: none;
+    .kpi-val {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Split Panels */
+    .admin-split-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 20px;
       margin-bottom: 24px;
     }
+
+    .admin-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 22px;
+      min-width: 0;
+    }
+
+    .admin-panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .admin-panel-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* Stock Alert List */
+    .alert-rows-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .alert-row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      font-size: 0.82rem;
+    }
+
+    /* Table Toolbar & Accessible Scroll Table */
+    .admin-table-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      margin-bottom: 24px;
+      min-width: 0;
+    }
+
     .admin-table-toolbar {
       padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
-      border-bottom: 1px solid #1f2937;
-    }
-    .admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.86rem;
-    }
-    .admin-table th {
-      background: #162032;
-      color: #94a3b8;
-      font-weight: 700;
-      padding: 12px 16px;
-      border-bottom: 1px solid #1f2937;
-      text-transform: uppercase;
-      font-size: 0.74rem;
-      letter-spacing: 0.4px;
-    }
-    .admin-table td {
-      padding: 14px 16px;
-      border-bottom: 1px solid #1f2937;
-      color: #cbd5e1;
-      vertical-align: middle;
-    }
-    .admin-table tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
-    }
-    .admin-table img {
-      width: 54px;
-      height: 40px;
-      object-fit: contain;
-      background: #ffffff;
-      border-radius: 6px;
-      padding: 2px;
-      border: 1px solid #334155;
-    }
-    .stock-counter-btn {
-      background: #1e293b;
-      border: 1px solid #334155;
-      color: #ffffff;
-      width: 26px;
-      height: 26px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background 0.15s;
-    }
-    .stock-counter-btn:hover {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
     }
 
-    /* Simple Non-Mandatory Form */
+    .admin-filters-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .admin-ctrl-input,
+    .admin-ctrl-select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 0 !important;
+      padding: 8px 12px;
+      color: var(--text-main);
+      font-size: 0.82rem;
+      font-family: inherit;
+    }
+
+    .admin-ctrl-input:focus,
+    .admin-ctrl-select:focus {
+      outline: none;
+      border-color: var(--text-main);
+    }
+
+    .admin-bulk-bar {
+      display: none;
+      padding: 10px 20px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+    }
+
+    .admin-bulk-bar.active {
+      display: flex;
+    }
+
+    .admin-table-scroll {
+      overflow: auto;
+      max-width: 100%;
+      max-height: 70vh;
+    }
+
+    .admin-table-scroll:focus-visible {
+      outline: 2px solid var(--text-main);
+      outline-offset: -2px;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      text-align: left;
+      font-size: 0.84rem;
+    }
+
+    .admin-table th {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 5;
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-color);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    .admin-table tbody tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    .admin-thumb {
+      width: 58px;
+      height: 44px;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 2px;
+      border: 1px solid var(--border-color);
+      display: block;
+    }
+
+    .inline-price-input {
+      width: 96px;
+      padding: 5px 8px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.84rem;
+      text-align: right;
+    }
+
+    .inline-price-input:focus {
+      outline: none;
+      border-color: var(--text-main);
+    }
+
+    .stock-counter-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      min-width: 28px;
+      height: 28px;
+      padding: 0 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .stock-counter-btn:hover {
+      border-color: var(--text-main);
+      background: var(--text-main);
+      color: var(--bg-card);
+    }
+
+    /* Per-Color Badges inside Table */
+    .table-color-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      max-width: 260px;
+    }
+
+    .table-color-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 7px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease;
+    }
+
+    .table-color-chip:hover {
+      border-color: var(--text-main);
+    }
+
+    .table-color-chip.is-out {
+      opacity: 0.5;
+      border-style: dashed;
+      text-decoration: line-through;
+    }
+
+    .color-dot-preview {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1px solid rgba(128, 128, 128, 0.35);
+      flex-shrink: 0;
+    }
+
+    /* Model Form */
     .admin-form-card {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       padding: 28px;
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
     }
+
     .form-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 6px;
+      color: var(--text-main);
+      margin-bottom: 4px;
     }
+
     .form-subnote {
       font-size: 0.82rem;
-      color: #94a3b8;
-      margin-bottom: 24px;
+      color: var(--text-muted);
+      margin-bottom: 22px;
     }
+
     .form-grid-2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
+
     .form-grid-3 {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
+
     .admin-input-group {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      min-width: 0;
     }
+
     .admin-input-group label {
       display: block;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #94a3b8;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
       margin-bottom: 6px;
     }
+
     .admin-input-group input,
     .admin-input-group select,
     .admin-input-group textarea {
       width: 100%;
-      background: #162032;
-      border: 1px solid #334155;
-      border-radius: 6px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 0 !important;
       padding: 9px 12px;
-      color: #ffffff;
+      color: var(--text-main);
       font-size: 0.88rem;
       font-family: inherit;
       box-sizing: border-box;
-      transition: all 0.2s ease;
+      transition: border-color 0.15s ease;
     }
+
     .admin-input-group input:focus,
     .admin-input-group select:focus,
     .admin-input-group textarea:focus {
       outline: none;
-      border-color: #ffffff;
-      box-shadow: 0 0 0 1px #ffffff;
+      border-color: var(--text-main);
     }
 
-    /* Color Chips Selection */
     .color-chips-select {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       margin-top: 6px;
     }
+
     .color-chip-pick {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      background: #162032;
-      border: 1px solid #334155;
+      padding: 6px 11px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
       font-size: 0.78rem;
-      color: #cbd5e1;
+      color: var(--text-main);
       cursor: pointer;
-      transition: all 0.2s ease;
       user-select: none;
     }
-    .color-chip-pick:hover {
-      border-color: #94a3b8;
-    }
+
     .color-chip-pick.selected {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #ffffff;
-      color: #ffffff;
-      font-weight: 500;
-    }
-    .color-dot-preview {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      flex-shrink: 0;
+      background: var(--text-main);
+      color: var(--bg-card);
+      border-color: var(--text-main);
+      font-weight: 600;
     }
 
-    /* Automation cards */
+    .form-colors-matrix {
+      margin-top: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-color-stock-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 8px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      font-size: 0.82rem;
+    }
+
+    /* Live Photo Strip Preview */
+    .form-photos-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .form-photo-thumb-card {
+      width: 96px;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-photo-thumb-card img {
+      width: 100%;
+      height: 64px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .form-photo-thumb-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .form-photo-thumb-actions button {
+      flex: 1;
+      font-size: 0.68rem;
+      padding: 2px 4px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      background: #f8fafc;
+      color: #0f172a;
+      cursor: pointer;
+    }
+
+    /* Automation & Settings Grid */
     .auto-cards-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
     }
+
     .auto-card {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 12px;
-      padding: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 14px;
+      min-width: 0;
     }
+
     .auto-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
     }
+
     .auto-card p {
       font-size: 0.82rem;
-      color: #94a3b8;
+      color: var(--text-muted);
       line-height: 1.5;
-      margin-bottom: 18px;
+      margin: 0;
     }
 
     @media (max-width: 1024px) {
       .admin-kpi-grid {
         grid-template-columns: 1fr 1fr;
       }
-      .auto-cards-grid {
+      .admin-split-2,
+      .auto-cards-grid,
+      .form-grid-2,
+      .form-grid-3 {
         grid-template-columns: 1fr;
       }
-      .form-grid-2, .form-grid-3 {
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        padding: 12px 16px;
+      }
+      .admin-brand-sub {
+        display: none;
+      }
+      .admin-nav-tabs {
+        padding: 0 12px;
+      }
+      .admin-container {
+        padding: 16px;
+      }
+      .admin-kpi-grid {
         grid-template-columns: 1fr;
+      }
+      .admin-form-card {
+        padding: 18px 16px;
       }
     }
   </style>
 </head>
 <body class="admin-body">
-  <!-- Owner Admin Top Header -->
+  <!-- Top Admin Header -->
   <header class="admin-header">
-    <div style="display: flex; align-items: center; gap: 16px;">
-      <a href="index.html" class="admin-brand">
-        <img src="logo.png" alt="TIMETRY" style="height: 32px; width: auto;" />
-        <div>
-          <strong style="font-size: 1.05rem; display: block; letter-spacing: 0.5px;">TIMETRY & SHUSTER</strong>
-          <span style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase;">Панель управления магазином</span>
-        </div>
+    <div class="admin-brand-wrap">
+      <a href="index.html" class="admin-brand" title="Вернуться на витрину">
+        <img src="logo-icon.png" alt="TIMETRY" class="header-logo-icon" style="width: 30px; height: 30px;" />
+        <img src="logo.png" alt="TIMETRY BIKES" class="header-logo-text" style="height: 18px;" />
       </a>
+      <span class="admin-brand-sub">Панель дилера</span>
       <span class="admin-badge-status">
-        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
-        Склад Кемерово • Онлайн
+        <span class="admin-badge-dot"></span>
+        <span>Склад Кемерово</span>
       </span>
     </div>
 
-    <div style="display: flex; align-items: center; gap: 12px;">
-      <a href="index.html" target="_blank" class="btn-outline" style="font-size: 0.82rem; padding: 8px 14px; text-decoration: none; border-color: #334155;">
-        <span>Открыть витрину ↗</span>
-      </a>
-      <button class="btn-primary" onclick="exportProductsJson()" style="font-size: 0.82rem; padding: 8px 14px;">
-        <span>Скачать products.json</span>
+    <div class="admin-header-actions">
+      <button type="button" class="btn-outline admin-btn-sm" onclick="openStorefrontAsAdmin()" title="Открыть каталог с возможностью редактировать прямо в карточках">
+        <svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Витрина как админ ↗</span>
+      </button>
+      <button type="button" class="btn-outline admin-btn-sm" id="header-publish-btn" onclick="publishFromAdminHeader()">
+        <span>Опубликовать</span>
+      </button>
+      <button type="button" class="btn-primary admin-btn-sm" onclick="exportProductsJson()">
+        <span>Скачать JSON</span>
+      </button>
+      <button type="button" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Переключить тему" title="Переключить тему">
+        <span class="icon-sun"><svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+        <span class="icon-moon"><svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
       </button>
     </div>
   </header>
 
   <!-- Navigation Tabs -->
-  <nav class="admin-nav-tabs">
-    <button class="admin-tab-btn active" onclick="switchAdminTab('dashboard', this)">
-      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
-      <span>Дашборд и аналитика</span>
+  <nav class="admin-nav-tabs" aria-label="Разделы панели управления">
+    <button type="button" class="admin-tab-btn active" data-tab="dashboard" onclick="switchAdminTab('dashboard', this)">
+      <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+      <span>Дашборд</span>
     </button>
-    <button class="admin-tab-btn" onclick="switchAdminTab('catalog', this)">
-      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <span>Каталог моделей (<span id="tab-models-count">31</span>)</span>
+    <button type="button" class="admin-tab-btn" data-tab="catalog" onclick="switchAdminTab('catalog', this)">
+      <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      <span>Каталог и наличие</span>
+      <span class="admin-tab-count" id="tab-models-count">0</span>
     </button>
-    <button class="admin-tab-btn" onclick="switchAdminTab('add-model', this)">
-      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      <span>Добавить модель</span>
+    <button type="button" class="admin-tab-btn" data-tab="add-model" onclick="switchAdminTab('add-model', this)">
+      <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span>Редактор модели</span>
     </button>
-    <button class="admin-tab-btn" onclick="switchAdminTab('colors', this)">
-      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20"/></svg>
-      <span>База цветов (<span id="tab-colors-count">12</span>)</span>
+    <button type="button" class="admin-tab-btn" data-tab="colors" onclick="switchAdminTab('colors', this)">
+      <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20"/></svg>
+      <span>База цветов</span>
+      <span class="admin-tab-count" id="tab-colors-count">0</span>
     </button>
-    <button class="admin-tab-btn" onclick="switchAdminTab('orders', this)">
-      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      <span>Заказы с сайта (<span id="tab-orders-count">0</span>)</span>
+    <button type="button" class="admin-tab-btn" data-tab="orders" onclick="switchAdminTab('orders', this)">
+      <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span>Заказы</span>
+      <span class="admin-tab-count" id="tab-orders-count">0</span>
     </button>
-    <button class="admin-tab-btn" onclick="switchAdminTab('automation', this)">
-      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span>Автоматизация и учет</span>
+    <button type="button" class="admin-tab-btn" data-tab="automation" onclick="switchAdminTab('automation', this)">
+      <svg class="svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>Публикация и доступ</span>
     </button>
   </nav>
 
   <main class="admin-container">
-    <!-- TAB 1: DASHBOARD & ANALYTICS -->
+    <!-- TAB 1: DASHBOARD -->
     <section id="tab-dashboard" class="admin-tab-content active">
       <div class="admin-kpi-grid">
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>Моделей в витрине</span>
-            <svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" stroke="#f97316" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          </div>
-          <div class="kpi-val" id="kpi-total-models">31</div>
-          <div class="kpi-sub">В 6 ключевых категориях</div>
+          <div class="kpi-label"><span>Моделей в каталоге</span></div>
+          <div class="kpi-val" id="kpi-total-models">0</div>
+          <div class="kpi-sub" id="kpi-cat-summary">—</div>
         </div>
-
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>Складской остаток</span>
-            <svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" stroke="#10b981" fill="none" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          </div>
-          <div class="kpi-val" id="kpi-total-stock">462 шт</div>
-          <div class="kpi-sub">Склад в Кемерово + резерв</div>
+          <div class="kpi-label"><span>Складской остаток</span></div>
+          <div class="kpi-val" id="kpi-total-stock">0 шт</div>
+          <div class="kpi-sub">Учтены остатки по всем цветам</div>
         </div>
-
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>Розничная стоимость склада</span>
-            <svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" stroke="#3b82f6" fill="none" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <div class="kpi-val" id="kpi-stock-value">21 340 000 ₽</div>
-          <div class="kpi-sub">Оценка складского фонда</div>
+          <div class="kpi-label"><span>Стоимость склада</span></div>
+          <div class="kpi-val" id="kpi-stock-value">0 ₽</div>
+          <div class="kpi-sub">По текущим розничным ценам</div>
         </div>
-
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>Средний чек байка</span>
-            <svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" stroke="#a855f7" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div class="kpi-val" id="kpi-avg-price">46 200 ₽</div>
-          <div class="kpi-sub">От 13 900 до 145 800 ₽</div>
+          <div class="kpi-label"><span>Отсутствующие цвета</span></div>
+          <div class="kpi-val" id="kpi-missing-colors">0</div>
+          <div class="kpi-sub" id="kpi-missing-sub">Моделей с отсутствием по цвету</div>
         </div>
       </div>
 
-      <!-- Categories & Specs Distribution -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-        <div class="kpi-card">
-          <h3 style="font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 16px;">Распределение по категориям</h3>
-          <div id="dashboard-cat-bars" style="display: flex; flex-direction: column; gap: 12px;"></div>
+      <div class="admin-split-2">
+        <div class="admin-panel">
+          <div class="admin-panel-title">
+            <span>Внимание по наличию цветов и остаткам</span>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="switchAdminTab('catalog')">Весь каталог →</button>
+          </div>
+          <p class="admin-panel-desc">Модели, где закончился хотя бы один цвет или общий остаток ≤ 3 шт.</p>
+          <div id="dashboard-alerts-list" class="alert-rows-list"></div>
         </div>
 
-        <div class="kpi-card">
-          <h3 style="font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 16px;">Технические параметры склада</h3>
-          <div id="dashboard-specs-bars" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        <div class="admin-panel">
+          <div class="admin-panel-title"><span>Распределение по категориям</span></div>
+          <p class="admin-panel-desc">Структура модельного ряда по классам велосипедов.</p>
+          <div id="dashboard-cat-bars" style="display: flex; flex-direction: column; gap: 10px;"></div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: CATALOG MODELS TABLE -->
+    <!-- TAB 2: CATALOG & PER-COLOR STOCK -->
     <section id="tab-catalog" class="admin-tab-content">
       <div class="admin-table-box">
         <div class="admin-table-toolbar">
-          <div style="display: flex; gap: 12px; align-items: center; flex: 1; min-width: 280px;">
-            <input type="text" id="admin-search-input" placeholder="Поиск модели, артикула, ссылки..." oninput="filterAdminCatalog()" style="background: #162032; border: 1px solid #334155; border-radius: 6px; padding: 8px 12px; color: #ffffff; width: 100%; max-width: 320px;" />
-            <select id="admin-cat-filter" onchange="filterAdminCatalog()" style="background: #162032; border: 1px solid #334155; border-radius: 6px; padding: 8px 12px; color: #ffffff;">
+          <div class="admin-filters-bar">
+            <input type="search" id="admin-search-input" class="admin-ctrl-input" placeholder="Поиск по модели, артикулу, цвету..." oninput="renderCatalogTable()" style="flex: 1; min-width: 210px; max-width: 300px;" aria-label="Поиск по каталогу" />
+            <select id="admin-cat-filter" class="admin-ctrl-select" onchange="renderCatalogTable()" aria-label="Фильтр по категории">
               <option value="all">Все категории</option>
-              <option value="Горные (MTB)">Горные велосипеды (MTB)</option>
-              <option value="Двухподвесы">Двухподвесные велосипеды</option>
-              <option value="Гравийные">Гравийные велосипеды</option>
-              <option value="Городские">Городские велосипеды</option>
-              <option value="Дорожные">Дорожные велосипеды</option>
-              <option value="Шоссейные">Шоссейные велосипеды</option>
+              <option value="Горные (MTB)">Горные (MTB)</option>
+              <option value="Двухподвесы">Двухподвесы</option>
+              <option value="Гравийные">Гравийные</option>
+              <option value="Городские">Городские</option>
+              <option value="Дорожные">Дорожные</option>
+              <option value="Шоссейные">Шоссейные</option>
               <option value="Фэтбайки">Фэтбайки</option>
               <option value="Полуфэтбайки">Полуфэтбайки</option>
-              <option value="Подростковые">Подростковые велосипеды</option>
-              <option value="Детские">Детские велосипеды</option>
-              <option value="Женские">Женские велосипеды</option>
-              <option value="BMX">BMX и др. (трюковые)</option>
-              <option value="Складные">Складные велосипеды</option>
-              <option value="Трейловые">Трейловые велосипеды</option>
+              <option value="Подростковые">Подростковые</option>
+              <option value="Детские">Детские</option>
+              <option value="Женские">Женские</option>
+              <option value="BMX">BMX</option>
+              <option value="Складные">Складные</option>
+              <option value="Трейловые">Трейловые</option>
               <option value="Электровелосипеды">Электровелосипеды</option>
+            </select>
+            <select id="admin-stock-filter" class="admin-ctrl-select" onchange="renderCatalogTable()" aria-label="Фильтр по наличию">
+              <option value="all">Любое наличие</option>
+              <option value="in_stock">Всё в наличии</option>
+              <option value="partial">Нет отдельных цветов</option>
+              <option value="out_of_stock">Полностью нет в наличии</option>
+              <option value="low">Мало на складе (≤ 3 шт)</option>
+            </select>
+            <select id="admin-sort-select" class="admin-ctrl-select" onchange="renderCatalogTable()" aria-label="Сортировка">
+              <option value="default">По умолчанию</option>
+              <option value="price_asc">Цена: по возрастанию</option>
+              <option value="price_desc">Цена: по убыванию</option>
+              <option value="stock_asc">Остаток: меньше сначала</option>
+              <option value="name_asc">Название (А — Я)</option>
             </select>
           </div>
 
-          <div style="display: flex; gap: 10px;">
-            <button class="btn-primary" onclick="switchAdminTab('add-model'); startAddNewModel();" style="font-size: 0.84rem; padding: 8px 16px;">
-              <span>+ Добавить модель</span>
-            </button>
+          <button type="button" class="btn-primary admin-btn-sm" onclick="startAddNewModel(); switchAdminTab('add-model');">
+            <span>+ Добавить модель</span>
+          </button>
+        </div>
+
+        <!-- Bulk Selection Actions Bar -->
+        <div class="admin-bulk-bar" id="admin-bulk-bar">
+          <div>Выбрано моделей: <strong id="admin-bulk-count">0</strong></div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn-outline admin-btn-sm" onclick="bulkSetStock(true)">Все цвета в наличии</button>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="bulkSetStock(false)">Снять всё с наличия</button>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="bulkAdjustPrices(-5)">Цена -5%</button>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="bulkAdjustPrices(5)">Цена +5%</button>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="clearBulkSelection()">Сбросить выбор</button>
           </div>
         </div>
 
-        <div style="overflow-x: auto;">
+        <div tabindex="0" role="region" aria-label="Таблица моделей каталога" class="admin-table-scroll">
           <table class="admin-table">
             <thead>
               <tr>
-                <th style="width: 70px;">Фото</th>
+                <th style="width: 36px;"><input type="checkbox" id="admin-select-all" onchange="toggleSelectAllRows(this.checked)" aria-label="Выбрать все модели" /></th>
+                <th style="width: 72px;">Фото</th>
                 <th>Модель и артикул</th>
-                <th>Ссылка (Slug)</th>
                 <th>Категория</th>
                 <th>Цена (₽)</th>
-                <th style="width: 140px;">Остаток (Кемерово)</th>
-                <th>Цвета</th>
+                <th>Наличие по цветам (клик переключает статус)</th>
+                <th style="width: 120px;">Всего (шт)</th>
                 <th style="text-align: right;">Действия</th>
               </tr>
             </thead>
-            <tbody id="admin-products-tbody">
-              <!-- Injected via JS -->
-            </tbody>
+            <tbody id="admin-products-tbody"></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- TAB 3: ADD / EDIT MODEL FORM (SIMPLE, NON-MANDATORY) -->
+    <!-- TAB 3: ADD / EDIT MODEL -->
     <section id="tab-add-model" class="admin-tab-content">
       <div class="admin-form-card">
         <h2 class="form-title" id="form-model-heading">Добавление новой модели</h2>
-        <p class="form-subnote">Все разделы формы без обязательного заполнения. Заполняйте только те параметры, которые вам известны.</p>
+        <p class="form-subnote">Изменения сразу применяются на витрине в вашем браузере и готовы к экспорту или публикации в GitHub.</p>
 
         <form id="admin-model-form" onsubmit="saveModelForm(event)">
           <input type="hidden" id="f-id" value="" />
@@ -514,37 +907,36 @@
           <div class="form-grid-2">
             <div class="admin-input-group">
               <label for="f-name">Название модели</label>
-              <input type="text" id="f-name" placeholder="Например: SHUSTER T55 или TIMETRY TT500" oninput="autoGenerateSlug(this.value)" />
+              <input type="text" id="f-name" placeholder="Например: TIMETRY TT500" oninput="autoGenerateSlug(this.value)" />
             </div>
             <div class="admin-input-group">
-              <label for="f-sku">Артикул / Заводской код</label>
-              <input type="text" id="f-sku" placeholder="Например: Shuster T55" />
+              <label for="f-sku">Артикул / Код</label>
+              <input type="text" id="f-sku" placeholder="Timetry TT500" />
             </div>
           </div>
 
           <div class="form-grid-2">
             <div class="admin-input-group">
-              <label for="f-slug">Ссылка на карточку товара (Slug)</label>
-              <input type="text" id="f-slug" placeholder="shuster-t55" />
-              <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">Ссылка вида: https://timetry-bikes.ru/<strong>shuster-t55</strong></div>
+              <label for="f-slug">Slug ссылки</label>
+              <input type="text" id="f-slug" placeholder="timetry-tt500" />
             </div>
             <div class="admin-input-group">
-              <label for="f-cat">Категория велосипеда (выпадающий список)</label>
+              <label for="f-cat">Категория велосипеда</label>
               <select id="f-cat">
-                <option value="Горные (MTB)">Горные велосипеды (MTB)</option>
-                <option value="Двухподвесы">Двухподвесные велосипеды</option>
-                <option value="Гравийные">Гравийные велосипеды</option>
-                <option value="Городские">Городские велосипеды</option>
-                <option value="Дорожные">Дорожные велосипеды</option>
-                <option value="Шоссейные">Шоссейные велосипеды</option>
+                <option value="Горные (MTB)">Горные (MTB)</option>
+                <option value="Двухподвесы">Двухподвесы</option>
+                <option value="Гравийные">Гравийные</option>
+                <option value="Городские">Городские</option>
+                <option value="Дорожные">Дорожные</option>
+                <option value="Шоссейные">Шоссейные</option>
                 <option value="Фэтбайки">Фэтбайки</option>
                 <option value="Полуфэтбайки">Полуфэтбайки</option>
-                <option value="Подростковые">Подростковые велосипеды</option>
-                <option value="Детские">Детские велосипеды</option>
-                <option value="Женские">Женские велосипеды</option>
-                <option value="BMX">BMX и др. (трюковые)</option>
-                <option value="Складные">Складные велосипеды</option>
-                <option value="Трейловые">Трейловые велосипеды</option>
+                <option value="Подростковые">Подростковые</option>
+                <option value="Детские">Детские</option>
+                <option value="Женские">Женские</option>
+                <option value="BMX">BMX</option>
+                <option value="Складные">Складные</option>
+                <option value="Трейловые">Трейловые</option>
                 <option value="Электровелосипеды">Электровелосипеды</option>
               </select>
             </div>
@@ -556,12 +948,12 @@
               <input type="number" id="f-price" placeholder="45000" />
             </div>
             <div class="admin-input-group">
-              <label for="f-old-price">Старая цена для скидки (₽)</label>
+              <label for="f-old-price">Старая цена (₽)</label>
               <input type="number" id="f-old-price" placeholder="52000" />
             </div>
             <div class="admin-input-group">
-              <label for="f-qty">Остаток на складе (шт.)</label>
-              <input type="number" id="f-qty" placeholder="15" value="10" />
+              <label for="f-qty">Общий остаток (авто по цветам)</label>
+              <input type="number" id="f-qty" value="10" min="0" />
             </div>
           </div>
 
@@ -598,17 +990,17 @@
 
           <div class="form-grid-2">
             <div class="admin-input-group">
-              <label for="f-height">Рекомендуемый рост райдера</label>
+              <label for="f-height">Рост райдера</label>
               <select id="f-height">
-                <option value="175-188">175-188 см (Размер L)</option>
-                <option value="165-178">165-178 см (Размер M)</option>
-                <option value="150-165">150-165 см (Размер S)</option>
-                <option value="185+">185-200 см (Размер XL)</option>
+                <option value="150-165">150-165 см (S)</option>
+                <option value="165-178">165-178 см (M)</option>
+                <option value="175-188">175-188 см (L)</option>
+                <option value="185+">185-200 см (XL)</option>
                 <option value="Универсал">Универсальный</option>
               </select>
             </div>
             <div class="admin-input-group">
-              <label for="f-speeds">Количество скоростей</label>
+              <label for="f-speeds">Скорости</label>
               <select id="f-speeds">
                 <option value="10 скоростей">10 скоростей</option>
                 <option value="9 скоростей">9 скоростей</option>
@@ -618,99 +1010,92 @@
                 <option value="7 скоростей">7 скоростей</option>
                 <option value="21 скорость">21 скорость</option>
                 <option value="24 скорости">24 скорости</option>
-                <option value="1 скорость">1 скорость (синглспид / ремень)</option>
+                <option value="1 скорость">1 скорость</option>
               </select>
             </div>
           </div>
 
-          <!-- Color Selector Chips -->
+          <!-- Per-Color Selection & Stock Matrix -->
           <div class="admin-input-group">
-            <label>Доступные цвета для этой модели (выберите из базы цветов):</label>
-            <div class="color-chips-select" id="form-color-chips">
-              <!-- Injected via JS -->
-            </div>
-            <div style="font-size: 0.76rem; color: #94a3b8; margin-top: 6px;">Нажмите на чип, чтобы прикрепить цвет к модели. Новые цвета можно добавить во вкладке «База цветов».</div>
+            <label>Цвета модели и раздельное наличие по каждому цвету</label>
+            <div class="color-chips-select" id="form-color-chips"></div>
+            <div class="form-colors-matrix" id="form-colors-stock-list"></div>
           </div>
 
+          <!-- Images + Live Preview Strip -->
           <div class="admin-input-group">
-            <label for="f-images">Ссылки на фотографии (URL через запятую)</label>
-            <textarea id="f-images" rows="2" placeholder="https://m-files.cdn1.cc/lpfile/..."></textarea>
+            <label for="f-images">Фотографии модели (URL с новой строки или через запятую)</label>
+            <textarea id="f-images" rows="3" placeholder="https://..." oninput="renderFormImagesPreview()"></textarea>
+            <div class="form-photos-preview" id="form-photos-preview"></div>
           </div>
 
           <div class="admin-input-group">
             <label for="f-desc">Описание и комплектация</label>
-            <textarea id="f-desc" rows="3" placeholder="Краткое описание оборудования (переключатели, вилка, втулки, кассета)..."></textarea>
+            <textarea id="f-desc" rows="3" placeholder="Переключатели, вилка, втулки, кассета..."></textarea>
           </div>
 
-          <div style="display: flex; gap: 12px; margin-top: 24px;">
-            <button type="submit" class="btn-primary" style="padding: 12px 28px; font-size: 0.95rem;">
-              <span>Сохранить модель в каталог</span>
-            </button>
-            <button type="button" class="btn-outline" onclick="switchAdminTab('catalog')" style="padding: 12px 20px; font-size: 0.95rem; border-color: #334155;">
-              <span>Отмена</span>
-            </button>
+          <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+            <button type="submit" class="btn-primary" style="padding: 11px 26px;">Сохранить модель</button>
+            <button type="button" class="btn-outline" onclick="switchAdminTab('catalog')" style="padding: 11px 18px;">Отмена</button>
           </div>
         </form>
       </div>
     </section>
 
-    <!-- TAB 4: COLOR DATABASE & MANAGER -->
+    <!-- TAB 4: COLOR DATABASE -->
     <section id="tab-colors" class="admin-tab-content">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-        <!-- Left: Popular Base & Used Colors -->
-        <div class="admin-table-box" style="padding: 24px;">
-          <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 6px;">База популярных цветов по названиям</h3>
-          <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 20px;">Готовая библиотека фирменных велосипедных оттенков с русскими названиями.</p>
-          <div id="all-colors-list" style="display: flex; flex-direction: column; gap: 10px;">
-            <!-- Injected via JS -->
-          </div>
+      <div class="admin-split-2">
+        <div class="admin-panel">
+          <h3 class="admin-panel-title">Справочник цветов</h3>
+          <p class="admin-panel-desc">Все фирменные оттенки, доступные для привязки к моделям велосипедов.</p>
+          <div id="all-colors-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
 
-        <!-- Right: Add Custom Color -->
-        <div class="admin-table-box" style="padding: 24px; align-self: start;">
-          <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 6px;">Добавить новый фирменный цвет</h3>
-          <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 20px;">Введите понятное русское название и выберите оттенок пипеткой или введите HEX-код.</p>
-
+        <div class="admin-panel" style="align-self: start;">
+          <h3 class="admin-panel-title">Добавить новый цвет</h3>
+          <p class="admin-panel-desc">Введите название оттенка и выберите HEX-код.</p>
           <form onsubmit="addNewCustomColor(event)">
             <div class="admin-input-group">
-              <label for="new-color-name">Название цвета (по-русски)</label>
-              <input type="text" id="new-color-name" placeholder="Например: Неоновый пурпур, Хамелеон сапфир..." required />
+              <label for="new-color-name">Название цвета</label>
+              <input type="text" id="new-color-name" placeholder="Например: Изумрудный металлик" required />
             </div>
-
             <div class="form-grid-2">
               <div class="admin-input-group">
-                <label for="new-color-picker">Выбор оттенка</label>
-                <input type="color" id="new-color-picker" value="#f97316" oninput="document.getElementById('new-color-hex').value = this.value" style="height: 44px; padding: 4px; cursor: pointer;" />
+                <label for="new-color-picker">Палитра</label>
+                <input type="color" id="new-color-picker" value="#10b981" oninput="document.getElementById('new-color-hex').value = this.value" style="height: 42px; padding: 3px; cursor: pointer;" />
               </div>
               <div class="admin-input-group">
-                <label for="new-color-hex">HEX код</label>
-                <input type="text" id="new-color-hex" value="#f97316" oninput="document.getElementById('new-color-picker').value = this.value" />
+                <label for="new-color-hex">HEX-код</label>
+                <input type="text" id="new-color-hex" value="#10b981" oninput="document.getElementById('new-color-picker').value = this.value" />
               </div>
             </div>
-
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; margin-top: 10px;">
-              <span>+ Добавить цвет в общую базу</span>
-            </button>
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 11px;">+ Добавить цвет в базу</button>
           </form>
-
-          <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid #1f2937; font-size: 0.8rem; color: #94a3b8; line-height: 1.5;">
-            Цвета из базы мгновенно становятся доступными в выпадающем списке карточек при добавлении и редактировании любых моделей.
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 5: WEBSITE ORDERS -->
+    <!-- TAB 5: ORDERS -->
     <section id="tab-orders" class="admin-tab-content">
       <div class="admin-table-box">
         <div class="admin-table-toolbar">
-          <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff;">Заказы, поступившие со страницы оформления</h3>
-          <button class="btn-outline" onclick="clearAllOrders()" style="font-size: 0.8rem; padding: 6px 12px; border-color: #334155;">
-            <span>Очистить список</span>
-          </button>
+          <div class="admin-filters-bar">
+            <input type="search" id="orders-search-input" class="admin-ctrl-input" placeholder="Поиск заказа (№, клиент, телефон, город)..." oninput="renderOrdersTable()" style="flex:1; min-width: 220px; max-width: 320px;" />
+            <select id="orders-status-filter" class="admin-ctrl-select" onchange="renderOrdersTable()">
+              <option value="all">Все статусы</option>
+              <option value="Новый">Новый</option>
+              <option value="В обработке">В обработке</option>
+              <option value="Отправлен СДЭК">Отправлен СДЭК</option>
+              <option value="Завершён">Завершён</option>
+            </select>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-outline admin-btn-sm" onclick="exportOrdersCsv()">Экспорт заказов (.csv)</button>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="clearAllOrders()" style="color: #ef4444; border-color: rgba(239,68,68,0.4);">Очистить заказы</button>
+          </div>
         </div>
 
-        <div style="overflow-x: auto;">
+        <div tabindex="0" role="region" aria-label="Таблица заказов" class="admin-table-scroll">
           <table class="admin-table">
             <thead>
               <tr>
@@ -720,79 +1105,123 @@
                 <th>Телефон</th>
                 <th>Город / Доставка</th>
                 <th>Состав заказа</th>
-                <th>Сумма (₽)</th>
+                <th>Сумма</th>
                 <th>Статус</th>
               </tr>
             </thead>
-            <tbody id="admin-orders-tbody">
-              <!-- Injected via JS -->
-            </tbody>
+            <tbody id="admin-orders-tbody"></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- TAB 6: BUSINESS AUTOMATION & UTILITIES -->
+    <!-- TAB 6: STOREFRONT EDITOR ACCESS, GITHUB PUBLISH & EXPORT -->
     <section id="tab-automation" class="admin-tab-content">
       <div class="auto-cards-grid">
         <div class="auto-card">
           <div>
-            <h3>Экспорт products.json для сайта</h3>
-            <p>Генерирует чистый JSON-файл каталога со всеми обновленными моделями, цветами, описаниями и остатками в 1 клик.</p>
+            <h3>Режим редактирования прямо в карточках</h3>
+            <p>Включает кнопки правки цены, описания и переключения наличия цветов прямо на карточках витрины (каталог и карточка товара) без входа в админку. Для входа с любого устройства используйте ссылку с <code>?admin=1</code> или кнопку «Администрирование» в подвале сайта.</p>
           </div>
-          <button class="btn-primary" onclick="exportProductsJson()" style="width: 100%; justify-content: center; padding: 12px;">
-            <span>Скачать products.json</span>
-          </button>
-        </div>
-
-        <div class="auto-card">
-          <div>
-            <h3>Выгрузка прайс-листа Excel / CSV</h3>
-            <p>Формирует структурированный прайс-лист по всем 31 моделям со столбцами артикула, розничной цены и остатков на складе.</p>
-          </div>
-          <button class="btn-outline" onclick="exportCsvPriceList()" style="width: 100%; justify-content: center; padding: 12px; border-color: #334155;">
-            <span>Скачать прайс-лист (.csv)</span>
-          </button>
-        </div>
-
-        <div class="auto-card">
-          <div>
-            <h3>Массовое изменение цен</h3>
-            <p>Позволяет скорректировать розничные цены на все модели каталога на фиксированный процент (например, сезонная скидка или инфляция).</p>
-          </div>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn-outline" onclick="massPriceChange(-5)" style="flex: 1; padding: 10px; font-size: 0.8rem; border-color: #334155;">-5% скидка</button>
-            <button class="btn-outline" onclick="massPriceChange(5)" style="flex: 1; padding: 10px; font-size: 0.8rem; border-color: #334155;">+5% наценка</button>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="admin-input-group" style="margin-bottom: 0;">
+              <label for="admin-pin-setting">PIN-код для входа на витрине</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="admin-pin-setting" placeholder="timetry2026" />
+                <button type="button" class="btn-outline admin-btn-sm" onclick="saveAdminPinSetting()">Сохранить PIN</button>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-primary admin-btn-sm" onclick="openStorefrontAsAdmin()" style="flex: 1;">Включить режим и открыть витрину ↗</button>
+              <button type="button" class="btn-outline admin-btn-sm" onclick="copyAdminBookmarkUrl()">Скопировать ?admin=1</button>
+            </div>
           </div>
         </div>
 
         <div class="auto-card">
           <div>
-            <h3>Импорт каталога из JSON</h3>
-            <p>Загрузка внешнего файла каталога товаров или восстановление ранее сохраненной копии.</p>
+            <h3>Прямая публикация на сайт (GitHub API)</h3>
+            <p>Поскольку сайт работает на GitHub Pages, локальные правки видны только в этом браузере. Укажите Personal Access Token (права <code>Contents: Read and write</code>), чтобы публиковать обновлённый <code>products.json</code> для всех покупателей в 1 клик.</p>
           </div>
-          <label class="btn-outline" style="width: 100%; justify-content: center; padding: 12px; border-color: #334155; cursor: pointer; text-align: center; box-sizing: border-box;">
-            <span>Выбрать файл JSON</span>
-            <input type="file" accept=".json" onchange="importProductsJson(event)" style="display: none;" />
-          </label>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="form-grid-2" style="margin-bottom: 0; gap: 8px;">
+              <div class="admin-input-group" style="margin-bottom: 0;">
+                <label for="gh-repo">Репозиторий (owner/repo)</label>
+                <input type="text" id="gh-repo" placeholder="MrRebrik28/turboweb-" />
+              </div>
+              <div class="admin-input-group" style="margin-bottom: 0;">
+                <label for="gh-path">Путь к файлу</label>
+                <input type="text" id="gh-path" placeholder="timetry/products.json" />
+              </div>
+            </div>
+            <div class="admin-input-group" style="margin-bottom: 0;">
+              <label for="gh-token">GitHub Токен (хранится только локально в вашем браузере)</label>
+              <input type="password" id="gh-token" autocomplete="off" placeholder="github_pat_..." />
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-outline admin-btn-sm" onclick="saveGitHubConfig()">Сохранить настройки</button>
+              <button type="button" class="btn-primary admin-btn-sm" onclick="publishFromSettings()" style="flex: 1;">Опубликовать products.json сейчас</button>
+            </div>
+          </div>
         </div>
 
         <div class="auto-card">
           <div>
-            <h3>Сброс к исходным 31 моделям</h3>
-            <p>Восстанавливает фабричный эталонный список 31 модели велосипедов TIMETRY и SHUSTER по умолчанию.</p>
+            <h3>Экспорт и Импорт каталога</h3>
+            <p>Скачайте актуальный <code>products.json</code> для ручной загрузки на хостинг или выгрузите прайс-лист в CSV (корректно открывается в Excel с русским текстом и цветами).</p>
           </div>
-          <button class="btn-outline" onclick="resetToFactory31()" style="width: 100%; justify-content: center; padding: 12px; border-color: #ef4444; color: #ef4444;">
-            <span>Сбросить к 31 модели</span>
-          </button>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn-primary admin-btn-sm" onclick="exportProductsJson()">Скачать products.json</button>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="exportCsvPriceList()">Прайс-лист Excel (.csv)</button>
+            <label class="btn-outline admin-btn-sm" style="cursor: pointer;">
+              <span>Импорт JSON</span>
+              <input type="file" accept=".json" onchange="importProductsJson(event)" style="display: none;" />
+            </label>
+          </div>
+        </div>
+
+        <div class="auto-card">
+          <div>
+            <h3>Массовая переоценка и сброс</h3>
+            <p>Измените цены на весь каталог на заданный процент или сбросьте локальные изменения к исходному файлу <code>products.json</code> с сервера.</p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <input type="number" id="mass-pct-input" class="admin-ctrl-input" value="5" style="width: 78px;" aria-label="Процент изменения цен" />
+            <button type="button" class="btn-outline admin-btn-sm" onclick="applyCustomMassPriceChange()">Применить % ко всем</button>
+            <button type="button" class="btn-outline admin-btn-sm" onclick="resetToServerCatalog()" style="color: #ef4444; border-color: rgba(239,68,68,0.4);">Сбросить к эталону</button>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="app.js?v=2.8.2"></script>
+  <!-- Per-Color Inventory Modal -->
+  <div class="modal-overlay" id="color-stock-modal">
+    <div class="modal-card" style="max-width: 560px; max-height: 88vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); margin-bottom: 14px;">
+        <div>
+          <h3 id="csm-title" style="margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Наличие по цветам</h3>
+          <div id="csm-subtitle" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Отметьте какие цвета есть на складе в Кемерово</div>
+        </div>
+        <button type="button" class="modal-close-cross" style="position: static;" onclick="closeModal('color-stock-modal')" aria-label="Закрыть">✕</button>
+      </div>
+      <div id="csm-rows" style="display: flex; flex-direction: column; gap: 8px;"></div>
+      <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-color); display: flex; gap: 8px; flex-wrap: wrap;">
+        <select id="csm-add-color-select" class="admin-ctrl-select" style="flex: 1;">
+          <option value="">+ Добавить ещё цвет к модели...</option>
+        </select>
+        <button type="button" class="btn-outline admin-btn-sm" onclick="addColorInsideModal()">Добавить</button>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px;">
+        <button type="button" class="btn-primary admin-btn-sm" onclick="closeModal('color-stock-modal')" style="padding: 10px 20px;">Готово</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container" role="status" aria-live="polite"></div>
+
+  <script src="app.js?v=2.9.0"></script>
   <script>
-    // Master color database
     let adminColors = [
       { name: 'Чёрный матовый', hex: '#1e1e1e', code: 'black-matte' },
       { name: 'Графитовый металлик', hex: '#374151', code: 'graphite' },
@@ -810,51 +1239,80 @@
 
     let adminProducts = [];
     let selectedFormColors = [];
+    let selectedRowIds = new Set();
+    let activeColorModalProductId = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
-      // 1. Load custom colors from localStorage if saved
-      const savedColors = localStorage.getItem('timetry_admin_colors');
-      if (savedColors) {
-        try { adminColors = JSON.parse(savedColors); } catch (e) {}
-      }
+      try {
+        const savedColors = localStorage.getItem('timetry_admin_colors');
+        if (savedColors) {
+          const parsedC = JSON.parse(savedColors);
+          if (Array.isArray(parsedC) && parsedC.length > 0) adminColors = parsedC;
+        }
+      } catch (e) {}
 
-      // 2. Load products
-      const customProds = localStorage.getItem('timetry_custom_products');
-      if (customProds) {
-        try { adminProducts = JSON.parse(customProds); } catch (e) {}
-      }
+      try {
+        const customProds = localStorage.getItem('timetry_custom_products');
+        if (customProds) {
+          const parsedP = JSON.parse(customProds);
+          if (Array.isArray(parsedP) && parsedP.length > 0) adminProducts = parsedP;
+        }
+      } catch (e) {}
 
       if (!adminProducts || adminProducts.length === 0) {
         try {
-          const res = await fetch('products.json');
-          adminProducts = await res.json();
-        } catch (e) {
-          adminProducts = [...FALLBACK_PRODUCTS];
-        }
+          const res = await fetch('products.json?v=' + Date.now());
+          if (res.ok) adminProducts = await res.json();
+        } catch (e) {}
       }
 
-      // Merge any colors used in products into adminColors
+      if (!adminProducts || adminProducts.length === 0) {
+        adminProducts = [...FALLBACK_PRODUCTS];
+      }
+
+      // Sync any product colors into color dictionary
       adminProducts.forEach(p => {
-        if (p.colors && Array.isArray(p.colors)) {
+        if (Array.isArray(p.colors)) {
           p.colors.forEach(c => {
             if (!adminColors.some(x => x.name.toLowerCase() === c.name.toLowerCase())) {
-              adminColors.push(c);
+              adminColors.push({ name: c.name, hex: c.hex || '#334155', code: c.code || 'custom' });
             }
           });
         }
       });
 
+      // Hydrate settings fields
+      const cfg = getGitHubSyncConfig();
+      const repoEl = document.getElementById('gh-repo');
+      const pathEl = document.getElementById('gh-path');
+      const tokenEl = document.getElementById('gh-token');
+      const pinEl = document.getElementById('admin-pin-setting');
+      if (repoEl) repoEl.value = cfg.repo;
+      if (pathEl) pathEl.value = cfg.path;
+      if (tokenEl) tokenEl.value = cfg.token;
+      if (pinEl) pinEl.value = localStorage.getItem('timetry_admin_pin') || 'timetry2026';
+
+      renderAllAdminViews();
+    });
+
+    function renderAllAdminViews() {
       renderDashboard();
       renderCatalogTable();
       renderColorsManager();
       renderFormColorChips();
       renderOrdersTable();
-    });
+    }
+
+    function saveAdminProducts() {
+      try {
+        localStorage.setItem('timetry_custom_products', JSON.stringify(adminProducts));
+      } catch (e) {}
+    }
 
     function switchAdminTab(tabId, btn) {
-      document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
+      document.querySelectorAll('.admin-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === tabId || b === btn);
+      });
       document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
       const target = document.getElementById('tab-' + tabId);
       if (target) target.classList.add('active');
@@ -871,80 +1329,69 @@
 
       let totalStock = 0;
       let totalValue = 0;
+      let missingModelsCount = 0;
       const catCount = {};
+      const alertItems = [];
 
       adminProducts.forEach(p => {
-        const qty = Number(p.quantity) || 10;
+        const summary = getProductStockSummary(p);
+        const qty = summary.totalQty;
         totalStock += qty;
         totalValue += (Number(p.price) || 0) * qty;
         catCount[p.bike_type] = (catCount[p.bike_type] || 0) + 1;
+
+        const missingColors = (p.colors || []).filter(c => !getColorStockInfo(p, c).inStock);
+        if (missingColors.length > 0 || !summary.anyInStock || qty <= 3) {
+          if (missingColors.length > 0 || !summary.anyInStock) missingModelsCount++;
+          alertItems.push({ product: p, missingColors, summary });
+        }
       });
 
       document.getElementById('kpi-total-stock').textContent = `${totalStock} шт`;
       document.getElementById('kpi-stock-value').textContent = `${totalValue.toLocaleString('ru-RU')} ₽`;
-      const avgPrice = adminProducts.length > 0 ? Math.round(totalValue / totalStock) : 0;
-      document.getElementById('kpi-avg-price').textContent = `${avgPrice.toLocaleString('ru-RU')} ₽`;
+      document.getElementById('kpi-cat-summary').textContent = `В ${Object.keys(catCount).length} категориях`;
+      document.getElementById('kpi-missing-colors').textContent = missingModelsCount;
+      document.getElementById('kpi-missing-sub').textContent = missingModelsCount > 0
+        ? `${alertItems.length} позиций требуют проверки`
+        : 'Все цвета по каталогу в наличии';
 
-      // Category progress bars
-      const catBarsContainer = document.getElementById('dashboard-cat-bars');
-      if (catBarsContainer) {
-        catBarsContainer.innerHTML = Object.entries(catCount).map(([cat, count]) => {
-          const pct = Math.round((count / adminProducts.length) * 100);
+      const alertsEl = document.getElementById('dashboard-alerts-list');
+      if (alertsEl) {
+        if (alertItems.length === 0) {
+          alertsEl.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.84rem;">Все цвета и остатки в норме (более 3 шт по каждой позиции).</div>`;
+        } else {
+          alertsEl.innerHTML = alertItems.map(({ product: p, missingColors, summary }) => `
+            <div class="alert-row-item">
+              <div style="min-width: 0; flex: 1;">
+                <div style="font-weight: 600; color: var(--text-main);">${escapeHtml(p.name)}</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+                  ${missingColors.length > 0
+                    ? `Нет цветов: <span style="color:#ef4444;">${missingColors.map(c => escapeHtml(c.name)).join(', ')}</span>`
+                    : `Низкий остаток: ${summary.totalQty} шт`}
+                </div>
+              </div>
+              <button type="button" class="btn-outline admin-btn-sm" onclick="openColorStockModal(${p.id})">Цвета и остатки</button>
+            </div>
+          `).join('');
+        }
+      }
+
+      const catBars = document.getElementById('dashboard-cat-bars');
+      if (catBars) {
+        catBars.innerHTML = Object.entries(catCount).sort((a, b) => b[1] - a[1]).map(([cat, count]) => {
+          const pct = Math.round((count / Math.max(1, adminProducts.length)) * 100);
           return `
             <div>
-              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px;">
-                <span style="font-weight: 700; color: #ffffff;">${cat}</span>
-                <span style="color: #94a3b8;">${count} мод. (${pct}%)</span>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
+                <span style="font-weight: 600; color: var(--text-main);">${escapeHtml(cat)}</span>
+                <span style="color: var(--text-muted);">${count} мод. (${pct}%)</span>
               </div>
-              <div style="background: #1f2937; height: 6px; border-radius: 3px; overflow: hidden;">
-                <div style="background: #94a3b8; height: 100%; width: ${pct}%;"></div>
+              <div style="background: var(--bg-surface); border: 1px solid var(--border-color); height: 6px; overflow: hidden;">
+                <div style="background: var(--text-main); height: 100%; width: ${pct}%;"></div>
               </div>
             </div>
           `;
         }).join('');
-      }
-
-      // Specs distribution
-      const specsBarsContainer = document.getElementById('dashboard-specs-bars');
-      if (specsBarsContainer) {
-        let hydroCount = 0;
-        let alloyCount = 0;
-        let carbonCount = 0;
-        adminProducts.forEach(p => {
-          if (p.brakes && p.brakes.includes('гидравл')) hydroCount++;
-          if (p.frame_material && p.frame_material.includes('Алюмин')) alloyCount++;
-          if (p.frame_material && p.frame_material.includes('Карбон')) carbonCount++;
-        });
-
-        specsBarsContainer.innerHTML = `
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px;">
-              <span style="font-weight: 700; color: #ffffff;">Гидравлические тормоза</span>
-              <span style="color: #10b981;">${hydroCount} из ${adminProducts.length} моделей</span>
-            </div>
-            <div style="background: #1f2937; height: 8px; border-radius: 4px; overflow: hidden;">
-              <div style="background: #10b981; height: 100%; width: ${Math.round((hydroCount/adminProducts.length)*100)}%;"></div>
-            </div>
-          </div>
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px;">
-              <span style="font-weight: 700; color: #ffffff;">Рамы из авиационного алюминия Alloy 6061</span>
-              <span style="color: #3b82f6;">${alloyCount} из ${adminProducts.length} моделей</span>
-            </div>
-            <div style="background: #1f2937; height: 8px; border-radius: 4px; overflow: hidden;">
-              <div style="background: #3b82f6; height: 100%; width: ${Math.round((alloyCount/adminProducts.length)*100)}%;"></div>
-            </div>
-          </div>
-          <div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px;">
-              <span style="font-weight: 700; color: #ffffff;">Премиум карбон (Carbon Fiber)</span>
-              <span style="color: #a855f7;">${carbonCount} из ${adminProducts.length} моделей</span>
-            </div>
-            <div style="background: #1f2937; height: 8px; border-radius: 4px; overflow: hidden;">
-              <div style="background: #a855f7; height: 100%; width: ${Math.round((carbonCount/adminProducts.length)*100)}%;"></div>
-            </div>
-          </div>
-        `;
       }
     }
 
@@ -954,140 +1401,451 @@
 
       const q = (document.getElementById('admin-search-input')?.value || '').toLowerCase().trim();
       const cat = document.getElementById('admin-cat-filter')?.value || 'all';
+      const stockFilter = document.getElementById('admin-stock-filter')?.value || 'all';
+      const sortVal = document.getElementById('admin-sort-select')?.value || 'default';
 
       let filtered = [...adminProducts];
       if (cat !== 'all') {
         const catLow = cat.toLowerCase().replace(/\s*\(.*?\)/, '').trim();
         filtered = filtered.filter(p => {
-          if (p.bike_type && (p.bike_type === cat || p.bike_type.toLowerCase().includes(catLow) || catLow.includes(p.bike_type.toLowerCase()))) return true;
-          if (Array.isArray(p.categories)) {
-            return p.categories.some(c => String(c).toLowerCase().includes(catLow));
-          }
-          return false;
+          if (p.bike_type && (p.bike_type === cat || p.bike_type.toLowerCase().includes(catLow))) return true;
+          return Array.isArray(p.categories) && p.categories.some(c => String(c).toLowerCase().includes(catLow));
         });
       }
+
+      if (stockFilter !== 'all') {
+        filtered = filtered.filter(p => {
+          const s = getProductStockSummary(p);
+          if (stockFilter === 'in_stock') return s.anyInStock && !s.partialColors;
+          if (stockFilter === 'partial') return s.partialColors;
+          if (stockFilter === 'out_of_stock') return !s.anyInStock;
+          if (stockFilter === 'low') return s.totalQty <= 3;
+          return true;
+        });
+      }
+
       if (q) {
-        filtered = filtered.filter(p => 
-          p.name.toLowerCase().includes(q) || 
+        filtered = filtered.filter(p =>
+          (p.name && p.name.toLowerCase().includes(q)) ||
           (p.sku && p.sku.toLowerCase().includes(q)) ||
-          (p.slug && p.slug.toLowerCase().includes(q))
+          (p.slug && p.slug.toLowerCase().includes(q)) ||
+          ((p.colors || []).some(c => c.name.toLowerCase().includes(q)))
         );
       }
+
+      if (sortVal === 'price_asc') filtered.sort((a, b) => a.price - b.price);
+      if (sortVal === 'price_desc') filtered.sort((a, b) => b.price - a.price);
+      if (sortVal === 'stock_asc') filtered.sort((a, b) => getProductStockSummary(a).totalQty - getProductStockSummary(b).totalQty);
+      if (sortVal === 'name_asc') filtered.sort((a, b) => a.name.localeCompare(b.name, 'ru', { numeric: true }));
 
       tbody.innerHTML = filtered.map(p => {
         const img = (p.images && p.images[0]) || '';
         const slug = p.slug || ('item-' + p.id);
-        const qty = Number(p.quantity) || 0;
+        const summary = getProductStockSummary(p);
+        const colors = Array.isArray(p.colors) ? p.colors : [];
+        const isChecked = selectedRowIds.has(p.id);
+
+        const colorsHtml = colors.map((c, idx) => {
+          const info = getColorStockInfo(p, c);
+          return `
+            <button type="button"
+              class="table-color-chip ${info.inStock ? '' : 'is-out'}"
+              onclick="toggleAdminTableColorStock(${p.id}, ${idx})"
+              title="${escapeHtml(c.name)}: ${info.inStock ? 'В наличии' : 'Нет в наличии'} (клик переключает)">
+              <span class="color-dot-preview" style="background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+              <span>${escapeHtml(c.name.split(' ')[0])}</span>
+              ${info.qty !== null ? `<strong style="opacity:0.8;">${info.qty}</strong>` : ''}
+            </button>
+          `;
+        }).join('');
 
         return `
           <tr data-id="${p.id}">
+            <td><input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleRowSelect(${p.id}, this.checked)" aria-label="Выбрать ${escapeHtml(p.name)}" /></td>
+            <td><img class="admin-thumb" src="${img}" alt="${escapeHtml(p.name)}" /></td>
             <td>
-              <img src="${img}" alt="${p.name}" />
+              <div style="font-weight: 600; color: var(--text-main);">${escapeHtml(p.name)}</div>
+              <div style="font-size: 0.74rem; color: var(--text-muted);">${escapeHtml(p.sku || 'Без артикула')} • /${escapeHtml(slug)}</div>
             </td>
             <td>
-              <div style="font-weight: 700; color: #ffffff;">${p.name}</div>
-              <div style="font-size: 0.74rem; color: #94a3b8;">${p.sku || 'Без артикула'}</div>
+              <div style="font-size: 0.8rem;">${escapeHtml(p.bike_type)}</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">${escapeHtml(p.wheel_size || '')} • ${escapeHtml(p.speeds || '')}</div>
             </td>
             <td>
-              <code style="color: #cbd5e1; font-size: 0.78rem; background: #1e293b; border: 1px solid #334155; padding: 2px 6px; border-radius: 4px;">/${slug}</code>
+              <input type="number" class="inline-price-input" value="${Number(p.price) || 0}"
+                onchange="updateInlineTablePrice(${p.id}, this.value)"
+                aria-label="Цена ${escapeHtml(p.name)}" />
             </td>
             <td>
-              <span style="font-size: 0.78rem; background: #1e293b; color: #cbd5e1; padding: 4px 8px; border-radius: 4px;">${p.bike_type}</span>
+              <div class="table-color-chips">${colorsHtml || '<span style="color:var(--text-dim);font-size:0.76rem;">Нет цветов</span>'}</div>
             </td>
             <td>
-              <strong style="color: #ffffff;">${Number(p.price).toLocaleString('ru-RU')} ₽</strong>
-              ${p.old_price ? `<div style="font-size: 0.72rem; color: #94a3b8; text-decoration: line-through;">${Number(p.old_price).toLocaleString('ru-RU')} ₽</div>` : ''}
-            </td>
-            <td>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <button type="button" class="stock-counter-btn" onclick="updateModelStock(${p.id}, -1)">-</button>
-                <span style="font-weight: 700; color: ${qty > 0 ? '#10b981' : '#ef4444'}; min-width: 30px; text-align: center;">${qty} шт</span>
-                <button type="button" class="stock-counter-btn" onclick="updateModelStock(${p.id}, 1)">+</button>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <button type="button" class="stock-counter-btn" onclick="updateModelStock(${p.id}, -1)" aria-label="Уменьшить">-</button>
+                <span style="font-weight: 600; color: ${summary.anyInStock ? '#10b981' : '#ef4444'}; min-width: 34px; text-align: center;">${summary.totalQty} шт</span>
+                <button type="button" class="stock-counter-btn" onclick="updateModelStock(${p.id}, 1)" aria-label="Увеличить">+</button>
               </div>
             </td>
-            <td>
-              <div style="display: flex; gap: 4px; align-items: center;">
-                ${(p.colors || []).map(c => `
-                  <span class="color-dot-preview" style="background-color: ${c.hex};" title="${c.name}"></span>
-                `).join('')}
-              </div>
-            </td>
-            <td style="text-align: right;">
-              <div style="display: flex; justify-content: flex-end; gap: 6px;">
-                <a href="product.html?model=${slug}" target="_blank" class="stock-counter-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;" title="Посмотреть на сайте">↗</a>
-                <button class="stock-counter-btn" onclick="editModel(${p.id})" title="Редактировать">✎</button>
-                <button class="stock-counter-btn" onclick="deleteModel(${p.id})" style="color: #ef4444;" title="Удалить">✕</button>
+            <td style="text-align: right; white-space: nowrap;">
+              <div style="display: inline-flex; gap: 4px;">
+                <button type="button" class="stock-counter-btn" onclick="openColorStockModal(${p.id})" title="Настроить остатки по цветам">Цвета</button>
+                <button type="button" class="stock-counter-btn" onclick="editModel(${p.id})" title="Редактировать все поля">✎</button>
+                <button type="button" class="stock-counter-btn" onclick="duplicateModel(${p.id})" title="Дублировать модель">❐</button>
+                <a href="product.html?model=${slug}" target="_blank" class="stock-counter-btn" style="text-decoration: none;" title="Открыть карточку">↗</a>
+                <button type="button" class="stock-counter-btn" onclick="deleteModel(${p.id})" style="color: #ef4444;" title="Удалить">✕</button>
               </div>
             </td>
           </tr>
         `;
       }).join('');
+
+      updateBulkBarUI();
     }
 
-    function filterAdminCatalog() {
+    function updateInlineTablePrice(id, val) {
+      const p = adminProducts.find(x => x.id === id);
+      const num = Number(val);
+      if (!p || Number.isNaN(num) || num <= 0) return;
+      p.price = num;
+      saveAdminProducts();
+      renderDashboard();
+      showToast(`Цена для "${p.name}" обновлена: ${num.toLocaleString('ru-RU')} ₽`);
+    }
+
+    function toggleAdminTableColorStock(productId, colorIdx) {
+      const p = adminProducts.find(x => x.id === productId);
+      if (!p || !Array.isArray(p.colors) || !p.colors[colorIdx]) return;
+      const c = p.colors[colorIdx];
+      const info = getColorStockInfo(p, c);
+      c.in_stock = !info.inStock;
+      c.qty = c.in_stock ? Math.max(1, Number(c.qty) || 5) : 0;
+      recalculateProductQuantity(p);
+      saveAdminProducts();
       renderCatalogTable();
+      renderDashboard();
+      showToast(`${p.name} — ${c.name}: ${c.in_stock ? 'В наличии' : 'Нет в наличии'}`);
     }
 
     function updateModelStock(id, delta) {
       const p = adminProducts.find(x => x.id === id);
       if (!p) return;
       p.quantity = Math.max(0, (Number(p.quantity) || 0) + delta);
+      if (Array.isArray(p.colors) && p.colors.length > 0 && p.quantity === 0) {
+        p.colors.forEach(c => { c.in_stock = false; c.qty = 0; });
+      }
       saveAdminProducts();
       renderCatalogTable();
       renderDashboard();
     }
 
+    function openColorStockModal(productId) {
+      const p = adminProducts.find(x => x.id === Number(productId));
+      if (!p) return;
+      activeColorModalProductId = p.id;
+      document.getElementById('csm-title').textContent = p.name;
+      renderColorStockModalBody();
+      openModal('color-stock-modal');
+    }
+
+    function renderColorStockModalBody() {
+      const p = adminProducts.find(x => x.id === activeColorModalProductId);
+      if (!p) return;
+      const colors = Array.isArray(p.colors) ? p.colors : [];
+      const rowsEl = document.getElementById('csm-rows');
+
+      rowsEl.innerHTML = colors.length === 0
+        ? '<div style="padding: 16px; color: var(--text-muted); font-size: 0.84rem; text-align: center;">Цвета ещё не добавлены. Выберите цвет ниже.</div>'
+        : colors.map((c, idx) => {
+            const info = getColorStockInfo(p, c);
+            return `
+              <div class="form-color-stock-row">
+                <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                  <span class="color-dot-preview" style="width: 16px; height: 16px; background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+                  <strong style="color: var(--text-main);">${escapeHtml(c.name)}</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+                  <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                    <input type="checkbox" ${info.inStock ? 'checked' : ''} onchange="setModalColorInStock(${idx}, this.checked)" />
+                    <span>${info.inStock ? 'В наличии' : 'Нет'}</span>
+                  </label>
+                  <input type="number" min="0" class="admin-ctrl-input" style="width: 68px; padding: 4px 6px; text-align: center;"
+                    value="${info.qty !== null ? info.qty : (info.inStock ? 5 : 0)}"
+                    onchange="setModalColorQty(${idx}, this.value)" />
+                  <button type="button" class="stock-counter-btn" onclick="removeColorFromModal(${idx})" style="color: #ef4444;" title="Удалить цвет">✕</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+      const addSel = document.getElementById('csm-add-color-select');
+      if (addSel) {
+        const available = adminColors.filter(ac => !colors.some(c => c.name.toLowerCase() === ac.name.toLowerCase()));
+        addSel.innerHTML = '<option value="">+ Добавить цвет к модели...</option>' +
+          available.map(ac => `<option value="${escapeHtml(ac.name)}">${escapeHtml(ac.name)}</option>`).join('');
+      }
+    }
+
+    function setModalColorInStock(idx, checked) {
+      const p = adminProducts.find(x => x.id === activeColorModalProductId);
+      if (!p || !p.colors[idx]) return;
+      p.colors[idx].in_stock = checked;
+      p.colors[idx].qty = checked ? Math.max(1, Number(p.colors[idx].qty) || 5) : 0;
+      recalculateProductQuantity(p);
+      saveAdminProducts();
+      renderColorStockModalBody();
+      renderCatalogTable();
+      renderDashboard();
+    }
+
+    function setModalColorQty(idx, val) {
+      const p = adminProducts.find(x => x.id === activeColorModalProductId);
+      if (!p || !p.colors[idx]) return;
+      const q = Math.max(0, Number(val) || 0);
+      p.colors[idx].qty = q;
+      p.colors[idx].in_stock = q > 0;
+      recalculateProductQuantity(p);
+      saveAdminProducts();
+      renderColorStockModalBody();
+      renderCatalogTable();
+      renderDashboard();
+    }
+
+    function removeColorFromModal(idx) {
+      const p = adminProducts.find(x => x.id === activeColorModalProductId);
+      if (!p || !Array.isArray(p.colors)) return;
+      p.colors.splice(idx, 1);
+      recalculateProductQuantity(p);
+      saveAdminProducts();
+      renderColorStockModalBody();
+      renderCatalogTable();
+      renderDashboard();
+    }
+
+    function addColorInsideModal() {
+      const sel = document.getElementById('csm-add-color-select');
+      const colorName = sel ? sel.value : '';
+      if (!colorName) return;
+      const p = adminProducts.find(x => x.id === activeColorModalProductId);
+      const def = adminColors.find(x => x.name === colorName);
+      if (!p || !def) return;
+      if (!Array.isArray(p.colors)) p.colors = [];
+      p.colors.push({ name: def.name, hex: def.hex, code: def.code, in_stock: true, qty: 5 });
+      recalculateProductQuantity(p);
+      saveAdminProducts();
+      renderColorStockModalBody();
+      renderCatalogTable();
+      renderDashboard();
+    }
+
+    /* Bulk selection */
+    function toggleRowSelect(id, checked) {
+      if (checked) selectedRowIds.add(id);
+      else selectedRowIds.delete(id);
+      updateBulkBarUI();
+    }
+
+    function toggleSelectAllRows(checked) {
+      document.querySelectorAll('#admin-products-tbody tr').forEach(tr => {
+        const id = Number(tr.dataset.id);
+        if (checked) selectedRowIds.add(id);
+        else selectedRowIds.delete(id);
+      });
+      renderCatalogTable();
+    }
+
+    function clearBulkSelection() {
+      selectedRowIds.clear();
+      const allChk = document.getElementById('admin-select-all');
+      if (allChk) allChk.checked = false;
+      renderCatalogTable();
+    }
+
+    function updateBulkBarUI() {
+      const bar = document.getElementById('admin-bulk-bar');
+      const countEl = document.getElementById('admin-bulk-count');
+      if (countEl) countEl.textContent = selectedRowIds.size;
+      if (bar) bar.classList.toggle('active', selectedRowIds.size > 0);
+    }
+
+    function bulkSetStock(inStock) {
+      if (selectedRowIds.size === 0) return;
+      adminProducts.forEach(p => {
+        if (!selectedRowIds.has(p.id)) return;
+        if (Array.isArray(p.colors)) {
+          p.colors.forEach(c => {
+            c.in_stock = inStock;
+            c.qty = inStock ? Math.max(1, Number(c.qty) || 5) : 0;
+          });
+        }
+        p.quantity = inStock ? Math.max(5, Number(p.quantity) || 10) : 0;
+      });
+      saveAdminProducts();
+      clearBulkSelection();
+      renderDashboard();
+      showToast(inStock ? 'Выбранные модели переведены в наличие' : 'Выбранные модели сняты с наличия');
+    }
+
+    function bulkAdjustPrices(pct) {
+      if (selectedRowIds.size === 0) return;
+      adminProducts.forEach(p => {
+        if (!selectedRowIds.has(p.id)) return;
+        p.price = Math.round(p.price * (1 + pct / 100) / 100) * 100;
+      });
+      saveAdminProducts();
+      clearBulkSelection();
+      renderDashboard();
+      showToast(`Цены скорректированы на ${pct > 0 ? '+' : ''}${pct}%`);
+    }
+
+    /* Duplicate / Edit / Add / Form */
+    function duplicateModel(id) {
+      const orig = adminProducts.find(x => x.id === id);
+      if (!orig) return;
+      const copy = JSON.parse(JSON.stringify(orig));
+      copy.id = Date.now();
+      copy.name = orig.name + ' (Копия)';
+      copy.slug = (orig.slug || ('item-' + orig.id)) + '-copy';
+      adminProducts.unshift(copy);
+      saveAdminProducts();
+      renderAllAdminViews();
+      showToast(`Создана копия: ${copy.name}`);
+    }
+
     function autoGenerateSlug(name) {
       const slugInput = document.getElementById('f-slug');
-      if (!slugInput) return;
-      const clean = name.toLowerCase()
-        .replace(/,/g, '')
-        .replace(/\//g, '-')
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9\-_]/g, '')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-      slugInput.value = clean;
+      if (!slugInput || document.getElementById('f-id').value) return;
+      slugInput.value = name.toLowerCase()
+        .replace(/,/g, '').replace(/\//g, '-').replace(/\s+/g, '-')
+        .replace(/[^a-z0-9\-_]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
     }
 
     function renderFormColorChips() {
       const container = document.getElementById('form-color-chips');
       if (!container) return;
-
       container.innerHTML = adminColors.map(c => {
         const isSelected = selectedFormColors.some(x => x.name.toLowerCase() === c.name.toLowerCase());
         return `
-          <div class="color-chip-pick ${isSelected ? 'selected' : ''}" onclick="toggleFormColor('${c.name.replace(/'/g, "\\'")}', '${c.hex}', this)">
-            <span class="color-dot-preview" style="background-color: ${c.hex};"></span>
-            <span>${c.name}</span>
+          <button type="button" class="color-chip-pick ${isSelected ? 'selected' : ''}" onclick="toggleFormColor('${escapeHtml(c.name)}', '${escapeHtml(c.hex)}')">
+            <span class="color-dot-preview" style="background-color: ${escapeHtml(c.hex)};"></span>
+            <span>${escapeHtml(c.name)}</span>
+          </button>
+        `;
+      }).join('');
+      renderFormColorsStockList();
+    }
+
+    function renderFormColorsStockList() {
+      const list = document.getElementById('form-colors-stock-list');
+      if (!list) return;
+      if (selectedFormColors.length === 0) {
+        list.innerHTML = '<div style="font-size: 0.78rem; color: var(--text-muted);">Нажмите на цвета выше, чтобы настроить наличие по каждому оттенку.</div>';
+        return;
+      }
+      list.innerHTML = selectedFormColors.map((c, idx) => {
+        const inStock = c.in_stock !== false && (c.qty === undefined || Number(c.qty) > 0);
+        const qty = c.qty !== undefined ? Number(c.qty) : (inStock ? 5 : 0);
+        return `
+          <div class="form-color-stock-row">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="color-dot-preview" style="width: 14px; height: 14px; background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+              <strong>${escapeHtml(c.name)}</strong>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label style="display: inline-flex; align-items: center; gap: 5px; margin: 0; cursor: pointer;">
+                <input type="checkbox" ${inStock ? 'checked' : ''} onchange="updateSelectedFormColorStock(${idx}, this.checked)" />
+                <span>${inStock ? 'В наличии' : 'Нет'}</span>
+              </label>
+              <input type="number" min="0" value="${qty}" style="width: 72px; padding: 4px 6px; text-align: center;"
+                onchange="updateSelectedFormColorQty(${idx}, this.value)" />
+            </div>
           </div>
         `;
       }).join('');
     }
 
-    function toggleFormColor(name, hex, el) {
+    function updateSelectedFormColorStock(idx, checked) {
+      if (!selectedFormColors[idx]) return;
+      selectedFormColors[idx].in_stock = checked;
+      selectedFormColors[idx].qty = checked ? Math.max(1, Number(selectedFormColors[idx].qty) || 5) : 0;
+      renderFormColorsStockList();
+      syncFormTotalQty();
+    }
+
+    function updateSelectedFormColorQty(idx, val) {
+      if (!selectedFormColors[idx]) return;
+      const q = Math.max(0, Number(val) || 0);
+      selectedFormColors[idx].qty = q;
+      selectedFormColors[idx].in_stock = q > 0;
+      renderFormColorsStockList();
+      syncFormTotalQty();
+    }
+
+    function syncFormTotalQty() {
+      if (selectedFormColors.length === 0) return;
+      const sum = selectedFormColors.reduce((acc, c) => acc + (c.in_stock === false ? 0 : (Number(c.qty) || 0)), 0);
+      const qtyEl = document.getElementById('f-qty');
+      if (qtyEl) qtyEl.value = sum;
+    }
+
+    function toggleFormColor(name, hex) {
       const idx = selectedFormColors.findIndex(x => x.name.toLowerCase() === name.toLowerCase());
       if (idx > -1) {
         selectedFormColors.splice(idx, 1);
-        el.classList.remove('selected');
       } else {
-        selectedFormColors.push({ name: name, hex: hex, code: name.toLowerCase().replace(/[^a-z0-9]/g, '-') });
-        el.classList.add('selected');
+        selectedFormColors.push({ name, hex, code: name.toLowerCase().replace(/[^a-z0-9]/g, '-'), in_stock: true, qty: 5 });
       }
+      renderFormColorChips();
+      syncFormTotalQty();
+    }
+
+    function renderFormImagesPreview() {
+      const box = document.getElementById('form-photos-preview');
+      const raw = document.getElementById('f-images')?.value || '';
+      if (!box) return;
+      const imgs = raw.split(/[,\n]+/).map(s => s.trim()).filter(Boolean);
+      box.innerHTML = imgs.map((url, idx) => `
+        <div class="form-photo-thumb-card">
+          <img src="${escapeHtml(url)}" alt="Фото ${idx + 1}" />
+          <div class="form-photo-thumb-actions">
+            ${idx > 0 ? `<button type="button" onclick="promoteFormImage(${idx})" title="Сделать главным">←</button>` : '<span style="font-size:0.65rem;color:#0f172a;padding:2px;">Главн.</span>'}
+            <button type="button" onclick="removeFormImage(${idx})" title="Удалить">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function promoteFormImage(idx) {
+      const ta = document.getElementById('f-images');
+      const imgs = ta.value.split(/[,\n]+/).map(s => s.trim()).filter(Boolean);
+      if (idx > 0 && idx < imgs.length) {
+        const [item] = imgs.splice(idx, 1);
+        imgs.unshift(item);
+        ta.value = imgs.join(',\n');
+        renderFormImagesPreview();
+      }
+    }
+
+    function removeFormImage(idx) {
+      const ta = document.getElementById('f-images');
+      const imgs = ta.value.split(/[,\n]+/).map(s => s.trim()).filter(Boolean);
+      imgs.splice(idx, 1);
+      ta.value = imgs.join(',\n');
+      renderFormImagesPreview();
     }
 
     function startAddNewModel() {
       document.getElementById('form-model-heading').textContent = 'Добавление новой модели';
       document.getElementById('admin-model-form').reset();
       document.getElementById('f-id').value = '';
-      selectedFormColors = [adminColors[0], adminColors[1]];
+      selectedFormColors = adminColors.slice(0, 2).map(c => ({ ...c, in_stock: true, qty: 5 }));
       renderFormColorChips();
+      renderFormImagesPreview();
+      syncFormTotalQty();
     }
 
     function editModel(id) {
       const p = adminProducts.find(x => x.id === id);
       if (!p) return;
-
       switchAdminTab('add-model');
       document.getElementById('form-model-heading').textContent = `Редактирование: ${p.name}`;
       document.getElementById('f-id').value = p.id;
@@ -1097,41 +1855,46 @@
       document.getElementById('f-cat').value = p.bike_type || 'Горные (MTB)';
       document.getElementById('f-price').value = p.price || '';
       document.getElementById('f-old-price').value = p.old_price || '';
-      document.getElementById('f-qty').value = p.quantity || 10;
+      document.getElementById('f-qty').value = p.quantity ?? 10;
       document.getElementById('f-wheel').value = p.wheel_size || '29"';
       document.getElementById('f-material').value = p.frame_material || 'Алюминий (Alloy 6061)';
       document.getElementById('f-brakes').value = p.brakes || 'Дисковые гидравлические';
       document.getElementById('f-height').value = p.height_category || '175-188';
       document.getElementById('f-speeds').value = p.speeds || '10 скоростей';
       document.getElementById('f-images').value = (p.images && p.images.join(',\n')) || '';
-      document.getElementById('f-desc').value = p.description || '';
+      document.getElementById('f-desc').value = p.clean_description || p.description || '';
 
-      selectedFormColors = Array.isArray(p.colors) ? [...p.colors] : [];
+      selectedFormColors = Array.isArray(p.colors)
+        ? p.colors.map(c => ({
+            ...c,
+            in_stock: getColorStockInfo(p, c).inStock,
+            qty: c.qty !== undefined ? Number(c.qty) : (getColorStockInfo(p, c).inStock ? 5 : 0)
+          }))
+        : [];
       renderFormColorChips();
+      renderFormImagesPreview();
     }
 
     function deleteModel(id) {
-      if (!confirm('Вы действительно хотите удалить эту модель из каталога?')) return;
+      if (!confirm('Удалить эту модель из каталога?')) return;
       adminProducts = adminProducts.filter(x => x.id !== id);
+      selectedRowIds.delete(id);
       saveAdminProducts();
-      renderCatalogTable();
-      renderDashboard();
+      renderAllAdminViews();
+      showToast('Модель удалена');
     }
 
     function saveModelForm(e) {
       e.preventDefault();
-
       const existingId = document.getElementById('f-id').value;
       const name = document.getElementById('f-name').value.trim() || 'Новый велосипед TIMETRY';
       const sku = document.getElementById('f-sku').value.trim() || name;
       let slug = document.getElementById('f-slug').value.trim();
-      if (!slug) {
-        slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-      }
+      if (!slug) slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
 
       const price = Number(document.getElementById('f-price').value) || 35000;
       const oldPrice = Number(document.getElementById('f-old-price').value) || null;
-      const qty = Number(document.getElementById('f-qty').value) || 10;
+      const qty = Math.max(0, Number(document.getElementById('f-qty').value) || 0);
       const cat = document.getElementById('f-cat').value;
       const wheel = document.getElementById('f-wheel').value;
       const material = document.getElementById('f-material').value;
@@ -1139,91 +1902,61 @@
       const height = document.getElementById('f-height').value;
       const speeds = document.getElementById('f-speeds').value;
       const desc = document.getElementById('f-desc').value.trim();
-
       const rawImgs = document.getElementById('f-images').value.trim();
-      const images = rawImgs ? rawImgs.split(/[,\n]+/).map(s => s.trim()).filter(Boolean) : [
-        'https://placehold.co/600x400/ffffff/0f172a?text=TIMETRY'
-      ];
+      const images = rawImgs ? rawImgs.split(/[,\n]+/).map(s => s.trim()).filter(Boolean) : ['https://placehold.co/600x400/ffffff/0f172a?text=TIMETRY'];
+      const colorsCopy = selectedFormColors.map(c => ({ ...c }));
 
       if (existingId) {
-        // Update
         const p = adminProducts.find(x => x.id === Number(existingId));
         if (p) {
-          p.name = name;
-          p.sku = sku;
-          p.slug = slug;
-          p.price = price;
-          p.old_price = oldPrice;
-          p.quantity = qty;
-          p.bike_type = cat;
-          p.wheel_size = wheel;
-          p.frame_material = material;
-          p.brakes = brakes;
-          p.height_category = height;
-          p.speeds = speeds;
-          p.images = images;
-          p.description = desc;
-          p.clean_description = desc;
-          p.colors = [...selectedFormColors];
+          p.name = name; p.sku = sku; p.slug = slug; p.price = price; p.old_price = oldPrice;
+          p.quantity = qty; p.bike_type = cat; p.wheel_size = wheel; p.frame_material = material;
+          p.brakes = brakes; p.height_category = height; p.speeds = speeds;
+          p.images = images; p.description = desc; p.clean_description = desc;
+          p.colors = colorsCopy;
+          recalculateProductQuantity(p);
         }
       } else {
-        // Add new
-        const newId = Date.now();
         const newModel = {
-          id: newId,
-          name: name,
-          sku: sku,
-          slug: slug,
-          price: price,
-          old_price: oldPrice,
-          quantity: qty,
-          bike_type: cat,
-          wheel_size: wheel,
-          frame_material: material,
-          brakes: brakes,
-          rider_height: height + ' см',
-          height_category: height,
-          speeds: speeds,
-          images: images,
-          description: desc,
-          clean_description: desc,
-          colors: selectedFormColors.length > 0 ? [...selectedFormColors] : [adminColors[0], adminColors[1]]
+          id: Date.now(), name, sku, slug, price, old_price: oldPrice, quantity: qty,
+          bike_type: cat, wheel_size: wheel, frame_material: material, brakes,
+          rider_height: height + ' см', height_category: height, speeds, images,
+          description: desc, clean_description: desc, colors: colorsCopy
         };
+        recalculateProductQuantity(newModel);
         adminProducts.unshift(newModel);
       }
 
       saveAdminProducts();
+      renderAllAdminViews();
       switchAdminTab('catalog');
-      alert('Модель успешно сохранена в каталог!');
+      showToast(`Модель "${name}" сохранена`);
     }
 
-    function saveAdminProducts() {
-      try {
-        localStorage.setItem('timetry_custom_products', JSON.stringify(adminProducts));
-      } catch (e) {}
-    }
-
-    // Color management
+    /* Color Database Manager */
     function renderColorsManager() {
       document.getElementById('tab-colors-count').textContent = adminColors.length;
       const container = document.getElementById('all-colors-list');
       if (!container) return;
 
-      container.innerHTML = adminColors.map((c, i) => {
-        // Count how many products use this color
-        const usedCount = adminProducts.filter(p => (p.colors || []).some(x => x.name.toLowerCase() === c.name.toLowerCase())).length;
+      container.innerHTML = adminColors.map(c => {
+        const used = adminProducts.filter(p => (p.colors || []).some(x => x.name.toLowerCase() === c.name.toLowerCase()));
+        const inStockModels = used.filter(p => {
+          const match = (p.colors || []).find(x => x.name.toLowerCase() === c.name.toLowerCase());
+          return match && getColorStockInfo(p, match).inStock;
+        }).length;
 
         return `
-          <div style="background: #162032; border: 1px solid #1f2937; padding: 10px 14px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span class="color-dot-preview" style="width: 22px; height: 22px; background-color: ${c.hex};"></span>
-              <div>
-                <strong style="color: #ffffff; font-size: 0.9rem;">${c.name}</strong>
-                <div style="font-size: 0.74rem; color: #94a3b8;">${c.hex}</div>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+              <span class="color-dot-preview" style="width: 20px; height: 20px; background-color: ${escapeHtml(c.hex)};"></span>
+              <div style="min-width: 0;">
+                <strong style="color: var(--text-main); font-size: 0.88rem; display: block;">${escapeHtml(c.name)}</strong>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">${escapeHtml(c.hex)}</div>
               </div>
             </div>
-            <div style="font-size: 0.78rem; color: #10b981; font-weight: 700;">
-              В ${usedCount} моделях
+            <div style="text-align: right; font-size: 0.76rem; flex-shrink: 0;">
+              <div style="color: #10b981; font-weight: 600;">В наличии в ${inStockModels} из ${used.length} мод.</div>
             </div>
           </div>
         `;
@@ -1234,64 +1967,61 @@
       e.preventDefault();
       const name = document.getElementById('new-color-name').value.trim();
       const hex = document.getElementById('new-color-hex').value.trim();
-
       if (!name) return;
 
       if (adminColors.some(x => x.name.toLowerCase() === name.toLowerCase())) {
-        alert('Цвет с таким названием уже существует в базе!');
+        showToast('Цвет с таким названием уже есть');
         return;
       }
 
-      adminColors.push({
-        name: name,
-        hex: hex,
-        code: name.toLowerCase().replace(/[^a-z0-9]/g, '-')
-      });
-
-      try {
-        localStorage.setItem('timetry_admin_colors', JSON.stringify(adminColors));
-      } catch (err) {}
-
+      adminColors.push({ name, hex, code: name.toLowerCase().replace(/[^a-z0-9]/g, '-') });
+      try { localStorage.setItem('timetry_admin_colors', JSON.stringify(adminColors)); } catch (err) {}
       document.getElementById('new-color-name').value = '';
       renderColorsManager();
       renderFormColorChips();
-      alert(`Цвет "${name}" успешно добавлен в базу!`);
+      showToast(`Цвет "${name}" добавлен`);
     }
 
-    // Orders management
+    /* Orders Manager */
     function renderOrdersTable() {
       const orders = JSON.parse(localStorage.getItem('timetry_orders') || '[]');
       document.getElementById('tab-orders-count').textContent = orders.length;
       const tbody = document.getElementById('admin-orders-tbody');
       if (!tbody) return;
 
-      if (orders.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8" style="text-align: center; padding: 36px; color: #94a3b8;">
-              Новых заказов пока нет. Оформите заказ на странице <a href="checkout.html" style="color: #ffffff; text-decoration: underline;">checkout.html</a>, и он появится здесь.
-            </td>
-          </tr>
-        `;
+      const q = (document.getElementById('orders-search-input')?.value || '').toLowerCase().trim();
+      const statusF = document.getElementById('orders-status-filter')?.value || 'all';
+
+      const filtered = orders.map((o, idx) => ({ o, idx })).filter(({ o }) => {
+        if (statusF !== 'all' && o.status !== statusF) return false;
+        if (q) {
+          const hay = `${o.orderId} ${o.customerName} ${o.phone} ${o.city}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 36px; color: var(--text-muted);">Заказы не найдены. Оформленные заказы с <a href="checkout.html" style="color:var(--text-main);text-decoration:underline;">checkout.html</a> появятся здесь.</td></tr>`;
         return;
       }
 
-      tbody.innerHTML = orders.map((o, idx) => {
-        const itemsSummary = (o.items || []).map(it => `${it.name} (${it.color || 'Цвет'}, ${it.qty} шт)`).join('<br/>');
+      tbody.innerHTML = filtered.map(({ o, idx }) => {
+        const itemsSummary = (o.items || []).map(it => `${escapeHtml(it.name)} (${escapeHtml(it.color || 'Цвет')}, ${it.qty} шт)`).join('<br/>');
         return `
           <tr>
-            <td><strong style="color: #ffffff;">${o.orderId}</strong></td>
-            <td style="font-size: 0.78rem; color: #94a3b8;">${o.date}</td>
-            <td><strong>${o.customerName}</strong></td>
-            <td><a href="tel:${o.phone}" style="color: #3b82f6; text-decoration: none;">${o.phone}</a></td>
+            <td><strong>${escapeHtml(o.orderId)}</strong></td>
+            <td style="font-size: 0.76rem; color: var(--text-muted);">${escapeHtml(o.date)}</td>
+            <td><strong>${escapeHtml(o.customerName)}</strong></td>
+            <td><a href="tel:${escapeHtml(o.phone)}" style="color: var(--text-main); text-decoration: underline;">${escapeHtml(o.phone)}</a></td>
             <td>
-              <div>${o.city}</div>
-              <div style="font-size: 0.72rem; color: #94a3b8;">${o.deliveryType}</div>
+              <div>${escapeHtml(o.city)}</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">${escapeHtml(o.deliveryType)}</div>
             </td>
-            <td style="font-size: 0.78rem; line-height: 1.4;">${itemsSummary}</td>
-            <td><strong style="color: #ffffff;">${Number(o.totalAmount).toLocaleString('ru-RU')} ₽</strong></td>
+            <td style="font-size: 0.76rem; line-height: 1.45;">${itemsSummary}</td>
+            <td><strong>${Number(o.totalAmount).toLocaleString('ru-RU')} ₽</strong></td>
             <td>
-              <select onchange="updateOrderStatus(${idx}, this.value)" style="background: #1e293b; border: 1px solid #334155; color: #10b981; font-weight: 700; padding: 4px 8px; border-radius: 4px; font-size: 0.78rem;">
+              <select class="admin-ctrl-select" onchange="updateOrderStatus(${idx}, this.value)" style="padding: 4px 8px; font-size: 0.78rem;">
                 <option value="Новый" ${o.status === 'Новый' ? 'selected' : ''}>Новый</option>
                 <option value="В обработке" ${o.status === 'В обработке' ? 'selected' : ''}>В обработке</option>
                 <option value="Отправлен СДЭК" ${o.status === 'Отправлен СДЭК' ? 'selected' : ''}>Отправлен СДЭК</option>
@@ -1308,16 +2038,94 @@
       if (orders[idx]) {
         orders[idx].status = newStatus;
         localStorage.setItem('timetry_orders', JSON.stringify(orders));
+        showToast(`Статус заказа ${orders[idx].orderId}: ${newStatus}`);
       }
+    }
+
+    function exportOrdersCsv() {
+      const orders = JSON.parse(localStorage.getItem('timetry_orders') || '[]');
+      let csv = '\uFEFFНомер,Дата,Клиент,Телефон,Город,Доставка,Товары,Сумма,Статус\n';
+      orders.forEach(o => {
+        const itemsStr = (o.items || []).map(it => `${it.name} [${it.color || ''}] x${it.qty}`).join('; ');
+        csv += `"${o.orderId}","${o.date}","${o.customerName}","${o.phone}","${o.city}","${o.deliveryType}","${itemsStr}","${o.totalAmount}","${o.status}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'timetry_orders.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     }
 
     function clearAllOrders() {
       if (!confirm('Очистить список поступивших заказов?')) return;
       localStorage.setItem('timetry_orders', '[]');
       renderOrdersTable();
+      showToast('Список заказов очищен');
     }
 
-    // Automation utilities
+    /* Storefront Editor Access & GitHub Sync */
+    function openStorefrontAsAdmin() {
+      try { localStorage.setItem('timetry_admin_session', '1'); } catch (e) {}
+      saveAdminProducts();
+      window.open('index.html', '_blank');
+      showToast('Режим редактирования карточек активирован');
+    }
+
+    function saveAdminPinSetting() {
+      const val = document.getElementById('admin-pin-setting')?.value.trim();
+      if (!val) {
+        showToast('PIN не может быть пустым');
+        return;
+      }
+      try { localStorage.setItem('timetry_admin_pin', val); } catch (e) {}
+      showToast('PIN-код администратора сохранён');
+    }
+
+    function copyAdminBookmarkUrl() {
+      const url = window.location.href.replace(/admin\.html.*$/, 'index.html?admin=1');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => showToast('Ссылка ?admin=1 скопирована'));
+      } else {
+        prompt('Ссылка для входа администратора:', url);
+      }
+    }
+
+    function saveGitHubConfig() {
+      const repo = document.getElementById('gh-repo')?.value.trim() || 'MrRebrik28/turboweb-';
+      const path = document.getElementById('gh-path')?.value.trim() || 'timetry/products.json';
+      const token = document.getElementById('gh-token')?.value.trim() || '';
+      try {
+        localStorage.setItem('timetry_gh_repo', repo);
+        localStorage.setItem('timetry_gh_path', path);
+        localStorage.setItem('timetry_gh_token', token);
+      } catch (e) {}
+      showToast('Настройки GitHub сохранены в браузере');
+    }
+
+    async function publishFromSettings() {
+      saveGitHubConfig();
+      await publishFromAdminHeader(true);
+    }
+
+    async function publishFromAdminHeader(fromSettings = false) {
+      const cfg = getGitHubSyncConfig();
+      if (!cfg.token) {
+        if (!fromSettings) switchAdminTab('automation');
+        showToast('Укажите GitHub токен во вкладке «Публикация и доступ» или скачайте JSON');
+        return;
+      }
+      try {
+        showToast('Отправка products.json на GitHub...');
+        await publishCatalogToGitHub(adminProducts);
+        showToast('Каталог опубликован на GitHub! Сайт обновится через 15–20 секунд.');
+      } catch (err) {
+        showToast(err.message || 'Ошибка публикации в GitHub');
+      }
+    }
+
+    /* Export / Import / Bulk Price */
     function exportProductsJson() {
       const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(adminProducts, null, 2));
       const a = document.createElement('a');
@@ -1326,35 +2134,36 @@
       document.body.appendChild(a);
       a.click();
       a.remove();
+      showToast('Файл products.json скачан');
     }
 
     function exportCsvPriceList() {
-      let csv = 'ID,Модель,Артикул,Категория,Колеса,Тормоза,Рост,Цена,Старая_цена,Остаток,Цвета,Ссылка\n';
+      let csv = '\uFEFFID,Модель,Артикул,Категория,Колеса,Тормоза,Рост,Цена,Старая_цена,Всего_шт,Наличие_по_цветам,Ссылка\n';
       adminProducts.forEach(p => {
-        const colors = (p.colors || []).map(c => c.name).join('; ');
-        csv += `"${p.id}","${p.name}","${p.sku || ''}","${p.bike_type}","${p.wheel_size}","${p.brakes}","${p.height_category}","${p.price}","${p.old_price || ''}","${p.quantity || 10}","${colors}","https://timetry-bikes.ru/${p.slug || ''}"\n`;
+        const colorsDesc = (p.colors || []).map(c => `${c.name}:${getColorStockInfo(p, c).inStock ? 'да' : 'нет'}`).join('; ');
+        csv += `"${p.id}","${p.name}","${p.sku || ''}","${p.bike_type}","${p.wheel_size}","${p.brakes}","${p.height_category}","${p.price}","${p.old_price || ''}","${getProductStockSummary(p).totalQty}","${colorsDesc}","https://timetry-bikes.ru/${p.slug || ''}"\n`;
       });
-      const dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a');
-      a.setAttribute('href', dataStr);
-      a.setAttribute('download', 'timetry_price_list.csv');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'timetry_price_list.csv';
       document.body.appendChild(a);
       a.click();
       a.remove();
+      showToast('Прайс-лист CSV выгружен');
     }
 
-    function massPriceChange(pct) {
-      if (!confirm(`Вы действительно хотите изменить цены всех моделей на ${pct > 0 ? '+' : ''}${pct}%?`)) return;
+    function applyCustomMassPriceChange() {
+      const pct = Number(document.getElementById('mass-pct-input')?.value);
+      if (Number.isNaN(pct) || pct === 0) return;
+      if (!confirm(`Изменить цены ВСЕХ ${adminProducts.length} моделей на ${pct > 0 ? '+' : ''}${pct}%?`)) return;
       adminProducts.forEach(p => {
         p.price = Math.round(p.price * (1 + pct / 100) / 100) * 100;
-        if (p.old_price) {
-          p.old_price = Math.round(p.old_price * (1 + pct / 100) / 100) * 100;
-        }
+        if (p.old_price) p.old_price = Math.round(p.old_price * (1 + pct / 100) / 100) * 100;
       });
       saveAdminProducts();
-      renderCatalogTable();
-      renderDashboard();
-      alert(`Цены успешно скорректированы на ${pct}%!`);
+      renderAllAdminViews();
+      showToast(`Цены скорректированы на ${pct > 0 ? '+' : ''}${pct}%`);
     }
 
     function importProductsJson(e) {
@@ -1367,28 +2176,30 @@
           if (Array.isArray(imported) && imported.length > 0) {
             adminProducts = imported;
             saveAdminProducts();
-            renderDashboard();
-            renderCatalogTable();
-            renderColorsManager();
-            alert(`Успешно импортировано ${imported.length} моделей!`);
+            renderAllAdminViews();
+            showToast(`Импортировано ${imported.length} моделей`);
           } else {
-            alert('Неверный формат файла JSON.');
+            showToast('Неверный формат файла JSON');
           }
         } catch (err) {
-          alert('Ошибка при чтении JSON: ' + err.message);
+          showToast('Ошибка при чтении JSON');
         }
       };
       reader.readAsText(file);
     }
 
-    function resetToFactory31() {
-      if (!confirm('Сбросить каталог к эталонным 31 моделям? Все пользовательские изменения будут сброшены.')) return;
+    async function resetToServerCatalog() {
+      if (!confirm('Сбросить все локальные изменения к исходному каталогу с сервера?')) return;
       localStorage.removeItem('timetry_custom_products');
-      adminProducts = [...FALLBACK_PRODUCTS];
-      renderDashboard();
-      renderCatalogTable();
-      renderColorsManager();
-      alert('Каталог сброшен к эталонным 31 моделям!');
+      try {
+        const res = await fetch('products.json?v=' + Date.now());
+        if (res.ok) adminProducts = await res.json();
+        else adminProducts = [...FALLBACK_PRODUCTS];
+      } catch (e) {
+        adminProducts = [...FALLBACK_PRODUCTS];
+      }
+      renderAllAdminViews();
+      showToast('Локальные изменения сброшены');
     }
   </script>
 </body>

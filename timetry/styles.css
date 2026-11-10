@@ -4169,3 +4169,424 @@ footer,
     justify-content: space-between;
   }
 }
+
+/* ==========================================================================
+   PER-COLOR AVAILABILITY & STOREFRONT INLINE ADMIN EDITOR
+   ========================================================================== */
+
+/* Card Color Availability Lines */
+.card-variant-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-color-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .card-color-swatch {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.card-variant-line.is-out {
+  opacity: 0.55;
+}
+
+.card-variant-line.is-out .variant-color-name {
+  text-decoration: line-through;
+}
+
+.variant-stock-tag {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.stock-badge-dot.is-partial {
+  color: #f59e0b;
+}
+
+.stock-badge-dot.is-out {
+  color: #ef4444;
+}
+
+/* Product Page Color Buttons (Out of Stock State) */
+.product-color-btn.out-of-stock {
+  opacity: 0.58;
+  border-style: dashed !important;
+  color: var(--text-muted) !important;
+}
+
+.product-color-btn.out-of-stock .color-swatch-circle {
+  filter: grayscale(0.4);
+}
+
+.color-out-pill {
+  font-size: 0.72rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.badge-tag.stock.is-out {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.product-badge-row .badge-tag.stock.is-out {
+  background: transparent !important;
+  color: #ef4444 !important;
+  border-color: transparent !important;
+}
+
+.btn-primary.is-disabled,
+.btn-outline.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Quick View Colors Strip */
+.qv-colors-block {
+  margin-bottom: 14px;
+}
+
+.qv-colors-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.qv-color-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.qv-color-chip.active {
+  border-color: var(--text-main);
+  box-shadow: inset 0 0 0 1px var(--text-main);
+}
+
+.qv-color-chip.is-out {
+  opacity: 0.55;
+  border-style: dashed;
+}
+
+/* Storefront Admin Floating Bar */
+.admin-live-bar {
+  background: #111827;
+  color: #f8fafc;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 980;
+  font-size: 0.82rem;
+}
+
+.admin-live-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-live-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.76rem;
+}
+
+.admin-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.admin-live-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-live-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f8fafc;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.admin-live-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.admin-live-btn.is-primary {
+  background: #ffffff;
+  color: #0e1015;
+  border-color: #ffffff;
+}
+
+.admin-live-btn.is-primary:hover {
+  background: #e2e8f0;
+}
+
+.admin-live-btn.is-danger {
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* Inline Card Edit Button & Quick Color Pills */
+.btn-card-admin-edit {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-card-admin-edit:hover {
+  background: #000000;
+}
+
+.admin-color-quick-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0 8px;
+}
+
+.admin-color-quick-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 7px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.admin-color-quick-pill:hover {
+  border-color: var(--text-main);
+}
+
+.admin-color-quick-pill.is-out {
+  opacity: 0.52;
+  border-style: dashed;
+  text-decoration: line-through;
+}
+
+/* Inline Editor Panel inside .store-card */
+.inline-card-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.inline-edit-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.inline-edit-input,
+.inline-edit-select,
+.inline-edit-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: 6px 8px;
+  font-size: 0.8rem;
+  color: var(--text-main);
+  font-family: inherit;
+}
+
+.inline-edit-input:focus,
+.inline-edit-select:focus,
+.inline-edit-textarea:focus {
+  outline: none;
+  border-color: var(--text-main);
+}
+
+.inline-edit-row-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6px;
+}
+
+.inline-edit-colors-box {
+  border-top: 1px solid var(--border-color);
+  padding-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inline-edit-color-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 4px 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  font-size: 0.74rem;
+}
+
+.inline-edit-color-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.inline-edit-color-left span:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-edit-color-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.inline-qty-mini {
+  width: 44px;
+  padding: 2px 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-main);
+  font-size: 0.74rem;
+  text-align: center;
+}
+
+.inline-edit-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.inline-edit-actions button {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Product Page Inline Admin Panel */
+.product-admin-inline-card {
+  margin: 16px 0;
+  padding: 18px;
+  border: 1px solid var(--text-main);
+  background: var(--bg-surface);
+}
+
+.product-admin-inline-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.footer-admin-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.footer-admin-entry:hover {
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+@media (max-width: 768px) {
+  .admin-live-bar {
+    position: static;
+  }
+  .product-admin-inline-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .toast-container {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    gap: 6px;
+  }
+  .toast {
+    font-size: 0.78rem;
+    padding: 9px 12px;
+  }
+}

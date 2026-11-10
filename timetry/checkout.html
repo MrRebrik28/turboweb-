@@ -29,7 +29,7 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=2.8.2" />
+  <link rel="stylesheet" href="styles.css?v=2.9.0" />
   <style>
     .checkout-header {
       background: var(--bg-card);
@@ -838,25 +838,27 @@
     </div>
   </div>
 
-  <script src="app.js?v=2.8.2"></script>
+  <script src="app.js?v=2.9.0"></script>
   <script>
     let checkoutItems = [];
     let checkoutGrandTotal = 0;
 
     document.addEventListener('DOMContentLoaded', async () => {
-      // 1. Ensure catalog is loaded
-      if (!AppState.products || AppState.products.length === 0) {
-        try {
-          const custom = localStorage.getItem('timetry_custom_products');
-          if (custom) {
-            AppState.products = JSON.parse(custom);
-          } else {
-            const res = await fetch('products.json');
-            AppState.products = await res.json();
+      // 1. Always sync catalog with custom admin edits or full products.json
+      try {
+        const custom = localStorage.getItem('timetry_custom_products');
+        if (custom) {
+          const parsed = JSON.parse(custom);
+          if (Array.isArray(parsed) && parsed.length > 0) AppState.products = parsed;
+        } else {
+          const res = await fetch('products.json');
+          if (res.ok) {
+            const full = await res.json();
+            if (Array.isArray(full) && full.length > 0) AppState.products = full;
           }
-        } catch (e) {
-          AppState.products = [...FALLBACK_PRODUCTS];
         }
+      } catch (e) {
+        if (!AppState.products || AppState.products.length === 0) AppState.products = [...FALLBACK_PRODUCTS];
       }
 
       // 2. Check URL parameters (?model=... or ?id=...)
@@ -874,10 +876,11 @@
       }
 
       if (targetProduct) {
-        // Direct buy of single model
-        const colorObj = (targetProduct.colors && targetProduct.colors.length > 0)
-          ? (targetProduct.colors.find(c => c.name === selectedColorParam) || targetProduct.colors[0])
-          : { name: 'Фирменный цвет', hex: '#f97316' };
+        // Direct buy of single model (respecting per-color availability)
+        const matchedColor = selectedColorParam
+          ? (targetProduct.colors || []).find(c => c.name === selectedColorParam)
+          : null;
+        const colorObj = matchedColor || getFirstInStockColor(targetProduct);
 
         checkoutItems = [{
           id: targetProduct.id,
@@ -887,6 +890,7 @@
           image: (targetProduct.images && targetProduct.images[0]) || '',
           color: colorObj.name,
           colorHex: colorObj.hex,
+          inStock: getColorStockInfo(targetProduct, colorObj).inStock,
           size: targetProduct.rider_height || 'Универсал',
           qty: 1,
           slug: targetProduct.slug
@@ -953,7 +957,7 @@
               </h4>
               <div class="summary-product-meta">
                 <span class="summary-color-circle" style="background-color: ${item.colorHex || '#f97316'};"></span>
-                <span>${item.color || 'Цвет'}</span>
+                <span>${item.color || 'Цвет'}${item.inStock === false ? ' <span style="color: var(--danger, #ef4444); font-weight: 600;">(нет в наличии)</span>' : ''}</span>
                 <span>•</span>
                 <span>${item.size || 'Размер'}</span>
               </div>

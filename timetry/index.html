@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=2.8.2" />
+  <link rel="stylesheet" href="styles.css?v=2.9.0" />
 </head>
 <body>
 
@@ -251,6 +251,15 @@
               <button class="filter-tag-btn" data-filter-type="brakes" data-filter-val="механич">Механика</button>
               <button class="filter-tag-btn" data-filter-type="brakes" data-filter-val="Ободные">Ободные</button>
             </div>
+          </div>
+
+          <!-- Availability Filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="filter-in-stock-only">Наличие на складе</label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; color: var(--text-main); cursor: pointer; user-select: none;">
+              <input type="checkbox" id="filter-in-stock-only" style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--text-main);" />
+              <span>Только модели в наличии</span>
+            </label>
           </div>
 
           <!-- Mobile Apply Button at bottom of opened filters -->
@@ -488,7 +497,10 @@
 
       <div class="footer-bottom-line">
         <div>© 2026 TIMETRY BIKES RUSSIA. Все права защищены. Официальный дилер.</div>
-        <div>152-ФЗ Персональные данные защищены.</div>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span>152-ФЗ Персональные данные защищены.</span>
+          <button type="button" class="footer-admin-entry" onclick="openAdminLoginModal()">Администрирование</button>
+        </div>
       </div>
     </div>
   </footer>
@@ -849,6 +861,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Engine Script -->
-  <script src="app.js?v=2.8.2"></script>
+  <script src="app.js?v=2.9.0"></script>
 </body>
 </html>

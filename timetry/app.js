@@ -32,7 +32,9 @@ const ICONS = {
   box: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
   gear: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
   checkCircle: `<svg class="svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 15 8 12"/></svg>`,
-  info: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`
+  info: `<svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
+  edit: `<svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+  lock: `<svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
 };
 
 // Cross-Sell Accessories Catalog (Full Top-Tier Kit)
@@ -83,6 +85,9 @@ const AppState = {
   pageSize: 15,
   productPageSelectedAccs: new Set(),
   productPageSelectedHeight: null,
+  productPageSelectedColor: null,
+  inlineEditingIds: new Set(),
+  productPageAdminEditing: false,
   activeFilters: {
     category: 'all',
     brand: 'all',
@@ -93,11 +98,797 @@ const AppState = {
     height: 'all',
     material: 'all',
     brakes: 'all',
+    inStockOnly: false,
     minPrice: 0,
     maxPrice: 500000,
     search: '',
     sort: 'popular'
   }
+};
+
+// ==========================================
+// COLOR INVENTORY & HTML HELPERS
+// ==========================================
+function escapeHtml(val) {
+  return String(val ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+window.escapeHtml = escapeHtml;
+
+function getColorStockInfo(product, colorObj) {
+  const defaultQty = (product && product.quantity !== undefined && product.quantity !== null)
+    ? Math.max(0, Number(product.quantity) || 0)
+    : 10;
+  if (!colorObj) {
+    return { inStock: defaultQty > 0, qty: defaultQty };
+  }
+  const hasQty = colorObj.qty !== undefined && colorObj.qty !== null && colorObj.qty !== '';
+  if (hasQty) {
+    const qty = Math.max(0, Number(colorObj.qty) || 0);
+    const inStock = colorObj.in_stock === false ? false : qty > 0;
+    return { inStock, qty };
+  }
+  if (colorObj.in_stock !== undefined) {
+    const inStock = Boolean(colorObj.in_stock);
+    return { inStock, qty: inStock ? null : 0 };
+  }
+  return { inStock: defaultQty > 0, qty: null };
+}
+window.getColorStockInfo = getColorStockInfo;
+
+function getProductStockSummary(product) {
+  const colors = Array.isArray(product && product.colors) ? product.colors : [];
+  if (colors.length === 0) {
+    const qty = (product && product.quantity !== undefined && product.quantity !== null)
+      ? Math.max(0, Number(product.quantity) || 0)
+      : 10;
+    return {
+      anyInStock: qty > 0,
+      partialColors: false,
+      inStockCount: qty > 0 ? 1 : 0,
+      outOfStockCount: qty > 0 ? 0 : 1,
+      totalColors: 0,
+      totalQty: qty
+    };
+  }
+
+  let inStockCount = 0;
+  let outOfStockCount = 0;
+  let explicitInStockQtySum = 0;
+  let inStockWithQtyCount = 0;
+  let inStockWithoutQtyCount = 0;
+  let anyExplicitFlag = false;
+
+  colors.forEach(c => {
+    const info = getColorStockInfo(product, c);
+    if (c.qty !== undefined && c.qty !== null && c.qty !== '') anyExplicitFlag = true;
+    if (c.in_stock !== undefined) anyExplicitFlag = true;
+
+    if (info.inStock) {
+      inStockCount++;
+      if (info.qty !== null) {
+        inStockWithQtyCount++;
+        explicitInStockQtySum += info.qty;
+      } else {
+        inStockWithoutQtyCount++;
+      }
+    } else {
+      outOfStockCount++;
+    }
+  });
+
+  const fallbackQty = (product && product.quantity !== undefined && product.quantity !== null)
+    ? Math.max(0, Number(product.quantity) || 0)
+    : 10;
+
+  let totalQty = 0;
+  if (inStockCount === 0) {
+    totalQty = 0;
+  } else if (inStockWithQtyCount === inStockCount) {
+    totalQty = explicitInStockQtySum;
+  } else if (!anyExplicitFlag) {
+    totalQty = fallbackQty;
+  } else {
+    totalQty = explicitInStockQtySum + (inStockWithoutQtyCount * 5);
+  }
+
+  return {
+    anyInStock: inStockCount > 0,
+    partialColors: inStockCount > 0 && outOfStockCount > 0,
+    inStockCount,
+    outOfStockCount,
+    totalColors: colors.length,
+    totalQty
+  };
+}
+window.getProductStockSummary = getProductStockSummary;
+
+function recalculateProductQuantity(product) {
+  if (!product || !Array.isArray(product.colors) || product.colors.length === 0) return;
+  const hasPerColor = product.colors.some(c => c.qty !== undefined || c.in_stock !== undefined);
+  if (!hasPerColor) return;
+
+  let sum = 0;
+  product.colors.forEach(c => {
+    const info = getColorStockInfo(product, c);
+    if (info.inStock) {
+      sum += (info.qty !== null && info.qty > 0) ? info.qty : 5;
+    }
+  });
+  product.quantity = sum;
+}
+window.recalculateProductQuantity = recalculateProductQuantity;
+
+function getFirstInStockColor(product) {
+  const colors = Array.isArray(product && product.colors) && product.colors.length > 0
+    ? product.colors
+    : [{ name: 'Чёрный матовый', hex: '#1e1e1e', code: 'black-matte', in_stock: true }];
+  const found = colors.find(c => getColorStockInfo(product, c).inStock);
+  return found || colors[0];
+}
+window.getFirstInStockColor = getFirstInStockColor;
+
+function saveStoreProducts(list) {
+  AppState.products = Array.isArray(list) ? list : AppState.products;
+  try {
+    localStorage.setItem('timetry_custom_products', JSON.stringify(AppState.products));
+  } catch (e) {}
+}
+window.saveStoreProducts = saveStoreProducts;
+
+function buildCardStockBadgeHtml(product) {
+  const summary = getProductStockSummary(product);
+  if (!summary.anyInStock) {
+    return '<span class="stock-badge-dot is-out">• Нет в наличии</span>';
+  }
+  if (summary.partialColors) {
+    return `<span class="stock-badge-dot is-partial">• В наличии (${summary.inStockCount} из ${summary.totalColors} цв.)</span>`;
+  }
+  return '<span class="stock-badge-dot">• В наличии</span>';
+}
+
+function buildCardVariantsHtml(product, isAdmin) {
+  const colors = Array.isArray(product && product.colors) ? product.colors : [];
+  if (colors.length === 0) {
+    return `<div class="card-variants-list"><div class="card-variant-line">Колёса: ${escapeHtml(product.wheel_size || '—')} | ${escapeHtml(product.frame_material ? product.frame_material.split(' ')[0] : 'Алюминий')}</div></div>`;
+  }
+
+  if (isAdmin) {
+    const pills = colors.map((c, idx) => {
+      const info = getColorStockInfo(product, c);
+      return `
+        <button type="button"
+          class="admin-color-quick-pill ${info.inStock ? '' : 'is-out'}"
+          onclick="toggleCardColorAvailability(${product.id}, ${idx}, event)"
+          title="Нажмите для переключения наличия цвета «${escapeHtml(c.name)}»">
+          <span class="card-color-swatch" style="background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+          <span>${escapeHtml(c.name)}</span>
+          <span style="font-weight: 700;">${info.inStock ? (info.qty !== null ? `${info.qty}` : '✓') : '✕'}</span>
+        </button>
+      `;
+    }).join('');
+    return `<div class="admin-color-quick-list">${pills}</div>`;
+  }
+
+  const heightStr = product.rider_height ? product.rider_height.replace(/см\s*/, '') : '17-19" (M)';
+  const lines = colors.slice(0, 3).map(c => {
+    const info = getColorStockInfo(product, c);
+    return `
+      <div class="card-variant-line ${info.inStock ? '' : 'is-out'}">
+        <span class="card-color-swatch" style="background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+        <span class="variant-color-name">${escapeHtml(c.name)}</span>
+        <span class="variant-stock-tag">${info.inStock ? `: ${escapeHtml(heightStr)}` : '— нет в наличии'}</span>
+      </div>
+    `;
+  }).join('');
+  return `<div class="card-variants-list">${lines}</div>`;
+}
+
+// ==========================================
+// STOREFRONT ADMIN MODE & GITHUB PUBLISH
+// ==========================================
+const STORE_KNOWN_COLORS = [
+  { name: 'Чёрный матовый', hex: '#1e1e1e', code: 'black-matte' },
+  { name: 'Графитовый металлик', hex: '#374151', code: 'graphite' },
+  { name: 'Титановый серый', hex: '#64748b', code: 'titanium' },
+  { name: 'Белоснежный глянец', hex: '#f8fafc', code: 'white-gloss' },
+  { name: 'Хаки / Олива милитари', hex: '#4d533c', code: 'khaki' },
+  { name: 'Тёмно-зелёный лесной', hex: '#166534', code: 'forest-green' },
+  { name: 'Огненный оранжевый', hex: '#f97316', code: 'orange' },
+  { name: 'Глубокий синий', hex: '#1e3a8a', code: 'sapphire-blue' },
+  { name: 'Кобальтовый металлик', hex: '#1d4ed8', code: 'cobalt' },
+  { name: 'Бордовый перламутр', hex: '#881337', code: 'burgundy' },
+  { name: 'Песочный хамелеон', hex: '#d4b996', code: 'sand' },
+  { name: 'Яркий лайм', hex: '#84cc16', code: 'lime' }
+];
+
+function getKnownAdminColors() {
+  let list = [...STORE_KNOWN_COLORS];
+  try {
+    const saved = JSON.parse(localStorage.getItem('timetry_admin_colors') || 'null');
+    if (Array.isArray(saved) && saved.length > 0) list = saved;
+  } catch (e) {}
+  return list;
+}
+
+function isAdminSessionActive() {
+  try {
+    return localStorage.getItem('timetry_admin_session') === '1';
+  } catch (e) {
+    return false;
+  }
+}
+window.isAdminSessionActive = isAdminSessionActive;
+
+function getAdminPin() {
+  try {
+    return localStorage.getItem('timetry_admin_pin') || 'timetry2026';
+  } catch (e) {
+    return 'timetry2026';
+  }
+}
+
+function getGitHubSyncConfig() {
+  try {
+    return {
+      repo: localStorage.getItem('timetry_gh_repo') || 'MrRebrik28/turboweb-',
+      branch: localStorage.getItem('timetry_gh_branch') || 'main',
+      path: localStorage.getItem('timetry_gh_path') || 'timetry/products.json',
+      token: localStorage.getItem('timetry_gh_token') || ''
+    };
+  } catch (e) {
+    return { repo: 'MrRebrik28/turboweb-', branch: 'main', path: 'timetry/products.json', token: '' };
+  }
+}
+window.getGitHubSyncConfig = getGitHubSyncConfig;
+
+async function publishCatalogToGitHub(productsArray) {
+  const cfg = getGitHubSyncConfig();
+  if (!cfg.token) {
+    throw new Error('Не указан GitHub токен в настройках админ-панели');
+  }
+  const apiUrl = `https://api.github.com/repos/${cfg.repo}/contents/${cfg.path}`;
+  const headers = {
+    'Authorization': `Bearer ${cfg.token}`,
+    'Accept': 'application/vnd.github+json',
+    'Content-Type': 'application/json'
+  };
+
+  let currentSha = null;
+  const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(cfg.branch)}`, { headers });
+  if (getRes.ok) {
+    const meta = await getRes.json();
+    currentSha = meta.sha;
+  } else if (getRes.status !== 404) {
+    const errText = await getRes.text();
+    throw new Error(`Ошибка чтения GitHub (${getRes.status}): ${errText}`);
+  }
+
+  const jsonStr = JSON.stringify(productsArray, null, 2);
+  const bytes = new TextEncoder().encode(jsonStr);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  const contentB64 = btoa(binary);
+
+  const payload = {
+    message: `Обновление каталога products.json (${new Date().toLocaleString('ru-RU')})`,
+    content: contentB64,
+    branch: cfg.branch
+  };
+  if (currentSha) payload.sha = currentSha;
+
+  const putRes = await fetch(apiUrl, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(payload)
+  });
+
+  if (!putRes.ok) {
+    const errText = await putRes.text();
+    throw new Error(`Ошибка публикации GitHub (${putRes.status}): ${errText}`);
+  }
+  return await putRes.json();
+}
+window.publishCatalogToGitHub = publishCatalogToGitHub;
+
+function downloadCurrentProductsJson() {
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(AppState.products, null, 2));
+  const a = document.createElement('a');
+  a.setAttribute('href', dataStr);
+  a.setAttribute('download', 'products.json');
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  showToast('Файл products.json скачан');
+}
+window.downloadCurrentProductsJson = downloadCurrentProductsJson;
+
+async function handleLiveGitHubPublish() {
+  try {
+    showToast('Публикация каталога на GitHub Pages...');
+    await publishCatalogToGitHub(AppState.products);
+    showToast('Опубликовано! Сайт обновится через 15–20 секунд.');
+  } catch (err) {
+    showToast(err.message || 'Ошибка публикации');
+  }
+}
+window.handleLiveGitHubPublish = handleLiveGitHubPublish;
+
+function renderAdminLiveBar() {
+  const existing = document.getElementById('admin-live-bar');
+  if (existing) existing.remove();
+  if (!isAdminSessionActive()) return;
+  if (!document.getElementById('products-grid') && !document.getElementById('product-layout-container')) return;
+
+  const cfg = getGitHubSyncConfig();
+  const hasCustomSaved = Boolean(localStorage.getItem('timetry_custom_products'));
+
+  const bar = document.createElement('div');
+  bar.id = 'admin-live-bar';
+  bar.className = 'admin-live-bar';
+  bar.innerHTML = `
+    <div class="container admin-live-bar-inner">
+      <div class="admin-live-status">
+        <span class="admin-live-pill">
+          <span class="admin-live-dot"></span>
+          <span>Режим администратора</span>
+        </span>
+        <span style="color: #94a3b8;">
+          ${hasCustomSaved ? 'Есть локальные изменения • ' : ''}Нажимайте «✎ Изменить» на карточке или кликайте по цветам для статуса наличия
+        </span>
+      </div>
+      <div class="admin-live-actions">
+        <a href="admin.html" class="admin-live-btn">Админ-панель ↗</a>
+        ${cfg.token ? `<button type="button" class="admin-live-btn is-primary" onclick="handleLiveGitHubPublish()">Опубликовать на сайт</button>` : ''}
+        <button type="button" class="admin-live-btn" onclick="downloadCurrentProductsJson()">Скачать JSON</button>
+        <button type="button" class="admin-live-btn is-danger" onclick="logoutAdminMode()">Выйти</button>
+      </div>
+    </div>
+  `;
+
+  const header = document.querySelector('.main-header') || document.querySelector('.site-header');
+  if (header && header.parentNode) {
+    header.parentNode.insertBefore(bar, header.nextSibling);
+  } else {
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+}
+window.renderAdminLiveBar = renderAdminLiveBar;
+
+function openAdminLoginModal() {
+  if (isAdminSessionActive()) {
+    window.location.href = 'admin.html';
+    return;
+  }
+  let modal = document.getElementById('admin-auth-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'admin-auth-modal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal-card" style="max-width: 400px;">
+        <button type="button" class="modal-close-cross" onclick="closeModal('admin-auth-modal')" aria-label="Закрыть">✕</button>
+        <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Вход администратора</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+          Включает прямое редактирование цен, описаний и наличия по цветам на всех карточках витрины.
+        </p>
+        <form onsubmit="submitAdminPinLogin(event)">
+          <label for="admin-pin-input" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">PIN-код администратора</label>
+          <input type="password" id="admin-pin-input" placeholder="Введите PIN (по умолчанию: timetry2026)" required
+            style="width: 100%; background: var(--bg-input); border: 1px solid var(--border-color); padding: 10px 12px; color: var(--text-main); margin-bottom: 14px; box-sizing: border-box;" />
+          <div style="display: flex; gap: 8px;">
+            <button type="submit" class="btn-primary" style="flex: 1; padding: 10px;">Войти на витрину</button>
+            <a href="admin.html" class="btn-outline" style="padding: 10px 14px; text-decoration: none;">Админка</a>
+          </div>
+        </form>
+      </div>
+    `;
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+    document.body.appendChild(modal);
+  }
+  modal.classList.add('active');
+  setTimeout(() => {
+    const inp = document.getElementById('admin-pin-input');
+    if (inp) {
+      inp.value = '';
+      inp.focus();
+    }
+  }, 60);
+}
+window.openAdminLoginModal = openAdminLoginModal;
+
+window.submitAdminPinLogin = function(e) {
+  e.preventDefault();
+  const inp = document.getElementById('admin-pin-input');
+  const entered = inp ? inp.value.trim() : '';
+  if (entered !== getAdminPin()) {
+    showToast('Неверный PIN-код администратора');
+    return;
+  }
+  try { localStorage.setItem('timetry_admin_session', '1'); } catch (err) {}
+  closeModal('admin-auth-modal');
+  refreshStorefrontAdminState();
+  showToast('Режим администратора активирован');
+};
+
+window.logoutAdminMode = function() {
+  try { localStorage.removeItem('timetry_admin_session'); } catch (err) {}
+  AppState.inlineEditingIds.clear();
+  AppState.productPageAdminEditing = false;
+  refreshStorefrontAdminState();
+  showToast('Вы вышли из режима администратора');
+};
+
+function refreshStorefrontAdminState() {
+  renderAdminLiveBar();
+  if (document.getElementById('products-grid')) {
+    renderCatalog(AppState.filteredProducts);
+  }
+  if (document.getElementById('product-layout-container') && currentProductItem) {
+    initProductPage();
+  }
+}
+
+window.toggleCardColorAvailability = function(productId, colorIndex, event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch (e) {}
+  }
+  const p = AppState.products.find(x => x.id === Number(productId));
+  if (!p || !Array.isArray(p.colors) || !p.colors[colorIndex]) return;
+
+  const c = p.colors[colorIndex];
+  const currentInfo = getColorStockInfo(p, c);
+  const nextInStock = !currentInfo.inStock;
+  c.in_stock = nextInStock;
+  c.qty = nextInStock ? Math.max(1, Number(c.qty) || 5) : 0;
+
+  recalculateProductQuantity(p);
+  saveStoreProducts(AppState.products);
+  renderAdminLiveBar();
+  renderCatalog(AppState.filteredProducts);
+  showToast(`${c.name}: ${nextInStock ? 'В наличии' : 'Нет в наличии'}`);
+};
+
+window.toggleInlineCardEdit = function(productId, event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch (e) {}
+  }
+  if (!isAdminSessionActive()) return;
+  const id = Number(productId);
+  if (AppState.inlineEditingIds.has(id)) {
+    AppState.inlineEditingIds.delete(id);
+  } else {
+    AppState.inlineEditingIds.add(id);
+  }
+  renderCatalog(AppState.filteredProducts);
+};
+
+window.cancelInlineCardEdit = function(productId, event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch (e) {}
+  }
+  AppState.inlineEditingIds.delete(Number(productId));
+  renderCatalog(AppState.filteredProducts);
+};
+
+function buildInlineCardEditorHtml(p) {
+  const colors = Array.isArray(p.colors) ? p.colors : [];
+  const knownColors = getKnownAdminColors();
+  const cats = [
+    'Горные (MTB)', 'Двухподвесы', 'Гравийные', 'Городские', 'Дорожные',
+    'Шоссейные', 'Фэтбайки', 'Полуфэтбайки', 'Подростковые', 'Детские',
+    'Женские', 'BMX', 'Складные', 'Трейловые', 'Электровелосипеды'
+  ];
+
+  const colorRows = colors.map((c, idx) => {
+    const info = getColorStockInfo(p, c);
+    return `
+      <div class="inline-edit-color-item" data-color-idx="${idx}">
+        <div class="inline-edit-color-left">
+          <span class="card-color-swatch" style="background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+          <span title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</span>
+        </div>
+        <div class="inline-edit-color-right">
+          <label style="display: inline-flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.7rem;">
+            <input type="checkbox" class="ie-color-stock" data-idx="${idx}" ${info.inStock ? 'checked' : ''} onchange="syncInlineColorQtyInput(this)" />
+            <span>В наличии</span>
+          </label>
+          <input type="number" min="0" class="inline-qty-mini ie-color-qty" data-idx="${idx}" value="${info.qty !== null ? info.qty : (info.inStock ? 5 : 0)}" title="Количество, шт" />
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const availableToAdd = knownColors.filter(kc => !colors.some(c => c.name.toLowerCase() === kc.name.toLowerCase()));
+
+  return `
+    <div class="inline-card-editor" id="inline-editor-${p.id}" onclick="event.stopPropagation()">
+      <div>
+        <label class="inline-edit-label" for="ie-name-${p.id}">Название модели</label>
+        <input type="text" class="inline-edit-input" id="ie-name-${p.id}" value="${escapeHtml(p.name)}" />
+      </div>
+
+      <div class="inline-edit-row-2">
+        <div>
+          <label class="inline-edit-label" for="ie-price-${p.id}">Цена, ₽</label>
+          <input type="number" class="inline-edit-input" id="ie-price-${p.id}" value="${Number(p.price) || 0}" />
+        </div>
+        <div>
+          <label class="inline-edit-label" for="ie-old-price-${p.id}">Старая цена</label>
+          <input type="number" class="inline-edit-input" id="ie-old-price-${p.id}" value="${p.old_price ? Number(p.old_price) : ''}" placeholder="—" />
+        </div>
+      </div>
+
+      <div class="inline-edit-row-2">
+        <div>
+          <label class="inline-edit-label" for="ie-cat-${p.id}">Категория</label>
+          <select class="inline-edit-select" id="ie-cat-${p.id}">
+            ${cats.map(cat => `<option value="${escapeHtml(cat)}" ${p.bike_type === cat ? 'selected' : ''}>${escapeHtml(cat)}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label class="inline-edit-label" for="ie-height-${p.id}">Рост / Размер</label>
+          <input type="text" class="inline-edit-input" id="ie-height-${p.id}" value="${escapeHtml(p.rider_height || '165-178 см (M)')}" />
+        </div>
+      </div>
+
+      <div>
+        <label class="inline-edit-label" for="ie-desc-${p.id}">Описание</label>
+        <textarea rows="2" class="inline-edit-textarea" id="ie-desc-${p.id}">${escapeHtml(p.clean_description || p.description || '')}</textarea>
+      </div>
+
+      <div class="inline-edit-colors-box">
+        <div class="inline-edit-label" style="margin-bottom: 2px;">Наличие по цветам</div>
+        ${colorRows || '<div style="font-size:0.74rem;color:var(--text-dim);">Цвета не назначены</div>'}
+        ${availableToAdd.length > 0 ? `
+          <select class="inline-edit-select" onchange="addInlineColorToProduct(${p.id}, this.value)" style="margin-top: 2px;">
+            <option value="">+ Добавить цвет к модели...</option>
+            ${availableToAdd.map(kc => `<option value="${escapeHtml(kc.name)}">${escapeHtml(kc.name)}</option>`).join('')}
+          </select>
+        ` : ''}
+      </div>
+
+      <div class="inline-edit-actions">
+        <button type="button" class="btn-primary" onclick="saveInlineCardEdit(${p.id}, event)">Сохранить</button>
+        <button type="button" class="btn-outline" onclick="openFullInlineEditModal(${p.id}, event)">Все поля</button>
+        <button type="button" class="btn-outline" onclick="cancelInlineCardEdit(${p.id}, event)">Отмена</button>
+      </div>
+    </div>
+  `;
+}
+
+window.syncInlineColorQtyInput = function(checkbox) {
+  const row = checkbox.closest('.inline-edit-color-item');
+  const qtyInput = row ? row.querySelector('.ie-color-qty') : null;
+  if (!qtyInput) return;
+  if (!checkbox.checked) {
+    qtyInput.value = 0;
+  } else if (Number(qtyInput.value) <= 0) {
+    qtyInput.value = 5;
+  }
+};
+
+window.addInlineColorToProduct = function(productId, colorName) {
+  if (!colorName) return;
+  const p = AppState.products.find(x => x.id === Number(productId));
+  const colorDef = getKnownAdminColors().find(x => x.name === colorName);
+  if (!p || !colorDef) return;
+  if (!Array.isArray(p.colors)) p.colors = [];
+  if (!p.colors.some(x => x.name.toLowerCase() === colorName.toLowerCase())) {
+    p.colors.push({ name: colorDef.name, hex: colorDef.hex, code: colorDef.code, in_stock: true, qty: 5 });
+    recalculateProductQuantity(p);
+    saveStoreProducts(AppState.products);
+    renderCatalog(AppState.filteredProducts);
+  }
+};
+
+window.saveInlineCardEdit = function(productId, event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch (e) {}
+  }
+  const p = AppState.products.find(x => x.id === Number(productId));
+  if (!p) return;
+
+  const editor = document.getElementById(`inline-editor-${p.id}`);
+  if (!editor) return;
+
+  const name = document.getElementById(`ie-name-${p.id}`)?.value.trim();
+  const price = Number(document.getElementById(`ie-price-${p.id}`)?.value);
+  const oldPriceRaw = document.getElementById(`ie-old-price-${p.id}`)?.value.trim();
+  const cat = document.getElementById(`ie-cat-${p.id}`)?.value;
+  const height = document.getElementById(`ie-height-${p.id}`)?.value.trim();
+  const desc = document.getElementById(`ie-desc-${p.id}`)?.value.trim();
+
+  if (name) p.name = name;
+  if (!Number.isNaN(price) && price > 0) p.price = price;
+  p.old_price = oldPriceRaw ? Number(oldPriceRaw) : null;
+  if (cat) p.bike_type = cat;
+  if (height) p.rider_height = height;
+  if (desc !== undefined) {
+    p.description = desc;
+    p.clean_description = desc;
+  }
+
+  if (Array.isArray(p.colors)) {
+    editor.querySelectorAll('.inline-edit-color-item').forEach(row => {
+      const idx = Number(row.dataset.colorIdx);
+      const chk = row.querySelector('.ie-color-stock');
+      const qtyInp = row.querySelector('.ie-color-qty');
+      if (p.colors[idx]) {
+        const qtyVal = Math.max(0, Number(qtyInp?.value) || 0);
+        const checked = chk ? chk.checked : qtyVal > 0;
+        p.colors[idx].in_stock = checked;
+        p.colors[idx].qty = checked ? (qtyVal > 0 ? qtyVal : 1) : 0;
+      }
+    });
+    recalculateProductQuantity(p);
+  }
+
+  AppState.inlineEditingIds.delete(p.id);
+  saveStoreProducts(AppState.products);
+  renderAdminLiveBar();
+  applyFilters();
+  showToast(`Сохранено: ${p.name}`);
+};
+
+window.openFullInlineEditModal = function(productId, event) {
+  if (event) {
+    try { event.preventDefault(); event.stopPropagation(); } catch (e) {}
+  }
+  const p = AppState.products.find(x => x.id === Number(productId));
+  if (!p) return;
+
+  let modal = document.getElementById('storefront-full-edit-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'storefront-full-edit-modal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `<div class="modal-card" style="max-width: 680px; max-height: 90vh; overflow-y: auto;" id="storefront-full-edit-card"></div>`;
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+    document.body.appendChild(modal);
+  }
+
+  const colors = Array.isArray(p.colors) ? p.colors : [];
+  const cardEl = document.getElementById('storefront-full-edit-card');
+  cardEl.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+      <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Полное редактирование карточки</h3>
+      <button type="button" class="modal-close-cross" style="position: static;" onclick="closeModal('storefront-full-edit-modal')">✕</button>
+    </div>
+    <form onsubmit="saveFullInlineEditModal(event, ${p.id})" style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="inline-edit-row-2">
+        <div>
+          <label class="inline-edit-label" for="fe-name">Название</label>
+          <input type="text" class="inline-edit-input" id="fe-name" value="${escapeHtml(p.name)}" />
+        </div>
+        <div>
+          <label class="inline-edit-label" for="fe-sku">Артикул (SKU)</label>
+          <input type="text" class="inline-edit-input" id="fe-sku" value="${escapeHtml(p.sku || '')}" />
+        </div>
+      </div>
+      <div class="inline-edit-row-2">
+        <div>
+          <label class="inline-edit-label" for="fe-price">Цена, ₽</label>
+          <input type="number" class="inline-edit-input" id="fe-price" value="${Number(p.price) || 0}" />
+        </div>
+        <div>
+          <label class="inline-edit-label" for="fe-old-price">Старая цена, ₽</label>
+          <input type="number" class="inline-edit-input" id="fe-old-price" value="${p.old_price ? Number(p.old_price) : ''}" />
+        </div>
+      </div>
+      <div class="inline-edit-row-2">
+        <div>
+          <label class="inline-edit-label" for="fe-wheel">Диаметр колёс</label>
+          <input type="text" class="inline-edit-input" id="fe-wheel" value="${escapeHtml(p.wheel_size || '')}" />
+        </div>
+        <div>
+          <label class="inline-edit-label" for="fe-speeds">Скорости</label>
+          <input type="text" class="inline-edit-input" id="fe-speeds" value="${escapeHtml(p.speeds || '')}" />
+        </div>
+      </div>
+      <div class="inline-edit-row-2">
+        <div>
+          <label class="inline-edit-label" for="fe-material">Материал рамы</label>
+          <input type="text" class="inline-edit-input" id="fe-material" value="${escapeHtml(p.frame_material || '')}" />
+        </div>
+        <div>
+          <label class="inline-edit-label" for="fe-brakes">Тормоза</label>
+          <input type="text" class="inline-edit-input" id="fe-brakes" value="${escapeHtml(p.brakes || '')}" />
+        </div>
+      </div>
+      <div>
+        <label class="inline-edit-label" for="fe-height">Рост райдера</label>
+        <input type="text" class="inline-edit-input" id="fe-height" value="${escapeHtml(p.rider_height || '')}" />
+      </div>
+      <div>
+        <label class="inline-edit-label" for="fe-images">Ссылки на фото (через запятую или с новой строки)</label>
+        <textarea rows="3" class="inline-edit-textarea" id="fe-images">${escapeHtml((p.images || []).join('\n'))}</textarea>
+      </div>
+      <div>
+        <label class="inline-edit-label" for="fe-desc">Полное описание</label>
+        <textarea rows="3" class="inline-edit-textarea" id="fe-desc">${escapeHtml(p.clean_description || p.description || '')}</textarea>
+      </div>
+      <div>
+        <label class="inline-edit-label">Цвета и наличие на складе</label>
+        <div id="fe-colors-list" style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+          ${colors.map((c, idx) => {
+            const info = getColorStockInfo(p, c);
+            return `
+              <div class="inline-edit-color-item fe-color-row" data-idx="${idx}">
+                <div class="inline-edit-color-left">
+                  <span class="card-color-swatch" style="background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+                  <span>${escapeHtml(c.name)}</span>
+                </div>
+                <div class="inline-edit-color-right">
+                  <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;">
+                    <input type="checkbox" class="ie-color-stock" ${info.inStock ? 'checked' : ''} onchange="syncInlineColorQtyInput(this)" />
+                    <span>В наличии</span>
+                  </label>
+                  <input type="number" min="0" class="inline-qty-mini ie-color-qty" value="${info.qty !== null ? info.qty : (info.inStock ? 5 : 0)}" />
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 6px;">
+        <button type="submit" class="btn-primary" style="flex: 1; padding: 10px;">Сохранить все изменения</button>
+        <button type="button" class="btn-outline" onclick="closeModal('storefront-full-edit-modal')" style="padding: 10px 16px;">Отмена</button>
+      </div>
+    </form>
+  `;
+  modal.classList.add('active');
+};
+
+window.saveFullInlineEditModal = function(e, productId) {
+  e.preventDefault();
+  const p = AppState.products.find(x => x.id === Number(productId));
+  if (!p) return;
+
+  p.name = document.getElementById('fe-name').value.trim() || p.name;
+  p.sku = document.getElementById('fe-sku').value.trim();
+  p.price = Number(document.getElementById('fe-price').value) || p.price;
+  const oldP = document.getElementById('fe-old-price').value.trim();
+  p.old_price = oldP ? Number(oldP) : null;
+  p.wheel_size = document.getElementById('fe-wheel').value.trim();
+  p.speeds = document.getElementById('fe-speeds').value.trim();
+  p.frame_material = document.getElementById('fe-material').value.trim();
+  p.brakes = document.getElementById('fe-brakes').value.trim();
+  p.rider_height = document.getElementById('fe-height').value.trim();
+  const rawImgs = document.getElementById('fe-images').value.trim();
+  p.images = rawImgs ? rawImgs.split(/[\n,]+/).map(s => s.trim()).filter(Boolean) : p.images;
+  const desc = document.getElementById('fe-desc').value.trim();
+  p.description = desc;
+  p.clean_description = desc;
+
+  if (Array.isArray(p.colors)) {
+    document.querySelectorAll('#fe-colors-list .fe-color-row').forEach(row => {
+      const idx = Number(row.dataset.idx);
+      const chk = row.querySelector('.ie-color-stock');
+      const qtyInp = row.querySelector('.ie-color-qty');
+      if (p.colors[idx]) {
+        const qtyVal = Math.max(0, Number(qtyInp?.value) || 0);
+        const checked = chk ? chk.checked : qtyVal > 0;
+        p.colors[idx].in_stock = checked;
+        p.colors[idx].qty = checked ? (qtyVal > 0 ? qtyVal : 1) : 0;
+      }
+    });
+    recalculateProductQuantity(p);
+  }
+
+  AppState.inlineEditingIds.delete(p.id);
+  saveStoreProducts(AppState.products);
+  closeModal('storefront-full-edit-modal');
+  refreshStorefrontAdminState();
+  showToast(`Обновлена модель: ${p.name}`);
 };
 
 // ==========================================
@@ -243,6 +1034,13 @@ function toggleTheme() {
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   syncThemeFromStorage();
+  const params = new URLSearchParams(window.location.search);
+  const adminParam = params.get('admin');
+  if (adminParam === '1' && !isAdminSessionActive()) {
+    setTimeout(() => openAdminLoginModal(), 150);
+  }
+  renderAdminLiveBar();
+
   // If index.html is loaded
   if (document.getElementById('products-grid')) {
     initCatalog();
@@ -776,6 +1574,9 @@ window.handleCardClick = function(productId, url, event) {
   }
   if (event.target.closest('.btn-quick-view') || 
       event.target.closest('.btn-card-fav') || 
+      event.target.closest('.btn-card-admin-edit') ||
+      event.target.closest('.inline-card-editor') ||
+      event.target.closest('.admin-color-quick-pill') ||
       event.target.closest('.btn-hover-action') ||
       event.target.closest('.card-photo-indicator') ||
       event.target.closest('.photo-dash')) {
@@ -798,15 +1599,34 @@ window.openQuickViewModal = function(productId, event) {
 
   const images = (p.images && p.images.length > 0) ? p.images : ['https://placehold.co/600x450/ffffff/0f172a?text=TIMETRY'];
   const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
-  const cashback = Math.round(p.price * 0.02);
   const productUrl = `product.html?id=${p.id}`;
-  const checkoutUrl = `checkout.html?id=${p.id}`;
+  const colors = (Array.isArray(p.colors) && p.colors.length > 0)
+    ? p.colors
+    : [{ name: 'Чёрный матовый', hex: '#1e1e1e', code: 'black-matte' }];
+  const defaultColorObj = getFirstInStockColor(p);
+  const summary = getProductStockSummary(p);
+  window._qvSelectedColor = defaultColorObj.name;
+  const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
+  const checkoutUrl = `checkout.html?model=${modelSlug}&color=${encodeURIComponent(defaultColorObj.name)}`;
 
   const thumbsHtml = images.map((img, i) => `
     <button type="button" class="qv-thumb-btn ${i === 0 ? 'active' : ''}" onclick="switchQuickViewImg('${img}', this)" aria-label="Ракурс ${i+1}">
       <img src="${img}" alt="${p.name} - ракурс ${i+1}" loading="lazy" />
     </button>
   `).join('');
+
+  const qvColorsHtml = colors.map(c => {
+    const info = getColorStockInfo(p, c);
+    const isAct = c.name === defaultColorObj.name;
+    return `
+      <button type="button" class="qv-color-chip ${isAct ? 'active' : ''} ${info.inStock ? '' : 'is-out'}"
+        onclick="selectQuickViewColor(${p.id}, '${escapeHtml(c.name)}', this)">
+        <span class="color-swatch-circle" style="background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+        <span>${escapeHtml(c.name)}</span>
+        ${!info.inStock ? '<span class="color-out-pill">(нет)</span>' : ''}
+      </button>
+    `;
+  }).join('');
 
   container.innerHTML = `
     <div class="qv-gallery-col">
@@ -820,10 +1640,18 @@ window.openQuickViewModal = function(productId, event) {
     <div class="qv-info-col">
       <h2 class="qv-title">${displayName}</h2>
       <div class="qv-meta-row">
-        <span class="stock-badge-dot">• В наличии на складе (г. Кемерово)</span>
+        <span id="qv-stock-status" class="stock-badge-dot ${summary.anyInStock ? '' : 'is-out'}">
+          ${summary.anyInStock ? '• В наличии на складе (г. Кемерово)' : '• Нет в наличии'}
+        </span>
       </div>
       <div class="qv-prices-row">
         <span class="qv-price-val">${p.price.toLocaleString('ru-RU')} ₽</span>
+      </div>
+      <div class="qv-colors-block">
+        <div style="font-size: 0.78rem; color: var(--text-muted);">
+          Цвет: <strong id="qv-color-label" style="color: var(--text-main);">${escapeHtml(defaultColorObj.name)}</strong>
+        </div>
+        <div class="qv-colors-list">${qvColorsHtml}</div>
       </div>
       <div class="qv-specs-mini">
         <div class="qv-spec-item">
@@ -852,11 +1680,12 @@ window.openQuickViewModal = function(productId, event) {
         </div>
       </div>
       <div class="qv-actions-row">
-        <a href="${checkoutUrl}" class="btn-primary" style="justify-content: center; padding: 12px; font-size: 0.95rem; text-decoration: none;">
-          Оформить заказ сейчас
+        <a href="${checkoutUrl}" id="qv-checkout-btn" class="btn-primary ${summary.anyInStock ? '' : 'is-disabled'}" style="justify-content: center; padding: 12px; font-size: 0.95rem; text-decoration: none;"
+          onclick="if(this.classList.contains('is-disabled')){event.preventDefault();showToast('Выбранный цвет временно отсутствует');}">
+          ${summary.anyInStock ? 'Оформить заказ сейчас' : 'Нет в наличии'}
         </a>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <button type="button" class="btn-outline" style="justify-content: center;" onclick="addToCartQuick(${p.id})">
+          <button type="button" id="qv-add-cart-btn" class="btn-outline ${summary.anyInStock ? '' : 'is-disabled'}" style="justify-content: center;" onclick="addToCartQuick(${p.id})">
             В корзину
           </button>
           <a href="${productUrl}" class="btn-outline" style="justify-content: center; text-decoration: none;" onclick="saveCatalogState(${p.id})">
@@ -870,6 +1699,36 @@ window.openQuickViewModal = function(productId, event) {
   openModal('quick-view-modal');
 };
 
+window.selectQuickViewColor = function(productId, colorName, btn) {
+  const p = (AppState.products || []).find(item => item.id === productId);
+  if (!p) return;
+  window._qvSelectedColor = colorName;
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.qv-color-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const colorObj = (p.colors || []).find(c => c.name === colorName);
+  const info = getColorStockInfo(p, colorObj);
+  const label = document.getElementById('qv-color-label');
+  if (label) label.textContent = info.inStock ? colorName : `${colorName} (нет в наличии)`;
+
+  const status = document.getElementById('qv-stock-status');
+  if (status) {
+    status.classList.toggle('is-out', !info.inStock);
+    status.textContent = info.inStock ? '• В наличии на складе (г. Кемерово)' : '• Выбранного цвета нет в наличии';
+  }
+
+  const checkoutBtn = document.getElementById('qv-checkout-btn');
+  const slug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
+  if (checkoutBtn) {
+    checkoutBtn.href = `checkout.html?model=${slug}&color=${encodeURIComponent(colorName)}`;
+    checkoutBtn.classList.toggle('is-disabled', !info.inStock);
+    checkoutBtn.textContent = info.inStock ? 'Оформить заказ сейчас' : 'Нет в наличии';
+  }
+  const cartBtn = document.getElementById('qv-add-cart-btn');
+  if (cartBtn) cartBtn.classList.toggle('is-disabled', !info.inStock);
+};
+
 window.switchQuickViewImg = function(imgSrc, btn) {
   const activeImg = document.getElementById('qv-active-img');
   if (activeImg) activeImg.src = imgSrc;
@@ -878,7 +1737,8 @@ window.switchQuickViewImg = function(imgSrc, btn) {
 };
 
 window.addToCartQuick = function(productId) {
-  addToCart(productId);
+  const ok = addToCart(productId, window._qvSelectedColor);
+  if (ok === false) return;
   closeModal('quick-view-modal');
   toggleCartDrawer();
 };
@@ -1219,6 +2079,11 @@ function applyFilters() {
   // Price range
   list = list.filter(p => p.price >= AppState.activeFilters.minPrice && p.price <= AppState.activeFilters.maxPrice);
 
+  // In-stock only filter
+  if (AppState.activeFilters.inStockOnly) {
+    list = list.filter(p => getProductStockSummary(p).anyInStock);
+  }
+
   // Search
   if (AppState.activeFilters.search.trim()) {
     const q = AppState.activeFilters.search.toLowerCase();
@@ -1331,12 +2196,16 @@ function renderCatalog(items) {
   const totalItems = items.length;
   const visibleItems = items.slice(0, AppState.visibleCount);
 
+  const isAdmin = isAdminSessionActive();
+
   grid.innerHTML = visibleItems.map((p, index) => {
     const isFav = AppState.favorites.includes(p.id);
+    const isEditingInline = isAdmin && AppState.inlineEditingIds.has(p.id);
     const mainImg = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x300/ffffff/0f172a?text=TIMETRY';
     const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
     const productUrl = `product.html?model=${modelSlug}`;
-    const checkoutUrl = `checkout.html?model=${modelSlug}`;
+    const firstColor = getFirstInStockColor(p);
+    const checkoutUrl = `checkout.html?model=${modelSlug}&color=${encodeURIComponent(firstColor.name)}`;
 
     // Cache product images for instant hover scrubbing
     const pImages = (p.images && p.images.length > 0) ? p.images : [mainImg];
@@ -1348,19 +2217,39 @@ function renderCatalog(items) {
       `<span class="photo-dash ${idx === 0 ? 'active' : ''}" data-idx="${idx}" onclick="event.stopPropagation(); setCardPhotoIndex(${p.id}, ${idx})"></span>`
     ).join('');
 
-    let variantsHtml = '';
-    if (p.colors && p.colors.length > 0) {
-      const heightStr = p.rider_height ? p.rider_height.replace(/см\s*/, '') : '17-19" (M)';
-      const lines = p.colors.slice(0, 2).map(c => `<div class="card-variant-line">${c.name}: ${heightStr}</div>`).join('');
-      variantsHtml = `<div class="card-variants-list">${lines}</div>`;
-    } else {
-      variantsHtml = `<div class="card-variants-list"><div class="card-variant-line">Колёса: ${p.wheel_size} | ${p.frame_material ? p.frame_material.split(' ')[0] : 'Алюминий'}</div></div>`;
-    }
-
+    const variantsHtml = buildCardVariantsHtml(p, isAdmin);
+    const stockBadgeHtml = buildCardStockBadgeHtml(p);
     const displayName = p.name.startsWith('Велосипед') ? p.name : `Велосипед ${p.name}`;
 
+    const infoBodyHtml = isEditingInline
+      ? buildInlineCardEditorHtml(p)
+      : `
+          <h3 class="card-model-name">
+            <a href="${productUrl}" onclick="saveCatalogState(${p.id})">${escapeHtml(displayName)}</a>
+          </h3>
+
+          ${variantsHtml}
+
+          <div class="card-meta-line">
+            ${stockBadgeHtml}
+          </div>
+
+          <div class="card-prices-line">
+            <span class="price-main-bold">${Number(p.price).toLocaleString('ru-RU')} ₽</span>
+          </div>
+
+          <div class="card-hover-actions">
+            <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
+              Купить
+            </a>
+            <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
+              Характеристики
+            </button>
+          </div>
+        `;
+
     return `
-      <article class="store-card" data-id="${p.id}" data-slug="${modelSlug}">
+      <article class="store-card ${isEditingInline ? 'is-inline-editing' : ''}" data-id="${p.id}" data-slug="${modelSlug}">
         <div class="card-photo-box" 
              id="card-photo-${p.id}" 
              onmouseenter="preloadCardImages(${p.id})"
@@ -1372,7 +2261,14 @@ function renderCatalog(items) {
              ontouchcancel="handleCardTouchCancel(event, ${p.id})"
              onclick="handleCardClick(${p.id}, '${productUrl}', event)">
           <div class="card-top-badges">
-            <div></div>
+            <div>
+              ${isAdmin ? `
+                <button type="button" class="btn-card-admin-edit" onclick="toggleInlineCardEdit(${p.id}, event)" title="Редактировать товар в карточке">
+                  ${ICONS.edit}
+                  <span>${isEditingInline ? 'Закрыть' : 'Изменить'}</span>
+                </button>
+              ` : ''}
+            </div>
             <div style="display: flex; gap: 6px; pointer-events: auto;">
               <button class="btn-card-fav ${isFav ? 'active' : ''}" onclick="toggleFavorite(${p.id}, event)" title="В избранное" aria-label="В избранное">
                 ${isFav ? ICONS.heartFilled : ICONS.heart}
@@ -1380,7 +2276,7 @@ function renderCatalog(items) {
             </div>
           </div>
 
-          <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
+          <img id="card-img-${p.id}" src="${mainImg}" alt="${escapeHtml(p.name)}" loading="lazy" />
         </div>
 
         <div class="card-photo-indicator" id="card-indicator-${p.id}">
@@ -1388,28 +2284,7 @@ function renderCatalog(items) {
         </div>
 
         <div class="card-info">
-          <h3 class="card-model-name">
-            <a href="${productUrl}" onclick="saveCatalogState(${p.id})">${displayName}</a>
-          </h3>
-
-          ${variantsHtml}
-
-          <div class="card-meta-line">
-            <span class="stock-badge-dot">• В наличии</span>
-          </div>
-
-          <div class="card-prices-line">
-            <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
-          </div>
-
-          <div class="card-hover-actions">
-            <a href="${checkoutUrl}" class="btn-hover-action btn-hover-buy" onclick="event.stopPropagation()">
-              Купить
-            </a>
-            <button type="button" class="btn-hover-action btn-hover-specs" onclick="openQuickViewModal(${p.id}, event)">
-              Характеристики
-            </button>
-          </div>
+          ${infoBodyHtml}
         </div>
       </article>
     `;
@@ -1457,27 +2332,25 @@ let currentGalleryIdx = 0;
 let currentGalleryImages = [];
 
 async function initProductPage() {
-  // Ensure catalog loaded
-  if (AppState.products.length <= 13) {
-    try {
-      const custom = localStorage.getItem('timetry_custom_products');
-      if (custom) {
-        const parsed = JSON.parse(custom);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          AppState.products = parsed;
-        }
-      } else {
-        const res = await fetch('products.json');
-        if (res.ok) {
-          const full = await res.json();
-          if (Array.isArray(full) && full.length > 0) {
-            const seen = new Set();
-            AppState.products = full.filter(p => !seen.has(p.id) && seen.add(p.id));
-          }
+  // Always prefer admin edits in localStorage if present
+  try {
+    const custom = localStorage.getItem('timetry_custom_products');
+    if (custom) {
+      const parsed = JSON.parse(custom);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        AppState.products = parsed;
+      }
+    } else if (AppState.products.length <= 13) {
+      const res = await fetch('products.json');
+      if (res.ok) {
+        const full = await res.json();
+        if (Array.isArray(full) && full.length > 0) {
+          const seen = new Set();
+          AppState.products = full.filter(p => !seen.has(p.id) && seen.add(p.id));
         }
       }
-    } catch (e) {}
-  }
+    }
+  } catch (e) {}
 
   const urlParams = new URLSearchParams(window.location.search);
   const modelParam = urlParams.get('model');
@@ -1529,25 +2402,25 @@ async function initProductPage() {
   currentGalleryImages = images;
   currentGalleryIdx = 0;
   const mainImg = images[0];
-  const discount = p.old_price ? Math.round(((p.old_price - p.price) / p.old_price) * 100) : null;
   const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
   const colors = (p.colors && p.colors.length > 0) ? p.colors : [
-    { name: 'Чёрный матовый', hex: '#1e1e1e', code: 'black-matte' }
+    { name: 'Чёрный матовый', hex: '#1e1e1e', code: 'black-matte', in_stock: true }
   ];
-  const initialColor = colors[0].name;
+  const defaultColorObj = getFirstInStockColor(p);
+  const initialColor = defaultColorObj.name;
+  const initialColorInfo = getColorStockInfo(p, defaultColorObj);
+  AppState.productPageSelectedColor = initialColor;
+  const isAdmin = isAdminSessionActive();
 
-  const heightOptions = [
-    { cat: '150-165', label: '150–165 см', size: 'S (15-16")' },
-    { cat: '165-178', label: '165–178 см', size: 'M (17-18")' },
-    { cat: '175-188', label: '175–188 см', size: 'L (19-20")' },
-    { cat: '185+', label: '185+ см', size: 'XL (21-22")' }
-  ];
+  const initialColorLabel = initialColorInfo.inStock
+    ? (initialColorInfo.qty !== null && initialColorInfo.qty > 0 ? `${initialColor} • В наличии (${initialColorInfo.qty} шт)` : `${initialColor} • В наличии`)
+    : `${initialColor} • Нет в наличии`;
 
   container.innerHTML = `
     <!-- Gallery Column -->
     <div class="product-gallery-box">
       <div class="product-main-view" id="product-main-view-box" onclick="openLightbox(currentGalleryIdx)" title="Нажмите, чтобы открыть фото на весь экран">
-        <img id="product-main-img-el" class="product-main-img" src="${mainImg}" alt="${p.name}" />
+        <img id="product-main-img-el" class="product-main-img" src="${mainImg}" alt="${escapeHtml(p.name)}" />
         <div class="zoom-hint-badge">
           <svg class="svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
           <span>Во весь экран</span>
@@ -1565,7 +2438,7 @@ async function initProductPage() {
       <div class="product-thumbs-strip" id="product-thumbs-strip">
         ${images.map((img, idx) => `
           <div class="product-thumb-item ${idx === 0 ? 'active' : ''}" data-idx="${idx}" onclick="switchProductThumb(${idx})">
-            <img src="${img}" alt="${p.name}" />
+            <img src="${img}" alt="${escapeHtml(p.name)}" />
           </div>
         `).join('')}
       </div>
@@ -1573,15 +2446,25 @@ async function initProductPage() {
 
     <!-- Info & Purchase Column -->
     <div class="product-info-col">
-      <div class="product-badge-row">
-        <span class="card-cat-label">${p.bike_type}</span>
-        <span class="badge-tag stock">${ICONS.check} В наличии (Кемерово)</span>
+      <div class="product-badge-row" style="justify-content: space-between; width: 100%; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span class="card-cat-label">${escapeHtml(p.bike_type)}</span>
+          <span class="badge-tag stock ${initialColorInfo.inStock ? '' : 'is-out'}" id="product-stock-badge">
+            ${initialColorInfo.inStock ? `${ICONS.check} В наличии (Кемерово)` : 'Нет в наличии выбранного цвета'}
+          </span>
+        </div>
+        ${isAdmin ? `
+          <button type="button" class="btn-outline" style="padding: 5px 12px; font-size: 0.78rem; font-weight: 600;" onclick="openFullInlineEditModal(${p.id}, event)">
+            ${ICONS.edit}
+            <span>Редактировать товар</span>
+          </button>
+        ` : ''}
       </div>
 
       <div class="product-title-row">
-        <h1 class="product-title-h1">${p.name}</h1>
+        <h1 class="product-title-h1">${escapeHtml(p.name)}</h1>
         <button type="button" class="btn-share-model" id="btn-share-product" 
-          onclick="shareProductLink('${modelSlug}', '${p.name.replace(/'/g, "\\'")}', ${p.price})" 
+          onclick="shareProductLink('${modelSlug}', '${escapeHtml(p.name).replace(/'/g, "\\'")}', ${p.price})" 
           title="Поделиться ссылкой на модель" aria-label="Поделиться">
           <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
           <span class="share-btn-label">Поделиться</span>
@@ -1590,34 +2473,40 @@ async function initProductPage() {
 
       <!-- Pricing Box -->
       <div class="product-pricing-box">
-        <span class="product-price-current">${p.price.toLocaleString('ru-RU')} ₽</span>
+        <span class="product-price-current">${Number(p.price).toLocaleString('ru-RU')} ₽</span>
       </div>
 
       <!-- Interactive Color Selector -->
       <div class="product-color-selector">
         <div class="product-color-label">
           <span>Цвет рамы:</span>
-          <span class="product-color-current" id="p-selected-color-name">${initialColor}</span>
+          <span class="product-color-current" id="p-selected-color-name">${escapeHtml(initialColorLabel)}</span>
         </div>
         <div class="product-colors-list">
-          ${colors.map((c, cIdx) => `
-            <button type="button" class="product-color-btn ${cIdx === 0 ? 'active' : ''}" 
-              onclick="selectProductColor('${c.name.replace(/'/g, "\\'")}', this)">
-              <span class="color-swatch-circle" style="background-color: ${c.hex};"></span>
-              <span>${c.name}</span>
-            </button>
-          `).join('')}
+          ${colors.map(c => {
+            const cInfo = getColorStockInfo(p, c);
+            const isAct = c.name === initialColor;
+            return `
+              <button type="button" class="product-color-btn ${isAct ? 'active' : ''} ${cInfo.inStock ? '' : 'out-of-stock'}" 
+                onclick="selectProductColor('${escapeHtml(c.name)}', this)">
+                <span class="color-swatch-circle" style="background-color: ${escapeHtml(c.hex || '#334155')};"></span>
+                <span>${escapeHtml(c.name)}</span>
+                ${!cInfo.inStock ? '<span class="color-out-pill">нет в наличии</span>' : ''}
+              </button>
+            `;
+          }).join('')}
         </div>
       </div>
 
       <!-- Action Buttons -->
       <div class="product-actions-row">
-        <a href="checkout.html?model=${modelSlug}&color=${encodeURIComponent(initialColor)}" id="btn-buy-now" class="btn-primary product-btn-buy">
+        <a href="checkout.html?model=${modelSlug}&color=${encodeURIComponent(initialColor)}" id="btn-buy-now" class="btn-primary product-btn-buy ${initialColorInfo.inStock ? '' : 'is-disabled'}"
+          onclick="if(this.classList.contains('is-disabled')){event.preventDefault();showToast('Выбранный цвет временно отсутствует, выберите другой');}">
           ${ICONS.cart}
-          <span>Купить</span>
+          <span>${initialColorInfo.inStock ? 'Купить' : 'Нет в наличии'}</span>
         </a>
-        <button id="product-add-cart-btn" class="btn-outline product-btn-cart" onclick="addProductPageToCart()">
-          <span>В корзину (${p.price.toLocaleString('ru-RU')} ₽)</span>
+        <button id="product-add-cart-btn" class="btn-outline product-btn-cart ${initialColorInfo.inStock ? '' : 'is-disabled'}" onclick="addProductPageToCart()">
+          <span>${initialColorInfo.inStock ? `В корзину (${Number(p.price).toLocaleString('ru-RU')} ₽)` : 'Выберите другой цвет'}</span>
         </button>
       </div>
 
@@ -1704,7 +2593,9 @@ function renderRelatedCard(p) {
   window.CatalogImagesCache[p.id] = pImages;
   const modelSlug = p.slug || (p.url ? p.url.replace(/^\//, '') : '') || ('item-' + p.id);
   const productUrl = `product.html?model=${modelSlug}`;
-  const checkoutUrl = `checkout.html?model=${modelSlug}`;
+  const firstColor = getFirstInStockColor(p);
+  const checkoutUrl = `checkout.html?model=${modelSlug}&color=${encodeURIComponent(firstColor.name)}`;
+  const stockBadgeHtml = buildCardStockBadgeHtml(p);
 
   const dashCount = Math.min(pImages.length, 6);
   const dashesHtml = Array.from({length: dashCount}, (_, idx) => 
@@ -1731,20 +2622,20 @@ function renderRelatedCard(p) {
             </button>
           </div>
         </div>
-        <img id="card-img-${p.id}" src="${mainImg}" alt="${p.name}" loading="lazy" />
+        <img id="card-img-${p.id}" src="${mainImg}" alt="${escapeHtml(p.name)}" loading="lazy" />
       </div>
       <div class="card-photo-indicator" id="card-indicator-${p.id}">
         ${dashesHtml}
       </div>
       <div class="card-info">
         <h3 class="card-model-name">
-          <a href="${productUrl}">${displayName}</a>
+          <a href="${productUrl}">${escapeHtml(displayName)}</a>
         </h3>
         <div class="card-meta-line" style="margin-top: 4px;">
-          <span class="stock-badge-dot">• В наличии</span>
+          ${stockBadgeHtml}
         </div>
         <div class="card-prices-line">
-          <span class="price-main-bold">${p.price.toLocaleString('ru-RU')} ₽</span>
+          <span class="price-main-bold">${Number(p.price).toLocaleString('ru-RU')} ₽</span>
         </div>
 
         <div class="card-hover-actions">
@@ -1918,26 +2809,58 @@ function prevLightboxImage(e) {
 }
 
 function selectProductColor(colorName, btn) {
+  AppState.productPageSelectedColor = colorName;
   if (btn && btn.parentElement) {
     btn.parentElement.querySelectorAll('.product-color-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
+
+  const colorObj = (currentProductItem && Array.isArray(currentProductItem.colors))
+    ? currentProductItem.colors.find(c => c.name === colorName)
+    : null;
+  const cInfo = getColorStockInfo(currentProductItem, colorObj);
+
   const descEl = document.getElementById('p-selected-color-name');
-  if (descEl) descEl.textContent = colorName;
+  if (descEl) {
+    descEl.textContent = cInfo.inStock
+      ? (cInfo.qty !== null && cInfo.qty > 0 ? `${colorName} • В наличии (${cInfo.qty} шт)` : `${colorName} • В наличии`)
+      : `${colorName} • Нет в наличии`;
+  }
+
+  const badgeEl = document.getElementById('product-stock-badge');
+  if (badgeEl) {
+    badgeEl.classList.toggle('is-out', !cInfo.inStock);
+    badgeEl.innerHTML = cInfo.inStock ? `${ICONS.check} В наличии (Кемерово)` : 'Нет в наличии выбранного цвета';
+  }
 
   const buyBtn = document.getElementById('btn-buy-now');
   if (buyBtn && currentProductItem) {
     const slug = currentProductItem.slug || currentProductItem.id;
     buyBtn.href = `checkout.html?model=${slug}&color=${encodeURIComponent(colorName)}`;
+    buyBtn.classList.toggle('is-disabled', !cInfo.inStock);
+    const span = buyBtn.querySelector('span');
+    if (span) span.textContent = cInfo.inStock ? 'Купить' : 'Нет в наличии';
+  }
+
+  const cartBtn = document.getElementById('product-add-cart-btn');
+  if (cartBtn && currentProductItem) {
+    cartBtn.classList.toggle('is-disabled', !cInfo.inStock);
+    const span = cartBtn.querySelector('span');
+    if (span) {
+      span.textContent = cInfo.inStock
+        ? `В корзину (${Number(currentProductItem.price).toLocaleString('ru-RU')} ₽)`
+        : 'Выберите другой цвет';
+    }
   }
 
   // Keep mobile floating bar in sync with chosen color
   const mfbColor = document.getElementById('mfb-color-badge');
-  if (mfbColor) mfbColor.textContent = colorName;
+  if (mfbColor) mfbColor.textContent = cInfo.inStock ? colorName : `${colorName} (нет)`;
   const mfbBuy = document.getElementById('mfb-buy-link');
   if (mfbBuy && currentProductItem) {
     const slug = currentProductItem.slug || currentProductItem.id;
     mfbBuy.href = `checkout.html?model=${slug}&color=${encodeURIComponent(colorName)}`;
+    mfbBuy.classList.toggle('is-disabled', !cInfo.inStock);
   }
 }
 
@@ -2027,7 +2950,9 @@ function initMobileFloatingBar(product) {
   const buyLink = document.getElementById('mfb-buy-link');
 
   const mainImg = (product.images && product.images.length > 0) ? product.images[0] : 'https://placehold.co/100x100/ffffff/0f172a?text=TIMETRY';
-  const initialColor = (product.colors && product.colors.length > 0) ? product.colors[0].name : 'Базовый';
+  const defaultColorObj = getFirstInStockColor(product);
+  const initialColor = defaultColorObj.name;
+  const cInfo = getColorStockInfo(product, defaultColorObj);
   const slug = product.slug || product.id;
 
   if (thumb) {
@@ -2036,8 +2961,11 @@ function initMobileFloatingBar(product) {
   }
   if (title) title.textContent = product.name;
   if (price) price.textContent = product.price.toLocaleString('ru-RU') + ' ₽';
-  if (colorBadge) colorBadge.textContent = initialColor;
-  if (buyLink) buyLink.href = `checkout.html?model=${slug}&color=${encodeURIComponent(initialColor)}`;
+  if (colorBadge) colorBadge.textContent = cInfo.inStock ? initialColor : `${initialColor} (нет)`;
+  if (buyLink) {
+    buyLink.href = `checkout.html?model=${slug}&color=${encodeURIComponent(initialColor)}`;
+    buyLink.classList.toggle('is-disabled', !cInfo.inStock);
+  }
 
   const buyBtn = document.getElementById('btn-buy-now');
   if (buyBtn) {
@@ -2079,7 +3007,8 @@ function selectProductHeight(cat, size, btn) {
 
 function addProductPageToCart() {
   if (!currentProductItem) return;
-  addToCart(currentProductItem.id);
+  const ok = addToCart(currentProductItem.id, AppState.productPageSelectedColor);
+  if (ok === false) return;
   toggleCartDrawer();
 }
 
@@ -2143,36 +3072,62 @@ async function handleQuickOrderSubmit(e) {
 // ==========================================
 // CART FUNCTIONS
 // ==========================================
-function addToCart(id) {
+function addToCart(id, preferredColorName) {
   const p = AppState.products.find(x => x.id === id);
-  if (!p) return;
+  if (!p) return false;
 
-  const existing = AppState.cart.find(x => x.id === id);
+  const colors = (Array.isArray(p.colors) && p.colors.length > 0) ? p.colors : [];
+  let chosenColor = preferredColorName
+    ? colors.find(c => c.name === preferredColorName)
+    : getFirstInStockColor(p);
+  if (!chosenColor) {
+    chosenColor = preferredColorName
+      ? { name: preferredColorName, hex: '#1e1e1e', in_stock: true }
+      : getFirstInStockColor(p);
+  }
+
+  const cInfo = getColorStockInfo(p, chosenColor);
+  if (!cInfo.inStock) {
+    showToast(`Цвет «${chosenColor.name}» временно отсутствует. Выберите другой оттенок.`);
+    return false;
+  }
+
+  const colorLabel = chosenColor.name || 'Фирменный';
+  const cartKey = `${p.id}::${colorLabel}`;
+  const existing = AppState.cart.find(x => (x.cartKey && x.cartKey === cartKey) || (x.id === id && (!x.color || x.color === colorLabel)));
   if (existing) {
     existing.qty += 1;
+    existing.color = colorLabel;
+    existing.colorHex = chosenColor.hex || existing.colorHex || '#1e1e1e';
+    existing.cartKey = cartKey;
   } else {
     AppState.cart.push({
       id: p.id,
+      cartKey,
       name: p.name,
       price: p.price,
       image: p.images && p.images[0] ? p.images[0] : '',
       wheel: p.wheel_size,
+      color: colorLabel,
+      colorHex: chosenColor.hex || '#1e1e1e',
       qty: 1
     });
   }
 
   saveCart();
   updateCartBadge();
-  showToast(`"${p.name}" добавлен в корзину`);
+  showToast(`"${p.name}" (${colorLabel}) добавлен в корзину`);
+  return true;
 }
 
-function updateCartQty(id, delta) {
-  const item = AppState.cart.find(x => String(x.id) === String(id));
+function updateCartQty(cartKeyOrId, delta) {
+  const key = String(cartKeyOrId);
+  const item = AppState.cart.find(x => (x.cartKey && String(x.cartKey) === key) || String(x.id) === key);
   if (!item) return;
 
   item.qty += delta;
   if (item.qty <= 0) {
-    AppState.cart = AppState.cart.filter(x => String(x.id) !== String(id));
+    AppState.cart = AppState.cart.filter(x => !((x.cartKey && String(x.cartKey) === key) || String(x.id) === key));
   }
   saveCart();
   renderCartDrawer();
@@ -2223,17 +3178,19 @@ function renderCartDrawer() {
   let totalSum = 0;
   body.innerHTML = AppState.cart.map(item => {
     totalSum += item.price * item.qty;
+    const key = escapeHtml(item.cartKey || item.id);
     return `
       <div class="cart-line-item">
-        ${item.image ? `<img class="cart-line-img" src="${item.image}" alt="${item.name}" />` : `<div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); border-radius: 6px;">${ICONS.box}</div>`}
+        ${item.image ? `<img class="cart-line-img" src="${item.image}" alt="${escapeHtml(item.name)}" />` : `<div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--bg-surface); border-radius: 6px;">${ICONS.box}</div>`}
         <div style="flex: 1; min-width: 0; padding: 0 8px;">
-          <h4 class="cart-line-title">${item.name}</h4>
-          <div class="cart-line-price">${item.price.toLocaleString('ru-RU')} ₽</div>
+          <h4 class="cart-line-title">${escapeHtml(item.name)}</h4>
+          ${item.color ? `<div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; display:flex; align-items:center; gap:5px;"><span class="card-color-swatch" style="background-color:${escapeHtml(item.colorHex || '#334155')};width:8px;height:8px;"></span><span>${escapeHtml(item.color)}</span></div>` : ''}
+          <div class="cart-line-price">${Number(item.price).toLocaleString('ru-RU')} ₽</div>
         </div>
         <div class="cart-line-qty">
-          <button class="cart-qty-btn" onclick="updateCartQty('${item.id}', -1)">-</button>
+          <button class="cart-qty-btn" onclick="updateCartQty('${key}', -1)">-</button>
           <span style="font-size: 0.88rem; font-weight: 800; min-width: 18px; text-align: center;">${item.qty}</span>
-          <button class="cart-qty-btn" onclick="updateCartQty('${item.id}', 1)">+</button>
+          <button class="cart-qty-btn" onclick="updateCartQty('${key}', 1)">+</button>
         </div>
       </div>
     `;
@@ -2493,11 +3450,15 @@ function resetAllFilters() {
     height: 'all',
     material: 'all',
     brakes: 'all',
+    inStockOnly: false,
     minPrice: 0,
     maxPrice: 500000,
     search: '',
     sort: 'popular'
   };
+
+  const inStockCheck = document.getElementById('filter-in-stock-only');
+  if (inStockCheck) inStockCheck.checked = false;
 
   const catSelect = document.getElementById('catalog-category-select');
   if (catSelect) catSelect.value = 'all';
@@ -2684,6 +3645,16 @@ function initEventListeners() {
     sortSelect.addEventListener('change', (e) => {
       resetCatalogPagination();
       AppState.activeFilters.sort = e.target.value;
+      applyFilters();
+    });
+  }
+
+  // In-stock only toggle
+  const inStockCheck = document.getElementById('filter-in-stock-only');
+  if (inStockCheck) {
+    inStockCheck.addEventListener('change', (e) => {
+      resetCatalogPagination();
+      AppState.activeFilters.inStockOnly = e.target.checked;
       applyFilters();
     });
   }

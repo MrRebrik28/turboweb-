@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=2.8.2" />
+  <link rel="stylesheet" href="styles.css?v=2.9.0" />
 </head>
 <body>
 
@@ -258,7 +258,10 @@
 
       <div class="footer-bottom-line">
         <div>© 2026 TIMETRY BIKES RUSSIA. Все права защищены. Официальный дилер.</div>
-        <div>152-ФЗ Персональные данные защищены.</div>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span>152-ФЗ Персональные данные защищены.</span>
+          <button type="button" class="footer-admin-entry" onclick="openAdminLoginModal()">Администрирование</button>
+        </div>
       </div>
     </div>
   </footer>
@@ -599,7 +602,7 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Engine Script -->
-  <script src="app.js?v=2.8.2"></script>
+  <script src="app.js?v=2.9.0"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       initProductPage();
