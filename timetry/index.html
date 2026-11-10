@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=2.7.3" />
+  <link rel="stylesheet" href="styles.css?v=2.7.4" />
 </head>
 <body>
 
@@ -142,26 +142,6 @@
        ======================================================================== -->
   <section class="main-store-section" id="catalog-section">
     <div class="container">
-
-      <!-- Category Filter Pills -->
-      <div class="category-pills-wrap">
-        <button class="cat-btn active" data-cat="all" id="cat-all-btn">Все модели (31)</button>
-        <button class="cat-btn" data-cat="Горные (MTB)">Горные (MTB)</button>
-        <button class="cat-btn" data-cat="Двухподвесы">Двухподвесы</button>
-        <button class="cat-btn" data-cat="Гравийные">Гравийные</button>
-        <button class="cat-btn" data-cat="Городские">Городские</button>
-        <button class="cat-btn" data-cat="Дорожные">Дорожные</button>
-        <button class="cat-btn" data-cat="Шоссейные">Шоссейные</button>
-        <button class="cat-btn" data-cat="Фэтбайки">Фэтбайки</button>
-        <button class="cat-btn" data-cat="Полуфэтбайки">Полуфэтбайки</button>
-        <button class="cat-btn" data-cat="Подростковые">Подростковые</button>
-        <button class="cat-btn" data-cat="Детские">Детские</button>
-        <button class="cat-btn" data-cat="Женские">Женские</button>
-        <button class="cat-btn" data-cat="BMX">BMX и др.</button>
-        <button class="cat-btn" data-cat="Складные">Складные</button>
-        <button class="cat-btn" data-cat="Трейловые">Трейловые</button>
-        <button class="cat-btn" data-cat="Электровелосипеды">Электровелосипеды</button>
-      </div>
 
       <!-- Catalog Layout: Filters Sidebar + Grid -->
       <div class="catalog-grid-layout">
@@ -287,15 +267,38 @@
             <div class="catalog-found-text">
               Найдено: <strong id="catalog-count">0</strong> моделей в наличии
             </div>
-            <div class="catalog-sort-box">
-              <label for="catalog-sort-select">Сортировка:</label>
-              <select id="catalog-sort-select">
-                <option value="popular">По популярности</option>
-                <option value="model_asc">По названию модели (А — Я)</option>
-                <option value="model_desc">По названию модели (Я — А)</option>
-                <option value="price_asc">Сначала недорогие</option>
-                <option value="price_desc">Сначала премиум</option>
-              </select>
+            <div class="catalog-top-controls">
+              <div class="catalog-category-box">
+                <label for="catalog-category-select">Категория:</label>
+                <select id="catalog-category-select" class="catalog-select" aria-label="Категория велосипедов">
+                  <option value="all" id="cat-select-all-opt">Все категории (31)</option>
+                  <option value="Горные (MTB)">Горные (MTB)</option>
+                  <option value="Двухподвесы">Двухподвесы</option>
+                  <option value="Гравийные">Гравийные</option>
+                  <option value="Городские">Городские</option>
+                  <option value="Дорожные">Дорожные</option>
+                  <option value="Шоссейные">Шоссейные</option>
+                  <option value="Фэтбайки">Фэтбайки</option>
+                  <option value="Полуфэтбайки">Полуфэтбайки</option>
+                  <option value="Подростковые">Подростковые</option>
+                  <option value="Детские">Детские</option>
+                  <option value="Женские">Женские</option>
+                  <option value="BMX">BMX и др.</option>
+                  <option value="Складные">Складные</option>
+                  <option value="Трейловые">Трейловые</option>
+                  <option value="Электровелосипеды">Электровелосипеды</option>
+                </select>
+              </div>
+              <div class="catalog-sort-box">
+                <label for="catalog-sort-select">Сортировка:</label>
+                <select id="catalog-sort-select" class="catalog-select" aria-label="Сортировка каталога">
+                  <option value="popular">По популярности</option>
+                  <option value="model_asc">По названию модели (А — Я)</option>
+                  <option value="model_desc">По названию модели (Я — А)</option>
+                  <option value="price_asc">Сначала недорогие</option>
+                  <option value="price_desc">Сначала премиум</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -901,6 +904,6 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Engine Script -->
-  <script src="app.js?v=2.7.3"></script>
+  <script src="app.js?v=2.7.4"></script>
 </body>
 </html>

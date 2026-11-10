@@ -597,23 +597,9 @@ input::placeholder, textarea::placeholder {
   box-sizing: border-box;
 }
 
-/* Category Quick Filter Pills Bar - Seamless Tech Minimalist */
+/* Category Quick Filter Pills Bar - Hidden / Migrated to Top Dropdown */
 .category-pills-wrap {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border-color);
-  border-radius: 0;
-  padding: 8px 0 16px;
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  display: none !important;
 }
 
 .cat-btn {
@@ -814,7 +800,7 @@ input::placeholder, textarea::placeholder {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 16px;
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--border-color);
@@ -837,6 +823,14 @@ input::placeholder, textarea::placeholder {
   font-weight: 600;
 }
 
+.catalog-top-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.catalog-category-box,
 .catalog-sort-box {
   display: flex;
   align-items: center;
@@ -845,23 +839,49 @@ input::placeholder, textarea::placeholder {
   color: var(--text-muted);
 }
 
-.catalog-sort-box select,
-.catalog-sort-select {
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  color: var(--text-main);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: border-color var(--transition-fast);
+.catalog-category-box label,
+.catalog-sort-box label {
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
-.catalog-sort-box select:focus,
-.catalog-sort-select:focus {
-  border-color: var(--border-focus);
+.catalog-category-box select,
+.catalog-sort-box select,
+.catalog-select {
   background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 0 !important;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.catalog-category-box select:focus,
+.catalog-sort-box select:focus,
+.catalog-select:focus {
+  border-color: var(--text-main);
+  background: var(--bg-surface);
+}
+
+[data-theme="light"] .catalog-category-box select,
+[data-theme="light"] .catalog-sort-box select,
+[data-theme="light"] .catalog-select {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.16);
+  color: #0f172a;
+}
+
+[data-theme="dark"] .catalog-category-box select,
+[data-theme="dark"] .catalog-sort-box select,
+[data-theme="dark"] .catalog-select {
+  background: #111827;
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f1f5f9;
 }
 
 /* Product Cards Grid - Seamless Tech Minimalist Matrix */
@@ -3345,6 +3365,34 @@ footer,
     max-width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box;
+  }
+
+  .catalog-top-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .catalog-top-controls {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .catalog-category-box,
+  .catalog-sort-box {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .catalog-category-box select,
+  .catalog-sort-box select {
+    flex: 1 !important;
+    margin-left: 10px !important;
+    max-width: 65% !important;
   }
 
   .products-cards-grid {

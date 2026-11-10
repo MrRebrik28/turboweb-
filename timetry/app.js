@@ -455,25 +455,17 @@ function syncFilterTagsWithProducts() {
     });
   }
 
-  // 5. Category pills in quick filter bar
-  const catWrap = document.querySelector('.category-pills-wrap');
-  if (catWrap) {
-    const existingCats = new Set(Array.from(catWrap.querySelectorAll('.cat-btn')).map(b => b.dataset.cat));
+  // 5. Category select in catalog top bar
+  const catSelect = document.getElementById('catalog-category-select');
+  if (catSelect) {
+    const existingCats = new Set(Array.from(catSelect.options).map(opt => opt.value));
     AppState.products.forEach(p => {
       if (p.bike_type && !existingCats.has(p.bike_type)) {
         existingCats.add(p.bike_type);
-        const btn = document.createElement('button');
-        btn.className = 'cat-btn';
-        btn.dataset.cat = p.bike_type;
-        btn.textContent = p.bike_type;
-        btn.addEventListener('click', () => {
-          resetCatalogPagination();
-          document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          AppState.activeFilters.category = p.bike_type;
-          applyFilters();
-        });
-        catWrap.appendChild(btn);
+        const opt = document.createElement('option');
+        opt.value = p.bike_type;
+        opt.textContent = p.bike_type;
+        catSelect.appendChild(opt);
       }
     });
   }
@@ -517,7 +509,11 @@ async function initCatalog() {
   // Dynamically sync and discover wheel sizes, speeds, and brands from catalog
   syncFilterTagsWithProducts();
 
-  // Update dynamic count on all-category pill
+  // Update dynamic count on all-category option
+  const catAllOpt = document.getElementById('cat-select-all-opt');
+  if (catAllOpt) {
+    catAllOpt.textContent = `Все категории (${AppState.products.length})`;
+  }
   const allBtn = document.getElementById('cat-all-btn');
   if (allBtn) {
     allBtn.textContent = `Все модели (${AppState.products.length})`;
@@ -534,6 +530,8 @@ async function initCatalog() {
   }
   if (catParam) {
     AppState.activeFilters.category = catParam;
+    const catSelect = document.getElementById('catalog-category-select');
+    if (catSelect) catSelect.value = catParam;
     document.querySelectorAll('.cat-btn').forEach(b => {
       b.classList.toggle('active', b.dataset.cat === catParam);
     });
@@ -1228,6 +1226,8 @@ window.submitMechanicQuestion = function(e) {
 
 function syncFiltersUI() {
   if (AppState.activeFilters.category) {
+    const catSelect = document.getElementById('catalog-category-select');
+    if (catSelect) catSelect.value = AppState.activeFilters.category;
     document.querySelectorAll('.cat-btn').forEach(b => {
       b.classList.toggle('active', b.dataset.cat === AppState.activeFilters.category);
     });
@@ -2583,6 +2583,28 @@ function renderFavoritesModal() {
 // ==========================================
 function setCategoryFilter(cat) {
   resetCatalogPagination();
+  const catSelect = document.getElementById('catalog-category-select');
+  if (catSelect) {
+    let matched = false;
+    for (let i = 0; i < catSelect.options.length; i++) {
+      if (catSelect.options[i].value === cat) {
+        catSelect.value = cat;
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      for (let i = 0; i < catSelect.options.length; i++) {
+        const val = catSelect.options[i].value;
+        if (val.toLowerCase().includes(cat.toLowerCase()) || cat.toLowerCase().includes(val.toLowerCase())) {
+          catSelect.value = val;
+          cat = val;
+          matched = true;
+          break;
+        }
+      }
+    }
+  }
   document.querySelectorAll('.cat-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.cat === cat);
   });
@@ -2613,6 +2635,8 @@ function resetAllFilters() {
     sort: 'popular'
   };
 
+  const catSelect = document.getElementById('catalog-category-select');
+  if (catSelect) catSelect.value = 'all';
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
   document.querySelectorAll('.filter-tag-btn').forEach(p => {
     if (p.dataset.filterVal === 'all') {
@@ -2693,13 +2717,24 @@ function showToast(msg) {
 // EVENT LISTENERS WIRING
 // ==========================================
 function initEventListeners() {
-  // Category pills
+  // Category select listener
+  const catSelect = document.getElementById('catalog-category-select');
+  if (catSelect) {
+    catSelect.addEventListener('change', (e) => {
+      resetCatalogPagination();
+      AppState.activeFilters.category = e.target.value;
+      applyFilters();
+    });
+  }
+
+  // Category pills (legacy/fallback if any)
   document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       resetCatalogPagination();
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       AppState.activeFilters.category = btn.dataset.cat;
+      if (catSelect) catSelect.value = btn.dataset.cat;
       applyFilters();
     });
   });
