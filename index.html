@@ -779,12 +779,12 @@
     </footer>
 
     <!-- МОДАЛЬНОЕ ОКНО УСПЕХА -->
-    <dialog id="success-dialog" class="rounded-3xl shadow-2xl p-0">
+    <dialog id="success-dialog" closedby="any" aria-labelledby="success-dialog-title" class="rounded-3xl shadow-2xl p-0">
         <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 text-center max-w-md mx-auto">
-            <div class="w-16 h-16 rounded-full bg-emerald-100 text-[#10B981] flex items-center justify-center text-3xl mx-auto mb-6">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-[#10B981] flex items-center justify-center text-3xl mx-auto mb-6" aria-hidden="true">
                 ✓
             </div>
-            <h3 class="text-2xl font-black text-[#0F172A] mb-2">
+            <h3 id="success-dialog-title" class="text-2xl font-black text-[#0F172A] mb-2">
                 Заявка принята, <span id="modal-user-name">Иван</span>!
             </h3>
             <p id="modal-user-details" class="text-sm text-slate-600 mb-4 leading-relaxed">
@@ -800,6 +800,6 @@
     </dialog>
 
     <!-- Скрипт с версионированием для сброса кэша браузера -->
-    <script src="app.js?v=20261031_01"></script>
+    <script src="app.js?v=20261111_01"></script>
 </body>
 </html>

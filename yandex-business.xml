@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2026-11-11 13:15">
+  <shop>
+    <name>LocalWeb</name>
+    <company>Студия веб-разработки LocalWeb (НПД Яровенко А. С.)</company>
+    <url>https://local-web.ru/</url>
+
+    <currencies>
+      <currency id="RUB" rate="1"/>
+    </currencies>
+
+    <categories>
+      <category id="1">Разработка сайтов</category>
+      <category id="2">Продвижение и карты</category>
+      <category id="3">Автоматизация и боты</category>
+      <category id="4">Поддержка и оптимизация</category>
+    </categories>
+
+    <offers>
+      <!-- 1. Основная флагманская услуга -->
+      <offer id="site-turnkey-7500" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=site-turnkey-7500#offers</url>
+        <price>7500</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://local-web.ru/assets/yml/web-dev.jpg</picture>
+        <name>Разработка одностраничного сайта (лендинга) под ключ за 24 часа</name>
+        <description>Создание быстрого адаптивного сайта для малого бизнеса с нуля на чистом коде. Подготовка рабочего прототипа за 24 часа без предварительной оплаты: вы оцениваете макет на экране смартфона до внесения средств. В стоимость включены мобильная адаптация, высокая скорость загрузки, настройка формы приема заявок в Telegram и на почту, а также соблюдение 152-ФЗ РФ. Размещение без ежемесячной платы за конструктор, гарантийная поддержка 30 дней.</description>
+        <sales_notes>Оплата после показа черновика. Чек ФНС.</sales_notes>
+        <param name="Срок разработки">24 часа</param>
+        <param name="Хостинг">0 руб/мес (Edge CDN)</param>
+      </offer>
+
+      <!-- 2. Расширенный многостраничный сайт / мини-каталог -->
+      <offer id="site-multipages-14900" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=site-multipages-14900#form</url>
+        <price>14900</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://local-web.ru/assets/yml/web-custom.jpg</picture>
+        <name>Создание многостраничного сайта или каталога услуг для бизнеса</name>
+        <description>Разработка структурированного корпоративного сайта до пяти страниц: главная страница, подробный каталог услуг с ценами, портфолио выполненных работ, информация о компании и карта проезда. Индивидуальная верстка с мгновенным откликом на смартфонах и ПК, настройка форм обратной связи и микроразметки для поисковых систем. Полная передача исходного кода заказчику без привязки к платным конструкторам.</description>
+        <sales_notes>Без абонентской платы. Официальный чек.</sales_notes>
+        <param name="Срок разработки">3–5 дней</param>
+        <param name="Объем">До 5 страниц</param>
+      </offer>
+
+      <!-- 3. Квиз-сайт с расчетом стоимости -->
+      <offer id="site-quiz-9900" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=site-quiz-9900#form</url>
+        <price>9900</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://local-web.ru/assets/yml/web-dev.jpg</picture>
+        <name>Разработка сайта-квиза с интерактивным калькулятором стоимости</name>
+        <description>Посадочная страница с пошаговым опросником и автоматическим расчетом предварительной сметы для повышения конверсии из рекламы. Посетитель выбирает параметры заказа за четыре-шесть шагов и оставляет контакт для получения расчета. Передача заполненной анкеты со всеми выбранными опциями напрямую в Telegram или таблицу учета в режиме реального времени.</description>
+        <sales_notes>Демонстрация до оплаты. Чек НПД.</sales_notes>
+        <param name="Срок разработки">2–3 дня</param>
+        <param name="Интеграция">Telegram и Google Таблицы</param>
+      </offer>
+
+      <!-- 4. Перенос сайта с конструктора на чистый код -->
+      <offer id="tilda-migration-5500" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=tilda-migration-5500#compare</url>
+        <price>5500</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://local-web.ru/assets/yml/web-custom.jpg</picture>
+        <name>Перенос сайта с конструктора на чистый код без абонентской платы</name>
+        <description>Перевод действующего лендинга с платных платформ (Tilda, Wix и аналогов) на независимый хостинг без ежегодного продления подписки конструктора. Сохранение дизайна, структуры, текстов, фотографий и вашего доменного имени с одновременным ускорением загрузки на мобильных сетях. Переподключение форм приема заявок, перенос счетчиков аналитики и выпуск SSL-сертификата.</description>
+        <sales_notes>Экономия от 9000 руб/год. Чек ФНС.</sales_notes>
+        <param name="Срок выполнения">24–48 часов</param>
+        <param name="Экономия">Без подписки конструктора</param>
+      </offer>
+
+      <!-- 5. Telegram-бот и автоматизация приема заявок -->
+      <offer id="tg-lead-bot-3500" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=tg-lead-bot-3500#why</url>
+        <price>3500</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>3</categoryId>
+        <picture>https://local-web.ru/assets/yml/bots-automation.jpg</picture>
+        <name>Настройка Telegram-бота и системы автоматического приема заявок</name>
+        <description>Подключение мгновенной доставки обращений с действующего сайта напрямую в ваш личный или рабочий чат Telegram за доли секунды. Автоматическая фиксация всех заявок в защищенную онлайн-таблицу для контроля менеджеров и дублирование на резервную электронную почту. Внедрение базовой защиты форм от спам-ботов и случайных повторных отправок.</description>
+        <sales_notes>Быстрая настройка под ключ. Чек НПД.</sales_notes>
+        <param name="Срок выполнения">1 день</param>
+        <param name="Скорость доставки">До 1 секунды</param>
+      </offer>
+
+      <!-- 6. Упаковка карточки в Яндекс Картах и 2ГИС -->
+      <offer id="yandex-business-maps-4500" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=yandex-business-maps-4500#form</url>
+        <price>4500</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>2</categoryId>
+        <picture>https://local-web.ru/assets/yml/maps-seo.jpg</picture>
+        <name>Оформление и настройка профиля организации в Яндекс Картах и 2ГИС</name>
+        <description>Комплексная упаковка карточки локальной компании в геосервисах для привлечения клиентов из поиска по району и городу. Подбор целевых рубрик и атрибутов, наполнение прайс-листа услуг с понятными описаниями, подготовка и загрузка фотографий, публикация новостей и настройка переходов на ваш сайт или в мессенджеры.</description>
+        <sales_notes>Полное заполнение за 1–2 дня.</sales_notes>
+        <param name="Срок выполнения">1–2 дня</param>
+        <param name="Площадки">Яндекс Карты и 2ГИС</param>
+      </offer>
+
+      <!-- 7. Техническая SEO-оптимизация, Метрика и Вебмастер -->
+      <offer id="seo-metrika-setup-3000" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=seo-metrika-setup-3000#form</url>
+        <price>3000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>2</categoryId>
+        <picture>https://local-web.ru/assets/yml/maps-seo.jpg</picture>
+        <name>Базовая SEO-настройка сайта, подключение Яндекс Метрики и Вебмастера</name>
+        <description>Техническая подготовка сайта к индексации в поисковых системах: составление файлов sitemap.xml и robots.txt, настройка заголовков, мета-тегов, обложек OpenGraph для мессенджеров и микроразметки Schema.org. Подключение счетчика Яндекс Метрики с Вебвизором и целями на отправку форм для точного отслеживания конверсии и источников заявок.</description>
+        <sales_notes>Настройка за 24 часа. Чек ФНС.</sales_notes>
+        <param name="Срок выполнения">24 часа</param>
+        <param name="Аналитика">Метрика и Вебвизор</param>
+      </offer>
+
+      <!-- 8. Соответствие сайта требованиям 152-ФЗ РФ -->
+      <offer id="fz152-compliance-2500" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=fz152-compliance-2500#form</url>
+        <price>2500</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://local-web.ru/assets/yml/support-security.jpg</picture>
+        <name>Настройка соответствия сайта требованиям закона 152-ФЗ РФ</name>
+        <description>Приведение форм обратной связи и юридических страниц действующего сайта в соответствие с нормами законодательства о персональных данных. Разработка персонализированной политики конфиденциальности с реквизитами владельца, установка обязательных чекбоксов согласия и настройка локализованной фиксации данных пользователей на серверах в РФ.</description>
+        <sales_notes>Актуальные требования 152-ФЗ.</sales_notes>
+        <param name="Срок выполнения">1 день</param>
+        <param name="Документ">Политика под реквизиты</param>
+      </offer>
+
+      <!-- 9. Подбор домена, DNS и SSL-сертификата -->
+      <offer id="domain-ssl-setup-1500" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=domain-ssl-setup-1500#faq</url>
+        <price>1500</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://local-web.ru/assets/yml/support-security.jpg</picture>
+        <name>Регистрация домена на владельца, настройка DNS и выпуск SSL</name>
+        <description>Подбор запоминающегося доменного имени в зоне .RU или .РФ и регистрация строго на паспортные данные или реквизиты организации заказчика. Настройка ресурсных записей DNS (A, CNAME, TXT), привязка к хостингу и выпуск защищенного SSL-сертификата для безопасной работы сайта по протоколу HTTPS без предупреждений в браузерах.</description>
+        <sales_notes>Домен оформляется строго на вас.</sales_notes>
+        <param name="Срок выполнения">До 2 часов</param>
+        <param name="Безопасность">HTTPS / Let's Encrypt</param>
+      </offer>
+
+      <!-- 10. Ускорение загрузки и оптимизация мобильной версии -->
+      <offer id="speed-audit-fix-3500" available="true">
+        <url>https://local-web.ru/?utm_source=yandex_business&amp;utm_medium=yml&amp;utm_content=speed-audit-fix-3500#compare</url>
+        <price>3500</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://local-web.ru/assets/yml/support-security.jpg</picture>
+        <name>Ускорение загрузки сайта и техническая оптимизация мобильной версии</name>
+        <description>Комплексный аудит скорости работы сайта, сжатие графики и перевод изображений в современный формат WebP, устранение блокирующих скриптов и исправление ошибок отображения блоков на экранах смартфонов. Повышение показателей производительности в Google PageSpeed Insights для снижения показателя отказов и роста позиций в поиске.</description>
+        <sales_notes>Оптимизация кода за 1–2 дня.</sales_notes>
+        <param name="Срок выполнения">1–2 дня</param>
+        <param name="Цель">Скорость до 1 секунды</param>
+      </offer>
+    </offers>
+  </shop>
+</yml_catalog>

@@ -163,12 +163,78 @@ body {
 /* Form Inputs */
 input, select, textarea {
   transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  font: inherit;
+  font-size: max(1rem, 1em);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+select,
+button[type="submit"],
+.messenger-btn {
+  min-height: 48px;
+}
+
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.45);
+  outline-offset: 2px;
 }
 
 input:focus, select:focus, textarea:focus {
-  outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+input:user-invalid, select:user-invalid, textarea:user-invalid {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+/* Visually Hidden (Accessible to Screen Readers) */
+.visually-hidden {
+  position: absolute;
+  clip-path: inset(50%);
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+/* Radio Card Control */
+.radio-card-label {
+  display: flex;
+  flex-direction: column;
+  padding: 0.875rem 1rem;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.radio-card-label:hover {
+  border-color: #CBD5E1;
+  background: #F8FAFC;
+}
+
+.radio-card-input:checked + .radio-card-label {
+  border-color: #2563EB;
+  background: #EFF6FF;
+  box-shadow: 0 0 0 1px #2563EB;
+}
+
+.radio-card-input:focus-visible + .radio-card-label {
+  outline: 3px solid rgba(37, 99, 235, 0.45);
+  outline-offset: 2px;
+}
+
+/* Range Input */
+input[type="range"] {
+  accent-color: var(--primary);
+  cursor: pointer;
 }
 
 /* Native Dialog */
@@ -186,7 +252,22 @@ dialog::backdrop {
   background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  overflow: hidden;
   overscroll-behavior: contain;
+}
+
+/* Native Details FAQ Support */
+details.faq-native > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details.faq-native > summary::-webkit-details-marker {
+  display: none;
+}
+details.faq-native[open] .faq-icon {
+  transform: rotate(180deg);
+  background-color: #EFF6FF;
+  color: var(--primary);
 }
 
 /* FAQ Accordion Styling */
