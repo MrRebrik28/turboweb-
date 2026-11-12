@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог LocalWeb — Полезные статьи о сайтах, 152-ФЗ и привлечении клиентов</title>
+    <meta name="description" content="Практические гайды для владельцев малого бизнеса: как не переплачивать за конструкторы, настроить 152-ФЗ, SEO, Яндекс Метрику и приём заявок в Telegram.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://local-web.ru/blog/">
+    <link rel="alternate" type="application/rss+xml" title="LocalWeb — Блог для бизнеса (Дзен RSS)" href="https://local-web.ru/dzen-rss.xml">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <meta name="theme-color" content="#2563EB">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://local-web.ru/blog/">
+    <meta property="og:title" content="Блог LocalWeb — Статьи и гайды для малого бизнеса">
+    <meta property="og:description" content="Разборы технических и маркетинговых задач малого бизнеса в интернете.">
+    <meta property="og:image" content="https://local-web.ru/og-image.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113958309', 'ym');
+
+        ym(113958309, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/113958309" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body class="bg-[#F8FAFC] text-[#0F172A] min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 bg-[#F8FAFC]/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform" aria-hidden="true">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-black text-xl tracking-tight text-[#0F172A]">Local<span class="text-[#2563EB]">Web</span></span>
+                    <span class="hidden sm:block text-[11px] text-slate-500 font-medium leading-none">Блог для локального бизнеса</span>
+                </div>
+            </a>
+
+            <nav aria-label="Навигация по блогу" class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+                <a href="index.html" class="hover:text-[#2563EB] transition-colors">Все статьи</a>
+                <a href="../index.html#offers" class="hover:text-[#2563EB] transition-colors">Условия</a>
+                <a href="../index.html#compare" class="hover:text-[#2563EB] transition-colors">Сравнение</a>
+                <a href="../index.html" class="hover:text-[#2563EB] transition-colors">Главная</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="../dzen-rss.xml" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:border-blue-300 hover:text-[#2563EB] transition-colors">
+                    RSS для Дзена
+                </a>
+                <a href="../index.html#form" class="bg-[#0F172A] hover:bg-slate-800 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-sm">
+                    Заказать сайт
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="max-w-3xl mb-12">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/70 text-[#2563EB] text-xs font-bold mb-4">
+                Практическая база знаний • 12 статей
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-black text-[#0F172A] tracking-tight leading-tight mb-4">
+                Блог о быстрых сайтах и заявках для малого бизнеса
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                Разбираем на практике, как уйти от переплат за подписочные конструкторы, соблюсти 152-ФЗ, исправить базовые ошибки SEO и не терять обращения из рекламы и карт.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="sajt-kviz-kak-uvelichit-konversiyu-v-slozhnyh-nishah.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_17.png" alt="Сайт-квиз с расчётом стоимости: когда короткий опрос приносит больше заявок, чем классический лендинг" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Маркетинг</span>
+                        <span>12 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Сайт-квиз с расчётом стоимости: когда короткий опрос приносит больше заявок, чем классический лендинг
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Почему клиентам в ремонте, стройке и услугах проще ответить на 4 вопроса, чем звонить и уточнять цену с нуля.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="pochemu-katalog-tovarov-nelzya-sobirat-na-odnom-lendinge.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_19.png" alt="Почему каталог на десятки товаров нельзя размещать на одностраничном конструкторе" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Бизнес</span>
+                        <span>11 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Почему каталог на десятки товаров нельзя размещать на одностраничном конструкторе
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Разбор частой ошибки владельцев магазинов и крупных компаний: проблемы со скоростью, фильтрацией и SEO на перегруженном лендинге.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="telegram-bot-priema-zayavok-vmesto-poteryannyh-pisem.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_25.png" alt="Почему заявки с сайта часто теряются в спаме и как перевести их в Telegram за 0.5 секунды" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Технологии</span>
+                        <span>10 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Почему заявки с сайта часто теряются в спаме и как перевести их в Telegram за 0.5 секунды
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Сравнение классической отправки форм на электронную почту с мгновенным шлюзом в Telegram, Google Таблицу и резервный email.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="standart-mobile-first-pochemu-sajt-proektiruyut-pod-smartfon.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_28.png" alt="Стандарт Mobile-First: почему современный сайт сначала проектируют под экран смартфона" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Технологии</span>
+                        <span>9 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Стандарт Mobile-First: почему современный сайт сначала проектируют под экран смартфона
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Около 85% клиентов заходят с телефона: какие требования предъявляет мобильный экран к кнопкам, таблицам цен и скорости.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="zachem-sajtu-yandex-metrika-i-vebvizor.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_24.png" alt="Зачем сайту Яндекс Метрика и Вебвизор 2.0: как увидеть, почему посетители уходят без заявки" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Маркетинг</span>
+                        <span>8 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Зачем сайту Яндекс Метрика и Вебвизор 2.0: как увидеть, почему посетители уходят без заявки
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Как видеозаписи визитов, карта кликов и цели по JS помогают найти слабые места посадочной страницы без догадок.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="kak-vyglyadit-ssylka-v-telegram-i-vk-opengraph.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_22.png" alt="Как ваша ссылка выглядит в Telegram и ВКонтакте: зачем настраивать OpenGraph-превью" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Технологии</span>
+                        <span>7 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Как ваша ссылка выглядит в Telegram и ВКонтакте: зачем настраивать OpenGraph-превью
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Почему голая ссылка без картинки и заголовка снижает доверие в переписке и как за 15 минут оформить аккуратную визитку ссылки.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>3 мин →</span>
+                </div>
+            </a>
+            <a href="yandex-karty-i-2gis-zachem-nuzhen-bystryj-sajt.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_18.png" alt="Яндекс Карты и 2ГИС плюс быстрый сайт: как локальному бизнесу получать горячих клиентов без платы за клики" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Маркетинг</span>
+                        <span>6 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Яндекс Карты и 2ГИС плюс быстрый сайт: как локальному бизнесу получать горячих клиентов без платы за клики
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Почему одной карточки на картах недостаточно и как быстрая посадочная страница помогает дожимать сомневающихся клиентов.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="tri-oshibki-seo-kotorye-meshayut-poisku.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_20.png" alt="Заголовок H1 на телефоне и пустые теги: три базовые ошибки SEO, которые легко исправить" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Технологии</span>
+                        <span>5 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Заголовок H1 на телефоне и пустые теги: три базовые ошибки SEO, которые легко исправить
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Почему даже хороший сайт не индексируется Яндексом: дубли H1, пустые Description, закрытый robots.txt и отсутствие Sitemap.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="proverka-sajta-po-152-fz-pustaya-zaglushka.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_23.png" alt="Как проверить сайт на соблюдение 152-ФЗ за 10 секунд: частая ошибка малого бизнеса" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Бизнес</span>
+                        <span>4 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Как проверить сайт на соблюдение 152-ФЗ за 10 секунд: частая ошибка малого бизнеса
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Почему пустая шаблонная политика конфиденциальности и отсутствие галочки согласия под формой создают риски для владельца сайта.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="pochemu-reklama-v-yandex-direkt-slivaet-byudzhet.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_21.png" alt="Три проблемы самого сайта, из-за которых реклама в Директе обходится слишком дорого" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Маркетинг</span>
+                        <span>3 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Три проблемы самого сайта, из-за которых реклама в Директе обходится слишком дорого
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Почему даже хорошо настроенная реклама не приносит дешёвых заявок: время загрузки, отсутствие первого экрана и неработающие цели Метрики.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>5 мин →</span>
+                </div>
+            </a>
+            <a href="perenos-sajta-s-tilda-i-wix-bez-poteri-pozicij.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_15.png" alt="Как перенести сайт с подписочного конструктора на чистый код и не потерять заявки" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Технологии</span>
+                        <span>2 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Как перенести сайт с подписочного конструктора на чистый код и не потерять заявки
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Пошаговый чек-лист переезда сайта с конструктора: сохранение URL, мета-тегов, счётчиков Метрики и проверка форм обратной связи.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+            <a href="skolko-na-samom-dele-stoit-konstruktor-sajta.html" class="card-glass p-5 flex flex-col justify-between group">
+                <div>
+                    <div class="aspect-square w-full overflow-hidden rounded-xl border border-slate-200/80 mb-4 bg-slate-50">
+                        <img src="images/post_27.png" alt="Сколько на самом деле стоит сайт на конструкторе за год работы" loading="lazy" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
+                    <div class="flex items-center justify-between gap-2 text-xs font-semibold text-slate-500 mb-2.5">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200/60">Технологии</span>
+                        <span>1 ноября 2026</span>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-[#0F172A] leading-snug mb-2 group-hover:text-[#2563EB] transition-colors">
+                        Сколько на самом деле стоит сайт на конструкторе за год работы
+                    </h2>
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        Разбираем скрытые расходы на конструкторах сайтов: тарифы, подключение домена, ограничения по скорости и альтернатива на чистом HTML.
+                    </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                    <span>Читать статью</span>
+                    <span>4 мин →</span>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-[#0F172A] text-slate-300 border-t border-slate-800 py-12 px-4 sm:px-6 lg:px-8 mt-16">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+                <a href="../index.html" class="font-black text-xl tracking-tight text-white">Local<span class="text-[#2563EB]">Web</span></a>
+                <p class="text-xs text-slate-400 mt-1">Быстрые сайты для малого бизнеса • © 2026 LocalWeb</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-6 text-sm font-medium">
+                <a href="index.html" class="hover:text-white transition-colors">Все статьи</a>
+                <a href="../index.html" class="hover:text-white transition-colors">Главная страница</a>
+                <a href="../policy.html" class="hover:text-white transition-colors">Политика 152-ФЗ</a>
+                <a href="../dzen-rss.xml" class="text-blue-400 hover:text-white transition-colors">RSS-лента</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
