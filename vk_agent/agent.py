@@ -62,21 +62,26 @@ class VkLocalWebAgent:
             f"(https://vk.com/id{self.user_info.get('id')})"
         )
 
-    def prepare_assets(self, force_regenerate: bool = False):
-        """Проверяет наличие ассетов, при необходимости генерирует."""
+    def get_selected_posts(self, from_day: int = 1, to_day: int = 999) -> list:
+        """Возвращает посты контент-плана в заданном диапазоне дней."""
+        return [p for p in POSTS if from_day <= p["day"] <= to_day]
+
+    def prepare_assets(self, from_day: int = 1, to_day: int = 999, force_regenerate: bool = False):
+        """Проверяет наличие ассетов, при необходимости генерирует недостающие."""
         avatar_path = os.path.join(ASSETS_DIR, "avatar.png")
         cover_path = os.path.join(ASSETS_DIR, "public_cover.png")
-        
+        selected = self.get_selected_posts(from_day, to_day)
+
         all_posts_exist = all(
             os.path.exists(os.path.join(ASSETS_DIR, p.get("image_file", f"post_{p['day']:02d}.png")))
-            for p in POSTS
+            for p in selected
         )
 
         if force_regenerate or not (os.path.exists(avatar_path) and os.path.exists(cover_path) and all_posts_exist):
-            logger.info("Генерация полного комплекта графических материалов...")
-            generate_all_assets()
+            logger.info(f"Генерация графических материалов (дни {from_day}–{to_day})...")
+            generate_all_assets(from_day=from_day, to_day=to_day, force=force_regenerate)
         else:
-            logger.info("Все графические ассеты уже сгенерированы и готовы к загрузке.")
+            logger.info("Все необходимые графические ассеты уже сгенерированы и готовы к загрузке.")
 
     def setup_community(self) -> int:
         """Создает и настраивает сообщество, загружает аватар и обложку."""
@@ -123,140 +128,140 @@ class VkLocalWebAgent:
 
         return self.group_id
 
-    def calculate_schedule_timestamps(self, start_date: datetime = None) -> list:
+    def calculate_schedule_timestamps(self, start_date: datetime = None, count: int = None) -> list:
         """
-        Вычисляет Unixtime метки времени для 14 постов.
+        Вычисляет Unixtime метки времени для count постов.
         По умолчанию начинает с завтрашнего дня в указанное время (POST_HOUR:POST_MINUTE).
         """
         if start_date is None:
             now = datetime.now()
-            # Завтрашний день в POST_HOUR:POST_MINUTE
             start_date = (now + timedelta(days=1)).replace(
                 hour=POST_HOUR, minute=POST_MINUTE, second=0, microsecond=0
             )
 
-        timestamps = []
-        for i in range(len(POSTS)):
-            post_time = start_date + timedelta(days=i)
-            timestamps.append(int(post_time.timestamp()))
-        return timestamps
+        total = count if count is not None else len(POSTS)
+        return [int((start_date + timedelta(days=i)).timestamp()) for i in range(total)]
 
-    def schedule_profile_posts(self, timestamps: list) -> list:
-        """Планирует 14 постов в отложку личного профиля."""
-        user_id = self.user_info.get("id")
-        logger.info(f"Заполнение отложки на 14 дней в личном профиле (ID: {user_id})...")
+    def _schedule_posts_for_target(
+        self,
+        owner_id: int,
+        posts: list,
+        timestamps: list,
+        label: str,
+        group_id: int = None,
+        from_group: int = 1,
+    ) -> list:
+        """Планирует заданный список постов в отложку/предложку указанной стены."""
         scheduled_posts = []
+        id_key = "group_id" if group_id else "owner_id"
+        id_val = group_id if group_id else owner_id
 
-        for i, post in enumerate(POSTS):
+        for i, post in enumerate(posts):
             day = post["day"]
             ts = timestamps[i]
             dt_str = datetime.fromtimestamp(ts).strftime("%d.%m.%Y %H:%M")
             img_file = post.get("image_file", f"post_{day:02d}.png")
             img_path = os.path.join(ASSETS_DIR, img_file)
 
-            logger.info(f"Профиль • День {day:02d} ({dt_str}): загрузка фото и создание отложенного поста...")
-            
-            # Загружаем фото на стену пользователя
+            logger.info(f"{label} • День {day:02d} ({dt_str}): загрузка фото и создание отложенного поста...")
+
             attachment = None
             if os.path.exists(img_path):
                 try:
-                    attachment = self.vk.upload_wall_photo(img_path)
+                    attachment = self.vk.upload_wall_photo(img_path, group_id=group_id)
                 except Exception as e:
                     logger.warning(f"Не удалось загрузить фото для дня {day}: {e}")
 
-            # Публикуем в отложку
             post_id = self.vk.schedule_post(
-                owner_id=user_id,
+                owner_id=owner_id,
                 message=post["text"],
                 publish_date=ts,
-                attachments=attachment
+                attachments=attachment,
+                from_group=from_group,
             )
             scheduled_posts.append({
                 "day": day,
                 "post_id": post_id,
                 "date": dt_str,
-                "owner_id": user_id
+                id_key: id_val,
             })
-            logger.info(f"Профиль • День {day:02d}: Успешно запланирован пост ID {post_id} на {dt_str}")
+            logger.info(f"{label} • День {day:02d}: Успешно запланирован пост ID {post_id} на {dt_str}")
 
         return scheduled_posts
 
-    def schedule_community_posts(self, timestamps: list) -> list:
+    def schedule_profile_posts(self, timestamps: list, posts: list = None) -> list:
+        """Планирует посты в отложку личного профиля."""
+        target_posts = posts if posts is not None else POSTS
+        user_id = self.user_info.get("id")
+        logger.info(f"Заполнение отложки ({len(target_posts)} постов) в личном профиле (ID: {user_id})...")
+        return self._schedule_posts_for_target(
+            owner_id=user_id,
+            posts=target_posts,
+            timestamps=timestamps,
+            label="Профиль",
+        )
+
+    def schedule_community_posts(self, timestamps: list, posts: list = None) -> list:
         """
-        Планирует 14 постов в отложку (или предложку) паблика.
-        Если as_suggested=False (по умолчанию): от имени группы (from_group=1) в очередь публикации.
+        Планирует посты в отложку (или предложку) паблика.
+        Если as_suggested=False: от имени группы (from_group=1).
         Если as_suggested=True: в предложенные новости (from_group=0).
         """
         if not self.group_id:
             raise ValueError("ID сообщества не определен.")
 
+        target_posts = posts if posts is not None else POSTS
         queue_type = "предложку" if self.as_suggested else "отложку"
         from_group = 0 if self.as_suggested else 1
 
-        logger.info(f"Заполнение 14 постов в {queue_type} паблика (ID: {self.group_id})...")
-        scheduled_posts = []
+        logger.info(f"Заполнение {len(target_posts)} постов в {queue_type} паблика (ID: {self.group_id})...")
+        return self._schedule_posts_for_target(
+            owner_id=-self.group_id,
+            posts=target_posts,
+            timestamps=timestamps,
+            label="Паблик",
+            group_id=self.group_id,
+            from_group=from_group,
+        )
 
-        for i, post in enumerate(POSTS):
-            day = post["day"]
-            ts = timestamps[i]
-            dt_str = datetime.fromtimestamp(ts).strftime("%d.%m.%Y %H:%M")
-            img_file = post.get("image_file", f"post_{day:02d}.png")
-            img_path = os.path.join(ASSETS_DIR, img_file)
+    def run(
+        self,
+        schedule_profile: bool = True,
+        schedule_group: bool = True,
+        start_date: datetime = None,
+        from_day: int = 1,
+        to_day: int = 999,
+        skip_branding: bool = False,
+    ) -> dict:
+        """Запуск цикла работы агента для выбранного диапазона дней."""
+        logger.info(f"=== Запуск автономного агента LocalWeb VK (дни {from_day}–{to_day}) ===")
 
-            logger.info(f"Паблик • День {day:02d} ({dt_str}): загрузка фото и создание поста...")
+        selected_posts = self.get_selected_posts(from_day, to_day)
+        if not selected_posts:
+            raise ValueError(f"Нет постов в диапазоне дней {from_day}–{to_day}.")
 
-            # Загружаем фото для стены сообщества
-            attachment = None
-            if os.path.exists(img_path):
-                try:
-                    attachment = self.vk.upload_wall_photo(img_path, group_id=self.group_id)
-                except Exception as e:
-                    logger.warning(f"Не удалось загрузить фото для дня {day}: {e}")
-
-            # Публикуем в сообщество
-            post_id = self.vk.schedule_post(
-                owner_id=-self.group_id,
-                message=post["text"],
-                publish_date=ts,
-                attachments=attachment,
-                from_group=from_group
-            )
-            scheduled_posts.append({
-                "day": day,
-                "post_id": post_id,
-                "date": dt_str,
-                "group_id": self.group_id
-            })
-            logger.info(f"Паблик • День {day:02d}: Успешно запланирован пост ID {post_id} на {dt_str}")
-
-        return scheduled_posts
-
-    def run(self, schedule_profile: bool = True, schedule_group: bool = True, start_date: datetime = None) -> dict:
-        """Запуск полного цикла работы агента."""
-        logger.info("=== Запуск автономного агента LocalWeb VK ===")
-        
         # 1. Авторизация
         self.initialize()
 
         # 2. Подготовка оформления и баннеров
-        self.prepare_assets()
+        self.prepare_assets(from_day=from_day, to_day=to_day)
 
-        # 3. Настройка сообщества
-        if schedule_group:
+        # 3. Настройка сообщества (если группа ещё не создана или не пропущено)
+        if schedule_group and (not self.group_id or not skip_branding):
             self.setup_community()
 
-        # 4. Расчет расписания на 14 дней
-        timestamps = self.calculate_schedule_timestamps(start_date)
+        # 4. Расчет расписания
+        timestamps = self.calculate_schedule_timestamps(start_date, count=len(selected_posts))
 
         # 5. Планирование в личный профиль
         profile_results = []
         if schedule_profile:
-            profile_results = self.schedule_profile_posts(timestamps)
+            profile_results = self.schedule_profile_posts(timestamps, posts=selected_posts)
 
         # 6. Планирование в сообщество
         group_results = []
         if schedule_group:
-            group_results = self.schedule_community_posts(timestamps)
+            group_results = self.schedule_community_posts(timestamps, posts=selected_posts)
 
         logger.info("=== Работа агента успешно завершена! ===")
         return {

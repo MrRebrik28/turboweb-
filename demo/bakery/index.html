@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кондитерская «SweetCraft» — Авторские торты на заказ в вашем городе</title>
+    <meta name="description" content="Авторские торты, бенто-торты и десерты ручной работы из 100% натуральных ингредиентов. Срочные заказы за 24 часа, бережная доставка в термобоксе.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        bakery: {
+                            50: '#FDF8F6',
+                            100: '#F2E8E5',
+                            200: '#EADDD7',
+                            500: '#D97757',
+                            600: '#C25E3E',
+                            900: '#2E1E1A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .demo-bar {
+            background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .cake-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .cake-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(217, 119, 87, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-bakery-50 text-bakery-900 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- LOCALWEB DEMO HEADER BAR -->
+    <aside aria-label="LocalWeb Demo Header" class="demo-bar text-white text-xs sm:text-sm py-2.5 px-4 sticky top-0 z-50 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">ДЕМО-САЙТ</span>
+                <span class="font-medium text-slate-200">Пример решения для кондитерской от студии <strong class="text-white font-bold">LocalWeb</strong></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden md:inline text-slate-300 text-xs">Разработаем такой же за 7 500 ₽ за 24 часа</span>
+                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
+                    Заказать такой сайт
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-bakery-100 sticky top-10 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-bakery-500 text-white flex items-center justify-center font-serif text-2xl shadow-sm">
+                    🍰
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-2xl tracking-tight text-bakery-900">SweetCraft</span>
+                    <span class="block text-[11px] text-bakery-600 font-medium">Кондитерская мастерская</span>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-600">
+                <a href="#catalog" class="hover:text-bakery-600 transition-colors">Каталог</a>
+                <a href="#calculator" class="hover:text-bakery-600 transition-colors">Калькулятор веса</a>
+                <a href="#flavors" class="hover:text-bakery-600 transition-colors">Начинки</a>
+                <a href="#reviews" class="hover:text-bakery-600 transition-colors">Отзывы</a>
+                <a href="#contacts" class="hover:text-bakery-600 transition-colors">Контакты</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="tel:+79990001122" class="hidden sm:flex flex-col text-right">
+                    <span class="text-xs text-stone-500">Прием заказов 9:00 - 21:00</span>
+                    <span class="text-sm font-bold text-bakery-900 hover:text-bakery-600 transition-colors">+7 (999) 000-11-22</span>
+                </a>
+                <a href="#calculator" class="bg-bakery-500 hover:bg-bakery-600 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-colors shadow-sm">
+                    Рассчитать торт
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-wider">
+                        ✨ 100% натуральные ингредиенты без маргарина
+                    </div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-bakery-900 leading-tight">
+                        Авторские торты и десерты к вашему главному празднику
+                    </h1>
+                    <p class="text-stone-600 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        Создаем торты со смыслом: от милых бенто-тортов до роскошных многоярусных свадебных композиций. Бельгийский шоколад Callebaut, натуральные сливки 33% и свежие ягоды.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#calculator" class="bg-bakery-500 hover:bg-bakery-600 text-white font-bold px-7 py-4 rounded-xl text-base transition-all shadow-md hover:shadow-lg">
+                            Подобрать торт и вес ➔
+                        </a>
+                        <a href="https://wa.me/79990001122?text=Здравствуйте!%20Хочу%20заказать%20торт" target="_blank" rel="noopener" class="bg-white border border-bakery-200 hover:bg-bakery-100 text-bakery-900 font-bold px-6 py-4 rounded-xl text-base transition-colors flex items-center gap-2">
+                            <span>Написать в WhatsApp</span>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-bakery-200">
+                        <div>
+                            <span class="block font-serif font-bold text-2xl text-bakery-900">от 24 ч</span>
+                            <span class="text-xs text-stone-500">Срочные заказы день в день</span>
+                        </div>
+                        <div>
+                            <span class="block font-serif font-bold text-2xl text-bakery-900">12 вкусов</span>
+                            <span class="text-xs text-stone-500">Авторские сбалансированные начинки</span>
+                        </div>
+                        <div>
+                            <span class="block font-serif font-bold text-2xl text-bakery-900">Термобокс</span>
+                            <span class="text-xs text-stone-500">Бережная доставка с климат-контролем</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative">
+                    <div class="aspect-square rounded-3xl bg-gradient-to-tr from-amber-100 via-rose-50 to-orange-100 border border-bakery-200 p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-bakery-900 shadow-sm">
+                                ⭐ Топ продаж этой недели
+                            </span>
+                            <span class="text-4xl">🎂</span>
+                        </div>
+                        
+                        <div class="text-center py-6">
+                            <div class="text-8xl mb-4 transform hover:scale-110 transition-transform cursor-pointer">🍓</div>
+                            <h3 class="font-serif text-2xl font-bold text-bakery-900">Клубничный Мусс & Ваниль</h3>
+                            <p class="text-xs text-stone-500 mt-1">Воздушный шифоновый бисквит, конфи из садовой клубники, сливочный мусс</p>
+                        </div>
+
+                        <div class="bg-white/90 backdrop-blur rounded-2xl p-4 flex items-center justify-between">
+                            <div>
+                                <span class="text-[11px] text-stone-500 uppercase tracking-wider block">Стоимость</span>
+                                <span class="text-lg font-bold text-bakery-900">от 2 400 ₽ / кг</span>
+                            </div>
+                            <a href="#calculator" class="bg-bakery-500 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-bakery-600 transition-colors">
+                                Выбрать
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPULAR CATALOG SECTION -->
+    <section id="catalog" class="py-16 md:py-24 bg-white border-y border-bakery-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-bakery-500">Наш ассортимент</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-bakery-900 mt-2">
+                    Популярные категории десертов
+                </h2>
+                <p class="text-stone-500 text-sm mt-2">Каждый десерт упакован в подарочную коробку с лентой, ложечкой и свечкой</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- CARD 1: Бенто-торт -->
+                <article class="cake-card bg-bakery-50 rounded-3xl p-6 border border-bakery-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-full h-48 rounded-2xl bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center text-6xl mb-6 shadow-inner">
+                            🧁
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">На 1–2 персоны</span>
+                            <span class="text-xs bg-white px-2.5 py-1 rounded-full font-semibold text-stone-600 border border-stone-200">~450 грамм</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-bakery-900 mb-2">Бенто-торт с вашей надписью</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                            Милый мини-торт в ланч-боксе со свечкой и ложечкой. Напишем любую надпись, мем или нарисуем кремовый рисунок.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-bakery-200 flex items-center justify-between">
+                        <span class="text-lg font-bold text-bakery-900">1 490 ₽</span>
+                        <a href="https://wa.me/79990001122?text=Хочу%20заказать%20бенто-торт" target="_blank" rel="noopener" class="bg-bakery-500 hover:bg-bakery-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors">Заказать</a>
+                    </div>
+                </article>
+
+                <!-- CARD 2: Свадебный торт -->
+                <article class="cake-card bg-bakery-50 rounded-3xl p-6 border border-bakery-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-full h-48 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center text-6xl mb-6 shadow-inner">
+                            🎂
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-amber-700 uppercase tracking-wider">От 3 кг</span>
+                            <span class="text-xs bg-white px-2.5 py-1 rounded-full font-semibold text-stone-600 border border-stone-200">Многоярусный</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-bakery-900 mb-2">Свадебный торт «Премиум»</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                            Архитектурные торты со скрытыми креплениями, живыми цветами и велюровым покрытием. Бесплатная дегустация 4 начинок.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-bakery-200 flex items-center justify-between">
+                        <span class="text-lg font-bold text-bakery-900">от 2 600 ₽/кг</span>
+                        <a href="https://wa.me/79990001122?text=Хочу%20рассчитать%20свадебный%20торт" target="_blank" rel="noopener" class="bg-bakery-500 hover:bg-bakery-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors">Заказать</a>
+                    </div>
+                </article>
+
+                <!-- CARD 3: Детский торт -->
+                <article class="cake-card bg-bakery-50 rounded-3xl p-6 border border-bakery-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-full h-48 rounded-2xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center text-6xl mb-6 shadow-inner">
+                            🎈
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">От 2 кг</span>
+                            <span class="text-xs bg-white px-2.5 py-1 rounded-full font-semibold text-stone-600 border border-stone-200">Без аллергенов</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-bakery-900 mb-2">Детские сюжетные торты</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                            Любимые персонажи из сахарной печати или шоколадных фигурок. Уменьшенное количество сахара по запросу.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-bakery-200 flex items-center justify-between">
+                        <span class="text-lg font-bold text-bakery-900">от 2 300 ₽/кг</span>
+                        <a href="https://wa.me/79990001122?text=Хочу%20детский%20торт" target="_blank" rel="noopener" class="bg-bakery-500 hover:bg-bakery-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors">Заказать</a>
+                    </div>
+                </article>
+
+                <!-- CARD 4: Капкейки -->
+                <article class="cake-card bg-bakery-50 rounded-3xl p-6 border border-bakery-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-full h-48 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-200 flex items-center justify-center text-6xl mb-6 shadow-inner">
+                            🧁
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">Наборы</span>
+                            <span class="text-xs bg-white px-2.5 py-1 rounded-full font-semibold text-stone-600 border border-stone-200">6, 9 или 12 шт</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-bakery-900 mb-2">Капкейки с ягодами</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                            Нежные кексы с ягодными и шоколадными центрами, увенчанные шапочкой из крем-чиза и свежими ягодами малины и голубики.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-bakery-200 flex items-center justify-between">
+                        <span class="text-lg font-bold text-bakery-900">от 1 650 ₽ / 6 шт</span>
+                        <a href="https://wa.me/79990001122?text=Хочу%20заказать%20капкейки" target="_blank" rel="noopener" class="bg-bakery-500 hover:bg-bakery-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors">Заказать</a>
+                    </div>
+                </article>
+
+                <!-- CARD 5: Макаронс -->
+                <article class="cake-card bg-bakery-50 rounded-3xl p-6 border border-bakery-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-full h-48 rounded-2xl bg-gradient-to-br from-purple-100 to-violet-200 flex items-center justify-center text-6xl mb-6 shadow-inner">
+                            🍪
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Французская классика</span>
+                            <span class="text-xs bg-white px-2.5 py-1 rounded-full font-semibold text-stone-600 border border-stone-200">100% миндаль</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-bakery-900 mb-2">Наборы макаронс ручной работы</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                            Хрустящая корочка и сочная серединка на миндальной муке мелкого помола. Вкусы: соленая карамель, дор-блю с грушей, маракуйя.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-bakery-200 flex items-center justify-between">
+                        <span class="text-lg font-bold text-bakery-900">от 1 200 ₽ / 8 шт</span>
+                        <a href="https://wa.me/79990001122?text=Хочу%20макаронс" target="_blank" rel="noopener" class="bg-bakery-500 hover:bg-bakery-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors">Заказать</a>
+                    </div>
+                </article>
+
+                <!-- CARD 6: Дегустационный сет -->
+                <article class="cake-card bg-bakery-50 rounded-3xl p-6 border border-bakery-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-full h-48 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center text-6xl mb-6 shadow-inner">
+                            🍰
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Для молодоженов</span>
+                            <span class="text-xs bg-white px-2.5 py-1 rounded-full font-semibold text-stone-600 border border-stone-200">4 мини-порции</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-bakery-900 mb-2">Дегустационный набор начинок</h3>
+                        <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                            Попробуйте 4 топовые начинки дома перед заказом большого торта. При заказе торта от 4 кг стоимость сета возвращается!
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-bakery-200 flex items-center justify-between">
+                        <span class="text-lg font-bold text-bakery-900">990 ₽ (или 0 ₽)</span>
+                        <a href="https://wa.me/79990001122?text=Хочу%20дегустационный%20набор" target="_blank" rel="noopener" class="bg-bakery-500 hover:bg-bakery-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors">Заказать</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE CALCULATOR SECTION -->
+    <section id="calculator" class="py-16 md:py-24 bg-bakery-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-bakery-500">Быстрый расчет</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-bakery-900 mt-2">
+                    Рассчитайте вес и стоимость торта онлайн
+                </h2>
+                <p class="text-stone-600 text-sm mt-2">Стандартный расчет: 180–200 грамм на одного взрослого гостя</p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-bakery-200 shadow-xl space-y-8">
+                <!-- Step 1: Guests slider -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label for="guests-range" class="font-bold text-bakery-900 text-base">Количество гостей на празднике:</label>
+                        <span class="text-2xl font-serif font-bold text-bakery-600" id="guests-count">10 человек</span>
+                    </div>
+                    <input type="range" id="guests-range" min="2" max="50" value="10" step="1" 
+                           class="w-full h-3 bg-bakery-100 rounded-lg appearance-none cursor-pointer accent-bakery-500">
+                    <div class="flex justify-between text-xs text-stone-400 mt-2">
+                        <span>2 чел (бенто)</span>
+                        <span>15 чел (юбилей)</span>
+                        <span>30 чел (свадьба)</span>
+                        <span>50+ чел</span>
+                    </div>
+                </div>
+
+                <!-- Step 2: Flavor selector -->
+                <div>
+                    <label class="block font-bold text-bakery-900 text-base mb-3">Выберите желаемую начинку:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="flavor-options">
+                        <label class="cursor-pointer border-2 border-bakery-500 bg-bakery-50 rounded-2xl p-4 flex items-center justify-between text-sm font-semibold transition-all">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="cake-flavor" value="Манго-Маракуйя" checked class="accent-bakery-500">
+                                <span>🥭 Манго-Маракуйя (Тропик)</span>
+                            </span>
+                            <span class="text-xs text-stone-500">2 400 ₽/кг</span>
+                        </label>
+                        <label class="cursor-pointer border-2 border-stone-200 hover:border-bakery-200 rounded-2xl p-4 flex items-center justify-between text-sm font-semibold transition-all">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="cake-flavor" value="Фисташка-Малина" class="accent-bakery-500">
+                                <span>🌰 Фисташка & Свежая Малина</span>
+                            </span>
+                            <span class="text-xs text-stone-500">2 600 ₽/кг</span>
+                        </label>
+                        <label class="cursor-pointer border-2 border-stone-200 hover:border-bakery-200 rounded-2xl p-4 flex items-center justify-between text-sm font-semibold transition-all">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="cake-flavor" value="Сникерс Премиум" class="accent-bakery-500">
+                                <span>🥜 Шоколадный Сникерс с карамелью</span>
+                            </span>
+                            <span class="text-xs text-stone-500">2 300 ₽/кг</span>
+                        </label>
+                        <label class="cursor-pointer border-2 border-stone-200 hover:border-bakery-200 rounded-2xl p-4 flex items-center justify-between text-sm font-semibold transition-all">
+                            <span class="flex items-center gap-2">
+                                <input type="radio" name="cake-flavor" value="Красный Бархат" class="accent-bakery-500">
+                                <span>❤️ Красный Бархат с вишней</span>
+                            </span>
+                            <span class="text-xs text-stone-500">2 200 ₽/кг</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Result & Action Box -->
+                <div class="bg-gradient-to-r from-bakery-500 to-bakery-600 rounded-2xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg">
+                    <div>
+                        <span class="text-xs text-bakery-100 uppercase tracking-wider block">Рекомендуемый вес и стоимость:</span>
+                        <div class="flex items-baseline gap-3 mt-1">
+                            <span class="text-3xl sm:text-4xl font-serif font-bold" id="total-weight">2.0 кг</span>
+                            <span class="text-2xl sm:text-3xl font-bold text-amber-200" id="total-price">4 800 ₽</span>
+                        </div>
+                        <span class="text-xs text-bakery-100 block mt-1">Включает декор базовой сложности, коробку и открытку</span>
+                    </div>
+
+                    <a id="calc-order-btn" href="#" target="_blank" rel="noopener" class="w-full sm:w-auto bg-white text-bakery-900 hover:bg-stone-100 font-bold px-6 py-3.5 rounded-xl text-center text-sm transition-all shadow-md">
+                        Заказать этот торт в WhatsApp ➔
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section id="reviews" class="py-16 md:py-24 bg-white border-t border-bakery-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-bakery-500">Отзывы заказчиков</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-bakery-900 mt-2">
+                    Более 450 праздников стали вкуснее
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-bakery-50 rounded-2xl p-6 border border-bakery-100">
+                    <div class="text-amber-500 text-sm mb-3">★★★★★</div>
+                    <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                        «Заказывали свадебный трехъярусный торт на 35 человек с начинкой манго-маракуйя. Гости были в восторге, не приторный, невероятно нежный! Доставили ровно к банкету в идеальном виде.»
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-rose-200 flex items-center justify-center font-bold text-rose-700">ЕК</div>
+                        <div>
+                            <span class="block text-xs font-bold text-bakery-900">Екатерина Ковалева</span>
+                            <span class="text-[11px] text-stone-500">Свадебный торт 7 кг</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-bakery-50 rounded-2xl p-6 border border-bakery-100">
+                    <div class="text-amber-500 text-sm mb-3">★★★★★</div>
+                    <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                        «Срочно нужен был бенто-торт парню на годовщину за 24 часа. Сделали точь-в-точь по моему эскизу из мема! Крем тает во рту, шоколад настоящий. Теперь только к вам!»
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-200 flex items-center justify-center font-bold text-amber-700">АН</div>
+                        <div>
+                            <span class="block text-xs font-bold text-bakery-900">Анна Новикова</span>
+                            <span class="text-[11px] text-stone-500">Бенто-торт с надписью</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-bakery-50 rounded-2xl p-6 border border-bakery-100">
+                    <div class="text-amber-500 text-sm mb-3">★★★★★</div>
+                    <p class="text-sm text-stone-600 leading-relaxed mb-4">
+                        «Брали дегустационный сет, а затем детский торт на 5 лет сыну. Очень понравилось, что сахара в меру, без химических красителей. Сын оценил фигурку супергероя из шоколада!»
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700">МС</div>
+                        <div>
+                            <span class="block text-xs font-bold text-bakery-900">Михаил Семенов</span>
+                            <span class="text-[11px] text-stone-500">Детский торт 3 кг</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACTS -->
+    <footer id="contacts" class="bg-bakery-900 text-white pt-16 pb-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-stone-800">
+                <div class="space-y-4">
+                    <span class="font-serif font-bold text-2xl tracking-tight text-white">SweetCraft</span>
+                    <p class="text-xs text-stone-400 leading-relaxed">
+                        Кондитерская мастерская натуральных десертов. Ручная работа с 2021 года.
+                    </p>
+                    <div class="text-xs text-amber-400">
+                        ⚡ Сайт разработан на стеке LocalWeb: скорость 0.4с • PageSpeed 100/100
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-stone-300 uppercase tracking-wider mb-3">Навигация</h4>
+                    <ul class="space-y-2 text-xs text-stone-400">
+                        <li><a href="#catalog" class="hover:text-white transition-colors">Каталог десертов</a></li>
+                        <li><a href="#calculator" class="hover:text-white transition-colors">Калькулятор веса</a></li>
+                        <li><a href="#reviews" class="hover:text-white transition-colors">Отзывы клиентов</a></li>
+                        <li><a href="https://local-web.ru" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Создать такой сайт (LocalWeb)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-stone-300 uppercase tracking-wider mb-3">Самовывоз & Доставка</h4>
+                    <p class="text-xs text-stone-400 leading-relaxed mb-2">
+                        г. Москва, ул. Кондитерская, д. 14 (м. Проспект Мира)
+                    </p>
+                    <p class="text-xs text-stone-400">
+                        Ежедневно с 09:00 до 21:00
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-stone-300 uppercase tracking-wider mb-3">Связь с кондитером</h4>
+                    <a href="tel:+79990001122" class="block text-base font-bold text-white mb-2 hover:text-bakery-500 transition-colors">+7 (999) 000-11-22</a>
+                    <a href="https://wa.me/79990001122" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors">
+                        Написать в WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
+                <span>© 2026 Кондитерская «SweetCraft». Все права защищены.</span>
+                <span class="text-stone-400">Демонстрационный сайт для портфолио <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb.ru</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive Cake Weight & Price Calculator
+        const guestsRange = document.getElementById('guests-range');
+        const guestsCount = document.getElementById('guests-count');
+        const totalWeight = document.getElementById('total-weight');
+        const totalPrice = document.getElementById('total-price');
+        const calcOrderBtn = document.getElementById('calc-order-btn');
+        const flavorInputs = document.querySelectorAll('input[name="cake-flavor"]');
+
+        const flavorPrices = {
+            'Манго-Маракуйя': 2400,
+            'Фисташка-Малина': 2600,
+            'Сникерс Премиум': 2300,
+            'Красный Бархат': 2200
+        };
+
+        function updateCalculator() {
+            const guests = parseInt(guestsRange.value, 10);
+            guestsCount.textContent = guests + ' ' + (guests % 10 === 1 && guests % 100 !== 11 ? 'человек' : 'человек');
+            
+            // Weight rule: ~0.18 kg per guest, min 0.5 kg (bento)
+            let weight = guests <= 2 ? 0.5 : Math.round((guests * 0.18) * 10) / 10;
+            if (weight < 1.0 && guests > 2) weight = 1.0;
+
+            let selectedFlavor = 'Манго-Маракуйя';
+            flavorInputs.forEach(input => {
+                const label = input.closest('label');
+                if (input.checked) {
+                    selectedFlavor = input.value;
+                    label.classList.add('border-bakery-500', 'bg-bakery-50');
+                    label.classList.remove('border-stone-200');
+                } else {
+                    label.classList.remove('border-bakery-500', 'bg-bakery-50');
+                    label.classList.add('border-stone-200');
+                }
+            });
+
+            const pricePerKg = flavorPrices[selectedFlavor] || 2400;
+            const cost = guests <= 2 ? 1490 : Math.round(weight * pricePerKg);
+
+            totalWeight.textContent = weight.toFixed(1) + ' кг';
+            totalPrice.textContent = cost.toLocaleString('ru-RU') + ' ₽';
+
+            const message = encodeURIComponent(`Здравствуйте! Хочу заказать торт: гостей: ${guests}, расчетный вес: ${weight.toFixed(1)} кг, начинка: ${selectedFlavor}, расчетная стоимость: ${cost} руб.`);
+            calcOrderBtn.href = `https://wa.me/79990001122?text=${message}`;
+        }
+
+        guestsRange.addEventListener('input', updateCalculator);
+        flavorInputs.forEach(input => input.addEventListener('change', updateCalculator));
+        updateCalculator();
+    </script>
+</body>
+</html>

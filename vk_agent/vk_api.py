@@ -26,7 +26,7 @@ class VkApiClient:
         self.session = requests.Session()
         self._user_info = None
 
-    def call(self, method: str, params: dict = None, http_method: str = "POST", max_retries: int = 5) -> dict:
+    def call(self, method: str, params: dict = None, http_method: str = "POST", max_retries: int = 8) -> dict:
         """Вызов метода VK API с автоматической обработкой сетевых сбоев, задержкой и повторами."""
         if params is None:
             params = {}
@@ -40,7 +40,7 @@ class VkApiClient:
         url = f"{self.API_URL}{method}"
 
         data = None
-        backoff_delays = [5, 10, 20, 30, 45]
+        backoff_delays = [5, 10, 15, 25, 35, 45, 60, 90]
         for attempt in range(1, max_retries + 1):
             # Соблюдаем лимит запросов к VK API (до 3 запросов в секунду для пользователя)
             time.sleep(0.35)

@@ -419,7 +419,13 @@ class VkOutreachAgent:
                 if sent_count >= effective_limit:
                     break
 
-                candidates = self.search_candidates(query=query, city=city, count=30)
+                try:
+                    candidates = self.search_candidates(query=query, city=city, count=30)
+                except Exception as e:
+                    logger.warning(f"⚠️ Сетевой сбой при поиске '{query} {city}': {e}. Пауза 10 сек и переход к следующему запросу...")
+                    time.sleep(10)
+                    continue
+
                 for candidate in candidates:
                     if sent_count >= effective_limit:
                         break

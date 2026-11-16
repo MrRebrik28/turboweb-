@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ремонт квартир под ключ «РемСтрой Pro» — Смета без скрытых доплат</title>
+    <meta name="description" content="Капитальный и косметический ремонт квартир под ключ. Фиксированная цена в договоре, оплата по факту завершения этапов, гарантия 3 года. Бесплатный замер за 24ч.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        reno: {
+                            50: '#F8FAFC',
+                            500: '#EA580C', // Safety orange accent
+                            600: '#C2410C',
+                            900: '#0F172A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .demo-bar {
+            background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- LOCALWEB DEMO HEADER BAR -->
+    <aside aria-label="LocalWeb Demo Header" class="demo-bar text-white text-xs sm:text-sm py-2.5 px-4 sticky top-0 z-50 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">ДЕМО-САЙТ</span>
+                <span class="font-medium text-slate-200">Пример решения для строительной компании от студии <strong class="text-white font-bold">LocalWeb</strong></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden md:inline text-slate-300 text-xs">Сделаем такой же сайт за 7 500 ₽ за 24ч</span>
+                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
+                    Заказать такой сайт
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-10 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-orange-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                    📐
+                </div>
+                <div>
+                    <span class="font-extrabold text-2xl tracking-tight text-slate-900">Рем<span class="text-orange-600">Строй</span></span>
+                    <span class="block text-[11px] text-slate-500 font-semibold">Ремонт квартир под ключ</span>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="#tariffs" class="hover:text-orange-600 transition-colors">Тарифы ремонта</a>
+                <a href="#calculator" class="hover:text-orange-600 transition-colors">Калькулятор м²</a>
+                <a href="#cases" class="hover:text-orange-600 transition-colors">Сданные объекты</a>
+                <a href="#guarantee" class="hover:text-orange-600 transition-colors">Договор и гарантия</a>
+                <a href="#contacts" class="hover:text-orange-600 transition-colors">Контакты</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="tel:+79994445566" class="hidden sm:flex flex-col text-right">
+                    <span class="text-xs text-slate-500">Бесплатная консультация инженера</span>
+                    <span class="text-sm font-bold text-slate-900 hover:text-orange-600 transition-colors">+7 (999) 444-55-66</span>
+                </a>
+                <a href="#calculator" class="bg-orange-600 hover:bg-orange-500 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm">
+                    Рассчитать смету
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 bg-gradient-to-b from-orange-50/40 to-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100 text-orange-800 text-xs font-bold">
+                        🔒 Цена в смете окончательная и фиксируется в договоре
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                        Честный ремонт квартир под ключ с оплатой по факту этапов
+                    </h1>
+                    <p class="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed">
+                        Никаких авансов на 100% стоимости. Закупаем материалы напрямую у производителей со скидкой до 25%. Еженедельный видеоотчет прораба в Telegram.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#calculator" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-7 py-4 rounded-xl text-sm sm:text-base transition-all shadow-md">
+                            Рассчитать стоимость по площади ➔
+                        </a>
+                        <a href="https://wa.me/79994445566?text=Здравствуйте!%20Хочу%20вызвать%20замерщика%20квартиры" target="_blank" rel="noopener" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-900 font-bold px-6 py-4 rounded-xl text-sm sm:text-base transition-colors flex items-center gap-2">
+                            <span>Вызвать замерщика (0 ₽)</span>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+                        <div>
+                            <span class="block font-extrabold text-2xl text-slate-900">0 ₽</span>
+                            <span class="text-xs text-slate-500">Замер и расчет сметы за 24 часа</span>
+                        </div>
+                        <div>
+                            <span class="block font-extrabold text-2xl text-slate-900">3 года</span>
+                            <span class="text-xs text-slate-500">Гарантия на все отделочные работы</span>
+                        </div>
+                        <div>
+                            <span class="block font-extrabold text-2xl text-slate-900">до 25%</span>
+                            <span class="text-xs text-slate-500">Скидка на черновые материалы</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="rounded-3xl bg-slate-900 text-white p-8 border border-slate-800 shadow-2xl relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="bg-orange-600 px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider">
+                                Спецпредложение
+                            </span>
+                            <span class="text-xs text-slate-400">Действует при заказе ремонта</span>
+                        </div>
+
+                        <h3 class="text-2xl font-bold mb-4">Технический дизайн-проект в подарок!</h3>
+                        <ul class="text-xs text-slate-300 space-y-2.5 mb-6">
+                            <li class="flex items-center gap-2">✓ Полный план расстановки розеток и выключателей</li>
+                            <li class="flex items-center gap-2">✓ План разводки сантехники и теплых полов</li>
+                            <li class="flex items-center gap-2">✓ 3D-визуализация раскладки керамогранита</li>
+                            <li class="flex items-center gap-2">✓ Экономия до 70 000 ₽ на услугах дизайнера</li>
+                        </ul>
+
+                        <div class="bg-slate-800 rounded-2xl p-4 flex items-center justify-between border border-slate-700">
+                            <div>
+                                <span class="text-slate-400 line-through text-xs">от 60 000 ₽</span>
+                                <span class="text-2xl font-black text-amber-400 block">Бесплатно</span>
+                            </div>
+                            <a href="#calculator" class="bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                                Получить проект
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TARIFFS SECTION -->
+    <section id="tariffs" class="py-16 md:py-24 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-orange-600">Прозрачные тарифы</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    Пакетные решения под любой бюджет
+                </h2>
+                <p class="text-slate-500 text-sm mt-2">В каждый тариф включен клининг после завершения работ и вывоз строительного мусора</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tariff 1 -->
+                <div class="rounded-3xl p-6 bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Освежить интерьер</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900 mt-1 mb-2">Косметический</h3>
+                        <p class="text-xs text-slate-500 mb-6 leading-relaxed">Быстрое обновление покрытия стен, полов и потолков без переноса перегородок.</p>
+                        <div class="mb-6">
+                            <span class="text-3xl font-black text-slate-900">4 500 ₽</span>
+                            <span class="text-xs text-slate-500">/ м² по полу</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-2 mb-6 border-t border-slate-200 pt-4">
+                            <li>✓ Демонтаж старых обоев и ламината</li>
+                            <li>✓ Шпаклевка и поклейка обоев / покраска</li>
+                            <li>✓ Укладка ламината / линолеума с плинтусами</li>
+                            <li>✓ Замена розеток и светильников</li>
+                            <li>✓ Срок: от 14 до 25 дней</li>
+                        </ul>
+                    </div>
+                    <a href="#calculator" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-center text-xs transition-colors">Выбрать этот тариф</a>
+                </div>
+
+                <!-- Tariff 2 (Featured) -->
+                <div class="rounded-3xl p-6 bg-orange-50/50 border-2 border-orange-500 flex flex-col justify-between relative shadow-lg">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Самый популярный выбор
+                    </span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-orange-600">Под ключ с нуля</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900 mt-1 mb-2">Капитальный</h3>
+                        <p class="text-xs text-slate-500 mb-6 leading-relaxed">Полный комплекс работ в новостройках и вторичке с заменой всей электрики и труб.</p>
+                        <div class="mb-6">
+                            <span class="text-3xl font-black text-orange-600">8 900 ₽</span>
+                            <span class="text-xs text-slate-500">/ м² по полу</span>
+                        </div>
+                        <ul class="text-xs text-slate-700 space-y-2 mb-6 border-t border-orange-200 pt-4">
+                            <li>✓ Выравнивание стен по маякам и стяжка пола</li>
+                            <li>✓ Полная разводка электрики ГОСТ и щиток</li>
+                            <li>✓ Разводка труб Rehau и сантехники под ключ</li>
+                            <li>✓ Укладка широкоформатного керамогранита</li>
+                            <li>✓ Натяжные потолки со световыми линиями</li>
+                            <li>✓ Срок: от 30 до 60 дней</li>
+                        </ul>
+                    </div>
+                    <a href="#calculator" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-xl text-center text-xs transition-colors">Выбрать этот тариф</a>
+                </div>
+
+                <!-- Tariff 3 -->
+                <div class="rounded-3xl p-6 bg-slate-50 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Премиум-класс</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900 mt-1 mb-2">Дизайнерский VIP</h3>
+                        <p class="text-xs text-slate-500 mb-6 leading-relaxed">Индивидуальный проект со сложными узлами, скрытыми дверьми, теневыми плинтусами.</p>
+                        <div class="mb-6">
+                            <span class="text-3xl font-black text-slate-900">14 500 ₽</span>
+                            <span class="text-xs text-slate-500">/ м² по полу</span>
+                        </div>
+                        <ul class="text-xs text-slate-600 space-y-2 mb-6 border-t border-slate-200 pt-4">
+                            <li>✓ Полный 3D дизайн-проект с авторским надзором</li>
+                            <li>✓ Скрытые двери Invisible и теневые профили</li>
+                            <li>✓ Шумоизоляция стен, полов и потолков</li>
+                            <li>✓ Монтаж сантехники скрытого монтажа</li>
+                            <li>✓ Интеграция элементов «Умный дом»</li>
+                            <li>✓ Срок: от 60 до 90 дней</li>
+                        </ul>
+                    </div>
+                    <a href="#calculator" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-center text-xs transition-colors">Выбрать этот тариф</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE M² CALCULATOR -->
+    <section id="calculator" class="py-16 md:py-24 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-orange-600">Онлайн-калькулятор сметы</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    Узнайте стоимость ремонта вашей квартиры
+                </h2>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-8">
+                <!-- Area slider -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label for="reno-area" class="font-bold text-slate-900 text-base">Площадь помещения:</label>
+                        <span class="text-2xl font-extrabold text-orange-600" id="area-val">50 м²</span>
+                    </div>
+                    <input type="range" id="reno-area" min="20" max="180" value="50" step="1" 
+                           class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-600">
+                    <div class="flex justify-between text-xs text-slate-400 mt-2">
+                        <span>20 м² (студия)</span>
+                        <span>50 м² (двушка)</span>
+                        <span>85 м² (трешка)</span>
+                        <span>180 м² (дом)</span>
+                    </div>
+                </div>
+
+                <!-- Tariff selection -->
+                <div>
+                    <label class="block font-bold text-slate-900 text-base mb-3">Выберите желаемый уровень отделки:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <label class="cursor-pointer border-2 border-slate-200 rounded-2xl p-4 text-center font-bold text-sm transition-all flex flex-col justify-between">
+                            <input type="radio" name="reno-tariff" value="Косметический" class="sr-only">
+                            <span>Косметический</span>
+                            <span class="text-xs text-slate-500 font-normal mt-1">4 500 ₽/м²</span>
+                        </label>
+                        <label class="cursor-pointer border-2 border-orange-600 bg-orange-50 rounded-2xl p-4 text-center font-bold text-sm transition-all flex flex-col justify-between">
+                            <input type="radio" name="reno-tariff" value="Капитальный" checked class="sr-only">
+                            <span class="text-orange-900">Капитальный под ключ</span>
+                            <span class="text-xs text-orange-700 font-normal mt-1">8 900 ₽/м²</span>
+                        </label>
+                        <label class="cursor-pointer border-2 border-slate-200 rounded-2xl p-4 text-center font-bold text-sm transition-all flex flex-col justify-between">
+                            <input type="radio" name="reno-tariff" value="Дизайнерский VIP" class="sr-only">
+                            <span>Дизайнерский VIP</span>
+                            <span class="text-xs text-slate-500 font-normal mt-1">14 500 ₽/м²</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Results Box -->
+                <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Ориентировочная стоимость работ:</span>
+                        <div class="flex items-baseline gap-3 mt-1">
+                            <span class="text-3xl sm:text-4xl font-extrabold text-amber-400" id="reno-total-cost">445 000 ₽</span>
+                            <span class="text-xs text-slate-300" id="reno-time">~35–45 дней</span>
+                        </div>
+                        <span class="text-xs text-slate-400 block mt-1">Включает бесплатный выезд инженера и детальную смету на 12 страницах</span>
+                    </div>
+
+                    <a id="reno-wa-btn" href="#" target="_blank" rel="noopener" class="w-full sm:w-auto bg-orange-600 hover:bg-orange-500 text-white font-bold px-6 py-3.5 rounded-xl text-center text-sm transition-all shadow-md">
+                        Вызвать замерщика бесплатно ➔
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACTS -->
+    <footer id="contacts" class="bg-slate-900 text-white pt-16 pb-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
+                <div class="space-y-4">
+                    <span class="font-extrabold text-2xl tracking-tight text-white">Рем<span class="text-orange-500">Строй</span></span>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Строительно-отделочная компания полного цикла. Реализовали более 280 проектов квартир и коттеджей.
+                    </p>
+                    <div class="text-xs text-amber-400">
+                        ⚡ Сайт разработан на стеке LocalWeb: скорость 0.4с • PageSpeed 100/100
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Услуги</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#tariffs" class="hover:text-white transition-colors">Ремонт в новостройке</a></li>
+                        <li><a href="#tariffs" class="hover:text-white transition-colors">Капитальный ремонт вторички</a></li>
+                        <li><a href="#calculator" class="hover:text-white transition-colors">Калькулятор сметы м²</a></li>
+                        <li><a href="https://local-web.ru" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Создать такой сайт (LocalWeb)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Офис и замер</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                        г. Москва, ул. Строителей, д. 22 (БЦ «Монолит», офис 412)
+                    </p>
+                    <p class="text-xs text-slate-400">
+                        Выезд инженеров-замерщиков: 8:00 – 21:00 без выходных
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Консультация прораба</h4>
+                    <a href="tel:+79994445566" class="block text-base font-bold text-white mb-2 hover:text-orange-400 transition-colors">+7 (999) 444-55-66</a>
+                    <a href="https://wa.me/79994445566" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors">
+                        Написать в WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <span>© 2026 Компания «РемСтрой Pro». Все права защищены.</span>
+                <span class="text-slate-400">Демонстрационный сайт для портфолио <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb.ru</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const renoArea = document.getElementById('reno-area');
+        const areaVal = document.getElementById('area-val');
+        const renoTotalCost = document.getElementById('reno-total-cost');
+        const renoTime = document.getElementById('reno-time');
+        const renoWaBtn = document.getElementById('reno-wa-btn');
+        const tariffInputs = document.querySelectorAll('input[name="reno-tariff"]');
+
+        const tariffRates = {
+            'Косметический': { rate: 4500, timeFactor: 0.5 },
+            'Капитальный': { rate: 8900, timeFactor: 0.8 },
+            'Дизайнерский VIP': { rate: 14500, timeFactor: 1.2 }
+        };
+
+        function updateRenoCalc() {
+            const area = parseInt(renoArea.value, 10);
+            areaVal.textContent = area + ' м²';
+
+            let selectedTariff = 'Капитальный';
+            tariffInputs.forEach(input => {
+                const label = input.closest('label');
+                if (input.checked) {
+                    selectedTariff = input.value;
+                    label.classList.add('border-orange-600', 'bg-orange-50');
+                    label.classList.remove('border-slate-200');
+                } else {
+                    label.classList.remove('border-orange-600', 'bg-orange-50');
+                    label.classList.add('border-slate-200');
+                }
+            });
+
+            const data = tariffRates[selectedTariff] || tariffRates['Капитальный'];
+            const cost = area * data.rate;
+            const days = Math.round(20 + area * data.timeFactor);
+
+            renoTotalCost.textContent = cost.toLocaleString('ru-RU') + ' ₽';
+            renoTime.textContent = `~${days}–${days + 10} дней`;
+
+            const msg = encodeURIComponent(`Здравствуйте! Хочу заказать бесплатный замер квартиры:\nПлощадь: ${area} м²\nТариф: ${selectedTariff}\nРасчетная стоимость: ${cost} руб.`);
+            renoWaBtn.href = `https://wa.me/79994445566?text=${msg}`;
+        }
+
+        renoArea.addEventListener('input', updateRenoCalc);
+        tariffInputs.forEach(input => input.addEventListener('change', updateRenoCalc));
+        updateRenoCalc();
+    </script>
+</body>
+</html>

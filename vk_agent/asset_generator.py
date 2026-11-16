@@ -323,8 +323,8 @@ def generate_public_cover(output_path: str = None) -> str:
     render_html_to_png(html, output_path, 1920, 768)
     return output_path
 
-# Генерация 14 карточек для постов (1080x1080)
-def generate_post_card(post_data: dict, output_path: str) -> str:
+# Генерация карточек для постов (1080x1080)
+def generate_post_card(post_data: dict, output_path: str, total_days: int = 30) -> str:
     """Генерирует высококонверсионную инфографику 1080x1080 для конкретного поста."""
     day = post_data["day"]
     title = post_data["title"]
@@ -667,7 +667,7 @@ def generate_post_card(post_data: dict, output_path: str) -> str:
             </div>
         </div>
         """
-    else:
+    elif day == 14:
         # Day 14: CTA
         center_content = """
         <div class="bento-card" style="padding: 34px; margin-top: 24px; text-align: center; border-color: #2563EB; background: #F8FAFF;">
@@ -680,6 +680,375 @@ def generate_post_card(post_data: dict, output_path: str) -> str:
             </div>
             <div style="display: inline-flex; align-items: center; gap: 12px; background: #2563EB; color: white; padding: 16px 36px; border-radius: 16px; font-size: 20px; font-weight: 800;">
                 Написать в Telegram: @LocalWebRu
+            </div>
+        </div>
+        """
+    elif day == 15:
+        # Перенос с Tilda и Wix
+        center_content = """
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 28px; border-color: #FECDD3; background: #FFF1F2;">
+                <div style="font-size: 14px; font-weight: 800; color: #E11D48; margin-bottom: 8px;">КОНСТРУКТОР (TILDA / WIX)</div>
+                <div style="font-size: 44px; font-weight: 900; color: #E11D48; line-height: 1.1; margin-bottom: 14px;">~45 000 ₽</div>
+                <div style="font-size: 15px; font-weight: 700; color: #881337; margin-bottom: 14px;">расход за 3 года аренды</div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 15px; font-weight: 600; color: #4C0519;">
+                    <li>• Не заплатил — сайт отключили</li>
+                    <li>• Загрузка 3–5 сек на смартфоне</li>
+                    <li>• Код и платформа вам не принадлежат</li>
+                </ul>
+            </div>
+            <div class="bento-card" style="padding: 28px; border-color: #A7F3D0; background: #ECFDF5;">
+                <div style="font-size: 14px; font-weight: 800; color: #059669; margin-bottom: 8px;">ПЕРЕНОС НА ЧИСТЫЙ КОД</div>
+                <div style="font-size: 44px; font-weight: 900; color: #059669; line-height: 1.1; margin-bottom: 14px;">5 500 ₽</div>
+                <div style="font-size: 15px; font-weight: 700; color: #065F46; margin-bottom: 14px;">разово • хостинг 0 ₽ навсегда</div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 15px; font-weight: 600; color: #064E3B;">
+                    <li>• Скорость взлетает до 0.8 сек</li>
+                    <li>• Ваш дизайн сохраняется на 100%</li>
+                    <li>• Подключим Telegram-бот и 152-ФЗ</li>
+                </ul>
+            </div>
+        </div>
+        """
+    elif day == 16:
+        # Многостраничный сайт до 5 страниц
+        center_content = """
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 22px; border-color: #2563EB; background: #F8FAFF;">
+                <div class="pill-blue" style="font-size: 11px; margin-bottom: 10px;">СТРАНИЦА 1</div>
+                <div style="font-size: 19px; font-weight: 900; margin-bottom: 6px;">Главная + УТП</div>
+                <div style="font-size: 14px; color: #64748B; line-height: 1.4;">Навигация, оффер, доверие и форма заявки в Telegram.</div>
+            </div>
+            <div class="bento-card" style="padding: 22px;">
+                <div class="pill-green" style="font-size: 11px; margin-bottom: 10px;">СТРАНИЦЫ 2–4</div>
+                <div style="font-size: 19px; font-weight: 900; margin-bottom: 6px;">Разделы услуг</div>
+                <div style="font-size: 14px; color: #64748B; line-height: 1.4;">Отдельные SEO-адреса (/repair, /price) для топа Яндекса и Директа.</div>
+            </div>
+            <div class="bento-card" style="padding: 22px;">
+                <div class="pill-blue" style="font-size: 11px; margin-bottom: 10px;">СТРАНИЦА 5</div>
+                <div style="font-size: 19px; font-weight: 900; margin-bottom: 6px;">Прайс и контакты</div>
+                <div style="font-size: 14px; color: #64748B; line-height: 1.4;">Полный прайс-лист, карта проезда, реквизиты и 152-ФЗ.</div>
+            </div>
+        </div>
+        <div class="bento-card" style="padding: 20px 28px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; background: #0F172A; color: white;">
+            <div style="font-size: 19px; font-weight: 800;">Многостраничник под ключ (до 5 стр.) + Хостинг 0 ₽</div>
+            <div style="font-size: 28px; font-weight: 900; color: #34D399;">14 900 ₽</div>
+        </div>
+        """
+    elif day == 17:
+        # Квиз-сайт
+        center_content = """
+        <div style="display: flex; gap: 22px; align-items: stretch; margin-top: 24px;">
+            <div class="bento-card" style="flex: 1.25; padding: 26px; border-color: #2563EB; background: #F8FAFF;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                    <span class="pill-blue" style="font-size: 11px;">ШАГ 2 ИЗ 4 • КАЛЬКУЛЯТОР</span>
+                    <span style="font-weight: 800; font-size: 13px; color: #059669;">Скидка +10%</span>
+                </div>
+                <div style="font-size: 21px; font-weight: 900; color: #0F172A; margin-bottom: 16px;">Какой объём работ планируется?</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="padding: 12px 14px; border-radius: 10px; border: 2px solid #2563EB; background: #EFF6FF; font-weight: 800; font-size: 14px; color: #1D4ED8;">✓ До 30 м²</div>
+                    <div style="padding: 12px 14px; border-radius: 10px; border: 1.5px solid #CBD5E1; background: #FFFFFF; font-weight: 600; font-size: 14px; color: #475569;">30 – 60 м²</div>
+                    <div style="padding: 12px 14px; border-radius: 10px; border: 1.5px solid #CBD5E1; background: #FFFFFF; font-weight: 600; font-size: 14px; color: #475569;">60 – 100 м²</div>
+                    <div style="padding: 12px 14px; border-radius: 10px; border: 1.5px solid #CBD5E1; background: #FFFFFF; font-weight: 600; font-size: 14px; color: #475569;">Нужен замер</div>
+                </div>
+            </div>
+            <div style="flex: 0.9; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+                <div class="bento-card" style="padding: 20px; border-color: #10B981; background: #ECFDF5;">
+                    <div style="font-size: 28px; font-weight: 900; color: #059669;">До 2× выше</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #065F46; margin-top: 4px;">Конверсия по сравнению с формой «Заказать звонок»</div>
+                </div>
+                <div class="bento-card" style="padding: 20px;">
+                    <div style="font-size: 26px; font-weight: 900; color: #2563EB;">9 900 ₽</div>
+                    <div style="font-size: 14px; font-weight: 600; color: #64748B; margin-top: 4px;">Готовая анкета с параметрами сразу в Telegram</div>
+                </div>
+            </div>
+        </div>
+        """
+    elif day == 18:
+        # Яндекс Карты + сайт
+        center_content = """
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 24px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">📍</div>
+                <div style="font-size: 18px; font-weight: 900; margin-bottom: 8px;">1. Яндекс Карты и 2ГИС</div>
+                <div style="font-size: 14px; color: #64748B; line-height: 1.45;">Клиент ищет услугу рядом, читает отзывы и жмёт кнопку «Сайт».</div>
+            </div>
+            <div class="bento-card" style="padding: 24px; border-color: #2563EB; background: #F8FAFF;">
+                <div style="font-size: 32px; margin-bottom: 10px;">⚡</div>
+                <div style="font-size: 18px; font-weight: 900; margin-bottom: 8px;">2. Быстрый сайт (0.8с)</div>
+                <div style="font-size: 14px; color: #64748B; line-height: 1.45;">Показывает чёткий прайс, фото работ и доверие без зависаний.</div>
+            </div>
+            <div class="bento-card" style="padding: 24px; border-color: #10B981; background: #ECFDF5;">
+                <div style="font-size: 32px; margin-bottom: 10px;">📲</div>
+                <div style="font-size: 18px; font-weight: 900; margin-bottom: 8px;">3. Заявка за 0.5 сек</div>
+                <div style="font-size: 14px; color: #065F46; line-height: 1.45;">Контакт падает вам в Telegram. 0 ₽ расходов на платные клики!</div>
+            </div>
+        </div>
+        <div class="bento-card" style="padding: 18px 26px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 17px; font-weight: 800; color: #0F172A;">Упаковка карточки Яндекс Карт / 2ГИС под ключ</span>
+            <span class="pill-blue" style="font-size: 16px;">4 500 ₽</span>
+        </div>
+        """
+    elif day == 19:
+        # Разбор ошибок: 200 товаров на одностраничнике
+        center_content = """
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 24px; border-color: #FECDD3; background: #FFF1F2;">
+                <div style="font-size: 18px; font-weight: 900; color: #E11D48; margin-bottom: 14px;">🚩 Красные флаги реального аудита:</div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 11px; font-size: 15px; font-weight: 600; color: #4C0519;">
+                    <li>• 213 товаров запихнули в 1 лендинг</li>
+                    <li>• HTML-код раздулся до ~900 КБ</li>
+                    <li>• Тег &lt;H1&gt; повесили на номер телефона</li>
+                    <li>• Нет URL-страниц под модели в Яндексе</li>
+                    <li>• Пустая «рыба» в политике 152-ФЗ</li>
+                </ul>
+            </div>
+            <div class="bento-card" style="padding: 24px; border-color: #A7F3D0; background: #ECFDF5;">
+                <div style="font-size: 18px; font-weight: 900; color: #059669; margin-bottom: 14px;">✓ Как должно быть:</div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 11px; font-size: 15px; font-weight: 600; color: #064E3B;">
+                    <li>• Свой URL и карточка под разделы/модели</li>
+                    <li>• Лёгкие страницы (загрузка за 0.8 сек)</li>
+                    <li>• Правильная иерархия H1 → H2 → H3</li>
+                    <li>• Органический трафик из поиска РФ</li>
+                    <li>• Заполненные реквизиты оператора 152-ФЗ</li>
+                </ul>
+            </div>
+        </div>
+        """
+    elif day == 20:
+        # SEO ошибки (H1, Description, Sitemap)
+        center_content = """
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 22px;">
+            <div class="bento-card" style="padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; border-color: #FECDD3;">
+                <div>
+                    <div style="font-size: 17px; font-weight: 900; color: #E11D48;">Ошибка 1: &lt;h1&gt;+7 (950) 000-00-00&lt;/h1&gt;</div>
+                    <div style="font-size: 14px; color: #64748B;">Заголовок H1 вешают на телефон или логотип. Поисковик не понимает тему сайта.</div>
+                </div>
+                <div class="pill-green">Лечим</div>
+            </div>
+            <div class="bento-card" style="padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; border-color: #FECDD3;">
+                <div>
+                    <div style="font-size: 17px; font-weight: 900; color: #E11D48;">Ошибка 2: Пустые Title, Description и H2/H3</div>
+                    <div style="font-size: 14px; color: #64748B;">В выдаче Яндекса выводится случайный обрывок текста вместо УТП и цены.</div>
+                </div>
+                <div class="pill-green">Лечим</div>
+            </div>
+            <div class="bento-card" style="padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; border-color: #2563EB; background: #F8FAFF;">
+                <div>
+                    <div style="font-size: 18px; font-weight: 900; color: #0F172A;">Базовое SEO + Яндекс Метрика + Вебмастер под ключ</div>
+                    <div style="font-size: 14px; color: #64748B;">sitemap.xml, robots.txt, Schema.org, цели и проверка индексации</div>
+                </div>
+                <div style="font-size: 26px; font-weight: 900; color: #2563EB;">3 000 ₽</div>
+            </div>
+        </div>
+        """
+    elif day == 21:
+        # Яндекс Директ слив бюджета
+        center_content = """
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 26px; border-color: #FECDD3; background: #FFF1F2;">
+                <div style="font-size: 48px; font-weight: 900; color: #E11D48; line-height: 1;">-40%</div>
+                <div style="font-size: 18px; font-weight: 900; color: #881337; margin: 10px 0;">кликов уходит впустую</div>
+                <div style="font-size: 15px; color: #4C0519; line-height: 1.45;">Если сайт в рекламе грузится 4+ секунды или в Метрике не настроены реальные цели, Директ просто сливает деньги.</div>
+            </div>
+            <div class="bento-card" style="padding: 26px; border-color: #A7F3D0; background: #ECFDF5;">
+                <div style="font-size: 48px; font-weight: 900; color: #059669; line-height: 1;">0.8 с</div>
+                <div style="font-size: 18px; font-weight: 900; color: #065F46; margin: 10px 0;">скорость посадочной LocalWeb</div>
+                <div style="font-size: 15px; color: #064E3B; line-height: 1.45;">Автостратегии Директа сразу обучаются на цели <code style="font-weight:800;">lead_form_submit</code> и снижают цену заявки.</div>
+            </div>
+        </div>
+        """
+    elif day == 22:
+        # OpenGraph и брендовые превью
+        center_content = """
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 26px; background: #F1F5F9; border-color: #CBD5E1;">
+                <div style="font-size: 13px; font-weight: 800; color: #64748B; margin-bottom: 14px;">❌ ОБЫЧНЫЙ САЙТ В ТЕЛЕГРАМЕ:</div>
+                <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #94A3B8;">
+                    <div style="font-size: 13px; color: #2563EB; text-decoration: underline;">https://old-site-123.ru</div>
+                    <div style="font-size: 16px; font-weight: 700; color: #334155; margin-top: 6px;">Index | Без названия</div>
+                    <div style="font-size: 13px; color: #94A3B8; margin-top: 4px;">Картинка отсутствует... Политика... 2019</div>
+                </div>
+            </div>
+            <div class="bento-card" style="padding: 26px; background: #EFF6FF; border-color: #2563EB;">
+                <div style="font-size: 13px; font-weight: 800; color: #2563EB; margin-bottom: 14px;">✓ СТАНДАРТ LOCALWEB (OPENGRAPH):</div>
+                <div style="background: white; padding: 16px; border-radius: 12px; border-left: 4px solid #2563EB; box-shadow: 0 6px 18px rgba(37,99,235,0.12);">
+                    <div style="height: 82px; border-radius: 8px; background: linear-gradient(135deg, #1D4ED8, #2563EB); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; margin-bottom: 10px;">
+                        Брендовая обложка 1200×630
+                    </div>
+                    <div style="font-size: 15px; font-weight: 900; color: #0F172A;">Сильный заголовок + УТП + Город</div>
+                    <div style="font-size: 12px; color: #475569; margin-top: 4px;">SVG-фавикон и микроразметка Schema.org в комплекте</div>
+                </div>
+            </div>
+        </div>
+        """
+    elif day == 23:
+        # 152-ФЗ пустая заглушка
+        center_content = """
+        <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 22px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 24px; border-color: #FECDD3; background: #FFF1F2;">
+                <div style="font-size: 15px; font-weight: 900; color: #E11D48; margin-bottom: 12px;">⚠️ ОПАСНЫЙ ШАБЛОН КОНСТРУКТОРА:</div>
+                <div style="background: white; border: 1px dashed #F43F5E; padding: 16px; border-radius: 12px; font-size: 15px; color: #4C0519; line-height: 1.55;">
+                    «...настоящим даю своё согласие <mark style="background:#FFE4E6; padding:2px 6px; font-weight:800;">НАЗВАНИЕ КОМПАНИИ</mark> на сайте <mark style="background:#FFE4E6; padding:2px 6px; font-weight:800;">http://(адрес сайта)</mark>...»
+                </div>
+                <div style="font-size: 14px; font-weight: 700; color: #881337; margin-top: 12px;">Юридически ничтожно по ст. 9 152-ФЗ!</div>
+            </div>
+            <div class="bento-card" style="padding: 24px; border-color: #A7F3D0; background: #ECFDF5; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 18px; font-weight: 900; color: #059669; margin-bottom: 8px;">✓ Настройка 152-ФЗ РФ</div>
+                    <div style="font-size: 14px; color: #064E3B; line-height: 1.45;">Реальные реквизиты вашего ИП/ООО, чекбоксы под каждой формой и ссылка в подвале.</div>
+                </div>
+                <div style="font-size: 32px; font-weight: 900; color: #059669; margin-top: 16px;">2 500 ₽</div>
+            </div>
+        </div>
+        """
+    elif day == 24:
+        # Яндекс Метрика и Вебвизор 2.0
+        center_content = """
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 24px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">🎥</div>
+                <div style="font-size: 18px; font-weight: 900; margin-bottom: 8px;">Вебвизор 2.0</div>
+                <div style="font-size: 14px; color: #64748B; line-height: 1.45;">Видеозапись каждого визита: видно, где клиент остановился или не понял цену.</div>
+            </div>
+            <div class="bento-card" style="padding: 24px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">🔥</div>
+                <div style="font-size: 18px; font-weight: 900; margin-bottom: 8px;">Карта кликов</div>
+                <div style="font-size: 14px; color: #64748B; line-height: 1.45;">Показывает, какие кнопки и разделы работают лучше всего.</div>
+            </div>
+            <div class="bento-card" style="padding: 24px; border-color: #2563EB; background: #F8FAFF;">
+                <div style="font-size: 32px; margin-bottom: 10px;">🎯</div>
+                <div style="font-size: 18px; font-weight: 900; margin-bottom: 8px;">Цели по JS</div>
+                <div style="font-size: 14px; color: #1E40AF; line-height: 1.45;">Точный учёт каждой заявки и обучение алгоритмов Директа.</div>
+            </div>
+        </div>
+        """
+    elif day == 25:
+        # Telegram-бот интеграция за 3 500
+        center_content = """
+        <div style="display: flex; gap: 22px; align-items: center; margin-top: 24px;">
+            <div class="bento-card" style="flex: 1.1; padding: 26px; border-color: #2563EB; background: #F8FAFF;">
+                <div class="pill-blue" style="margin-bottom: 14px;">ДЛЯ ЛЮБОГО ГОТОВОГО САЙТА</div>
+                <div style="font-size: 24px; font-weight: 900; color: #0F172A; margin-bottom: 10px;">Заявки больше не падают в спам</div>
+                <div style="font-size: 15px; color: #475569; line-height: 1.5;">Подключим приём форм в Telegram за 0.5 сек + автозапись в Google Таблицу + Honeypot-фильтр от спама.</div>
+            </div>
+            <div class="bento-card" style="flex: 0.75; padding: 28px; text-align: center; border-color: #10B981; background: #ECFDF5;">
+                <div style="font-size: 14px; font-weight: 800; color: #059669; margin-bottom: 8px;">ПОД КЛЮЧ ЗА 1 ДЕНЬ</div>
+                <div style="font-size: 46px; font-weight: 900; color: #059669; line-height: 1;">3 500 ₽</div>
+                <div style="font-size: 14px; font-weight: 600; color: #065F46; margin-top: 10px;">Без переделки вашего текущего сайта</div>
+            </div>
+        </div>
+        """
+    elif day == 26:
+        # ТОП-5 ниш
+        center_content = """
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px;">
+            <div class="bento-card" style="padding: 16px 20px;">
+                <div style="font-weight: 900; font-size: 17px; color: #0F172A;">🚗 1. Автосервисы и детейлинг</div>
+                <div style="font-size: 13px; color: #64748B; margin-top: 4px;">Средний чек 5 000 – 45 000 ₽</div>
+            </div>
+            <div class="bento-card" style="padding: 16px 20px;">
+                <div style="font-weight: 900; font-size: 17px; color: #0F172A;">🛠️ 2. Ремонт, сантехника, электрика</div>
+                <div style="font-size: 13px; color: #64748B; margin-top: 4px;">Средний чек 8 000 – 200 000+ ₽</div>
+            </div>
+            <div class="bento-card" style="padding: 16px 20px;">
+                <div style="font-weight: 900; font-size: 17px; color: #0F172A;">💆 3. Бьюти-студии и клиники</div>
+                <div style="font-size: 13px; color: #64748B; margin-top: 4px;">LTV клиента 25 000 – 100 000 ₽/год</div>
+            </div>
+            <div class="bento-card" style="padding: 16px 20px;">
+                <div style="font-weight: 900; font-size: 17px; color: #0F172A;">⚖️ 4. Юристы, бухгалтеры, B2B</div>
+                <div style="font-size: 13px; color: #64748B; margin-top: 4px;">Доверие и статус с первого экрана</div>
+            </div>
+        </div>
+        <div class="bento-card" style="padding: 16px 24px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; border-color: #10B981; background: #ECFDF5;">
+            <div style="font-weight: 900; font-size: 17px; color: #064E3B;">🧹 5. Локальный сервис (клининг, доставка, мастера)</div>
+            <div style="font-weight: 900; font-size: 18px; color: #059669;">Окупается с 1–2 заказов</div>
+        </div>
+        """
+    elif day == 27:
+        # Миф о бесплатном сайте своими руками
+        center_content = """
+        <div class="bento-card" style="margin-top: 24px; overflow: hidden; padding: 0;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 16px;">
+                <tr style="background: #F1F5F9; border-bottom: 2px solid #E2E8F0;">
+                    <th style="padding: 16px 20px;">Скрытая статья расходов</th>
+                    <th style="padding: 16px 20px; color: #E11D48;">«Сам на конструкторе»</th>
+                    <th style="padding: 16px 20px; color: #059669;">LocalWeb под ключ</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #E2E8F0;">
+                    <td style="padding: 14px 20px; font-weight: 700;">Подключение домена .RU и SSL</td>
+                    <td style="padding: 14px 20px; color: #64748B;">Только на платном тарифе</td>
+                    <td style="padding: 14px 20px; color: #059669; font-weight: 800;">Включено в 7 500 ₽</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #E2E8F0;">
+                    <td style="padding: 14px 20px; font-weight: 700;">Плата за платформу (год)</td>
+                    <td style="padding: 14px 20px; color: #E11D48; font-weight: 800;">9 000 – 15 000 ₽/год</td>
+                    <td style="padding: 14px 20px; color: #059669; font-weight: 800;">0 ₽ НАВСЕГДА</td>
+                </tr>
+                <tr>
+                    <td style="padding: 14px 20px; font-weight: 700;">Ваше личное время</td>
+                    <td style="padding: 14px 20px; color: #64748B;">15–30 часов вечерами</td>
+                    <td style="padding: 14px 20px; color: #2563EB; font-weight: 800;">10 минут на бриф</td>
+                </tr>
+            </table>
+        </div>
+        """
+    elif day == 28:
+        # Mobile-First
+        center_content = """
+        <div style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 28px; text-align: center; border-color: #2563EB; background: #F8FAFF;">
+                <div style="font-size: 72px; font-weight: 900; color: #2563EB; line-height: 1;">85%</div>
+                <div style="font-size: 18px; font-weight: 900; color: #0F172A; margin-top: 10px;">клиентов заходят со смартфона</div>
+                <div style="font-size: 14px; color: #64748B; margin-top: 6px;">с Яндекс Карт, поиска и рекламы в дороге</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="bento-card" style="padding: 16px 20px; font-weight: 700; font-size: 15px; color: #0F172A;">✓ Крупные кнопки звонка и Telegram под палец</div>
+                <div class="bento-card" style="padding: 16px 20px; font-weight: 700; font-size: 15px; color: #0F172A;">✓ Контрастный прайс без зумирования</div>
+                <div class="bento-card" style="padding: 16px 20px; font-weight: 700; font-size: 15px; color: #0F172A;">✓ Ноль горизонтальных переполнений</div>
+                <div class="bento-card" style="padding: 16px 20px; font-weight: 700; font-size: 15px; color: #059669;">✓ Моментальный тест на вашем телефоне за 24ч</div>
+            </div>
+        </div>
+        """
+    elif day == 29:
+        # Партнерская программа
+        center_content = """
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 24px;">
+            <div class="bento-card" style="padding: 24px; border-color: #2563EB; background: #F8FAFF;">
+                <div class="pill-blue" style="margin-bottom: 12px;">МОДЕЛЬ А • АГЕНТСКАЯ</div>
+                <div style="font-size: 28px; font-weight: 900; color: #2563EB; margin-bottom: 12px;">20% с каждого заказа</div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 700; color: #1E293B;">
+                    <li>• Лендинг (7 500 ₽) ➔ <span style="color:#059669;">+1 500 ₽</span></li>
+                    <li>• Сайт-квиз (9 900 ₽) ➔ <span style="color:#059669;">+2 000 ₽</span></li>
+                    <li>• Многостраничник ➔ <span style="color:#059669;">+3 000 ₽</span></li>
+                </ul>
+            </div>
+            <div class="bento-card" style="padding: 24px; border-color: #10B981; background: #ECFDF5;">
+                <div class="pill-green" style="margin-bottom: 12px;">МОДЕЛЬ Б • WHITE LABEL</div>
+                <div style="font-size: 28px; font-weight: 900; color: #059669; margin-bottom: 12px;">Опт от 6 000 ₽</div>
+                <div style="font-size: 15px; font-weight: 600; color: #064E3B; line-height: 1.5;">
+                    Продавайте сайт под своим брендом директолога/маркетолога за 15–25 тыс. ₽ — всю разработку берём на себя!
+                </div>
+            </div>
+        </div>
+        """
+    else:
+        # Day 30: Итоги и FAQ старт
+        center_content = """
+        <div class="bento-card" style="padding: 30px; margin-top: 22px; text-align: center; border-color: #2563EB; background: #F8FAFF;">
+            <div class="pill-green" style="margin-bottom: 14px;">✓ 0 ₽ ПРЕДОПЛАТА • 7 500 ₽ ПОД КЛЮЧ • ХОСТИНГ 0 ₽</div>
+            <div style="font-size: 32px; font-weight: 900; color: #0F172A; margin-bottom: 12px;">
+                Проверьте рабочий макет уже завтра
+            </div>
+            <div style="font-size: 17px; color: #475569; max-width: 720px; margin: 0 auto 22px auto; line-height: 1.5;">
+                Напишите о вашей нише за 10 минут. Получите готовую ссылку на смартфон через 24 часа, официальный чек ФНС и 30 дней гарантии.
+            </div>
+            <div style="display: flex; justify-content: center; gap: 16px;">
+                <div style="background: #2563EB; color: white; padding: 14px 28px; border-radius: 14px; font-size: 18px; font-weight: 800;">
+                    Telegram: @LocalWebRu
+                </div>
+                <div style="background: #0F172A; color: white; padding: 14px 28px; border-radius: 14px; font-size: 18px; font-weight: 800;">
+                    Сайт: local-web.ru
+                </div>
             </div>
         </div>
         """
@@ -701,8 +1070,8 @@ def generate_post_card(post_data: dict, output_path: str) -> str:
             border-bottom: 2px solid #E2E8F0; padding-bottom: 22px;
         }}
         .headline {{
-            font-size: 38px; font-weight: 900; letter-spacing: -1.2px;
-            color: #0F172A; line-height: 1.22; margin-top: 28px;
+            font-size: 36px; font-weight: 900; letter-spacing: -1.1px;
+            color: #0F172A; line-height: 1.22; margin-top: 22px;
         }}
         .footer {{
             display: flex; justify-content: space-between; align-items: center;
@@ -721,7 +1090,7 @@ def generate_post_card(post_data: dict, output_path: str) -> str:
         </div>
         <div style="display: flex; gap: 14px; align-items: center;">
             <div class="pill-blue">{tag}</div>
-            <div class="pill-green"><span class="pill-dot"></span> ДЕНЬ {day:02d} / 14</div>
+            <div class="pill-green"><span class="pill-dot"></span> ДЕНЬ {day:02d} / {total_days}</div>
         </div>
     </div>
 
@@ -740,26 +1109,34 @@ def generate_post_card(post_data: dict, output_path: str) -> str:
     render_html_to_png(html, output_path, 1080, 1080)
     return output_path
 
-def generate_all_assets() -> dict:
-    """Генерирует все графические материалы: аватар, обложку и 14 постов."""
-    print("[ASSETS] Генерация графических материалов LocalWeb...")
+def generate_all_assets(from_day: int = 1, to_day: int = 999, force: bool = False) -> dict:
+    """Генерирует графические материалы: при необходимости аватар, обложку и карточки постов."""
+    print(f"[ASSETS] Генерация графических материалов LocalWeb (дни {from_day}–{to_day})...")
     from .content_plan import POSTS
 
     os.makedirs(ASSETS_DIR, exist_ok=True)
     generated = {
-        "avatar": generate_avatar(),
-        "cover": generate_public_cover(),
+        "avatar": os.path.join(ASSETS_DIR, "avatar.png"),
+        "cover": os.path.join(ASSETS_DIR, "public_cover.png"),
         "posts": []
     }
-    print("[OK] Аватар сообщества сгенерирован (800x800).")
-    print("[OK] Обложка сообщества сгенерирована (1920x768).")
+    if force or not os.path.exists(generated["avatar"]):
+        generate_avatar(generated["avatar"])
+        print("[OK] Аватар сообщества сгенерирован (800x800).")
+    if force or not os.path.exists(generated["cover"]):
+        generate_public_cover(generated["cover"])
+        print("[OK] Обложка сообщества сгенерирована (1920x768).")
 
+    total_days = len(POSTS)
     for p in POSTS:
+        if not (from_day <= p["day"] <= to_day):
+            continue
         filename = p.get("image_file", f"post_{p['day']:02d}.png")
         card_path = os.path.join(ASSETS_DIR, filename)
-        generate_post_card(p, card_path)
+        if force or not os.path.exists(card_path):
+            generate_post_card(p, card_path, total_days=total_days)
+            print(f"[OK] Карточка поста День {p['day']:02d} сгенерирована (1080x1080).")
         generated["posts"].append(card_path)
-        print(f"[OK] Карточка поста День {p['day']:02d} сгенерирована (1080x1080).")
 
-    print(f"[SUCCESS] Все {len(generated['posts']) + 2} визуальных ассета успешно сгенерированы в {ASSETS_DIR}!")
+    print(f"[SUCCESS] Подготовлено карточек постов: {len(generated['posts'])} в {ASSETS_DIR}!")
     return generated

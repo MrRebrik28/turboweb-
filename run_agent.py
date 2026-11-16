@@ -55,7 +55,7 @@ def print_banner():
 """
     print(banner)
 
-def run_dry_run(agent: VkLocalWebAgent, start_date: datetime):
+def run_dry_run(agent: VkLocalWebAgent, start_date: datetime, from_day: int = 1, to_day: int = 999):
     """Режим демонстрации без совершения изменений в VK."""
     print("\n🔍 --- РЕЖИМ ПРОВЕРКИ (DRY-RUN) ---")
     print(f"Каталог графических материалов: {ASSETS_DIR}")
@@ -65,9 +65,10 @@ def run_dry_run(agent: VkLocalWebAgent, start_date: datetime):
     print(f"• Аватар сообщества (800x800): {'[OK] Найден' if avatar_exists else '[MISSING] Отсутствует'}")
     print(f"• Обложка паблика (1920x768): {'[OK] Найдена' if cover_exists else '[MISSING] Отсутствует'}")
 
-    timestamps = agent.calculate_schedule_timestamps(start_date)
-    print(f"\n📅 Расписание 14 публикаций (по 1 посту в день):")
-    for i, p in enumerate(POSTS):
+    selected_posts = agent.get_selected_posts(from_day, to_day)
+    timestamps = agent.calculate_schedule_timestamps(start_date, count=len(selected_posts))
+    print(f"\n📅 Расписание {len(selected_posts)} публикаций (дни {from_day}–{to_day}, по 1 посту в день):")
+    for i, p in enumerate(selected_posts):
         ts = timestamps[i]
         dt_str = datetime.fromtimestamp(ts).strftime("%d.%m.%Y %H:%M")
         img_name = p.get('image_file', f"post_{p['day']:02d}.png")
@@ -88,11 +89,15 @@ def run_dry_run(agent: VkLocalWebAgent, start_date: datetime):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="LocalWeb VK Automation Agent — наполнение профиля и паблика на 14 дней."
+        description="LocalWeb VK Automation Agent — наполнение профиля и паблика постами по контент-плану."
     )
     parser.add_argument("--token", help="VK User Access Token с правами wall,groups,photos,offline")
     parser.add_argument("--group-id", type=int, help="ID существующего паблика (если не указан, создаст новый)")
-    parser.add_argument("--generate-assets", action="store_true", help="Сгенерировать только графические материалы (аватар, обложку и 14 карточек)")
+    parser.add_argument("--generate-assets", action="store_true", help="Сгенерировать графические материалы (для указанного диапазона дней)")
+    parser.add_argument("--force-assets", action="store_true", help="Перегенерировать уже существующие изображения")
+    parser.add_argument("--from-day", type=int, default=1, help="Начальный день контент-плана (например, 15 для второй волны)")
+    parser.add_argument("--to-day", type=int, default=999, help="Конечный день контент-плана (например, 30)")
+    parser.add_argument("--skip-branding", action="store_true", help="Не обновлять описание, аватар и обложку существующей группы")
     parser.add_argument("--dry-run", action="store_true", help="Проверить расписание и ассеты без публикации в VK")
     parser.add_argument("--profile-only", action="store_true", help="Заполнить отложку ТОЛЬКО в личном профиле")
     parser.add_argument("--group-only", action="store_true", help="Создать/настроить паблик и заполнить отложку ТОЛЬКО в паблике")
@@ -108,12 +113,12 @@ def main():
         try:
             start_date = datetime.strptime(args.start_date, "%Y-%m-%d").replace(hour=11, minute=0)
         except ValueError:
-            print(f"❌ Ошибка: неверный формат даты '{args.start_date}'. Используйте ГГГГ-ММ-ДД, например 2026-11-01.")
+            print(f"❌ Ошибка: неверный формат даты '{args.start_date}'. Используйте ГГГГ-ММ-ДД, например 2026-11-13.")
             sys.exit(1)
 
     # Генерация ассетов
     if args.generate_assets:
-        generate_all_assets()
+        generate_all_assets(from_day=args.from_day, to_day=args.to_day, force=args.force_assets)
         print("\n[SUCCESS] Все графические материалы готовы к использованию!")
         return
 
@@ -125,7 +130,7 @@ def main():
     agent = VkLocalWebAgent(token=token, group_id=group_id, as_suggested=args.as_suggested)
 
     if args.dry_run:
-        run_dry_run(agent, start_date)
+        run_dry_run(agent, start_date, from_day=args.from_day, to_day=args.to_day)
         return
 
     if not token:
@@ -146,7 +151,10 @@ def main():
         result = agent.run(
             schedule_profile=schedule_profile,
             schedule_group=schedule_group,
-            start_date=start_date
+            start_date=start_date,
+            from_day=args.from_day,
+            to_day=args.to_day,
+            skip_branding=args.skip_branding,
         )
 
         print("\n" + "="*60)

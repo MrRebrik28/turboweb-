@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ремонт бытовой техники на дому «РемБыт Сервис» — Выезд за 45 минут</title>
+    <meta name="description" content="Срочный ремонт стиральных машин, холодильников и посудомоек на дому. Выезд и диагностика 0 ₽ при ремонте. Гарантия до 2 лет, оригинальные запчасти.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        tech: {
+                            50: '#F0FDFA',
+                            500: '#0D9488',
+                            600: '#0F766E',
+                            900: '#134E4A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .demo-bar {
+            background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- LOCALWEB DEMO HEADER BAR -->
+    <aside aria-label="LocalWeb Demo Header" class="demo-bar text-white text-xs sm:text-sm py-2.5 px-4 sticky top-0 z-50 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">ДЕМО-САЙТ</span>
+                <span class="font-medium text-slate-200">Пример решения для сервиса ремонта техники от студии <strong class="text-white font-bold">LocalWeb</strong></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden md:inline text-slate-300 text-xs">Сделаем такой же сайт за 7 500 ₽ за 24ч</span>
+                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
+                    Заказать такой сайт
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-10 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                    ⚡
+                </div>
+                <div>
+                    <span class="font-extrabold text-2xl tracking-tight text-slate-900">Рем<span class="text-teal-600">Быт</span></span>
+                    <span class="block text-[11px] text-slate-500 font-semibold">Ремонт техники на дому</span>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="#services" class="hover:text-teal-600 transition-colors">Что ремонтируем</a>
+                <a href="#diagnostics" class="hover:text-teal-600 transition-colors">Поиск неисправности</a>
+                <a href="#guarantee" class="hover:text-teal-600 transition-colors">Гарантия до 2 лет</a>
+                <a href="#reviews" class="hover:text-teal-600 transition-colors">Отзывы</a>
+                <a href="#contacts" class="hover:text-teal-600 transition-colors">Контакты</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="tel:+79993334455" class="hidden sm:flex flex-col text-right">
+                    <span class="text-xs text-slate-500">Дежурный мастер сейчас свободен</span>
+                    <span class="text-sm font-bold text-slate-900 hover:text-teal-600 transition-colors">+7 (999) 333-44-55</span>
+                </a>
+                <a href="#diagnostics" class="bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm">
+                    Вызвать мастера
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 bg-gradient-to-b from-teal-50/50 to-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-100 text-teal-800 text-xs font-bold">
+                        ⏱️ Срочный выезд мастера в любой район за 30–45 минут
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                        Срочный ремонт бытовой техники на дому в день обращения
+                    </h1>
+                    <p class="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed">
+                        Стиральные машины, холодильники, посудомойки и духовые шкафы. В 9 из 10 случаев ремонтируем за один визит без вывоза техники в сервис.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#diagnostics" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-7 py-4 rounded-xl text-sm sm:text-base transition-all shadow-md">
+                            Узнать стоимость поломки ➔
+                        </a>
+                        <a href="tel:+79993334455" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-900 font-bold px-6 py-4 rounded-xl text-sm sm:text-base transition-colors flex items-center gap-2">
+                            <span>📞 Позвонить мастеру</span>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+                        <div>
+                            <span class="block font-extrabold text-2xl text-slate-900">0 ₽</span>
+                            <span class="text-xs text-slate-500">Диагностика и выезд при ремонте</span>
+                        </div>
+                        <div>
+                            <span class="block font-extrabold text-2xl text-slate-900">до 2 лет</span>
+                            <span class="text-xs text-slate-500">Официальная гарантия по договору</span>
+                        </div>
+                        <div>
+                            <span class="block font-extrabold text-2xl text-slate-900">45 мин</span>
+                            <span class="text-xs text-slate-500">Среднее время прибытия мастера</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="rounded-3xl bg-white p-8 border border-slate-200 shadow-xl space-y-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Экспресс-заявка</span>
+                            <span class="flex items-center gap-1.5 text-xs text-emerald-600 font-bold">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                На линии 4 мастера
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Нужен срочный ремонт?</h3>
+                            <p class="text-xs text-slate-500">Опишите проблему, мастер свяжется с вами через 3 минуты с готовой консультацией по цене</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <input type="text" id="urgent-appliance" placeholder="Что сломалось? (напр., стиралка LG не сливает)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-teal-500">
+                            <input type="tel" id="urgent-phone" placeholder="Ваш телефон для звонка" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-teal-500">
+                            <a id="urgent-call-btn" href="#" target="_blank" rel="noopener" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 rounded-xl text-center block text-sm transition-all shadow-md">
+                                Вызвать мастера сейчас ➔
+                            </a>
+                        </div>
+                        <p class="text-[11px] text-slate-400 text-center">Выезд по городу и диагностика 0 ₽ при выполнении работ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT WE REPAIR -->
+    <section id="services" class="py-16 md:py-24 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Наш профиль</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    Ремонтируем технику всех брендов
+                </h2>
+                <p class="text-slate-500 text-sm mt-2">Мастера оснащены специализированным оборудованием и оригинальными комплектующими</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
+                    <div class="text-4xl mb-4">🧺</div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-2">Стиральные машины</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Замена подшипников, ТЭНа, помпы, ремонт платы управления, манжеты люка.</p>
+                    <span class="text-teal-700 font-bold text-sm block">от 790 ₽</span>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
+                    <div class="text-4xl mb-4">❄️</div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-2">Холодильники</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Заправка фреоном, замена компрессора, термостата, датчиков No Frost, уплотнителей.</p>
+                    <span class="text-teal-700 font-bold text-sm block">от 990 ₽</span>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
+                    <div class="text-4xl mb-4">🍽️</div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-2">Посудомоечные машины</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Устранение засоров, ремонт циркуляционного насоса, ТЭНа, замена шлангов аквастопа.</p>
+                    <span class="text-teal-700 font-bold text-sm block">от 850 ₽</span>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
+                    <div class="text-4xl mb-4">🍳</div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-2">Варочные панели & Духовки</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Замена конфорок, стеклокерамики, переключателей, термопары, электронного модуля.</p>
+                    <span class="text-teal-700 font-bold text-sm block">от 800 ₽</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAULT DIAGNOSTICS CALCULATOR -->
+    <section id="diagnostics" class="py-16 md:py-24 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Онлайн-диагностика</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    Определите причину поломки и стоимость ремонта
+                </h2>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
+                <div>
+                    <label for="fault-tech" class="block text-xs font-bold uppercase text-slate-600 mb-2">Вид бытовой техники:</label>
+                    <select id="fault-tech" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-teal-500">
+                        <option value="Стиральная машина">Стиральная машина</option>
+                        <option value="Холодильник">Холодильник</option>
+                        <option value="Посудомоечная машина">Посудомоечная машина</option>
+                        <option value="Духовой шкаф / Плита">Духовой шкаф / Варочная панель</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="fault-symptom" class="block text-xs font-bold uppercase text-slate-600 mb-2">Что именно происходит:</label>
+                    <select id="fault-symptom" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-teal-500">
+                        <option value="Не сливает воду / гудит">Не сливает воду / зависает на отжиме</option>
+                        <option value="Не греет воду">Не нагревает воду во время цикла</option>
+                        <option value="Сильно шумит, стучит или прыгает">Сильно стучит / прыгает при вращении барабана</option>
+                        <option value="Не включается совсем">Не включается / не горят индикаторы</option>
+                        <option value="Подтекает вода снизу">Подтекает вода из-под корпуса</option>
+                        <option value="Не морозит верхняя или нижняя камера">Не холодит / перемораживает продукты</option>
+                    </select>
+                </div>
+
+                <div class="bg-teal-50 border border-teal-200 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs text-teal-800 font-semibold block">Вероятная поломка и ориентир:</span>
+                        <span class="text-xl sm:text-2xl font-black text-teal-950" id="fault-estimate">Засор сливной помпы (от 800 ₽)</span>
+                        <span class="text-xs text-slate-500 block mt-0.5">Точная диагностика 0 ₽ при ремонте</span>
+                    </div>
+
+                    <a id="fault-wa-btn" href="#" target="_blank" rel="noopener" class="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-3.5 rounded-xl text-center text-sm transition-all shadow-md">
+                        Вызвать мастера в WhatsApp ➔
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACTS -->
+    <footer id="contacts" class="bg-slate-900 text-white pt-16 pb-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
+                <div class="space-y-4">
+                    <span class="font-extrabold text-2xl tracking-tight text-white">Рем<span class="text-teal-400">Быт</span></span>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Служба срочного ремонта крупной бытовой техники на дому. Мастера с подтвержденной квалификацией.
+                    </p>
+                    <div class="text-xs text-amber-400">
+                        ⚡ Сайт разработан на стеке LocalWeb: скорость 0.4с • PageSpeed 100/100
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Виды техники</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#services" class="hover:text-white transition-colors">Стиральные машины</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Холодильники</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Посудомоечные машины</a></li>
+                        <li><a href="https://local-web.ru" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Создать такой сайт (LocalWeb)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Зона обслуживания</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                        Все районы города и пригород до 30 км. Мастер выезжает из ближайшего района.
+                    </p>
+                    <p class="text-xs text-slate-400">
+                        Без праздников и выходных: 7:00 – 23:00
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Дежурный диспетчер</h4>
+                    <a href="tel:+79993334455" class="block text-base font-bold text-white mb-2 hover:text-teal-400 transition-colors">+7 (999) 333-44-55</a>
+                    <a href="https://wa.me/79993334455" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors">
+                        Написать в WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <span>© 2026 Служба «РемБыт Сервис». Все права защищены.</span>
+                <span class="text-slate-400">Демонстрационный сайт для портфолио <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb.ru</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const faultTech = document.getElementById('fault-tech');
+        const faultSymptom = document.getElementById('fault-symptom');
+        const faultEstimate = document.getElementById('fault-estimate');
+        const faultWaBtn = document.getElementById('fault-wa-btn');
+        const urgentAppliance = document.getElementById('urgent-appliance');
+        const urgentPhone = document.getElementById('urgent-phone');
+        const urgentCallBtn = document.getElementById('urgent-call-btn');
+
+        const faultData = {
+            'Не сливает воду / гудит': 'Засор помпы или поломка насоса (от 850 ₽)',
+            'Не греет воду': 'Выход из строя ТЭНа или датчика NTC (от 1 100 ₽)',
+            'Сильно шумит, стучит или прыгает': 'Износ подшипников или амортизаторов (от 1 600 ₽)',
+            'Не включается совсем': 'Поломка блока питания или платы управления (от 1 200 ₽)',
+            'Подтекает вода снизу': 'Разрыв патрубка, манжеты или сальника (от 900 ₽)',
+            'Не морозит верхняя или нижняя камера': 'Утечка фреона или засор капилляра (от 1 400 ₽)'
+        };
+
+        function updateFaultQuote() {
+            const sym = faultSymptom.value;
+            const tech = faultTech.value;
+            faultEstimate.textContent = faultData[sym] || 'от 900 ₽';
+            const msg = encodeURIComponent(`Здравствуйте! Нужен ремонт техники:\nТехника: ${tech}\nСимптом: ${sym}\nПрошу сориентировать по времени выезда мастера.`);
+            faultWaBtn.href = `https://wa.me/79993334455?text=${msg}`;
+        }
+
+        faultTech.addEventListener('change', updateFaultQuote);
+        faultSymptom.addEventListener('change', updateFaultQuote);
+        updateFaultQuote();
+
+        urgentCallBtn.addEventListener('click', (e) => {
+            const text = urgentAppliance.value || 'Ремонт бытовой техники';
+            const phone = urgentPhone.value || '';
+            const msg = encodeURIComponent(`Срочный вызов мастера!\nПроблема: ${text}\nМой телефон: ${phone}`);
+            urgentCallBtn.href = `https://wa.me/79993334455?text=${msg}`;
+        });
+    </script>
+</body>
+</html>
