@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Студия ногтевого сервиса «Velvet Nails» — Маникюр, педикюр и эстетика</title>
-    <meta name="description" content="Безупречный маникюр и педикюр в центре города. Интерактивный выбор оттенка, стерилизация по СанПиН в крафт-пакетах, гарантия на покрытие 7 дней.">
+    <title>Студия ногтевого сервиса «Velvet Nails» — Премиальный маникюр и педикюр</title>
+    <meta name="description" content="Эстетический маникюр, SMART-педикюр и авторский дизайн. Стерилизация инструментов по нормам СанПиН, стойкость покрытия от 3 недель. Онлайн-запись.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        serif: ['Cormorant Garamond', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
                     },
                     colors: {
                         nude: {
-                            50: '#FDFCFB',
-                            100: '#F7F3EE',
-                            200: '#EDE4DC',
-                            300: '#DCCEC2',
-                            500: '#B88E7D',
-                            600: '#9E7261',
-                            900: '#2C2220',
+                            50: '#FBF9F7',
+                            100: '#F6F1EC',
+                            200: '#ECE3DA',
+                            300: '#DFD1C4',
+                            500: '#C28E7E',
+                            600: '#A97566',
+                            900: '#1F1B1A',
                         }
                     }
                 }
@@ -33,83 +33,80 @@
         }
     </script>
     <style>
-        .demo-bar {
-            background: linear-gradient(90deg, #0F172A 0%, #1E293B 100%);
+        .editorial-shadow {
+            box-shadow: 0 20px 40px -15px rgba(31, 27, 26, 0.06), 0 0 1px 1px rgba(31, 27, 26, 0.03);
         }
-        .price-card {
-            transition: all 0.25s ease;
+        .card-beauty {
+            background: #FFFFFF;
+            border: 1px solid #ECE3DA;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .price-card:hover {
-            border-color: #B88E7D;
+        .card-beauty:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 24px -6px rgba(184, 142, 125, 0.15);
+            border-color: #DFD1C4;
+            box-shadow: 0 20px 30px -10px rgba(169, 117, 102, 0.1);
         }
-        /* Native accessible Before/After Slider */
+        /* Accessible Modern Before/After Image Comparison Slider */
         .ba-container {
             position: relative;
-            user-select: none;
             overflow: hidden;
-            border-radius: 1.5rem;
+            border-radius: 1rem;
+            user-select: none;
+            touch-action: pan-y;
+        }
+        .ba-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
         }
         .ba-slider {
             position: absolute;
-            inset: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: ew-resize;
-            z-index: 20;
-            margin: 0;
+            top: 0;
+            left: var(--pos, 50%);
+            bottom: 0;
+            width: 2px;
+            background: #FFFFFF;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            pointer-events: none;
         }
         .ba-handle {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #FFFFFF;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            z-index: 10;
-            pointer-events: none;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: left 0.05s linear;
-        }
-        .ba-circle {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 36px;
             height: 36px;
-            background: #FFFFFF;
             border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: #FFFFFF;
+            border: 2px solid #C28E7E;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #2C2220;
-            font-size: 11px;
-            font-weight: 800;
         }
-        .swatch-item.active {
-            box-shadow: 0 0 0 3px #B88E7D, 0 4px 12px rgba(184, 142, 125, 0.35);
-            transform: scale(1.15);
+        .color-swatch.active {
+            box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #C28E7E;
+            transform: scale(1.1);
         }
     </style>
 </head>
-<body class="bg-nude-50 text-nude-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#FBF9F7] text-nude-900 font-sans antialiased selection:bg-nude-100 selection:text-nude-900 min-h-screen flex flex-col">
 
     <!-- LOCALWEB DEMO HEADER BAR -->
-    <aside aria-label="LocalWeb Demo Header" class="demo-bar text-white text-xs sm:text-sm py-2.5 px-4 sticky top-0 z-50 border-b border-slate-700">
+    <aside aria-label="LocalWeb Demo Header" class="bg-nude-900 text-white text-xs sm:text-sm py-2 px-4 sticky top-0 z-50 border-b border-neutral-800">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">ДЕМО-САЙТ</span>
-                <span class="font-medium text-slate-200">Пример готового сайта для бьюти-мастера от студии <strong class="text-white font-bold">LocalWeb</strong></span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/30">Демо-сайт</span>
+                <span class="font-medium text-neutral-200 text-xs">Пример сайта для студии маникюра от студии <strong class="text-white font-semibold">LocalWeb</strong></span>
             </div>
             <div class="flex items-center gap-3">
-                <span class="hidden md:inline text-slate-300 text-xs">Сделаем такой же сайт за 7 500 ₽ за 24 часа</span>
-                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
-                    Заказать такой сайт
+                <span class="hidden md:inline text-neutral-300 text-xs">Разработка сайта за 7 500 ₽ за 24 часа</span>
+                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-white hover:bg-neutral-100 text-nude-900 font-bold px-3 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-xs">
+                    Заказать сайт
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             </div>
@@ -117,86 +114,102 @@
     </aside>
 
     <!-- HEADER / NAVIGATION -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-nude-200 sticky top-10 z-40">
+    <header class="bg-white/90 backdrop-blur-md border-b border-[#ECE3DA] sticky top-9 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-nude-500 text-white flex items-center justify-center font-serif text-xl shadow-sm">
-                    💅
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-nude-900 text-white flex items-center justify-center font-serif text-2xl font-bold transition-transform group-hover:scale-105">
+                    V
                 </div>
                 <div>
-                    <span class="font-serif font-bold text-2xl tracking-wide text-nude-900">Velvet Nails</span>
-                    <span class="block text-[10px] text-nude-600 uppercase tracking-widest font-semibold">Студия эстетики ногтей</span>
+                    <span class="font-serif font-bold text-2xl tracking-tight text-nude-900">Velvet <span class="font-serif italic font-normal text-nude-500">Nails</span></span>
+                    <span class="block text-[10px] uppercase tracking-widest text-nude-600 font-semibold">Студия ногтевой эстетики</span>
                 </div>
             </a>
             
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-600">
-                <a href="#prices" class="hover:text-nude-600 transition-colors">Прайс-лист</a>
-                <a href="#comparison" class="hover:text-nude-600 transition-colors">До / После</a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-nude-900">
+                <a href="#services" class="hover:text-nude-600 transition-colors">Услуги и цены</a>
+                <a href="#results" class="hover:text-nude-600 transition-colors">До / После</a>
                 <a href="#palette" class="hover:text-nude-600 transition-colors">Палитра сезона</a>
-                <a href="#standards" class="hover:text-nude-600 transition-colors">Стерилизация СанПиН</a>
-                <a href="#booking" class="hover:text-nude-600 transition-colors">Онлайн-запись</a>
+                <a href="#sanpin" class="hover:text-nude-600 transition-colors">Стерилизация СанПиН</a>
+                <a href="#contacts" class="hover:text-nude-600 transition-colors">Контакты</a>
             </nav>
 
-            <div class="flex items-center gap-3">
-                <a href="#booking" class="bg-nude-500 hover:bg-nude-600 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm">
-                    Записаться онлайн
+            <div class="flex items-center gap-4">
+                <a href="tel:+79991112233" class="hidden sm:flex flex-col text-right">
+                    <span class="text-[11px] text-nude-600 font-medium">10:00 — 21:00 ежедневно</span>
+                    <span class="text-sm font-bold text-nude-900 hover:text-nude-600 transition-colors">+7 (999) 111-22-33</span>
+                </a>
+                <a href="#booking" class="bg-nude-900 hover:bg-nude-800 text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-xs hover:shadow-sm">
+                    Онлайн-запись
                 </a>
             </div>
         </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section class="relative pt-10 pb-16 md:pt-16 md:pb-24">
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+                
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold">
-                        🌸 Гарантия на покрытие 7 дней — бесплатная коррекция
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#ECE3DA] text-xs font-semibold text-nude-900 shadow-xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Горящие слоты на сегодня: скидка 15%</span>
                     </div>
-                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-nude-900 leading-[1.15]">
-                        Безупречный маникюр без затеков и сколов на 4 недели
+
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-nude-900 leading-[1.15] tracking-tight">
+                        Маникюр, который <br class="hidden sm:inline">
+                        <span class="italic font-normal text-nude-500 font-serif">подчеркивает ваш стиль</span> <br class="hidden sm:inline">
+                        и безупречный вкус
                     </h1>
-                    <p class="text-stone-600 text-base sm:text-lg max-w-xl leading-relaxed">
-                        Деликатная аппаратная техника, премиальные базы и топы Luxio. Вскрываем индивидуальный крафт-пакет со стерильными инструментами строго при вас.
+
+                    <p class="text-nude-600 text-base sm:text-lg max-w-xl leading-relaxed">
+                        Безопасный аппаратный и пилочный маникюр, SMART-педикюр и стойкое покрытие гель-лаком от 3 недель без сколов и отслоек. Индивидуальный крафт-пакет инструментов вскрывается строго при вас.
                     </p>
                     
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <a href="#booking" class="bg-nude-500 hover:bg-nude-600 text-white font-bold px-7 py-4 rounded-xl text-sm sm:text-base transition-all shadow-md">
-                            Выбрать время и мастера ➔
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#booking" class="bg-nude-900 hover:bg-nude-800 text-white font-semibold px-7 py-3.5 rounded-xl text-sm transition-all shadow-sm hover:shadow-md flex items-center gap-2 group">
+                            <span>Записаться к мастеру</span>
+                            <svg class="w-4 h-4 text-neutral-300 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
-                        <a href="https://wa.me/79991112233?text=Здравствуйте!%20Хочу%20записаться%20на%20маникюр" target="_blank" rel="noopener" class="bg-white border border-nude-200 hover:bg-nude-100 text-nude-900 font-bold px-6 py-4 rounded-xl text-sm sm:text-base transition-colors">
-                            Написать в WhatsApp
+                        <a href="#services" class="bg-white border border-[#ECE3DA] hover:bg-nude-50 text-nude-900 font-semibold px-6 py-3.5 rounded-xl text-sm transition-colors shadow-xs">
+                            Посмотреть прайс
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-nude-200">
+                    <div class="grid grid-cols-3 gap-6 pt-6 border-t border-[#ECE3DA]">
                         <div>
-                            <span class="block font-serif font-bold text-2xl text-nude-900">100%</span>
-                            <span class="text-xs text-stone-500">Стерильно (Сухожар ГП-10)</span>
+                            <span class="block font-serif font-bold text-2xl text-nude-900">от 3 недель</span>
+                            <span class="text-xs text-nude-600 font-medium">Гарантия на покрытие 7 дней</span>
                         </div>
                         <div>
-                            <span class="block font-serif font-bold text-2xl text-nude-900">350+</span>
-                            <span class="text-xs text-stone-500">Трендовых оттенков в наличии</span>
+                            <span class="block font-serif font-bold text-2xl text-nude-900">СанПиН 100%</span>
+                            <span class="text-xs text-nude-600 font-medium">Сухожар ГП-10 & крафт-пакет</span>
                         </div>
                         <div>
-                            <span class="block font-serif font-bold text-2xl text-nude-900">1.5 часа</span>
-                            <span class="text-xs text-stone-500">Средняя продолжительность процедуры</span>
+                            <span class="block font-serif font-bold text-2xl text-nude-900">4.99 ★</span>
+                            <span class="text-xs text-nude-600 font-medium">Более 650 довольных гостей</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Hero Stock Image -->
-                <div class="lg:col-span-5">
-                    <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-square relative group">
-                        <img src="../../assets/demo/nails/hero.webp" alt="Эстетичный нюдовый маникюр ручной работы" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <!-- Right Hero Image -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-2xl overflow-hidden card-beauty editorial-shadow aspect-[4/3] sm:aspect-square group bg-white">
+                        <img src="../../assets/demo/nails/hero.webp" alt="Премиальный маникюр milky nude" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-nude-900/30 via-transparent to-transparent"></div>
                         
-                        <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg flex items-center justify-between border border-nude-100">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold text-nude-900 shadow-sm flex items-center gap-1.5 border border-white/60">
+                            <span class="text-amber-500 font-bold">★ 4.99</span>
+                            <span class="text-nude-600">• Рейтинг на Яндекс Картах</span>
+                        </div>
+
+                        <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-md flex items-center justify-between border border-[#ECE3DA]">
                             <div>
-                                <span class="text-[11px] font-bold text-rose-700 uppercase tracking-wider block">Любимый выбор гостей</span>
-                                <span class="font-serif font-bold text-base text-nude-900">Комплекс «Все включено»</span>
+                                <span class="text-[10px] font-bold text-nude-600 uppercase tracking-widest block">Популярный комплекс</span>
+                                <span class="font-serif font-bold text-sm sm:text-base text-nude-900">Маникюр + Выравнивание + Гель-лак</span>
                             </div>
-                            <span class="text-sm font-extrabold text-nude-600">1 890 ₽</span>
+                            <span class="text-xs sm:text-sm font-bold text-nude-900 bg-nude-100 px-3 py-1.5 rounded-lg">2 400 ₽</span>
                         </div>
                     </div>
                 </div>
@@ -204,333 +217,301 @@
         </div>
     </section>
 
-    <!-- UNIQUE BEFORE / AFTER SLIDER -->
-    <section id="comparison" class="py-16 md:py-24 bg-white border-y border-nude-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-xl mx-auto mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-nude-500">Результат работы</span>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-nude-900 mt-2">
-                    Сравните «До» и «После»
-                </h2>
-                <p class="text-stone-500 text-sm mt-2">Потяните бегунок влево и вправо, чтобы увидеть преображение кутикулы и идеальную форму ногтей</p>
-            </div>
-
-            <div class="ba-container aspect-[16/10] sm:aspect-[16/9] shadow-2xl border-2 border-nude-200 relative">
-                <!-- Under Image: After -->
-                <img src="../../assets/demo/nails/after.webp" alt="Идеальный маникюр после процедуры" class="absolute inset-0 w-full h-full object-cover">
-                
-                <!-- Over Image: Before (Clipped) -->
-                <div id="ba-clip-div" class="absolute inset-0 w-full h-full overflow-hidden" style="clip-path: inset(0 50% 0 0);">
-                    <img src="../../assets/demo/nails/before.webp" alt="Ногти до процедуры маникюра" class="absolute inset-0 w-full h-full object-cover">
-                </div>
-
-                <!-- Dividing line & circle handle -->
-                <div id="ba-handle" class="ba-handle">
-                    <div class="ba-circle">◀ ▶</div>
-                </div>
-
-                <!-- Labels -->
-                <span class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full z-10 pointer-events-none">
-                    ДО процедуры
-                </span>
-                <span class="absolute top-4 right-4 bg-rose-600/80 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full z-10 pointer-events-none">
-                    ПОСЛЕ мастера
-                </span>
-
-                <!-- Native Range Input Controller -->
-                <input type="range" id="ba-range" min="0" max="100" value="50" class="ba-slider" aria-label="Сравнение до и после процедуры">
-            </div>
-        </div>
-    </section>
-
-    <!-- INTERACTIVE COLOR PALETTE & "BURNING SLOTS" -->
-    <section id="palette" class="py-16 md:py-24 bg-nude-100/50">
+    <!-- BEFORE / AFTER INTERACTIVE SLIDER -->
+    <section id="results" class="py-16 md:py-24 bg-white border-y border-[#ECE3DA]">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <!-- Palette Swatches -->
-                <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-nude-200 shadow-sm space-y-6">
-                    <div>
-                        <span class="text-xs font-bold uppercase tracking-wider text-nude-500">Трендовая палитра</span>
-                        <h3 class="font-serif text-2xl font-bold text-nude-900 mt-1">Топ-оттенки этого сезона</h3>
-                        <p class="text-xs text-stone-500 mt-1">Выберите цвет, который хотите примерить к своему образу:</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4" id="swatch-list">
-                        <button type="button" data-color="Молочный нюд (Milky Nude)" class="swatch-item active flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-200 bg-white text-xs font-bold transition-all" style="border-left: 12px solid #FDF2E9;">
-                            <span>🥛 Молочный нюд</span>
-                        </button>
-                        <button type="button" data-color="Винный бордо (Deep Burgundy)" class="swatch-item flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-200 bg-white text-xs font-bold transition-all" style="border-left: 12px solid #6A1A24;">
-                            <span>🍷 Винный бордо</span>
-                        </button>
-                        <button type="button" data-color="Шоколадный глянец (Mocha)" class="swatch-item flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-200 bg-white text-xs font-bold transition-all" style="border-left: 12px solid #3E2723;">
-                            <span>☕ Шоколадный глянец</span>
-                        </button>
-                        <button type="button" data-color="Жемчужная втирка (Pearl Glaze)" class="swatch-item flex items-center gap-2 px-4 py-2.5 rounded-full border border-stone-200 bg-white text-xs font-bold transition-all" style="border-left: 12px solid #E8EAF6;">
-                            <span>✨ Жемчужная втирка</span>
-                        </button>
-                    </div>
-
-                    <div class="p-4 rounded-2xl bg-nude-50 border border-nude-200 flex items-center justify-between">
-                        <div>
-                            <span class="text-[11px] text-stone-400 block font-medium">Выбранный оттенок для записи:</span>
-                            <span id="selected-shade" class="text-sm font-bold text-nude-900">Молочный нюд (Milky Nude)</span>
-                        </div>
-                        <a href="#booking" class="text-xs font-bold text-nude-600 hover:underline">Перейти к записи ➔</a>
-                    </div>
-                </div>
-
-                <!-- Burning Slots Widget -->
-                <div class="lg:col-span-5 bg-gradient-to-tr from-nude-900 to-stone-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
-                    <div class="flex items-center justify-between">
-                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                            🔥 Горящие окна
-                        </span>
-                        <span class="text-xs text-amber-300 font-bold">-15% на визит</span>
-                    </div>
-
-                    <div>
-                        <h4 class="font-serif text-xl font-bold">Свободные окна на сегодня</h4>
-                        <p class="text-xs text-stone-400 mt-1">Нажмите на удобное время, чтобы закрепить скидку:</p>
-                    </div>
-
-                    <div class="space-y-2.5" id="burning-slots">
-                        <button type="button" data-slot="Сегодня 14:30 (Мастер Анна)" class="slot-pill w-full bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl p-3 flex items-center justify-between text-xs font-semibold transition-all">
-                            <span class="flex items-center gap-2">
-                                <span>Сегодня в 14:30</span>
-                                <span class="text-stone-400">• Анна (Мастер)</span>
-                            </span>
-                            <span class="text-rose-400 font-bold">Занять ➔</span>
-                        </button>
-                        <button type="button" data-slot="Сегодня 18:00 (Топ-мастер Елена)" class="slot-pill w-full bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl p-3 flex items-center justify-between text-xs font-semibold transition-all">
-                            <span class="flex items-center gap-2">
-                                <span>Сегодня в 18:00</span>
-                                <span class="text-stone-400">• Елена (Топ)</span>
-                            </span>
-                            <span class="text-rose-400 font-bold">Занять ➔</span>
-                        </button>
-                        <button type="button" data-slot="Завтра 11:00 (Мастер София)" class="slot-pill w-full bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl p-3 flex items-center justify-between text-xs font-semibold transition-all">
-                            <span class="flex items-center gap-2">
-                                <span>Завтра в 11:00</span>
-                                <span class="text-stone-400">• София</span>
-                            </span>
-                            <span class="text-rose-400 font-bold">Занять ➔</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- STERILIZATION STANDARDS WITH STOCK PHOTO -->
-    <section id="standards" class="py-16 md:py-24 bg-white border-b border-nude-200">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                <div class="lg:col-span-6 rounded-3xl overflow-hidden shadow-xl border border-nude-200 aspect-[4/3]">
-                    <img src="../../assets/demo/nails/sterilization.webp" alt="Стерилизация инструментов в сухожаровом шкафу" class="w-full h-full object-cover" loading="lazy">
-                </div>
-
-                <div class="lg:col-span-6 space-y-6">
-                    <div>
-                        <span class="text-xs font-bold uppercase tracking-wider text-nude-500">100% Безопасность</span>
-                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-nude-900 mt-1">
-                            3 ступени стерилизации по СанПиН
-                        </h2>
-                        <p class="text-stone-500 text-sm mt-2">
-                            Все пилочки, бафы и апельсиновые палочки — одноразовые. Металлические инструменты проходят медицинский цикл стерилизации.
-                        </p>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="flex gap-4">
-                            <div class="w-9 h-9 rounded-xl bg-nude-200 text-nude-900 font-bold flex items-center justify-center flex-shrink-0 text-sm">1</div>
-                            <div>
-                                <h4 class="font-bold text-nude-900 text-sm">Дезинфекция в растворе Мультидез</h4>
-                                <p class="text-xs text-stone-500 mt-0.5">Полное погружение в сертифицированный дезинфицирующий раствор с ультразвуковой мойкой.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-4">
-                            <div class="w-9 h-9 rounded-xl bg-nude-200 text-nude-900 font-bold flex items-center justify-center flex-shrink-0 text-sm">2</div>
-                            <div>
-                                <h4 class="font-bold text-nude-900 text-sm">Сухожаровой шкаф ГП-10 (180°C, 60 мин)</h4>
-                                <p class="text-xs text-stone-500 mt-0.5">Инструменты запечатываются в термостойкие крафт-пакеты со специальным индикатором стерильности.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-4">
-                            <div class="w-9 h-9 rounded-xl bg-nude-200 text-nude-900 font-bold flex items-center justify-center flex-shrink-0 text-sm">3</div>
-                            <div>
-                                <h4 class="font-bold text-nude-900 text-sm">Вскрытие пакета строго при клиенте</h4>
-                                <p class="text-xs text-stone-500 mt-0.5">Мастер срезает шов крафт-пакета прямо перед вами, демонстрируя коричневый индикатор нормы.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BOOKING SECTION -->
-    <section id="booking" class="py-16 md:py-24 bg-nude-50">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-nude-500">Запись в 1 клик</span>
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-nude-600">Результаты работы</span>
                 <h2 class="font-serif text-3xl sm:text-4xl font-bold text-nude-900 mt-2">
-                    Онлайн-запись к мастеру
+                    Сравните эффект: До и После процедуры
                 </h2>
-                <p class="text-stone-500 text-sm mt-2">Выберите услугу, время и оттенок — администратор подтвердит бронь в течение 3 минут</p>
+                <p class="text-nude-600 text-sm mt-2">Потяните разделитель в центре, чтобы оценить преображение формы, кутикулы и идеальный блик покрытия</p>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-nude-200 shadow-xl space-y-6">
-                <div>
-                    <label for="nail-service" class="block text-xs font-bold uppercase text-stone-600 mb-2">Комплекс или услуга:</label>
-                    <select id="nail-service" class="w-full bg-nude-50 border border-stone-200 rounded-xl px-4 py-3 text-sm font-semibold text-nude-900 focus:outline-none focus:border-nude-500">
-                        <option value="Маникюр + Покрытие гель-лак (1890 ₽)">Маникюр + Покрытие гель-лак (1 890 ₽)</option>
-                        <option value="Smart-педикюр полный (2500 ₽)">Smart-педикюр полный (2 500 ₽)</option>
-                        <option value="Японский эко-маникюр Masura (1600 ₽)">Японский эко-маникюр Masura (1 600 ₽)</option>
-                        <option value="Наращивание ногтей (2800 ₽)">Наращивание ногтей гель/полигель (2 800 ₽)</option>
-                    </select>
+            <div class="max-w-3xl mx-auto bg-[#FBF9F7] p-4 sm:p-6 rounded-2xl border border-[#ECE3DA] editorial-shadow">
+                <div class="ba-container aspect-[16/10] sm:aspect-[16/9] w-full" id="ba-widget" style="--pos: 50%;">
+                    <!-- After image (base) -->
+                    <img src="../../assets/demo/nails/after.webp" alt="Идеальный французский маникюр после процедуры" class="w-full h-full object-cover pointer-events-none">
+                    
+                    <!-- Before image (clipped) -->
+                    <div class="ba-before">
+                        <img src="../../assets/demo/nails/after.webp" style="filter: saturate(0.6) brightness(0.95);" alt="Натуральные ногти до процедуры" class="w-full h-full object-cover pointer-events-none">
+                    </div>
+
+                    <!-- Draggable divider line -->
+                    <div class="ba-slider">
+                        <div class="ba-handle">
+                            <svg class="w-4 h-4 text-nude-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l-4 3 4 3m8-6l4 3-4 3"/></svg>
+                        </div>
+                    </div>
+
+                    <!-- Labels -->
+                    <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-full pointer-events-none">
+                        До процедуры
+                    </span>
+                    <span class="absolute top-4 right-4 bg-white/90 backdrop-blur-xs text-nude-900 text-[11px] font-bold px-3 py-1 rounded-full shadow-xs pointer-events-none">
+                        После (Velvet Nails)
+                    </span>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-xs text-nude-600 px-2">
+                    <span>Чистая аппаратная обработка без порезов</span>
+                    <span>Идеальный блик и архитектура ногтя</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PALETTE OF THE SEASON -->
+    <section id="palette" class="py-16 md:py-24 bg-[#FBF9F7]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-nude-600">Коллекция оттенков</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-nude-900 mt-2">
+                    Трендовая палитра сезона
+                </h2>
+                <p class="text-nude-600 text-sm mt-2">Нажмите на любой оттенок, чтобы примерить его и выбрать для предстоящей записи</p>
+            </div>
+
+            <div class="max-w-xl mx-auto bg-white p-6 sm:p-8 rounded-2xl border border-[#ECE3DA] editorial-shadow text-center">
+                <div class="flex items-center justify-center gap-4 sm:gap-6 mb-6">
+                    <button type="button" class="color-swatch active w-12 h-12 rounded-full border border-neutral-300 transition-transform" style="background-color: #EFE5DB;" data-name="Milky Nude" data-desc="Невесомый полупрозрачный молочный оттенок. Элегантная классика на каждый день."></button>
+                    <button type="button" class="color-swatch w-12 h-12 rounded-full border border-neutral-300 transition-transform" style="background-color: #5B1E2B;" data-name="Deep Burgundy" data-desc="Глубокий винный оттенок спелой черешни. Роскошный глянцевый акцент."></button>
+                    <button type="button" class="color-swatch w-12 h-12 rounded-full border border-neutral-300 transition-transform" style="background-color: #826B60;" data-name="Mocha Cashmere" data-desc="Теплый кофейно-шоколадный нюд. Идеально сочетается с уютным осенне-зимним гардеробом."></button>
+                    <button type="button" class="color-swatch w-12 h-12 rounded-full border border-neutral-300 transition-transform" style="background-color: #FAF4EE;" data-name="Glazed Pearl" data-desc="Жемчужная сияющая втирка на полупрозрачной базе. Трендовый эффект Hailey Bieber."></button>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="nail-date" class="block text-xs font-bold uppercase text-stone-600 mb-2">Желаемый день:</label>
-                        <select id="nail-date" class="w-full bg-nude-50 border border-stone-200 rounded-xl px-4 py-3 text-sm font-semibold text-nude-900 focus:outline-none focus:border-nude-500">
-                            <option value="Сегодня (горящие окна)">Сегодня (есть 2 горящих окна)</option>
-                            <option value="Завтра">Завтра</option>
-                            <option value="В ближайшие выходные">В ближайшие выходные</option>
-                            <option value="На следующей неделе">На следующей неделе</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="nail-time" class="block text-xs font-bold uppercase text-stone-600 mb-2">Время визита:</label>
-                        <select id="nail-time" class="w-full bg-nude-50 border border-stone-200 rounded-xl px-4 py-3 text-sm font-semibold text-nude-900 focus:outline-none focus:border-nude-500">
-                            <option value="14:30 (со скидкой 15%)">14:30 (горящее окно -15%)</option>
-                            <option value="18:00 (со скидкой 15%)">18:00 (горящее окно -15%)</option>
-                            <option value="Утро (10:00 - 13:00)">Утро (10:00 - 13:00)</option>
-                            <option value="День (13:00 - 17:00)">День (13:00 - 17:00)</option>
-                            <option value="Вечер (17:00 - 21:00)">Вечер (17:00 - 21:00)</option>
-                        </select>
-                    </div>
+                <div class="py-4 border-t border-[#ECE3DA]">
+                    <span class="text-xs font-bold uppercase tracking-wider text-nude-600 block mb-1">Выбранный оттенок</span>
+                    <h3 class="font-serif text-2xl font-bold text-nude-900" id="palette-name">Milky Nude</h3>
+                    <p class="text-xs text-nude-600 max-w-md mx-auto mt-2 leading-relaxed" id="palette-desc">
+                        Невесомый полупрозрачный молочный оттенок. Элегантная классика на каждый день.
+                    </p>
                 </div>
 
-                <a id="nail-wa-btn" href="#" target="_blank" rel="noopener" class="w-full bg-nude-500 hover:bg-nude-600 text-white font-bold py-4 rounded-xl text-center block text-sm transition-all shadow-md">
-                    Записаться в WhatsApp со скидкой ➔
+                <a href="#booking" class="mt-4 inline-flex items-center gap-2 bg-nude-900 hover:bg-nude-800 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-xs">
+                    <span>Выбрать этот оттенок для записи</span>
+                    <span>→</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER / CONTACTS -->
-    <footer class="bg-nude-900 text-white pt-16 pb-12 mt-auto">
+    <!-- SERVICES & PRICING -->
+    <section id="services" class="py-16 md:py-24 bg-white border-t border-[#ECE3DA]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-widest text-nude-600">Меню услуг</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-nude-900 mt-2">
+                    Честный прайс-лист без доплат на кассе
+                </h2>
+                <p class="text-nude-600 text-sm mt-2">В стоимость каждого комплекса уже включены снятие предыдущего материала и уходовое масло</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="p-5 rounded-2xl bg-[#FBF9F7] border border-[#ECE3DA] flex items-center justify-between gap-4 card-beauty">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-serif font-bold text-lg text-nude-900">Комплекс «Все включено»</h3>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-nude-100 text-nude-600">Хит</span>
+                        </div>
+                        <p class="text-xs text-nude-600 mt-1">Снятие + комбинированный маникюр + выравнивание базой + покрытие гель-лаком Luxio</p>
+                        <span class="text-[11px] text-nude-600 mt-1 block">Длительность: 1 ч 30 мин</span>
+                    </div>
+                    <span class="font-serif font-bold text-xl text-nude-900 whitespace-nowrap">2 400 ₽</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#FBF9F7] border border-[#ECE3DA] flex items-center justify-between gap-4 card-beauty">
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-nude-900">Гигиенический маникюр</h3>
+                        <p class="text-xs text-nude-600 mt-1">Аппаратная или комбинированная обработка кутикулы, придание формы, полировка и питательное масло</p>
+                        <span class="text-[11px] text-nude-600 mt-1 block">Длительность: 45 мин</span>
+                    </div>
+                    <span class="font-serif font-bold text-xl text-nude-900 whitespace-nowrap">1 600 ₽</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#FBF9F7] border border-[#ECE3DA] flex items-center justify-between gap-4 card-beauty">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-serif font-bold text-lg text-nude-900">SMART-педикюр полный</h3>
+                            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-nude-100 text-nude-600">SPA</span>
+                        </div>
+                        <p class="text-xs text-nude-600 mt-1">Обработка стоп смарт-диском с молекулярным маслом, обработка пальчиков и покрытие гель-лак</p>
+                        <span class="text-[11px] text-nude-600 mt-1 block">Длительность: 1 ч 45 мин</span>
+                    </div>
+                    <span class="font-serif font-bold text-xl text-nude-900 whitespace-nowrap">3 100 ₽</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#FBF9F7] border border-[#ECE3DA] flex items-center justify-between gap-4 card-beauty">
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-nude-900">Френч / Градиент / Лунки</h3>
+                        <p class="text-xs text-nude-600 mt-1">Тончайшая ровная улыбка френча на все пальчики или нежнейший градиент аэропуффингом</p>
+                        <span class="text-[11px] text-nude-600 mt-1 block">+20 мин к основной процедуре</span>
+                    </div>
+                    <span class="font-serif font-bold text-xl text-nude-900 whitespace-nowrap">+500 ₽</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SANPIN STERILIZATION -->
+    <section id="sanpin" class="py-16 md:py-24 bg-[#FBF9F7] border-t border-[#ECE3DA]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-stone-800">
-                <div class="space-y-4">
-                    <span class="font-serif font-bold text-2xl tracking-tight text-white">Velvet Nails</span>
-                    <p class="text-xs text-stone-400 leading-relaxed">
-                        Студия эстетического маникюра и педикюра. Любим ваши ручки с 2020 года.
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-nude-600">Безопасность вашего здоровья</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-nude-900 leading-tight">
+                        4 этапа стерилизации по строгим медицинским нормам СанПиН
+                    </h2>
+                    <p class="text-nude-600 text-sm leading-relaxed">
+                        Мы никогда не экономим на вашем здоровье. Пилочки, бафы и апельсиновые палочки — строго одноразовые (вы можете забрать их с собой). Металлические инструменты проходят полный цикл дезинфекции и стерилизуются в сухожаровом шкафу ГП-10 при 180°C.
                     </p>
-                    <div class="text-xs text-amber-300">
-                        ⚡ Сайт разработан на стеке LocalWeb: скорость 0.4с • PageSpeed 100/100
+
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-nude-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-nude-900">Дезинфекция в растворе «Мультидез»</h4>
+                                <p class="text-xs text-nude-600">Замачивание инструментов в ультразвуковой ванне для уничтожения вирусов и бактерий.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-nude-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-nude-900">Предстерилизационная очистка (ПСО)</h4>
+                                <p class="text-xs text-nude-600">Механическая очистка под проточной водой и азопирамовая проба на скрытую кровь.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-nude-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-nude-900">Сухожар ГП-10 (180°C, 60 минут)</h4>
+                                <p class="text-xs text-nude-600">Стерилизация в герметичных крафт-пакетах с индикатором 4 класса стерильности.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-nude-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-nude-900">Вскрытие пакета при вас</h4>
+                                <p class="text-xs text-nude-600">Мастер вскрывает запечатанный крафт-пакет строго при клиенте перед началом процедуры.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div>
-                    <h4 class="text-xs font-bold text-stone-300 uppercase tracking-wider mb-3">Навигация</h4>
-                    <ul class="space-y-2 text-xs text-stone-400">
-                        <li><a href="#prices" class="hover:text-white transition-colors">Прайс-лист</a></li>
-                        <li><a href="#comparison" class="hover:text-white transition-colors">Сравнение До / После</a></li>
-                        <li><a href="#standards" class="hover:text-white transition-colors">Стерилизация СанПиН</a></li>
-                        <li><a href="https://local-web.ru" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Создать такой сайт (LocalWeb)</a></li>
-                    </ul>
+                <div class="lg:col-span-6">
+                    <div class="rounded-2xl overflow-hidden card-beauty editorial-shadow aspect-[4/3] bg-white">
+                        <img src="../../assets/demo/nails/salon.webp" alt="Интерьер современной студии маникюра" class="w-full h-full object-cover">
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- BOOKING APPOINTMENT -->
+    <section id="booking" class="py-16 md:py-24 bg-white border-t border-[#ECE3DA]">
+        <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-xs font-bold uppercase tracking-widest text-nude-600">Запись к мастеру</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-nude-900 mt-2">
+                Забронируйте удобное время
+            </h2>
+            <p class="text-nude-600 text-sm mt-2 mb-8">Оставьте контакты или напишите нам сразу в WhatsApp — администратор подберет ближайшее свободное окно</p>
+
+            <div class="bg-[#FBF9F7] p-6 sm:p-8 rounded-2xl border border-[#ECE3DA] shadow-xs text-left space-y-4">
                 <div>
-                    <h4 class="text-xs font-bold text-stone-300 uppercase tracking-wider mb-3">Адрес и часы</h4>
-                    <p class="text-xs text-stone-400 leading-relaxed mb-2">
-                        г. Москва, ул. Бьюти, д. 8 (м. Маяковская, 3 мин пешком)
-                    </p>
-                    <p class="text-xs text-stone-400">
-                        Ежедневно с 10:00 до 22:00
-                    </p>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-nude-600 mb-1.5">Ваше имя:</label>
+                    <input type="text" placeholder="Екатерина" class="w-full px-4 py-3 rounded-xl border border-[#ECE3DA] bg-white text-sm focus:outline-none focus:border-nude-600">
                 </div>
-
                 <div>
-                    <h4 class="text-xs font-bold text-stone-300 uppercase tracking-wider mb-3">Контакты</h4>
-                    <a href="tel:+79991112233" class="block text-base font-bold text-white mb-2 hover:text-nude-500 transition-colors">+7 (999) 111-22-33</a>
-                    <a href="https://wa.me/79991112233" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors">
-                        Написать в WhatsApp
+                    <label class="block text-xs font-bold uppercase tracking-wider text-nude-600 mb-1.5">Номер телефона:</label>
+                    <input type="tel" placeholder="+7 (___) ___-__-__" class="w-full px-4 py-3 rounded-xl border border-[#ECE3DA] bg-white text-sm focus:outline-none focus:border-nude-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-nude-600 mb-1.5">Интересующая услуга:</label>
+                    <select class="w-full px-4 py-3 rounded-xl border border-[#ECE3DA] bg-white text-sm focus:outline-none focus:border-nude-600 text-nude-900">
+                        <option>Комплекс «Все включено» (2 400 ₽)</option>
+                        <option>Гигиенический маникюр (1 600 ₽)</option>
+                        <option>SMART-педикюр (3 100 ₽)</option>
+                        <option>Консультация и снятие (500 ₽)</option>
+                    </select>
+                </div>
+                <button type="button" class="w-full bg-nude-900 hover:bg-nude-800 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition-all shadow-xs">
+                    Отправить заявку на запись
+                </button>
+                <div class="text-center pt-2">
+                    <a href="https://wa.me/79991112233?text=Здравствуйте!%20Хочу%20записаться%20на%20маникюр" target="_blank" rel="noopener" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center justify-center gap-1.5">
+                        <span>Или записаться через WhatsApp за 30 секунд →</span>
                     </a>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
-                <span>© 2026 Студия «Velvet Nails». Все права защищены.</span>
-                <span class="text-stone-400">Демонстрационный сайт для портфолио <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb.ru</a></span>
+    <!-- FOOTER -->
+    <footer id="contacts" class="bg-nude-900 text-neutral-200 py-12 border-t border-neutral-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-neutral-800">
+                <div class="md:col-span-2 space-y-3">
+                    <span class="font-serif font-bold text-2xl text-white">Velvet <span class="text-nude-500 italic">Nails</span></span>
+                    <p class="text-xs text-neutral-400 max-w-sm leading-relaxed">
+                        Студия ногтевой эстетики. Индивидуальный подход, медицинские стандарты стерилизации и качественные гипоаллергенные материалы.
+                    </p>
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-white block mb-3">Навигация</span>
+                    <ul class="space-y-2 text-xs text-neutral-400">
+                        <li><a href="#services" class="hover:text-white transition-colors">Услуги и цены</a></li>
+                        <li><a href="#results" class="hover:text-white transition-colors">Слайдер До / После</a></li>
+                        <li><a href="#sanpin" class="hover:text-white transition-colors">СанПиН стандарты</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-white block mb-3">Контакты</span>
+                    <p class="text-xs text-neutral-400 mb-1">+7 (999) 111-22-33</p>
+                    <p class="text-xs text-neutral-400 mb-3">г. Москва, ул. Большая Дмитровка, д. 8</p>
+                    <a href="https://wa.me/79991112233" class="text-xs font-bold text-emerald-400 hover:text-emerald-300">
+                        Написать в WhatsApp →
+                    </a>
+                </div>
+            </div>
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-400 gap-2">
+                <span>© 2026 Velvet Nails. Демо-макет разработан в веб-студии <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb</a></span>
+                <span>Быстрый сайт под ключ за 7 500 ₽</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Interactive Before / After Slider
-        const baRange = document.getElementById('ba-range');
-        const baClipDiv = document.getElementById('ba-clip-div');
-        const baHandle = document.getElementById('ba-handle');
+        // Before/After Slider Interaction
+        const baWidget = document.getElementById('ba-widget');
+        let isDragging = false;
 
-        baRange.addEventListener('input', (e) => {
-            const val = e.target.value;
-            baClipDiv.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
-            baHandle.style.left = `${val}%`;
-        });
-
-        // Color Swatches
-        const swatchButtons = document.querySelectorAll('.swatch-item');
-        const selectedShade = document.getElementById('selected-shade');
-        let currentShade = "Молочный нюд (Milky Nude)";
-
-        swatchButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                swatchButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentShade = btn.dataset.color;
-                selectedShade.textContent = currentShade;
-                updateNailWa();
-            });
-        });
-
-        // Burning slots pills
-        const slotPills = document.querySelectorAll('.slot-pill');
-        const nailTime = document.getElementById('nail-time');
-        const nailDate = document.getElementById('nail-date');
-
-        slotPills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                const text = pill.dataset.slot;
-                nailDate.value = "Сегодня (горящие окна)";
-                if (text.includes("14:30")) nailTime.value = "14:30 (со скидкой 15%)";
-                else if (text.includes("18:00")) nailTime.value = "18:00 (со скидкой 15%)";
-                else {
-                    nailDate.value = "Завтра";
-                    nailTime.value = "Утро (10:00 - 13:00)";
-                }
-                document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-                updateNailWa();
-            });
-        });
-
-        // Booking Link
-        const nailService = document.getElementById('nail-service');
-        const nailWaBtn = document.getElementById('nail-wa-btn');
-
-        function updateNailWa() {
-            const msg = encodeURIComponent(`Здравствуйте! Хочу записаться в студию Velvet Nails:\nУслуга: ${nailService.value}\nЖелаемый день: ${nailDate.value}\nВремя: ${nailTime.value}\nВыбранный оттенок: ${currentShade}`);
-            nailWaBtn.href = `https://wa.me/79991112233?text=${msg}`;
+        function setPosFromEvent(e) {
+            const rect = baWidget.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            let percent = ((clientX - rect.left) / rect.width) * 100;
+            percent = Math.max(5, Math.min(95, percent));
+            baWidget.style.setProperty('--pos', percent + '%');
         }
 
-        nailService.addEventListener('change', updateNailWa);
-        nailDate.addEventListener('change', updateNailWa);
-        nailTime.addEventListener('change', updateNailWa);
-        updateNailWa();
+        baWidget.addEventListener('mousedown', (e) => { isDragging = true; setPosFromEvent(e); });
+        window.addEventListener('mousemove', (e) => { if (isDragging) setPosFromEvent(e); });
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        baWidget.addEventListener('touchstart', (e) => { isDragging = true; setPosFromEvent(e); }, { passive: true });
+        window.addEventListener('touchmove', (e) => { if (isDragging) setPosFromEvent(e); }, { passive: true });
+        window.addEventListener('touchend', () => { isDragging = false; });
+
+        // Palette Selector
+        const paletteName = document.getElementById('palette-name');
+        const paletteDesc = document.getElementById('palette-desc');
+        document.querySelectorAll('.color-swatch').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.color-swatch').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                paletteName.textContent = btn.dataset.name;
+                paletteDesc.textContent = btn.dataset.desc;
+            });
+        });
     </script>
 </body>
 </html>

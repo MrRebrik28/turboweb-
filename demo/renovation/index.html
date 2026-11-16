@@ -3,25 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ремонт квартир под ключ «РемСтрой Pro» — Смета без скрытых доплат</title>
-    <meta name="description" content="Капитальный и дизайнерский ремонт квартир под ключ. Смета фиксируется в договоре, оплата поэтапно по факту, гарантия 3 года. Бесплатный замер за 24 часа.">
+    <title>Ремонт квартир «РемСтрой Pro» — Ремонт под ключ с фиксированной сметой и гарантией 5 лет</title>
+    <meta name="description" content="Качественный ремонт квартир и коттеджей под ключ. Фиксированная смета в договоре, оплата по факту сдачи этапов, закупка материалов со скидкой до 25%.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        mono: ['"Space Grotesk"', 'monospace'],
                     },
                     colors: {
-                        reno: {
-                            50: '#F8FAFC',
+                        stone: {
+                            50: '#FAF8F5',
+                            100: '#F4EFEB',
+                            200: '#E6DDD5',
+                            300: '#D5C7BB',
+                            700: '#66574D',
+                            900: '#1C1613',
+                        },
+                        accent: {
                             500: '#EA580C',
                             600: '#C2410C',
-                            900: '#0F172A',
                         }
                     }
                 }
@@ -29,79 +36,110 @@
         }
     </script>
     <style>
-        .demo-bar {
-            background: linear-gradient(90deg, #0F172A 0%, #1E293B 100%);
+        .arch-shadow {
+            box-shadow: 0 20px 40px -15px rgba(28, 22, 19, 0.06), 0 0 1px 1px rgba(28, 22, 19, 0.04);
         }
-        .reno-card {
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+        .card-arch {
+            background: #FFFFFF;
+            border: 1px solid #E6DDD5;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reno-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 30px -8px rgba(234, 88, 12, 0.2);
+        .card-arch:hover {
+            transform: translateY(-3px);
+            border-color: #D5C7BB;
+            box-shadow: 0 20px 30px -10px rgba(234, 88, 12, 0.08);
         }
-        /* Native accessible Before/After Slider */
+        /* Custom Modern Range Slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #E6DDD5;
+            border-radius: 9999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #EA580C;
+            cursor: pointer;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 2px 6px rgba(234, 88, 12, 0.35);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #EA580C;
+            cursor: pointer;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 2px 6px rgba(234, 88, 12, 0.35);
+        }
+        /* Accessible Before/After Image Comparison Slider */
         .ba-container {
             position: relative;
-            user-select: none;
             overflow: hidden;
-            border-radius: 1.5rem;
+            border-radius: 1rem;
+            user-select: none;
+            touch-action: pan-y;
+        }
+        .ba-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
         }
         .ba-slider {
             position: absolute;
-            inset: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: ew-resize;
-            z-index: 20;
-            margin: 0;
+            top: 0;
+            left: var(--pos, 50%);
+            bottom: 0;
+            width: 2px;
+            background: #FFFFFF;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            pointer-events: none;
         }
         .ba-handle {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #FFFFFF;
-            box-shadow: 0 0 12px rgba(0,0,0,0.6);
-            z-index: 10;
-            pointer-events: none;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: left 0.05s linear;
-        }
-        .ba-circle {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background: #EA580C;
-            border: 3px solid #FFFFFF;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            background: #FFFFFF;
+            border: 2px solid #EA580C;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #FFFFFF;
-            font-size: 11px;
-            font-weight: 800;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#FAF8F5] text-stone-900 font-sans antialiased selection:bg-orange-100 selection:text-orange-900 min-h-screen flex flex-col">
 
     <!-- LOCALWEB DEMO HEADER BAR -->
-    <aside aria-label="LocalWeb Demo Header" class="demo-bar text-white text-xs sm:text-sm py-2.5 px-4 sticky top-0 z-50 border-b border-slate-700">
+    <aside aria-label="LocalWeb Demo Header" class="bg-stone-900 text-white text-xs sm:text-sm py-2 px-4 sticky top-0 z-50 border-b border-stone-800">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">ДЕМО-САЙТ</span>
-                <span class="font-medium text-slate-200">Пример готового сайта для строительной компании от студии <strong class="text-white font-bold">LocalWeb</strong></span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-orange-500/20 text-orange-300 border border-orange-500/30">Демо-сайт</span>
+                <span class="font-medium text-stone-200 text-xs">Пример сайта для ремонта квартир от студии <strong class="text-white font-semibold">LocalWeb</strong></span>
             </div>
             <div class="flex items-center gap-3">
-                <span class="hidden md:inline text-slate-300 text-xs">Сделаем такой же сайт за 7 500 ₽ за 24 часа</span>
-                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
-                    Заказать такой сайт
+                <span class="hidden md:inline text-stone-300 text-xs">Разработка сайта за 7 500 ₽ за 24 часа</span>
+                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-white hover:bg-stone-100 text-stone-900 font-bold px-3 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-xs">
+                    Заказать сайт
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             </div>
@@ -109,92 +147,103 @@
     </aside>
 
     <!-- HEADER / NAVIGATION -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-10 z-40">
+    <header class="bg-white/90 backdrop-blur-md border-b border-[#E6DDD5] sticky top-9 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-11 h-11 rounded-xl bg-orange-600 text-white flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition-transform">
-                    📐
+                <div class="w-10 h-10 rounded-xl bg-stone-900 text-white flex items-center justify-center font-bold text-lg transition-transform group-hover:scale-105">
+                    P
                 </div>
                 <div>
-                    <span class="font-black text-2xl tracking-tight text-slate-900">Рем<span class="text-orange-600">Строй</span></span>
-                    <span class="block text-[11px] text-slate-500 font-semibold tracking-wide">Ремонт квартир под ключ</span>
+                    <span class="font-bold text-2xl tracking-tight text-stone-900">РемСтрой<span class="text-accent-500 font-mono">.Pro</span></span>
+                    <span class="block text-[10px] uppercase tracking-widest text-stone-700 font-semibold">Ремонт и отделка квартир</span>
                 </div>
             </a>
             
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                <a href="#comparison" class="hover:text-orange-600 transition-colors">До / После</a>
-                <a href="#calculator" class="hover:text-orange-600 transition-colors">Калькулятор сметы</a>
-                <a href="#tariffs" class="hover:text-orange-600 transition-colors">Тарифы ремонта</a>
-                <a href="#portfolio" class="hover:text-orange-600 transition-colors">Объекты</a>
-                <a href="#contacts" class="hover:text-orange-600 transition-colors">Контакты</a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-700">
+                <a href="#estimator" class="hover:text-accent-500 transition-colors">Калькулятор сметы</a>
+                <a href="#results" class="hover:text-accent-500 transition-colors">До / После</a>
+                <a href="#portfolio" class="hover:text-accent-500 transition-colors">Портфолио</a>
+                <a href="#standards" class="hover:text-accent-500 transition-colors">Стандарты</a>
+                <a href="#contacts" class="hover:text-accent-500 transition-colors">Контакты</a>
             </nav>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-4">
                 <a href="tel:+79994445566" class="hidden sm:flex flex-col text-right">
-                    <span class="text-xs text-slate-500 font-medium">Бесплатная консультация инженера</span>
-                    <span class="text-sm font-black text-slate-900 hover:text-orange-600 transition-colors">+7 (999) 444-55-66</span>
+                    <span class="text-[11px] text-stone-700 font-medium">Бесплатная смета за 24 ч</span>
+                    <span class="text-sm font-bold text-stone-900 hover:text-accent-500 transition-colors">+7 (999) 444-55-66</span>
                 </a>
-                <a href="#calculator" class="bg-orange-600 hover:bg-orange-500 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-sm hover:shadow-md">
+                <a href="#estimator" class="bg-stone-900 hover:bg-stone-800 text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-xs hover:shadow-sm">
                     Рассчитать смету
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- HERO SECTION WITH STOCK PHOTO -->
-    <section class="relative pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-orange-50/40 to-slate-50">
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-white border-b border-[#E6DDD5]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+                
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-100 text-orange-800 text-xs font-bold">
-                        🔒 Цена в смете окончательная и фиксируется в договоре
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-50 border border-[#E6DDD5] text-xs font-semibold text-stone-900 shadow-xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Фиксируем смету в договоре • 5 лет официальной гарантии</span>
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight">
-                        Честный ремонт квартир под ключ с оплатой по факту этапов
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-stone-900 leading-[1.12] tracking-tight">
+                        Ремонт квартир <br class="hidden sm:inline">
+                        <span class="text-accent-500">без срыва сроков</span> <br class="hidden sm:inline">
+                        и скрытых переплат
                     </h1>
-                    <p class="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed">
-                        Никаких авансов за всю работу вперед. Оптовые цены на черновые смеси Кнауф и кабель ГОСТ со скидкой до 25%. Еженедельный видеоотчет прораба в Telegram.
+
+                    <p class="text-stone-700 text-base sm:text-lg max-w-xl leading-relaxed">
+                        Берем на себя все заботы: от закупки черновых материалов со скидкой 25% до чистового клининга. Поэтапная оплата по факту приемки, онлайн-видеонаблюдение на объекте 24/7 и прозрачные сметы.
                     </p>
                     
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <a href="#calculator" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-7 py-4 rounded-xl text-base transition-all shadow-md hover:shadow-lg">
-                            Рассчитать смету по площади ➔
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#estimator" class="bg-stone-900 hover:bg-stone-800 text-white font-semibold px-7 py-3.5 rounded-xl text-sm transition-all shadow-sm hover:shadow-md flex items-center gap-2 group">
+                            <span>Рассчитать смету по м²</span>
+                            <svg class="w-4 h-4 text-stone-300 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
-                        <a href="https://wa.me/79994445566?text=Здравствуйте!%20Хочу%20вызвать%20замерщика%20квартиры" target="_blank" rel="noopener" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-900 font-bold px-6 py-4 rounded-xl text-base transition-colors flex items-center gap-2">
-                            <span>Вызвать инженера-замерщика (0 ₽)</span>
+                        <a href="https://wa.me/79994445566?text=Здравствуйте!%20Хочу%20вызвать%20замерщика%20на%20квартиру" target="_blank" rel="noopener" class="bg-white border border-[#E6DDD5] hover:bg-stone-50 text-stone-900 font-semibold px-6 py-3.5 rounded-xl text-sm transition-colors flex items-center gap-2 shadow-xs">
+                            <svg class="w-4 h-4 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                            <span>Вызов инженера на замер (0 ₽)</span>
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+                    <div class="grid grid-cols-3 gap-6 pt-6 border-t border-[#E6DDD5]">
                         <div>
-                            <span class="block font-black text-2xl text-slate-900">0 ₽</span>
-                            <span class="text-xs text-slate-500">Выезд инженера и смета за 24ч</span>
+                            <span class="block font-bold text-2xl text-stone-900">5 лет</span>
+                            <span class="text-xs text-stone-700 font-medium">Официальная гарантия по договору</span>
                         </div>
                         <div>
-                            <span class="block font-black text-2xl text-slate-900">3 года</span>
-                            <span class="text-xs text-slate-500">Гарантия на инженерные сети и отделку</span>
+                            <span class="block font-bold text-2xl text-stone-900">100%</span>
+                            <span class="text-xs text-stone-700 font-medium">Фиксация сметы без скрытых доплат</span>
                         </div>
                         <div>
-                            <span class="block font-black text-2xl text-slate-900">до 25%</span>
-                            <span class="text-xs text-slate-500">Скидка на закупку черновых смесей</span>
+                            <span class="block font-bold text-2xl text-stone-900">до -25%</span>
+                            <span class="text-xs text-stone-700 font-medium">Оптовые скидки на черновые материалы</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Hero Stock Image -->
-                <div class="lg:col-span-5">
-                    <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-square relative group">
-                        <img src="../../assets/demo/renovation/hero.webp" alt="Готовый современный интерьер квартиры после ремонта" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
+                <!-- Right Hero Image -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-2xl overflow-hidden card-arch arch-shadow aspect-[4/3] sm:aspect-square group bg-white">
+                        <img src="../../assets/demo/renovation/hero.webp" alt="Светлая скандинавская квартира после дизайнерского ремонта под ключ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent"></div>
                         
-                        <div class="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md rounded-2xl p-4 border border-slate-700 text-white flex items-center justify-between">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold text-stone-900 shadow-sm flex items-center gap-1.5 border border-white/60">
+                            <span class="text-amber-500 font-bold">★ 4.97</span>
+                            <span class="text-stone-700">• Сдано 140+ квартир в срок</span>
+                        </div>
+
+                        <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-md flex items-center justify-between border border-[#E6DDD5]">
                             <div>
-                                <span class="text-[11px] font-bold text-orange-400 uppercase tracking-wider block">Сданный объект</span>
-                                <span class="font-bold text-sm">ЖК «Символ» • 68 м²</span>
+                                <span class="text-[10px] font-bold text-accent-500 uppercase tracking-widest block">ЖК «Скандинавия»</span>
+                                <span class="font-bold text-sm sm:text-base text-stone-900">Квартира 68 м² • Дизайнерский ремонт</span>
                             </div>
-                            <span class="text-xs font-extrabold text-amber-300 bg-amber-500/20 px-2.5 py-1 rounded-md border border-amber-500/30">
-                                48 дней под ключ
-                            </span>
+                            <span class="text-xs sm:text-sm font-bold text-stone-900 bg-stone-100 px-3 py-1.5 rounded-lg">Срок 65 дней</span>
                         </div>
                     </div>
                 </div>
@@ -202,180 +251,184 @@
         </div>
     </section>
 
-    <!-- UNIQUE BEFORE / AFTER SLIDER -->
-    <section id="comparison" class="py-16 md:py-24 bg-white border-y border-slate-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-xl mx-auto mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-orange-600">Результат преображения</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
-                    Бетонная новостройка ➔ Дизайнерская квартира
+    <!-- BEFORE / AFTER INTERACTIVE COMPARISON SLIDER -->
+    <section id="results" class="py-16 md:py-24 bg-white border-b border-[#E6DDD5]">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-accent-500">До и После ремонта</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mt-2">
+                    От голого бетона до идеального уюта
                 </h2>
-                <p class="text-slate-500 text-sm mt-2">Потяните разделитель, чтобы оценить качество чистовой отделки и инженерных коммуникаций</p>
+                <p class="text-stone-700 text-sm mt-2">Потяните ползунок, чтобы увидеть превращение черновой бетонной коробки новостройки в готовую чистовую квартиру</p>
             </div>
 
-            <div class="ba-container aspect-[16/10] sm:aspect-[16/9] shadow-2xl border-2 border-slate-200 relative">
-                <!-- Under Image: After -->
-                <img src="../../assets/demo/renovation/after.webp" alt="Готовый дизайнерский ремонт квартиры" class="absolute inset-0 w-full h-full object-cover">
-                
-                <!-- Over Image: Before (Clipped) -->
-                <div id="reno-clip-div" class="absolute inset-0 w-full h-full overflow-hidden" style="clip-path: inset(0 50% 0 0);">
-                    <img src="../../assets/demo/renovation/before.webp" alt="Бетонные стены до ремонта" class="absolute inset-0 w-full h-full object-cover">
+            <div class="max-w-4xl mx-auto bg-[#FAF8F5] p-4 sm:p-6 rounded-2xl border border-[#E6DDD5] arch-shadow">
+                <div class="ba-container aspect-[16/10] sm:aspect-[16/9] w-full" id="ba-reno-widget" style="--pos: 50%;">
+                    <!-- After image (base) -->
+                    <img src="../../assets/demo/renovation/hero.webp" alt="Готовая квартира после дизайнерского ремонта" class="w-full h-full object-cover pointer-events-none">
+                    
+                    <!-- Before image (clipped) -->
+                    <div class="ba-before">
+                        <img src="../../assets/demo/renovation/before.webp" alt="Квартира в бетоне до ремонта" class="w-full h-full object-cover pointer-events-none">
+                    </div>
+
+                    <!-- Draggable line -->
+                    <div class="ba-slider">
+                        <div class="ba-handle">
+                            <svg class="w-4 h-4 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l-4 3 4 3m8-6l4 3-4 3"/></svg>
+                        </div>
+                    </div>
+
+                    <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-full pointer-events-none">
+                        Бетонная новостройка (До)
+                    </span>
+                    <span class="absolute top-4 right-4 bg-white/90 backdrop-blur-xs text-stone-900 text-[11px] font-bold px-3 py-1 rounded-full shadow-xs pointer-events-none">
+                        Чистовая отделка (После)
+                    </span>
                 </div>
-
-                <!-- Dividing line & circle handle -->
-                <div id="reno-handle" class="ba-handle">
-                    <div class="ba-circle">◀ ▶</div>
+                <div class="mt-4 flex items-center justify-between text-xs text-stone-700 px-2">
+                    <span>Идеальная геометрия стен и скрытый плинтус</span>
+                    <span>Шумоизоляция пола и стен по стандарту</span>
                 </div>
-
-                <!-- Labels -->
-                <span class="absolute top-4 left-4 bg-black/70 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full z-10 pointer-events-none">
-                    ДО (Черновая новостройка)
-                </span>
-                <span class="absolute top-4 right-4 bg-orange-600/90 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full z-10 pointer-events-none">
-                    ПОСЛЕ («РемСтрой Pro»)
-                </span>
-
-                <!-- Native Range Input Controller -->
-                <input type="range" id="reno-range" min="0" max="100" value="50" class="ba-slider" aria-label="Сравнение квартиры до и после ремонта">
             </div>
         </div>
     </section>
 
-    <!-- STEP-BY-STEP ESTIMATOR CALCULATOR -->
-    <section id="calculator" class="py-16 md:py-24 bg-slate-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-orange-600">Онлайн-калькулятор сметы</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
-                    Узнайте точную стоимость ремонта за 1 минуту
+    <!-- STEP-BY-STEP ESTIMATOR -->
+    <section id="estimator" class="py-16 md:py-24 bg-[#FAF8F5]">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-accent-500">Калькулятор стоимости</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mt-2">
+                    Рассчитайте предварительную смету за 60 секунд
                 </h2>
-                <p class="text-slate-500 text-sm mt-2">Калькулятор учитывает площадь, тариф отделки и черновой материал</p>
+                <p class="text-stone-700 text-sm mt-2">Выберите тип жилья, площадь и пакет отделки — стоимость работ, черновых материалов и срок рассчитаются мгновенно</p>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-8">
-                <!-- Step 1: Property Type -->
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Тип помещения:</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" id="prop-types">
-                        <button type="button" data-factor="1.0" class="prop-btn active p-3 rounded-xl border-2 border-orange-600 bg-orange-50 text-xs font-bold text-orange-950 text-center transition-all">
-                            🏢 Новостройка без отделки
-                        </button>
-                        <button type="button" data-factor="1.15" class="prop-btn p-3 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-700 text-center transition-all hover:border-orange-200">
-                            🏚️ Вторичка (с демонтажем)
-                        </button>
-                        <button type="button" data-factor="1.1" class="prop-btn p-3 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-700 text-center transition-all hover:border-orange-200">
-                            🏡 Дом / Коттедж / Таунхаус
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 2: Area slider -->
-                <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <label for="reno-area-slider" class="font-bold text-slate-900 text-base">Площадь квартиры по полу:</label>
-                        <span class="text-2xl font-black text-orange-600" id="reno-area-val">55 м²</span>
-                    </div>
-                    <input type="range" id="reno-area-slider" min="20" max="180" value="55" step="1" 
-                           class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-600">
-                    <div class="flex justify-between text-xs text-slate-400 mt-2">
-                        <span>20 м² (студия)</span>
-                        <span>55 м² (двушка)</span>
-                        <span>85 м² (трешка)</span>
-                        <span>180 м² (дом)</span>
-                    </div>
-                </div>
-
-                <!-- Step 3: Tariff selector -->
-                <div>
-                    <label class="block font-bold text-slate-900 text-base mb-3">Пакет отделочных работ:</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <label class="cursor-pointer border-2 border-slate-200 rounded-2xl p-4 text-center font-bold text-sm transition-all flex flex-col justify-between">
-                            <input type="radio" name="reno-tariff-radio" value="Косметический" data-rate="4500" data-days="25" class="sr-only">
-                            <span>Косметический</span>
-                            <span class="text-xs text-slate-500 font-normal mt-1">4 500 ₽/м² • ~25 дней</span>
-                        </label>
-                        <label class="cursor-pointer border-2 border-orange-600 bg-orange-50 rounded-2xl p-4 text-center font-bold text-sm transition-all flex flex-col justify-between">
-                            <input type="radio" name="reno-tariff-radio" value="Капитальный" data-rate="8900" data-days="45" checked class="sr-only">
-                            <span class="text-orange-950 font-extrabold">Капитальный под ключ</span>
-                            <span class="text-xs text-orange-800 font-normal mt-1">8 900 ₽/м² • ~45 дней</span>
-                        </label>
-                        <label class="cursor-pointer border-2 border-slate-200 rounded-2xl p-4 text-center font-bold text-sm transition-all flex flex-col justify-between">
-                            <input type="radio" name="reno-tariff-radio" value="Дизайнерский VIP" data-rate="14500" data-days="75" class="sr-only">
-                            <span>Дизайнерский VIP</span>
-                            <span class="text-xs text-slate-500 font-normal mt-1">14 500 ₽/м² • ~75 дней</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Detailed Quote Box -->
-                <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-                    <div class="space-y-1">
-                        <span class="text-xs text-slate-400 uppercase tracking-wider block">Детализированная смета:</span>
-                        <div class="flex items-baseline gap-3">
-                            <span class="text-3xl sm:text-4xl font-black text-amber-400" id="reno-calc-price">489 500 ₽</span>
-                            <span class="text-xs text-slate-300 font-semibold" id="reno-calc-time">~45–55 дней</span>
+            <div class="bg-white rounded-2xl p-6 sm:p-10 border border-[#E6DDD5] arch-shadow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: Controls -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Type -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2.5">Тип недвижимости:</label>
+                        <div class="grid grid-cols-3 gap-2.5" id="prop-group">
+                            <button type="button" data-type="Новостройка (голый бетон)" data-mult="1.0" class="prop-btn active p-3 rounded-xl border border-accent-500 bg-orange-50 text-accent-600 text-xs font-bold transition-all text-center">
+                                Новостройка (бетон)
+                            </button>
+                            <button type="button" data-type="Вторичка (с демонтажем)" data-mult="1.15" class="prop-btn p-3 rounded-xl border border-[#E6DDD5] bg-white text-stone-700 hover:border-stone-300 text-xs font-semibold transition-all text-center">
+                                Вторичка (демонтаж)
+                            </button>
+                            <button type="button" data-type="Загородный дом / Коттедж" data-mult="1.2" class="prop-btn p-3 rounded-xl border border-[#E6DDD5] bg-white text-stone-700 hover:border-stone-300 text-xs font-semibold transition-all text-center">
+                                Загородный дом
+                            </button>
                         </div>
-                        <span class="text-xs text-slate-400 block">+ черновые смеси по оптовой цене со скидкой 25%</span>
                     </div>
 
-                    <a id="reno-quote-btn" href="#" target="_blank" rel="noopener" class="w-full sm:w-auto bg-orange-600 hover:bg-orange-500 text-white font-bold px-6 py-3.5 rounded-xl text-center text-sm transition-all shadow-md">
-                        Заказать замер с этой сметой ➔
+                    <!-- Area slider -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="area-slider" class="text-xs font-bold uppercase tracking-wider text-stone-700">Общая площадь помещения:</label>
+                            <span class="text-xl font-mono font-bold text-accent-500" id="area-val">65 м²</span>
+                        </div>
+                        <input type="range" id="area-slider" min="25" max="180" value="65" step="1">
+                        <div class="flex justify-between text-[11px] text-stone-700 font-medium mt-2">
+                            <span>25 м² (студия)</span>
+                            <span>65 м² (евродвушка)</span>
+                            <span>100 м² (трешка)</span>
+                            <span>180 м²</span>
+                        </div>
+                    </div>
+
+                    <!-- Packages -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2.5">Тариф ремонта:</label>
+                        <div class="grid grid-cols-3 gap-2.5" id="tariff-group">
+                            <button type="button" data-tariff="Базовый" data-rate="4500" data-mat="2500" data-days="35" class="tariff-btn p-3 rounded-xl border border-[#E6DDD5] bg-white text-left text-xs transition-all">
+                                <span class="block font-bold text-stone-900">Базовый</span>
+                                <span class="text-[11px] text-stone-700">4 500 ₽/м²</span>
+                            </button>
+                            <button type="button" data-tariff="Капитальный" data-rate="8900" data-mat="4500" data-days="55" class="tariff-btn active p-3 rounded-xl border border-accent-500 bg-orange-50 text-left text-xs transition-all">
+                                <span class="block font-bold text-stone-900">Капитальный</span>
+                                <span class="text-[11px] text-stone-700 font-semibold">8 900 ₽/м² (Хит)</span>
+                            </button>
+                            <button type="button" data-tariff="Дизайнерский" data-rate="14500" data-mat="7500" data-days="80" class="tariff-btn p-3 rounded-xl border border-[#E6DDD5] bg-white text-left text-xs transition-all">
+                                <span class="block font-bold text-stone-900">Дизайнерский</span>
+                                <span class="text-[11px] text-stone-700">14 500 ₽/м²</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Summary Card -->
+                <div class="lg:col-span-5 bg-[#FAF8F5] p-6 sm:p-7 rounded-2xl border border-[#E6DDD5] shadow-xs space-y-5">
+                    <div>
+                        <span class="text-[11px] uppercase tracking-wider text-accent-500 font-bold block mb-1">Предварительная смета</span>
+                        <h3 class="text-xl font-bold text-stone-900" id="summary-tariff-title">Капитальный ремонт • 65 м²</h3>
+                        <p class="text-xs text-stone-700 mt-1" id="summary-prop-type">Новостройка (голый бетон)</p>
+                    </div>
+
+                    <div class="space-y-2 py-4 border-y border-[#E6DDD5] text-xs text-stone-700">
+                        <div class="flex justify-between items-center">
+                            <span>Стоимость работ:</span>
+                            <span class="font-bold text-stone-900 font-mono text-sm" id="calc-work">578 500 ₽</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Черновые материалы:</span>
+                            <span class="font-bold text-stone-900 font-mono text-sm" id="calc-materials">292 500 ₽</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Ориентировочный срок:</span>
+                            <span class="font-bold text-stone-900 font-mono text-sm" id="calc-days">55 дней</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-[#E6DDD5] text-sm">
+                            <span class="font-bold text-stone-900">Итоговая смета:</span>
+                            <span class="text-2xl font-black text-accent-500 font-mono" id="calc-total">871 000 ₽</span>
+                        </div>
+                    </div>
+
+                    <a href="#" id="wa-calc-btn" target="_blank" rel="noopener" class="w-full bg-stone-900 hover:bg-stone-800 text-white font-semibold py-3.5 px-4 rounded-xl text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-2 shadow-xs">
+                        <svg class="w-4 h-4 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                        <span>Зафиксировать смету в WhatsApp</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PORTFOLIO WITH REAL STOCK PHOTOS -->
-    <section id="portfolio" class="py-16 md:py-24 bg-white border-t border-slate-200">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- ARCHITECTURAL BENTO GALLERY -->
+    <section id="portfolio" class="py-16 md:py-24 bg-white border-t border-[#E6DDD5]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-14">
-                <span class="text-xs font-bold uppercase tracking-wider text-orange-600">Сданные объекты</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
-                    Качество в каждой детали
+                <span class="text-xs font-bold uppercase tracking-widest text-accent-500">Портфолио объектов</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mt-2">
+                    Сданные проекты в Москве и области
                 </h2>
-                <p class="text-slate-500 text-sm mt-2">Фотографии реальных интерьеров, выполненных нашими постоянными бригадами мастеров</p>
+                <p class="text-stone-700 text-sm mt-2">Каждый объект сдан по акту приема-передачи с гарантией 5 лет</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Object 1 -->
-                <div class="reno-card rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 shadow-xs">
-                    <div class="aspect-[4/3] w-full overflow-hidden">
-                        <img src="../../assets/demo/renovation/bathroom.webp" alt="Санузел из керамогранита под ключ" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-arch rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div class="aspect-[16/10] overflow-hidden bg-stone-100">
+                        <img src="../../assets/demo/renovation/hero.webp" alt="Гостиная с паркетом елочкой" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
-                        <span class="text-xs font-bold text-orange-600 uppercase block mb-1">Санузел под ключ</span>
-                        <h4 class="font-bold text-slate-900 text-lg mb-2">Керамогранит 120×60 & Инсталляция</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            Скрытый душ, запил углов под 45 градусов, эпоксидная затирка швов, скрытый люк ревизии под плитку.
+                        <span class="text-[11px] font-bold text-accent-500 uppercase tracking-wider">ЖК «Сердце Столицы» • 84 м²</span>
+                        <h3 class="text-xl font-bold text-stone-900 mt-1">Гостиная с паркетом «Французская елочка»</h3>
+                        <p class="text-xs text-stone-700 leading-relaxed mt-2">
+                            Полная шумоизоляция, теневой плинтус, скрытые двери невидимки и встроенные световые линии в потолке.
                         </p>
                     </div>
                 </div>
 
-                <!-- Object 2 -->
-                <div class="reno-card rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 shadow-xs">
-                    <div class="aspect-[4/3] w-full overflow-hidden">
-                        <img src="../../assets/demo/renovation/kitchen.webp" alt="Кухня-гостиная после капитального ремонта" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                <div class="card-arch rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div class="aspect-[16/10] overflow-hidden bg-stone-100">
+                        <img src="../../assets/demo/renovation/bathroom.webp" alt="Санузел из крупноформатного керамогранита" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
-                        <span class="text-xs font-bold text-blue-600 uppercase block mb-1">Кухня-гостиная</span>
-                        <h4 class="font-bold text-slate-900 text-lg mb-2">Евродвушка в ЖК «ЗИЛАРТ»</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            Зонирование световыми треками, инженерный пол без порогов, фартук из кварцевого агломерата.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Object 3 -->
-                <div class="reno-card rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 shadow-xs">
-                    <div class="aspect-[4/3] w-full overflow-hidden">
-                        <img src="../../assets/demo/renovation/blueprint.webp" alt="Технический проект и лазерный замер" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs font-bold text-emerald-600 uppercase block mb-1">Инженерная точность</span>
-                        <h4 class="font-bold text-slate-900 text-lg mb-2">Технический проект в подарок</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            Полная разводка слаботочки, расчет нагрузки на автоматы ABB, план сантехники и раскладки плитки.
+                        <span class="text-[11px] font-bold text-accent-500 uppercase tracking-wider">ЖК «Зиларт» • Мастер-санузел</span>
+                        <h3 class="text-xl font-bold text-stone-900 mt-1">Санузел из крупноформатного керамогранита 120х60</h3>
+                        <p class="text-xs text-stone-700 leading-relaxed mt-2">
+                            Запил углов под 45 градусов, душевой трап в один уровень с полом, скрытый люк под коллекторный узел Far и Rehau.
                         </p>
                     </div>
                 </div>
@@ -383,129 +436,133 @@
         </div>
     </section>
 
-    <!-- FOOTER / CONTACTS -->
-    <footer id="contacts" class="bg-slate-900 text-white pt-16 pb-12 mt-auto">
+    <!-- FOOTER -->
+    <footer id="contacts" class="bg-stone-900 text-stone-300 py-12 border-t border-stone-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
-                <div class="space-y-4">
-                    <span class="font-black text-2xl tracking-tight text-white">Рем<span class="text-orange-500">Строй</span></span>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Строительно-отделочная компания полного цикла. Реализовали более 280 проектов квартир и коттеджей.
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-stone-800">
+                <div class="md:col-span-2 space-y-3">
+                    <span class="font-bold text-2xl text-white">РемСтрой<span class="text-accent-500">.Pro</span></span>
+                    <p class="text-xs text-stone-400 max-w-sm leading-relaxed">
+                        Строительно-отделочная компания. Капитальный и дизайнерский ремонт квартир, апартаментов и загородных домов с фиксированной сметой.
                     </p>
-                    <div class="text-xs text-amber-400">
-                        ⚡ Сайт разработан на стеке LocalWeb: скорость 0.4с • PageSpeed 100/100
-                    </div>
                 </div>
-
                 <div>
-                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Услуги</h4>
-                    <ul class="space-y-2 text-xs text-slate-400">
-                        <li><a href="#comparison" class="hover:text-white transition-colors">Сравнение До / После</a></li>
-                        <li><a href="#calculator" class="hover:text-white transition-colors">Калькулятор сметы м²</a></li>
-                        <li><a href="#portfolio" class="hover:text-white transition-colors">Сданные объекты</a></li>
-                        <li><a href="https://local-web.ru" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Создать такой сайт (LocalWeb)</a></li>
+                    <span class="text-xs font-bold uppercase tracking-wider text-white block mb-3">Навигация</span>
+                    <ul class="space-y-2 text-xs text-stone-400">
+                        <li><a href="#estimator" class="hover:text-white transition-colors">Калькулятор сметы</a></li>
+                        <li><a href="#results" class="hover:text-white transition-colors">Слайдер До / После</a></li>
+                        <li><a href="#portfolio" class="hover:text-white transition-colors">Портфолио сданных квартир</a></li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Офис и замер</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-2">
-                        г. Москва, ул. Строителей, д. 22 (БЦ «Монолит», офис 412)
-                    </p>
-                    <p class="text-xs text-slate-400">
-                        Выезд инженеров-замерщиков: 8:00 – 21:00 без выходных
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Консультация прораба</h4>
-                    <a href="tel:+79994445566" class="block text-base font-bold text-white mb-2 hover:text-orange-400 transition-colors">+7 (999) 444-55-66</a>
-                    <a href="https://wa.me/79994445566" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors">
-                        Написать в WhatsApp
+                    <span class="text-xs font-bold uppercase tracking-wider text-white block mb-3">Контакты</span>
+                    <p class="text-xs text-stone-400 mb-1">+7 (999) 444-55-66</p>
+                    <p class="text-xs text-stone-400 mb-3">г. Москва, Пресненская наб., д. 12 (Башня Федерация)</p>
+                    <a href="https://wa.me/79994445566" class="text-xs font-bold text-emerald-400 hover:text-emerald-300">
+                        Написать в WhatsApp →
                     </a>
                 </div>
             </div>
-
-            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-                <span>© 2026 Компания «РемСтрой Pro». Все права защищены.</span>
-                <span class="text-slate-400">Демонстрационный сайт для портфолио <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb.ru</a></span>
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500 gap-2">
+                <span>© 2026 РемСтрой Pro. Демо-макет разработан в веб-студии <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb</a></span>
+                <span>Быстрый сайт под ключ за 7 500 ₽</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Before / After Slider
-        const renoRange = document.getElementById('reno-range');
-        const renoClipDiv = document.getElementById('reno-clip-div');
-        const renoHandle = document.getElementById('reno-handle');
+        // Before/After Slider Interaction
+        const baReno = document.getElementById('ba-reno-widget');
+        let isRenoDragging = false;
 
-        renoRange.addEventListener('input', (e) => {
-            const val = e.target.value;
-            renoClipDiv.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
-            renoHandle.style.left = `${val}%`;
-        });
+        function setRenoPos(e) {
+            const rect = baReno.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            let percent = ((clientX - rect.left) / rect.width) * 100;
+            percent = Math.max(5, Math.min(95, percent));
+            baReno.style.setProperty('--pos', percent + '%');
+        }
 
-        // Estimator Logic
-        const areaSlider = document.getElementById('reno-area-slider');
-        const areaVal = document.getElementById('reno-area-val');
-        const calcPrice = document.getElementById('reno-calc-price');
-        const calcTime = document.getElementById('reno-calc-time');
-        const quoteBtn = document.getElementById('reno-quote-btn');
-        const propButtons = document.querySelectorAll('.prop-btn');
-        const tariffRadios = document.querySelectorAll('input[name="reno-tariff-radio"]');
+        baReno.addEventListener('mousedown', (e) => { isRenoDragging = true; setRenoPos(e); });
+        window.addEventListener('mousemove', (e) => { if (isRenoDragging) setRenoPos(e); });
+        window.addEventListener('mouseup', () => { isRenoDragging = false; });
 
-        let currentFactor = 1.0;
-        let currentPropName = "Новостройка без отделки";
+        baReno.addEventListener('touchstart', (e) => { isRenoDragging = true; setRenoPos(e); }, { passive: true });
+        window.addEventListener('touchmove', (e) => { if (isRenoDragging) setRenoPos(e); }, { passive: true });
+        window.addEventListener('touchend', () => { isRenoDragging = false; });
 
-        propButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                propButtons.forEach(b => {
-                    b.classList.remove('active', 'border-orange-600', 'bg-orange-50', 'text-orange-950');
-                    b.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
-                });
-                btn.classList.add('active', 'border-orange-600', 'bg-orange-50', 'text-orange-950');
-                btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
-                currentFactor = parseFloat(btn.dataset.factor);
-                currentPropName = btn.textContent.trim();
-                updateRenoQuote();
-            });
-        });
+        // Estimator logic
+        const areaSlider = document.getElementById('area-slider');
+        const areaVal = document.getElementById('area-val');
+        const calcWork = document.getElementById('calc-work');
+        const calcMaterials = document.getElementById('calc-materials');
+        const calcDays = document.getElementById('calc-days');
+        const calcTotal = document.getElementById('calc-total');
+        const summaryTariffTitle = document.getElementById('summary-tariff-title');
+        const summaryPropType = document.getElementById('summary-prop-type');
+        const waCalcBtn = document.getElementById('wa-calc-btn');
 
-        function updateRenoQuote() {
+        let propMultiplier = 1.0;
+        let propTypeName = 'Новостройка (голый бетон)';
+        let tariffName = 'Капитальный';
+        let tariffRate = 8900;
+        let tariffMatRate = 4500;
+        let tariffDaysBase = 55;
+
+        function updateEstimator() {
             const area = parseInt(areaSlider.value, 10);
             areaVal.textContent = area + ' м²';
 
-            let selectedTariff = "Капитальный под ключ";
-            let baseRate = 8900;
-            let baseDays = 45;
+            const workTotal = Math.round(area * tariffRate * propMultiplier);
+            const matTotal = Math.round(area * tariffMatRate * propMultiplier);
+            const total = workTotal + matTotal;
+            const days = Math.round(tariffDaysBase * (area / 65));
 
-            tariffRadios.forEach(radio => {
-                const label = radio.closest('label');
-                if (radio.checked) {
-                    selectedTariff = radio.value;
-                    baseRate = parseInt(radio.dataset.rate, 10);
-                    baseDays = parseInt(radio.dataset.days, 10);
-                    label.classList.add('border-orange-600', 'bg-orange-50');
-                    label.classList.remove('border-slate-200');
-                } else {
-                    label.classList.remove('border-orange-600', 'bg-orange-50');
-                    label.classList.add('border-slate-200');
-                }
-            });
+            calcWork.textContent = workTotal.toLocaleString('ru-RU') + ' ₽';
+            calcMaterials.textContent = matTotal.toLocaleString('ru-RU') + ' ₽';
+            calcTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
+            calcDays.textContent = days + ' дней';
 
-            const cost = Math.round(area * baseRate * currentFactor);
-            const days = Math.round(baseDays + (area - 50) * 0.4);
+            summaryTariffTitle.textContent = `${tariffName} ремонт • ${area} м²`;
+            summaryPropType.textContent = propTypeName;
 
-            calcPrice.textContent = cost.toLocaleString('ru-RU') + ' ₽';
-            calcTime.textContent = `~${days}–${days + 10} дней`;
-
-            const msg = encodeURIComponent(`Здравствуйте! Хочу заказать бесплатный замер квартиры в РемСтрой Pro:\nОбъект: ${currentPropName}\nПлощадь: ${area} м²\nТариф ремонта: ${selectedTariff}\nРасчетная стоимость: ${cost} руб.`);
-            quoteBtn.href = `https://wa.me/79994445566?text=${msg}`;
+            const waText = encodeURIComponent(`Здравствуйте! Рассчитал предварительную смету на сайте РемСтрой Pro: Объект: ${propTypeName}, Площадь: ${area} м², Тариф: ${tariffName} (Итого около ${total.toLocaleString('ru-RU')} ₽, срок ${days} дней). Хочу вызвать инженера на бесплатный замер.`);
+            waCalcBtn.href = `https://wa.me/79994445566?text=${waText}`;
         }
 
-        areaSlider.addEventListener('input', updateRenoQuote);
-        tariffRadios.forEach(r => r.addEventListener('change', updateRenoQuote));
-        updateRenoQuote();
+        areaSlider.addEventListener('input', updateEstimator);
+
+        document.querySelectorAll('.prop-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.prop-btn').forEach(b => {
+                    b.classList.remove('active', 'border-accent-500', 'bg-orange-50', 'text-accent-600', 'font-bold');
+                    b.classList.add('border-[#E6DDD5]', 'bg-white', 'text-stone-700');
+                });
+                btn.classList.add('active', 'border-accent-500', 'bg-orange-50', 'text-accent-600', 'font-bold');
+                btn.classList.remove('border-[#E6DDD5]', 'bg-white', 'text-stone-700');
+                propMultiplier = parseFloat(btn.dataset.mult);
+                propTypeName = btn.dataset.type;
+                updateEstimator();
+            });
+        });
+
+        document.querySelectorAll('.tariff-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tariff-btn').forEach(b => {
+                    b.classList.remove('active', 'border-accent-500', 'bg-orange-50');
+                    b.classList.add('border-[#E6DDD5]', 'bg-white');
+                });
+                btn.classList.add('active', 'border-accent-500', 'bg-orange-50');
+                btn.classList.remove('border-[#E6DDD5]', 'bg-white');
+                tariffName = btn.dataset.tariff;
+                tariffRate = parseInt(btn.dataset.rate, 10);
+                tariffMatRate = parseInt(btn.dataset.mat, 10);
+                tariffDaysBase = parseInt(btn.dataset.days, 10);
+                updateEstimator();
+            });
+        });
+
+        updateEstimator();
     </script>
 </body>
 </html>

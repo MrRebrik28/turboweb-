@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Автосервис «МоторПро» — Честный ремонт авто и диагностика 0 ₽</title>
-    <meta name="description" content="Сертифицированный автосервис: ремонт подвески, двигателей, ТО, автоэлектрик. Согласовываем смету до начала работ, гарантия 12 месяцев на все работы.">
+    <title>Автосервис «МоторПро» — Честный ремонт и ТО автомобилей с гарантией 1 год</title>
+    <meta name="description" content="Честный автосервис в светлом дилерском стандарте. Фиксированная смета до начала работ, диагностика ходовой 0 ₽, запчасти в наличии, гарантия 12 месяцев.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        mono: ['"Space Grotesk"', 'monospace'],
                     },
                     colors: {
-                        brand: {
+                        tech: {
                             50: '#F8FAFC',
-                            500: '#2563EB',
-                            600: '#1D4ED8',
-                            900: '#0F172A',
-                            accent: '#F59E0B'
+                            100: '#F1F5F9',
+                            200: '#E2E8F0',
+                            300: '#CBD5E1',
+                            600: '#475569',
+                            800: '#1E293B',
+                            900: '#090D16',
+                        },
+                        brand: {
+                            50: '#EFF6FF',
+                            500: '#3B82F6',
+                            600: '#2563EB',
+                            700: '#1D4ED8',
                         }
                     }
                 }
@@ -30,35 +39,40 @@
         }
     </script>
     <style>
-        .demo-bar {
-            background: linear-gradient(90deg, #0F172A 0%, #1E293B 100%);
+        .precision-shadow {
+            box-shadow: 0 20px 40px -15px rgba(9, 13, 22, 0.06), 0 0 1px 1px rgba(9, 13, 22, 0.04);
         }
-        .service-card {
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+        .card-tech {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 30px -8px rgba(37, 99, 235, 0.15);
+        .card-tech:hover {
+            transform: translateY(-3px);
+            border-color: #CBD5E1;
+            box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.08);
         }
-        .bay-card.active {
+        .brand-btn.active {
             border-color: #2563EB;
-            box-shadow: 0 0 0 2px #2563EB;
+            background-color: #EFF6FF;
+            color: #1D4ED8;
+            font-weight: 700;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#F8FAFC] text-tech-900 font-sans antialiased selection:bg-brand-50 selection:text-brand-700 min-h-screen flex flex-col">
 
     <!-- LOCALWEB DEMO HEADER BAR -->
-    <aside aria-label="LocalWeb Demo Header" class="demo-bar text-white text-xs sm:text-sm py-2.5 px-4 sticky top-0 z-50 border-b border-slate-700">
+    <aside aria-label="LocalWeb Demo Header" class="bg-tech-900 text-white text-xs sm:text-sm py-2 px-4 sticky top-0 z-50 border-b border-tech-800">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">ДЕМО-САЙТ</span>
-                <span class="font-medium text-slate-200">Пример готового сайта для автосервиса и СТО от студии <strong class="text-white font-bold">LocalWeb</strong></span>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">Демо-сайт</span>
+                <span class="font-medium text-slate-200 text-xs">Пример сайта для автосервиса и СТО от студии <strong class="text-white font-semibold">LocalWeb</strong></span>
             </div>
             <div class="flex items-center gap-3">
-                <span class="hidden md:inline text-slate-300 text-xs">Разработаем такой же сайт за 7 500 ₽ за 24 часа</span>
-                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
-                    Заказать такой сайт
+                <span class="hidden md:inline text-slate-300 text-xs">Разработка сайта за 7 500 ₽ за 24 часа</span>
+                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-white hover:bg-slate-100 text-tech-900 font-bold px-3 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-xs">
+                    Заказать сайт
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
             </div>
@@ -66,92 +80,103 @@
     </aside>
 
     <!-- HEADER / NAVIGATION -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-10 z-40">
+    <header class="bg-white/90 backdrop-blur-md border-b border-tech-200 sticky top-9 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition-transform">
-                    🔧
+                <div class="w-10 h-10 rounded-xl bg-tech-900 text-white flex items-center justify-center font-bold text-lg transition-transform group-hover:scale-105">
+                    M
                 </div>
                 <div>
-                    <span class="font-black text-2xl tracking-tight text-slate-900">Мотор<span class="text-blue-600">Про</span></span>
-                    <span class="block text-[11px] text-slate-500 font-semibold tracking-wide">Честный автосервис & СТО</span>
+                    <span class="font-bold text-2xl tracking-tight text-tech-900">Мотор<span class="text-brand-600">Про</span></span>
+                    <span class="block text-[10px] uppercase tracking-widest text-tech-600 font-semibold">Сертифицированный автотехцентр</span>
                 </div>
             </a>
             
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                <a href="#bays" class="hover:text-blue-600 transition-colors">Загрузка боксов</a>
-                <a href="#services" class="hover:text-blue-600 transition-colors">Услуги и цены</a>
-                <a href="#scanner" class="hover:text-blue-600 transition-colors">Диагностика онлайн</a>
-                <a href="#equipment" class="hover:text-blue-600 transition-colors">Оборудование</a>
-                <a href="#contacts" class="hover:text-blue-600 transition-colors">Контакты</a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-tech-800">
+                <a href="#bays" class="hover:text-brand-600 transition-colors">Табло постов</a>
+                <a href="#calculator" class="hover:text-brand-600 transition-colors">Калькулятор ТО</a>
+                <a href="#standards" class="hover:text-brand-600 transition-colors">Оборудование</a>
+                <a href="#reviews" class="hover:text-brand-600 transition-colors">Отзывы</a>
+                <a href="#contacts" class="hover:text-brand-600 transition-colors">Контакты</a>
             </nav>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-4">
                 <a href="tel:+79992223344" class="hidden sm:flex flex-col text-right">
-                    <span class="text-xs text-slate-500 font-medium">Работаем ежедневно 8:00–21:00</span>
-                    <span class="text-sm font-black text-slate-900 hover:text-blue-600 transition-colors">+7 (999) 222-33-44</span>
+                    <span class="text-[11px] text-tech-600 font-medium">Работаем ежедневно 8:00–21:00</span>
+                    <span class="text-sm font-bold text-tech-900 hover:text-brand-600 transition-colors">+7 (999) 222-33-44</span>
                 </a>
-                <a href="#scanner" class="bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-sm hover:shadow-md">
+                <a href="#calculator" class="bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-xs hover:shadow-sm">
                     Диагностика 0 ₽
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- HERO SECTION WITH STOCK PHOTO -->
-    <section class="relative pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-slate-100 to-slate-50">
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-white border-b border-tech-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+                
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold">
-                        🛡️ Официальная гарантия 1 год на все виды работ и запчасти
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-tech-50 border border-tech-200 text-xs font-semibold text-tech-800 shadow-xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>4 поста онлайн • Принимаем автомобили сегодня без очереди</span>
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight">
-                        Ремонт и ТО автомобилей с фиксированной сметой без накруток
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-tech-900 leading-[1.12] tracking-tight">
+                        Честный автосервис: <br class="hidden sm:inline">
+                        <span class="text-brand-600">фиксируем смету</span> <br class="hidden sm:inline">
+                        до начала работ
                     </h1>
-                    <p class="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed">
-                        Компьютерная диагностика на дилерских сканерах, замена узлов подвески, ТО и сход-развал. Ведем фото- и видеоотчет каждого этапа в WhatsApp.
+
+                    <p class="text-tech-600 text-base sm:text-lg max-w-xl leading-relaxed">
+                        Компьютерная диагностика на дилерских сканерах, ремонт ходовой, сход-развал 3D Hunter и плановое ТО. Согласовываем каждую гайку, отдаем замененные детали в багажнике и ведем видеоотчет в WhatsApp.
                     </p>
                     
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <a href="#scanner" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-4 rounded-xl text-base transition-all shadow-md hover:shadow-lg">
-                            Подобрать ремонт и стоимость ➔
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#bays" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-7 py-3.5 rounded-xl text-sm transition-all shadow-sm hover:shadow-md flex items-center gap-2 group">
+                            <span>Забронировать свободный пост</span>
+                            <svg class="w-4 h-4 text-blue-200 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
-                        <a href="https://wa.me/79992223344?text=Здравствуйте!%20Хочу%20узнать%20стоимость%20ремонта" target="_blank" rel="noopener" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-900 font-bold px-6 py-4 rounded-xl text-base transition-colors flex items-center gap-2">
-                            <span>Написать в WhatsApp</span>
+                        <a href="https://wa.me/79992223344?text=Здравствуйте!%20Хочу%20узнать%20стоимость%20ремонта" target="_blank" rel="noopener" class="bg-white border border-tech-200 hover:bg-tech-50 text-tech-900 font-semibold px-6 py-3.5 rounded-xl text-sm transition-colors flex items-center gap-2 shadow-xs">
+                            <svg class="w-4 h-4 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                            <span>Оценка поломки по фото</span>
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+                    <div class="grid grid-cols-3 gap-6 pt-6 border-t border-tech-200">
                         <div>
-                            <span class="block font-black text-2xl text-slate-900">0 ₽</span>
-                            <span class="text-xs text-slate-500">Диагностика ходовой при ремонте</span>
+                            <span class="block font-bold text-2xl text-tech-900">0 ₽</span>
+                            <span class="text-xs text-tech-600 font-medium">Диагностика ходовой при ремонте</span>
                         </div>
                         <div>
-                            <span class="block font-black text-2xl text-slate-900">12 мес</span>
-                            <span class="text-xs text-slate-500">Письменная гарантия в заказ-наряде</span>
+                            <span class="block font-bold text-2xl text-tech-900">12 мес</span>
+                            <span class="text-xs text-tech-600 font-medium">Письменная гарантия в заказ-наряде</span>
                         </div>
                         <div>
-                            <span class="block font-black text-2xl text-slate-900">15 000+</span>
-                            <span class="text-xs text-slate-500">Запчастей на складе в наличии</span>
+                            <span class="block font-bold text-2xl text-tech-900">15 000+</span>
+                            <span class="text-xs text-tech-600 font-medium">Запчастей на складе в наличии</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Hero Stock Image -->
-                <div class="lg:col-span-5">
-                    <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-square relative group">
-                        <img src="../../assets/demo/auto/hero.webp" alt="Современный чистый цех автосервиса МоторПро" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
+                <!-- Right Hero Image -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-2xl overflow-hidden card-tech precision-shadow aspect-[4/3] sm:aspect-square group bg-white">
+                        <img src="../../assets/demo/auto/hero.webp" alt="Светлый дилерский цех автосервиса МоторПро" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-tech-900/40 via-transparent to-transparent"></div>
                         
-                        <div class="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md rounded-2xl p-4 border border-slate-700 text-white flex items-center justify-between">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold text-tech-900 shadow-sm flex items-center gap-1.5 border border-white/60">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span>Дилерский стандарт чистоты цеха</span>
+                        </div>
+
+                        <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-md flex items-center justify-between border border-tech-200">
                             <div>
-                                <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider block">Прямо сейчас</span>
-                                <span class="font-bold text-sm">Свободен бокс 3D сход-развала</span>
+                                <span class="text-[10px] font-bold text-brand-600 uppercase tracking-widest block">Спецпредложение</span>
+                                <span class="font-bold text-sm sm:text-base text-tech-900">Диагностика подвески + Сход-развал 3D</span>
                             </div>
-                            <a href="#bays" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors">
-                                Заехать
-                            </a>
+                            <span class="text-xs sm:text-sm font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">1 800 ₽</span>
                         </div>
                     </div>
                 </div>
@@ -159,342 +184,346 @@
         </div>
     </section>
 
-    <!-- LIVE BAY STATUS (УНИКАЛЬНЫЙ ВИДЖЕТ «ЗАГРУЗКА БОКСОВ В РЕАЛЬНОМ ВРЕМЕНИ») -->
-    <section id="bays" class="py-12 bg-white border-y border-slate-200">
+    <!-- LIVE WORKSHOP BAY TRACKER -->
+    <section id="bays" class="py-16 md:py-24 bg-[#F8FAFC]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                <div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Онлайн-табло сервиса</span>
-                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-0.5">
-                        Загрузка постов техцентра в реальном времени
-                    </h2>
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 mb-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Табло ремзоны в реальном времени</span>
                 </div>
-                <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Обновлено минуту назад • 2 поста свободны</span>
-                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-tech-900 mt-2">
+                    Статус ремонтных постов на сегодня
+                </h2>
+                <p class="text-tech-600 text-sm mt-2">Выберите свободный пост и запишитесь на конкретное время без ожидания в очереди</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Bay 1 -->
-                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                <div class="card-tech rounded-2xl p-5 border-t-4 border-t-emerald-500 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Пост 1 • Подъемник 4т</span>
-                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800">Занят</span>
+                            <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-tech-100 text-tech-800">ПОСТ 01</span>
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                Свободен
+                            </span>
                         </div>
-                        <h4 class="font-bold text-slate-900 text-sm">Toyota Camry</h4>
-                        <p class="text-xs text-slate-500 mt-1">Замена цепи ГРМ и сальников</p>
+                        <h3 class="font-bold text-base text-tech-900">Подъемник №1 (Слесарный)</h3>
+                        <p class="text-xs text-tech-600 mt-1">Замена масел, фильтров, колодок, осмотр подвески и мелкий слесарный ремонт.</p>
+                        <div class="mt-4 pt-3 border-t border-tech-100 text-xs text-tech-600">
+                            Мастер: <span class="font-semibold text-tech-900">Алексей Г. (стаж 11 лет)</span>
+                        </div>
                     </div>
-                    <span class="text-[11px] text-slate-400 font-semibold mt-4 block">Освободится в 11:45</span>
+                    <button type="button" onclick="bookBay('Подъемник №1 (Слесарный)')" class="mt-5 w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-colors shadow-xs">
+                        Занять этот пост →
+                    </button>
                 </div>
 
-                <!-- Bay 2 (FREE) -->
-                <div class="p-5 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 flex flex-col justify-between shadow-xs">
+                <!-- Bay 2 -->
+                <div class="card-tech rounded-2xl p-5 border-t-4 border-t-amber-500 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-xs font-extrabold text-emerald-800 uppercase tracking-wider">Пост 2 • Компьютерный</span>
-                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-600 text-white">Свободен</span>
+                            <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-tech-100 text-tech-800">ПОСТ 02</span>
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                Занят • 15 мин
+                            </span>
                         </div>
-                        <h4 class="font-bold text-slate-900 text-sm">Диагностика Launch / VCDS</h4>
-                        <p class="text-xs text-emerald-900 mt-1">Примем ваш автомобиль без ожидания</p>
+                        <h3 class="font-bold text-base text-tech-900">Компьютерная диагностика</h3>
+                        <p class="text-xs text-tech-600 mt-1">Сканирование блоков ECU/ABS/Airbag, адаптации, поиск скрытых ошибок и плавающих сбоев.</p>
+                        <div class="mt-4 pt-3 border-t border-tech-100 text-xs text-tech-600">
+                            Диагност: <span class="font-semibold text-tech-900">Сергей В. (стаж 14 лет)</span>
+                        </div>
                     </div>
-                    <a href="#scanner" class="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-xl text-center transition-colors">
-                        Занять пост ➔
-                    </a>
+                    <button type="button" onclick="bookBay('Компьютерная диагностика')" class="mt-5 w-full bg-tech-100 hover:bg-tech-200 text-tech-900 font-semibold py-2.5 rounded-xl text-xs transition-colors">
+                        Записаться на 12:30
+                    </button>
                 </div>
 
                 <!-- Bay 3 -->
-                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                <div class="card-tech rounded-2xl p-5 border-t-4 border-t-emerald-500 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Пост 3 • Слесарный</span>
-                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800">В работе</span>
+                            <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-tech-100 text-tech-800">ПОСТ 03</span>
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                Свободен
+                            </span>
                         </div>
-                        <h4 class="font-bold text-slate-900 text-sm">Kia Sportage</h4>
-                        <p class="text-xs text-slate-500 mt-1">Замена дисков и колодок</p>
+                        <h3 class="font-bold text-base text-tech-900">Подъемник №2 (Тяжелый)</h3>
+                        <p class="text-xs text-tech-600 mt-1">Ремонт трансмиссий, замена сцепления, снятие подрамников, ремонт рулевых реек.</p>
+                        <div class="mt-4 pt-3 border-t border-tech-100 text-xs text-tech-600">
+                            Мастер: <span class="font-semibold text-tech-900">Михаил П. (стаж 9 лет)</span>
+                        </div>
                     </div>
-                    <span class="text-[11px] text-slate-400 font-semibold mt-4 block">Освободится в 12:15</span>
+                    <button type="button" onclick="bookBay('Подъемник №2 (Тяжелый)')" class="mt-5 w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-colors shadow-xs">
+                        Занять этот пост →
+                    </button>
                 </div>
 
-                <!-- Bay 4 (FREE) -->
-                <div class="p-5 rounded-2xl border-2 border-blue-500 bg-blue-50/50 flex flex-col justify-between shadow-xs">
+                <!-- Bay 4 -->
+                <div class="card-tech rounded-2xl p-5 border-t-4 border-t-amber-500 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-xs font-extrabold text-blue-800 uppercase tracking-wider">Пост 4 • Сход-развал 3D</span>
-                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-600 text-white">Свободен</span>
+                            <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-tech-100 text-tech-800">ПОСТ 04</span>
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                Занят • 40 мин
+                            </span>
                         </div>
-                        <h4 class="font-bold text-slate-900 text-sm">Стенд Hunter Hawkeye Elite</h4>
-                        <p class="text-xs text-blue-900 mt-1">Регулировка углов колес двух осей</p>
+                        <h3 class="font-bold text-base text-tech-900">3D Hunter Сход-развал</h3>
+                        <p class="text-xs text-tech-600 mt-1">Стенд с 4 HD-камерами. Идеальная регулировка угла колес для легковых авто и внедорожников.</p>
+                        <div class="mt-4 pt-3 border-t border-tech-100 text-xs text-tech-600">
+                            Специалист: <span class="font-semibold text-tech-900">Игорь Т. (сертиф. Hunter)</span>
+                        </div>
                     </div>
-                    <a href="#scanner" class="mt-4 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 rounded-xl text-center transition-colors">
-                        Заехать на 3D стенд ➔
+                    <button type="button" onclick="bookBay('3D Hunter Сход-развал')" class="mt-5 w-full bg-tech-100 hover:bg-tech-200 text-tech-900 font-semibold py-2.5 rounded-xl text-xs transition-colors">
+                        Записаться на 13:00
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE FAULT SCANNER & CALCULATOR -->
+    <section id="calculator" class="py-16 md:py-24 bg-white border-y border-tech-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600">Интерактивный расчет сметы</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-tech-900 mt-2">
+                    Узнайте стоимость ремонта под ваше авто
+                </h2>
+                <p class="text-tech-600 text-sm mt-2">Выберите марку автомобиля и тип неисправности — смета и длительность обновятся автоматически</p>
+            </div>
+
+            <div class="bg-[#F8FAFC] rounded-2xl p-6 sm:p-10 border border-tech-200 precision-shadow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: Controls -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Brand selector -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-tech-600 mb-2.5">Марка автомобиля:</label>
+                        <div class="grid grid-cols-3 gap-2" id="brand-group">
+                            <button type="button" data-brand="VAG (Audi/VW/Skoda)" class="brand-btn active p-3 rounded-xl border border-brand-600 bg-brand-50 text-brand-700 text-xs font-bold transition-all text-center">
+                                VAG (Audi / VW)
+                            </button>
+                            <button type="button" data-brand="BMW & Mercedes" class="brand-btn p-3 rounded-xl border border-tech-200 bg-white text-tech-800 hover:border-tech-300 text-xs font-semibold transition-all text-center">
+                                BMW & Mercedes
+                            </button>
+                            <button type="button" data-brand="Toyota & Lexus" class="brand-btn p-3 rounded-xl border border-tech-200 bg-white text-tech-800 hover:border-tech-300 text-xs font-semibold transition-all text-center">
+                                Toyota & Lexus
+                            </button>
+                            <button type="button" data-brand="Kia & Hyundai" class="brand-btn p-3 rounded-xl border border-tech-200 bg-white text-tech-800 hover:border-tech-300 text-xs font-semibold transition-all text-center">
+                                Kia & Hyundai
+                            </button>
+                            <button type="button" data-brand="Китайцы (Geely/Haval)" class="brand-btn p-3 rounded-xl border border-tech-200 bg-white text-tech-800 hover:border-tech-300 text-xs font-semibold transition-all text-center">
+                                Geely / Haval / Chery
+                            </button>
+                            <button type="button" data-brand="Lada & Рено" class="brand-btn p-3 rounded-xl border border-tech-200 bg-white text-tech-800 hover:border-tech-300 text-xs font-semibold transition-all text-center">
+                                Lada & Renault
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service category -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-tech-600 mb-2.5">Тип работ / неисправность:</label>
+                        <div class="grid grid-cols-2 gap-2.5" id="service-group">
+                            <button type="button" data-service="Плановое ТО (Масло + 4 фильтра)" data-price="2200" data-time="1 ч" class="service-btn active p-3.5 rounded-xl border border-brand-600 bg-brand-50 text-left text-xs transition-all">
+                                <span class="block font-bold text-tech-900">Плановое ТО</span>
+                                <span class="text-[11px] text-tech-600">Масло + 4 фильтра</span>
+                            </button>
+                            <button type="button" data-service="Замена тормозных колодок и дисков" data-price="2800" data-time="1.5 ч" class="service-btn p-3.5 rounded-xl border border-tech-200 bg-white text-left text-xs transition-all">
+                                <span class="block font-bold text-tech-900">Тормозная система</span>
+                                <span class="text-[11px] text-tech-600">Колодки, диски, жидкость</span>
+                            </button>
+                            <button type="button" data-service="Диагностика и ремонт подвески" data-price="3500" data-time="2 ч" class="service-btn p-3.5 rounded-xl border border-tech-200 bg-white text-left text-xs transition-all">
+                                <span class="block font-bold text-tech-900">Ходовая часть</span>
+                                <span class="text-[11px] text-tech-600">Рычаги, сайлентблоки, аморт.</span>
+                            </button>
+                            <button type="button" data-service="3D Сход-развал двух осей" data-price="2000" data-time="45 мин" class="service-btn p-3.5 rounded-xl border border-tech-200 bg-white text-left text-xs transition-all">
+                                <span class="block font-bold text-tech-900">3D Сход-развал</span>
+                                <span class="text-[11px] text-tech-600">Стенд Hunter (2 оси)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Quote Summary Card -->
+                <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-2xl border border-tech-200 shadow-xs space-y-5">
+                    <div>
+                        <span class="text-[11px] uppercase tracking-wider text-brand-600 font-bold block mb-1">Предварительный расчет сметы</span>
+                        <h3 class="text-xl font-bold text-tech-900" id="quote-brand">VAG (Audi / VW)</h3>
+                        <p class="text-xs text-tech-600 mt-1" id="quote-service">Плановое ТО (Масло + 4 фильтра)</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 py-4 border-y border-tech-100">
+                        <div>
+                            <span class="text-[11px] text-tech-600 block">Стоимость работ:</span>
+                            <span class="text-2xl font-black text-tech-900" id="quote-price">2 200 ₽</span>
+                            <span class="text-[10px] text-emerald-600 font-semibold block">Фиксируется в заказ-наряде</span>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-tech-600 block">Время выполнения:</span>
+                            <span class="text-2xl font-bold text-tech-900 font-mono" id="quote-time">1 ч</span>
+                            <span class="text-[10px] text-tech-600 block">в светлой ремзоне</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-xs text-tech-600">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Гарантия 12 месяцев на работу и запчасти</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Диагностика ходовой — бесплатно (0 ₽)</span>
+                        </div>
+                    </div>
+
+                    <a href="#" id="wa-book-btn" target="_blank" rel="noopener" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3.5 px-4 rounded-xl text-xs sm:text-sm text-center transition-all flex items-center justify-center gap-2 shadow-xs">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                        <span>Забронировать время в WhatsApp</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- POPULAR SERVICES WITH REAL STOCK PHOTOS -->
-    <section id="services" class="py-16 md:py-24 bg-slate-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- DEALERSHIP STANDARDS & TRANSPARENCY -->
+    <section id="standards" class="py-16 md:py-24 bg-[#F8FAFC]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-14">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Основные направления</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
-                    Услуги техцентра и честные цены
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600">Немецкие стандарты</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-tech-900 mt-2">
+                    Почему нам доверяют свои авто
                 </h2>
-                <p class="text-slate-500 text-sm mt-2">Фиксируем цену в заказ-наряде ДО начала работ. Никаких скрытых платежей.</p>
+                <p class="text-tech-600 text-sm mt-2">Никакого навязывания лишних работ — вы платите строго за то, что реально требует замены</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- CARD 1: Диагностика -->
-                <article class="service-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card-tech rounded-2xl p-6 flex flex-col justify-between">
                     <div>
-                        <div class="aspect-video w-full overflow-hidden">
-                            <img src="../../assets/demo/auto/diagnostics.webp" alt="Компьютерная диагностика авто" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                        <div class="aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-tech-100">
+                            <img src="../../assets/demo/auto/diagnostics.webp" alt="Диагностика автомобиля дилерским сканером" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-6">
-                            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Электроника</span>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">Компьютерная диагностика ДВС</h3>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Чтение и расшифровка ошибок всех блоков ЭБУ дилерскими сканерами, проверка топливных коррекций и зажигания.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
-                        <span class="text-base font-black text-slate-900">от 800 ₽</span>
-                        <a href="https://wa.me/79992223344?text=Хочу%20записаться%20на%20диагностику" target="_blank" rel="noopener" class="bg-blue-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl hover:bg-blue-500 transition-colors">Запись</a>
-                    </div>
-                </article>
-
-                <!-- CARD 2: Замена колодок и тормоза -->
-                <article class="service-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
-                    <div>
-                        <div class="aspect-video w-full overflow-hidden">
-                            <img src="../../assets/demo/auto/brakes.webp" alt="Обслуживание тормозной системы авто" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
-                        </div>
-                        <div class="p-6">
-                            <span class="text-xs font-bold text-rose-600 uppercase tracking-wider block mb-1">Безопасность</span>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">Замена колодок и дисков</h3>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Установка новых колодок, обязательная чистка суппортов, смазка направляющих пальцев высокотемпературной пастой.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
-                        <span class="text-base font-black text-slate-900">от 1 200 ₽</span>
-                        <a href="https://wa.me/79992223344?text=Хочу%20заменить%20колодки" target="_blank" rel="noopener" class="bg-blue-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl hover:bg-blue-500 transition-colors">Запись</a>
-                    </div>
-                </article>
-
-                <!-- CARD 3: Замена масла и ТО -->
-                <article class="service-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
-                    <div>
-                        <div class="aspect-video w-full overflow-hidden">
-                            <img src="../../assets/demo/auto/oil.webp" alt="Замена моторного масла и фильтров" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
-                        </div>
-                        <div class="p-6">
-                            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider block mb-1">Регламент</span>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">Экспресс замена масла и фильтров</h3>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Замена масла через сливную пробку, масляного, воздушного и салонного фильтра. Снятие защиты картера бесплатно.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
-                        <span class="text-base font-black text-slate-900">от 900 ₽</span>
-                        <a href="https://wa.me/79992223344?text=Хочу%20записаться%20на%20ТО%20и%20масло" target="_blank" rel="noopener" class="bg-blue-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl hover:bg-blue-500 transition-colors">Запись</a>
-                    </div>
-                </article>
-
-                <!-- CARD 4: 3D Сход-развал -->
-                <article class="service-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
-                    <div>
-                        <div class="aspect-video w-full overflow-hidden">
-                            <img src="../../assets/demo/auto/alignment.webp" alt="3D стенд сход-развала Hunter" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
-                        </div>
-                        <div class="p-6">
-                            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">Высокая точность</span>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">3D Сход-развал на Hunter</h3>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Лазерная калибровка углов схождения и развала колес на немецком оборудовании. Исправляет увод руля и жор резины.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
-                        <span class="text-base font-black text-slate-900">от 2 200 ₽</span>
-                        <a href="https://wa.me/79992223344?text=Хочу%20записаться%20на%20сход-развал" target="_blank" rel="noopener" class="bg-blue-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl hover:bg-blue-500 transition-colors">Запись</a>
-                    </div>
-                </article>
-
-                <!-- CARD 5: Ремонт подвески -->
-                <article class="service-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
-                    <div>
-                        <div class="aspect-video w-full overflow-hidden">
-                            <img src="../../assets/demo/auto/mechanic.webp" alt="Ремонт подвески автомобиля" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
-                        </div>
-                        <div class="p-6">
-                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider block mb-1">Ходовая часть</span>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">Ремонт элементов подвески</h3>
-                            <p class="text-xs text-slate-500 leading-relaxed">
-                                Замена сайлентблоков гидравлическим прессом, амортизаторов, рычагов, стоек стабилизатора и ступичных подшипников.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
-                        <span class="text-base font-black text-slate-900">от 1 500 ₽</span>
-                        <a href="https://wa.me/79992223344?text=Хочу%20продиагностировать%20подвеску" target="_blank" rel="noopener" class="bg-blue-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl hover:bg-blue-500 transition-colors">Запись</a>
-                    </div>
-                </article>
-
-                <!-- CARD 6: Диагностика 0 руб -->
-                <article class="service-card bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 flex flex-col justify-between shadow-md border border-slate-700">
-                    <div>
-                        <span class="bg-blue-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider inline-block mb-4">
-                            Спецпредложение
-                        </span>
-                        <h3 class="font-black text-2xl text-white mb-2">Комплексный осмотр ходовой за 0 ₽</h3>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-6">
-                            Поднимем авто на подъемник, проверим люфты шаровых, состояние сайлентблоков, амортизаторов, колодок и технических жидкостей по 32 пунктам чек-листа бесплатно при ремонте.
+                        <h3 class="text-lg font-bold text-tech-900 mb-2">Дилерские сканеры Launch & Autel</h3>
+                        <p class="text-xs text-tech-600 leading-relaxed">
+                            Официальное диагностическое ПО с актуальными базами параметров 2026 года для точного выявления сбоев без гадания за счет клиента.
                         </p>
                     </div>
-                    <a href="#scanner" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl text-center text-xs transition-colors shadow-sm">
-                        Записаться на 0 ₽ ➔
-                    </a>
-                </article>
-            </div>
-        </div>
-    </section>
+                </div>
 
-    <!-- INTERACTIVE FAULT SCANNER -->
-    <section id="scanner" class="py-16 md:py-24 bg-white border-t border-slate-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Онлайн-калькулятор ремонта</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
-                    Рассчитайте стоимость ремонта вашего авто
-                </h2>
-                <p class="text-slate-500 text-sm mt-2">Выберите марку автомобиля и проблемный узел</p>
-            </div>
-
-            <div class="bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="card-tech rounded-2xl p-6 flex flex-col justify-between">
                     <div>
-                        <label for="auto-brand" class="block text-xs font-bold uppercase text-slate-600 mb-2">Марка / Производитель:</label>
-                        <select id="auto-brand" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-blue-500">
-                            <option value="Toyota / Lexus / Nissan (Япония)">Японские (Toyota, Lexus, Nissan, Honda)</option>
-                            <option value="VAG: VW, Skoda, Audi (Германия)">VAG (Volkswagen, Skoda, Audi, Seat)</option>
-                            <option value="Kia / Hyundai (Корея)">Корейские (Kia, Hyundai)</option>
-                            <option value="BMW / Mercedes-Benz">Премиум (BMW, Mercedes-Benz)</option>
-                            <option value="Geely / Haval / Chery (Китай)">Китайские (Geely, Haval, Chery, Changan)</option>
-                            <option value="Lada / Рено / Отечественные">Отечественные & Renault (Lada, Vesta, Logan)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="auto-issue" class="block text-xs font-bold uppercase text-slate-600 mb-2">Симптом или задача:</label>
-                        <select id="auto-issue" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-blue-500">
-                            <option value="Стук и люфты в подвеске">Стук на неровностях / гул колеса</option>
-                            <option value="Плановое ТО (масло + фильтры)">Плановое регламентное ТО (масло + фильтры)</option>
-                            <option value="Скрип тормозов / биение руля">Скрип тормозов / биение педали при торможении</option>
-                            <option value="Горит Check Engine / троит мотор">Горит Check Engine / потеря тяги мотора</option>
-                            <option value="3D сход-развал (тянет руль)">Машину тянет в сторону / 3D сход-развал</option>
-                            <option value="Кондиционер не охлаждает">Плохо холодит автокондиционер / запах</option>
-                        </select>
+                        <div class="aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-tech-100">
+                            <img src="../../assets/demo/auto/brakes.webp" alt="Тормозная система и новые запчасти" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-lg font-bold text-tech-900 mb-2">Сертифицированные запчасти</h3>
+                        <p class="text-xs text-tech-600 leading-relaxed">
+                            Прямые поставки от дистрибьюторов Brembo, TRW, Lemforder, Motul. Наносим гарантийную маркировку на каждый установленный узел.
+                        </p>
                     </div>
                 </div>
 
-                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="card-tech rounded-2xl p-6 flex flex-col justify-between">
                     <div>
-                        <span class="text-xs text-blue-700 font-semibold block">Ориентировочная стоимость работ:</span>
-                        <span class="text-2xl font-black text-blue-900" id="auto-estimate">0 ₽ (бесплатно при ремонте)</span>
-                        <span class="text-xs text-slate-500 block mt-0.5">Включает гарантию 1 год и оформление официального заказ-наряда</span>
+                        <div class="aspect-[16/10] rounded-xl overflow-hidden mb-4 bg-tech-100">
+                            <img src="../../assets/demo/auto/hero.webp" alt="Ремонтная зона автосервиса" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-lg font-bold text-tech-900 mb-2">Видеоотчет и присутствие в цехе</h3>
+                        <p class="text-xs text-tech-600 leading-relaxed">
+                            Вы можете лично находиться рядом с машиной во время ремонта или наблюдать за процессом из зоны отдыха с панорамным окном и зерновым кофе.
+                        </p>
                     </div>
-
-                    <a id="auto-quote-btn" href="#" target="_blank" rel="noopener" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3.5 rounded-xl text-center text-sm transition-all shadow-md">
-                        Записаться в WhatsApp ➔
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER / CONTACTS -->
-    <footer id="contacts" class="bg-slate-900 text-white pt-16 pb-12 mt-auto">
+    <!-- FOOTER -->
+    <footer id="contacts" class="bg-tech-900 text-slate-300 py-12 border-t border-tech-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
-                <div class="space-y-4">
-                    <span class="font-black text-2xl tracking-tight text-white">Мотор<span class="text-blue-500">Про</span></span>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Сертифицированный технический центр обслуживания легковых и коммерческих авто. Работаем с 2017 года.
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-tech-800">
+                <div class="md:col-span-2 space-y-3">
+                    <span class="font-bold text-2xl text-white">Мотор<span class="text-brand-500">Про</span></span>
+                    <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+                        Сертифицированный автотехцентр. Ремонт двигателей, трансмиссий, ходовой части и техническое обслуживание легковых автомобилей и внедорожников.
                     </p>
-                    <div class="text-xs text-amber-400">
-                        ⚡ Сайт разработан на стеке LocalWeb: скорость 0.4с • PageSpeed 100/100
-                    </div>
                 </div>
-
                 <div>
-                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Навигация</h4>
+                    <span class="text-xs font-bold uppercase tracking-wider text-white block mb-3">Навигация</span>
                     <ul class="space-y-2 text-xs text-slate-400">
-                        <li><a href="#bays" class="hover:text-white transition-colors">Табло загрузки постов</a></li>
-                        <li><a href="#services" class="hover:text-white transition-colors">Цены на ремонт</a></li>
-                        <li><a href="#scanner" class="hover:text-white transition-colors">Диагностика онлайн</a></li>
-                        <li><a href="https://local-web.ru" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Создать такой сайт (LocalWeb)</a></li>
+                        <li><a href="#bays" class="hover:text-white transition-colors">Табло ремонтных постов</a></li>
+                        <li><a href="#calculator" class="hover:text-white transition-colors">Калькулятор стоимости ТО</a></li>
+                        <li><a href="#standards" class="hover:text-white transition-colors">Оборудование и гарантии</a></li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Адрес техцентра</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-2">
-                        г. Москва, Автомоторная ул., 18, бокс 4 (удобный заезд с СВХ)
-                    </p>
-                    <p class="text-xs text-slate-400">
-                        Ежедневно с 08:00 до 21:00 (без выходных)
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Срочный вызов мастера</h4>
-                    <a href="tel:+79992223344" class="block text-base font-bold text-white mb-2 hover:text-blue-400 transition-colors">+7 (999) 222-33-44</a>
-                    <a href="https://wa.me/79992223344" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors">
-                        Написать мастеру-приемщику
+                    <span class="text-xs font-bold uppercase tracking-wider text-white block mb-3">Контакты</span>
+                    <p class="text-xs text-slate-400 mb-1">+7 (999) 222-33-44</p>
+                    <p class="text-xs text-slate-400 mb-3">г. Москва, ул. Автозаводская, д. 23, корп. 2</p>
+                    <a href="https://wa.me/79992223344" class="text-xs font-bold text-emerald-400 hover:text-emerald-300">
+                        Консультация в WhatsApp →
                     </a>
                 </div>
             </div>
-
-            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-                <span>© 2026 Автосервис «МоторПро». Все права защищены.</span>
-                <span class="text-slate-400">Демонстрационный сайт для портфолио <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb.ru</a></span>
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
+                <span>© 2026 МоторПро. Демо-макет разработан в веб-студии <a href="https://local-web.ru" class="text-white hover:underline">LocalWeb</a></span>
+                <span>Быстрый сайт под ключ за 7 500 ₽</span>
             </div>
         </div>
     </footer>
 
     <script>
-        const autoBrand = document.getElementById('auto-brand');
-        const autoIssue = document.getElementById('auto-issue');
-        const autoEstimate = document.getElementById('auto-estimate');
-        const autoQuoteBtn = document.getElementById('auto-quote-btn');
-
-        const issuePrices = {
-            'Стук и люфты в подвеске': '0 ₽ (диагностика ходовой бесплатно)',
-            'Плановое ТО (масло + фильтры)': 'от 1 800 ₽ (с заменой фильтров)',
-            'Скрип тормозов / биение руля': 'от 1 200 ₽ (замена колодок)',
-            'Горит Check Engine / троит мотор': 'от 800 ₽ (компьютерная диагностика)',
-            '3D сход-развал (тянет руль)': 'от 2 200 ₽ (две оси)',
-            'Кондиционер не охлаждает': 'от 2 500 ₽ (вакуум + фреон R134a)'
-        };
+        let selectedBrand = 'VAG (Audi/VW/Skoda)';
+        let selectedService = 'Плановое ТО (Масло + 4 фильтра)';
+        let selectedPrice = '2 200 ₽';
+        let selectedTime = '1 ч';
 
         function updateQuote() {
-            const brand = autoBrand.value;
-            const issue = autoIssue.value;
-            autoEstimate.textContent = issuePrices[issue] || 'от 1 000 ₽';
+            document.getElementById('quote-brand').textContent = selectedBrand;
+            document.getElementById('quote-service').textContent = selectedService;
+            document.getElementById('quote-price').textContent = selectedPrice;
+            document.getElementById('quote-time').textContent = selectedTime;
 
-            const msg = encodeURIComponent(`Здравствуйте! Хочу записаться в автосервис МоторПро:\nАвтомобиль: ${brand}\nПроблема/задача: ${issue}\nПрошу подсказать свободное время для заезда.`);
-            autoQuoteBtn.href = `https://wa.me/79992223344?text=${msg}`;
+            const waText = encodeURIComponent(`Здравствуйте! Хочу записаться в МоторПро на сервис: Авто: ${selectedBrand}, Услуга: ${selectedService} (ориентировочно ${selectedPrice}, время ${selectedTime}). На какое ближайшее время есть свободный пост?`);
+            document.getElementById('wa-book-btn').href = `https://wa.me/79992223344?text=${waText}`;
         }
 
-        autoBrand.addEventListener('change', updateQuote);
-        autoIssue.addEventListener('change', updateQuote);
+        document.querySelectorAll('.brand-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.brand-btn').forEach(b => {
+                    b.classList.remove('active', 'border-brand-600', 'bg-brand-50', 'text-brand-700', 'font-bold');
+                    b.classList.add('border-tech-200', 'bg-white', 'text-tech-800');
+                });
+                btn.classList.add('active', 'border-brand-600', 'bg-brand-50', 'text-brand-700', 'font-bold');
+                btn.classList.remove('border-tech-200', 'bg-white', 'text-tech-800');
+                selectedBrand = btn.dataset.brand;
+                updateQuote();
+            });
+        });
+
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.service-btn').forEach(b => {
+                    b.classList.remove('active', 'border-brand-600', 'bg-brand-50');
+                    b.classList.add('border-tech-200', 'bg-white');
+                });
+                btn.classList.add('active', 'border-brand-600', 'bg-brand-50');
+                btn.classList.remove('border-tech-200', 'bg-white');
+                selectedService = btn.dataset.service;
+                selectedPrice = parseInt(btn.dataset.price, 10).toLocaleString('ru-RU') + ' ₽';
+                selectedTime = btn.dataset.time;
+                updateQuote();
+            });
+        });
+
+        function bookBay(bayName) {
+            const waText = encodeURIComponent(`Здравствуйте! Хочу записаться на ${bayName} в ближайшее свободное время. Марка авто: `);
+            window.open(`https://wa.me/79992223344?text=${waText}`, '_blank');
+        }
+
         updateQuote();
     </script>
 </body>
