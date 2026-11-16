@@ -7,7 +7,7 @@
     <meta name="description" content="Срочный ремонт стиральных машин, холодильников и посудомоек на дому. Выезд и диагностика 0 ₽ при ремонте. Гарантия до 2 лет, оригинальные запчасти.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -19,6 +19,7 @@
                     colors: {
                         tech: {
                             50: '#F0FDFA',
+                            100: '#CCFBF1',
                             500: '#0D9488',
                             600: '#0F766E',
                             900: '#134E4A',
@@ -30,7 +31,19 @@
     </script>
     <style>
         .demo-bar {
-            background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%);
+            background: linear-gradient(90deg, #0F172A 0%, #1E293B 100%);
+        }
+        .tech-card {
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+        }
+        .tech-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 30px -8px rgba(13, 148, 136, 0.2);
+        }
+        .error-code-btn.active {
+            border-color: #0D9488;
+            background-color: #F0FDFA;
+            box-shadow: 0 0 0 2px #0D9488;
         }
     </style>
 </head>
@@ -41,11 +54,11 @@
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-2">
                 <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">ДЕМО-САЙТ</span>
-                <span class="font-medium text-slate-200">Пример решения для сервиса ремонта техники от студии <strong class="text-white font-bold">LocalWeb</strong></span>
+                <span class="font-medium text-slate-200">Пример готового сайта для службы ремонта техники от студии <strong class="text-white font-bold">LocalWeb</strong></span>
             </div>
             <div class="flex items-center gap-3">
-                <span class="hidden md:inline text-slate-300 text-xs">Сделаем такой же сайт за 7 500 ₽ за 24ч</span>
-                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
+                <span class="hidden md:inline text-slate-300 text-xs">Сделаем такой же сайт за 7 500 ₽ за 24 часа</span>
+                <a href="https://local-web.ru/#form" target="_blank" rel="noopener" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-1 rounded-lg text-xs transition-colors flex items-center gap-1 shadow-sm">
                     Заказать такой сайт
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
@@ -56,190 +69,280 @@
     <!-- HEADER / NAVIGATION -->
     <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-10 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-teal-600 text-white flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition-transform">
                     ⚡
                 </div>
                 <div>
-                    <span class="font-extrabold text-2xl tracking-tight text-slate-900">Рем<span class="text-teal-600">Быт</span></span>
-                    <span class="block text-[11px] text-slate-500 font-semibold">Ремонт техники на дому</span>
+                    <span class="font-black text-2xl tracking-tight text-slate-900">Рем<span class="text-teal-600">Быт</span></span>
+                    <span class="block text-[11px] text-slate-500 font-semibold tracking-wide">Ремонт техники на дому</span>
                 </div>
             </a>
             
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                <a href="#services" class="hover:text-teal-600 transition-colors">Что ремонтируем</a>
-                <a href="#diagnostics" class="hover:text-teal-600 transition-colors">Поиск неисправности</a>
+                <a href="#radar" class="hover:text-teal-600 transition-colors">Радар мастеров</a>
+                <a href="#services" class="hover:text-teal-600 transition-colors">Цены на ремонт</a>
+                <a href="#error-codes" class="hover:text-teal-600 transition-colors">Коды ошибок</a>
                 <a href="#guarantee" class="hover:text-teal-600 transition-colors">Гарантия до 2 лет</a>
-                <a href="#reviews" class="hover:text-teal-600 transition-colors">Отзывы</a>
                 <a href="#contacts" class="hover:text-teal-600 transition-colors">Контакты</a>
             </nav>
 
             <div class="flex items-center gap-3">
                 <a href="tel:+79993334455" class="hidden sm:flex flex-col text-right">
-                    <span class="text-xs text-slate-500">Дежурный мастер сейчас свободен</span>
-                    <span class="text-sm font-bold text-slate-900 hover:text-teal-600 transition-colors">+7 (999) 333-44-55</span>
+                    <span class="text-[11px] text-slate-500 font-medium">Дежурный диспетчер на линии</span>
+                    <span class="text-sm font-black text-slate-900 hover:text-teal-600 transition-colors">+7 (999) 333-44-55</span>
                 </a>
-                <a href="#diagnostics" class="bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm">
+                <a href="#radar" class="bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-sm hover:shadow-md">
                     Вызвать мастера
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 bg-gradient-to-b from-teal-50/50 to-slate-50">
+    <!-- HERO SECTION WITH STOCK PHOTO -->
+    <section class="relative pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-teal-50/50 to-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-100 text-teal-800 text-xs font-bold">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100 text-teal-800 text-xs font-bold">
                         ⏱️ Срочный выезд мастера в любой район за 30–45 минут
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight">
                         Срочный ремонт бытовой техники на дому в день обращения
                     </h1>
                     <p class="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed">
-                        Стиральные машины, холодильники, посудомойки и духовые шкафы. В 9 из 10 случаев ремонтируем за один визит без вывоза техники в сервис.
+                        Стиральные машины, холодильники, посудомойки и духовые шкафы. В 9 из 10 случаев устраняем поломку за 1 визит благодаря запасу запчастей в багажнике мастера.
                     </p>
                     
                     <div class="flex flex-wrap gap-4 pt-2">
-                        <a href="#diagnostics" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-7 py-4 rounded-xl text-sm sm:text-base transition-all shadow-md">
-                            Узнать стоимость поломки ➔
+                        <a href="#radar" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-7 py-4 rounded-xl text-base transition-all shadow-md hover:shadow-lg">
+                            Найти ближайшего мастера ➔
                         </a>
-                        <a href="tel:+79993334455" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-900 font-bold px-6 py-4 rounded-xl text-sm sm:text-base transition-colors flex items-center gap-2">
-                            <span>📞 Позвонить мастеру</span>
+                        <a href="tel:+79993334455" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-900 font-bold px-6 py-4 rounded-xl text-base transition-colors flex items-center gap-2">
+                            <span>📞 Срочный вызов диспетчера</span>
                         </a>
                     </div>
 
                     <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
                         <div>
-                            <span class="block font-extrabold text-2xl text-slate-900">0 ₽</span>
+                            <span class="block font-black text-2xl text-slate-900">0 ₽</span>
                             <span class="text-xs text-slate-500">Диагностика и выезд при ремонте</span>
                         </div>
                         <div>
-                            <span class="block font-extrabold text-2xl text-slate-900">до 2 лет</span>
+                            <span class="block font-black text-2xl text-slate-900">до 2 лет</span>
                             <span class="text-xs text-slate-500">Официальная гарантия по договору</span>
                         </div>
                         <div>
-                            <span class="block font-extrabold text-2xl text-slate-900">45 мин</span>
+                            <span class="block font-black text-2xl text-slate-900">35 мин</span>
                             <span class="text-xs text-slate-500">Среднее время прибытия мастера</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- Hero Stock Image -->
                 <div class="lg:col-span-5">
-                    <div class="rounded-3xl bg-white p-8 border border-slate-200 shadow-xl space-y-6">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Экспресс-заявка</span>
-                            <span class="flex items-center gap-1.5 text-xs text-emerald-600 font-bold">
-                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                На линии 4 мастера
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-square relative group">
+                        <img src="../../assets/demo/appliances/hero.webp" alt="Мастер сервиса с набором профессионального инструмента" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-950/70 via-transparent to-transparent"></div>
+                        
+                        <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg flex items-center justify-between border border-teal-100">
+                            <div>
+                                <span class="text-[11px] font-bold text-teal-700 uppercase tracking-wider block">Сертифицированный мастер</span>
+                                <span class="font-bold text-sm text-slate-900">Выезд со склада запчастей</span>
+                            </div>
+                            <span class="text-xs font-extrabold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-md">
+                                Свободен
                             </span>
                         </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">Нужен срочный ремонт?</h3>
-                            <p class="text-xs text-slate-500">Опишите проблему, мастер свяжется с вами через 3 минуты с готовой консультацией по цене</p>
-                        </div>
-
-                        <div class="space-y-3">
-                            <input type="text" id="urgent-appliance" placeholder="Что сломалось? (напр., стиралка LG не сливает)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-teal-500">
-                            <input type="tel" id="urgent-phone" placeholder="Ваш телефон для звонка" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:border-teal-500">
-                            <a id="urgent-call-btn" href="#" target="_blank" rel="noopener" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 rounded-xl text-center block text-sm transition-all shadow-md">
-                                Вызвать мастера сейчас ➔
-                            </a>
-                        </div>
-                        <p class="text-[11px] text-slate-400 text-center">Выезд по городу и диагностика 0 ₽ при выполнении работ</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHAT WE REPAIR -->
-    <section id="services" class="py-16 md:py-24 bg-white border-y border-slate-200">
+    <!-- LIVE MASTER RADAR (УНИКАЛЬНЫЙ РАДАР МАСТЕРОВ ПО РАЙОНАМ) -->
+    <section id="radar" class="py-12 bg-white border-y border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 sm:p-10 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-slate-700">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">GPS-радар сервиса</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-black text-white">
+                        Где сейчас находится ближайший мастер?
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Выберите ваш район города, чтобы увидеть мастера, который свободен прямо сейчас и готов выехать к вам с комплектом оригинальных запчастей.
+                    </p>
+
+                    <div>
+                        <label for="district-select" class="block text-xs font-bold text-slate-400 uppercase mb-2">Ваш район проживания:</label>
+                        <select id="district-select" class="w-full bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm font-bold text-white focus:outline-none focus:border-teal-400">
+                            <option value="Центральный" data-master="Алексей С." data-exp="11 лет" data-dist="1.8 км" data-time="25 мин" data-car="Лада Ларгус (бокс с запчастями Bosch/LG)">Центральный округ (ЦАО)</option>
+                            <option value="Северный" data-master="Дмитрий К." data-exp="8 лет" data-dist="2.4 км" data-time="30 мин" data-car="Renault Kangoo (запчасти Samsung/Indesit)">Северный округ (САО)</option>
+                            <option value="Южный" data-master="Игорь В." data-exp="14 лет" data-dist="3.1 км" data-time="35 мин" data-car="VW Caddy (запчасти к холодильникам)">Южный округ (ЮАО)</option>
+                            <option value="Западный" data-master="Михаил П." data-exp="9 лет" data-dist="2.0 км" data-time="28 мин" data-car="Ford Transit (универсальный склад)">Западный округ (ЗАО)</option>
+                            <option value="Восточный" data-master="Сергей М." data-exp="12 лет" data-dist="2.6 км" data-time="32 мин" data-car="Skoda Octavia (запчасти к стиралкам)">Восточный округ (ВАО)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Master Radar Card -->
+                <div class="lg:col-span-5 bg-slate-800 rounded-2xl p-6 border border-slate-700 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                        <span class="text-xs text-slate-400">Назначенный мастер:</span>
+                        <span class="text-xs font-bold text-emerald-400" id="radar-time">Прибытие ~25 мин</span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-teal-500 text-white font-black text-lg flex items-center justify-center">
+                            👨‍🔧
+                        </div>
+                        <div>
+                            <span class="font-bold text-base text-white block" id="radar-name">Алексей С.</span>
+                            <span class="text-xs text-slate-400" id="radar-exp">Опыт 11 лет • 4.96 ★ (180+ заказов)</span>
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-slate-300 space-y-1 bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                        <p><span class="text-slate-400">Дистанция:</span> <strong id="radar-dist" class="text-white">1.8 км</strong> от вашего адреса</p>
+                        <p><span class="text-slate-400">Автомобиль:</span> <span id="radar-car">Лада Ларгус (бокс с запчастями)</span></p>
+                    </div>
+
+                    <a id="btn-radar-dispatch" href="#" target="_blank" rel="noopener" class="w-full bg-teal-500 hover:bg-teal-400 text-slate-900 font-extrabold py-3.5 rounded-xl text-center block text-xs transition-colors shadow-md">
+                        Вызвать мастера на мой адрес ➔
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES WITH STOCK PHOTOS -->
+    <section id="services" class="py-16 md:py-24 bg-slate-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-14">
-                <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Наш профиль</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
-                    Ремонтируем технику всех брендов
+                <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Что ремонтируем</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
+                    Ремонт крупной бытовой техники всех марок
                 </h2>
-                <p class="text-slate-500 text-sm mt-2">Мастера оснащены специализированным оборудованием и оригинальными комплектующими</p>
+                <p class="text-slate-500 text-sm mt-2">Мастера оснащены диагностическим оборудованием и оригинальными комплектующими</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
-                    <div class="text-4xl mb-4">🧺</div>
-                    <h3 class="font-bold text-slate-900 text-lg mb-2">Стиральные машины</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Замена подшипников, ТЭНа, помпы, ремонт платы управления, манжеты люка.</p>
-                    <span class="text-teal-700 font-bold text-sm block">от 790 ₽</span>
-                </div>
+                <!-- Card 1: Стиральные машины -->
+                <article class="tech-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
+                    <div>
+                        <div class="aspect-video w-full overflow-hidden">
+                            <img src="../../assets/demo/appliances/washing.webp" alt="Ремонт стиральных машин на дому" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-base mb-1">Стиральные машины</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed mb-3">Замена подшипников, ТЭНа, сливного насоса, щеток мотора, ремонт платы управления.</p>
+                            <span class="text-teal-700 font-black text-sm block">от 790 ₽</span>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://wa.me/79993334455?text=Нужен%20ремонт%20стиральной%20машины" target="_blank" rel="noopener" class="w-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-800 text-xs font-bold py-2 rounded-xl text-center block transition-colors">Вызвать мастера</a>
+                    </div>
+                </article>
 
-                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
-                    <div class="text-4xl mb-4">❄️</div>
-                    <h3 class="font-bold text-slate-900 text-lg mb-2">Холодильники</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Заправка фреоном, замена компрессора, термостата, датчиков No Frost, уплотнителей.</p>
-                    <span class="text-teal-700 font-bold text-sm block">от 990 ₽</span>
-                </div>
+                <!-- Card 2: Холодильники -->
+                <article class="tech-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
+                    <div>
+                        <div class="aspect-video w-full overflow-hidden">
+                            <img src="../../assets/demo/appliances/fridge.webp" alt="Ремонт холодильников No Frost" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-base mb-1">Холодильники</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed mb-3">Заправка фреоном R600a/R134a, замена мотора-компрессора, датчиков оттайки No Frost, термостата.</p>
+                            <span class="text-teal-700 font-black text-sm block">от 990 ₽</span>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://wa.me/79993334455?text=Нужен%20ремонт%20холодильника" target="_blank" rel="noopener" class="w-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-800 text-xs font-bold py-2 rounded-xl text-center block transition-colors">Вызвать мастера</a>
+                    </div>
+                </article>
 
-                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
-                    <div class="text-4xl mb-4">🍽️</div>
-                    <h3 class="font-bold text-slate-900 text-lg mb-2">Посудомоечные машины</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Устранение засоров, ремонт циркуляционного насоса, ТЭНа, замена шлангов аквастопа.</p>
-                    <span class="text-teal-700 font-bold text-sm block">от 850 ₽</span>
-                </div>
+                <!-- Card 3: Посудомойки -->
+                <article class="tech-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
+                    <div>
+                        <div class="aspect-video w-full overflow-hidden">
+                            <img src="../../assets/demo/appliances/dishwasher.webp" alt="Ремонт посудомоечных машин" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-base mb-1">Посудомоечные машины</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed mb-3">Устранение засоров, ремонт циркуляционного насоса, замена ТЭНа, устранение протечек Аквастоп.</p>
+                            <span class="text-teal-700 font-black text-sm block">от 850 ₽</span>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://wa.me/79993334455?text=Нужен%20ремонт%20посудомоечной%20машины" target="_blank" rel="noopener" class="w-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-800 text-xs font-bold py-2 rounded-xl text-center block transition-colors">Вызвать мастера</a>
+                    </div>
+                </article>
 
-                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-400 transition-colors">
-                    <div class="text-4xl mb-4">🍳</div>
-                    <h3 class="font-bold text-slate-900 text-lg mb-2">Варочные панели & Духовки</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed mb-4">Замена конфорок, стеклокерамики, переключателей, термопары, электронного модуля.</p>
-                    <span class="text-teal-700 font-bold text-sm block">от 800 ₽</span>
-                </div>
+                <!-- Card 4: Варочные панели & Духовки -->
+                <article class="tech-card bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between shadow-xs">
+                    <div>
+                        <div class="aspect-video w-full overflow-hidden">
+                            <img src="../../assets/demo/appliances/cooktop.webp" alt="Ремонт варочных панелей и духовок" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-base mb-1">Варочные панели & Духовки</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed mb-3">Замена конфорок, силового блока, сенсорных панелей, термопары и нагревательных элементов.</p>
+                            <span class="text-teal-700 font-black text-sm block">от 800 ₽</span>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://wa.me/79993334455?text=Нужен%20ремонт%20духовки%20или%20плиты" target="_blank" rel="noopener" class="w-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-800 text-xs font-bold py-2 rounded-xl text-center block transition-colors">Вызвать мастера</a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- FAULT DIAGNOSTICS CALCULATOR -->
-    <section id="diagnostics" class="py-16 md:py-24 bg-slate-50">
+    <!-- ERROR CODE DECRYPTER (УНИКАЛЬНЫЙ РАСШИФРОВЩИК КОДОВ ОШИБОК) -->
+    <section id="error-codes" class="py-16 md:py-24 bg-white border-t border-slate-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Онлайн-диагностика</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
-                    Определите причину поломки и стоимость ремонта
+                <span class="text-xs font-bold uppercase tracking-wider text-teal-600">База знаний</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
+                    Мигает ошибка на дисплее? Расшифруйте причину
                 </h2>
+                <p class="text-slate-500 text-sm mt-2">Нажмите на код вашей ошибки, чтобы сразу узнать вероятную поломку и стоимость ремонта</p>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
-                <div>
-                    <label for="fault-tech" class="block text-xs font-bold uppercase text-slate-600 mb-2">Вид бытовой техники:</label>
-                    <select id="fault-tech" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-teal-500">
-                        <option value="Стиральная машина">Стиральная машина</option>
-                        <option value="Холодильник">Холодильник</option>
-                        <option value="Посудомоечная машина">Посудомоечная машина</option>
-                        <option value="Духовой шкаф / Плита">Духовой шкаф / Варочная панель</option>
-                    </select>
+            <div class="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 space-y-6">
+                <div class="flex flex-wrap gap-2.5" id="code-buttons">
+                    <button type="button" data-brand="Bosch / Siemens" data-code="E18 / F18" data-cause="Засор фильтра или поломка сливной помпы (насоса). Вода не уходит из бака." data-cost="от 850 ₽" class="error-code-btn active px-3.5 py-2 rounded-xl border border-stone-300 bg-white text-xs font-bold transition-all">
+                        Bosch: E18 / F18
+                    </button>
+                    <button type="button" data-brand="Samsung" data-code="4E / 4C" data-cause="Нет набора воды: засор входного фильтра-сеточки либо неисправен электромагнитный клапан." data-cost="от 900 ₽" class="error-code-btn px-3.5 py-2 rounded-xl border border-stone-300 bg-white text-xs font-bold transition-all">
+                        Samsung: 4E / 4C
+                    </button>
+                    <button type="button" data-brand="LG" data-code="UE / uE" data-cause="Ошибка дисбаланса барабана: износ демпферов/амортизаторов либо перегруз бельем." data-cost="от 1 200 ₽" class="error-code-btn px-3.5 py-2 rounded-xl border border-stone-300 bg-white text-xs font-bold transition-all">
+                        LG: UE / uE
+                    </button>
+                    <button type="button" data-brand="Indesit / Ariston" data-code="F04" data-cause="Неисправность датчика уровня воды (прессостата). Машина постоянно заливает и сливает." data-cost="от 950 ₽" class="error-code-btn px-3.5 py-2 rounded-xl border border-stone-300 bg-white text-xs font-bold transition-all">
+                        Indesit: F04
+                    </button>
+                    <button type="button" data-brand="Haier" data-code="E4" data-cause="Ошибка нагрева воды: сгорел нагревательный элемент (ТЭН) из-за накипи." data-cost="от 1 400 ₽" class="error-code-btn px-3.5 py-2 rounded-xl border border-stone-300 bg-white text-xs font-bold transition-all">
+                        Haier: E4
+                    </button>
                 </div>
 
-                <div>
-                    <label for="fault-symptom" class="block text-xs font-bold uppercase text-slate-600 mb-2">Что именно происходит:</label>
-                    <select id="fault-symptom" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:outline-none focus:border-teal-500">
-                        <option value="Не сливает воду / гудит">Не сливает воду / зависает на отжиме</option>
-                        <option value="Не греет воду">Не нагревает воду во время цикла</option>
-                        <option value="Сильно шумит, стучит или прыгает">Сильно стучит / прыгает при вращении барабана</option>
-                        <option value="Не включается совсем">Не включается / не горят индикаторы</option>
-                        <option value="Подтекает вода снизу">Подтекает вода из-под корпуса</option>
-                        <option value="Не морозит верхняя или нижняя камера">Не холодит / перемораживает продукты</option>
-                    </select>
-                </div>
-
-                <div class="bg-teal-50 border border-teal-200 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="bg-white rounded-2xl p-6 border border-teal-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
-                        <span class="text-xs text-teal-800 font-semibold block">Вероятная поломка и ориентир:</span>
-                        <span class="text-xl sm:text-2xl font-black text-teal-950" id="fault-estimate">Засор сливной помпы (от 800 ₽)</span>
-                        <span class="text-xs text-slate-500 block mt-0.5">Точная диагностика 0 ₽ при ремонте</span>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-bold text-teal-700 uppercase" id="code-brand">Bosch / Siemens</span>
+                            <span class="text-xs bg-teal-100 text-teal-800 font-extrabold px-2 py-0.5 rounded" id="code-val">Код E18 / F18</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800" id="code-desc">Засор фильтра или поломка сливной помпы (насоса). Вода не уходит из бака.</p>
+                        <span class="text-xs text-slate-500 mt-1 block">Стоимость работы мастера: <strong class="text-teal-700" id="code-price">от 850 ₽</strong></span>
                     </div>
 
-                    <a id="fault-wa-btn" href="#" target="_blank" rel="noopener" class="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-3.5 rounded-xl text-center text-sm transition-all shadow-md">
-                        Вызвать мастера в WhatsApp ➔
+                    <a id="code-order-btn" href="#" target="_blank" rel="noopener" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-5 py-3 rounded-xl text-xs transition-colors whitespace-nowrap shadow-sm">
+                        Устранить эту ошибку ➔
                     </a>
                 </div>
             </div>
@@ -251,9 +354,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-slate-800">
                 <div class="space-y-4">
-                    <span class="font-extrabold text-2xl tracking-tight text-white">Рем<span class="text-teal-400">Быт</span></span>
+                    <span class="font-black text-2xl tracking-tight text-white">Рем<span class="text-teal-400">Быт</span></span>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Служба срочного ремонта крупной бытовой техники на дому. Мастера с подтвержденной квалификацией.
+                        Служба срочного ремонта крупной бытовой техники на дому. Работаем по официальному договору.
                     </p>
                     <div class="text-xs text-amber-400">
                         ⚡ Сайт разработан на стеке LocalWeb: скорость 0.4с • PageSpeed 100/100
@@ -297,41 +400,54 @@
     </footer>
 
     <script>
-        const faultTech = document.getElementById('fault-tech');
-        const faultSymptom = document.getElementById('fault-symptom');
-        const faultEstimate = document.getElementById('fault-estimate');
-        const faultWaBtn = document.getElementById('fault-wa-btn');
-        const urgentAppliance = document.getElementById('urgent-appliance');
-        const urgentPhone = document.getElementById('urgent-phone');
-        const urgentCallBtn = document.getElementById('urgent-call-btn');
+        // District Radar Logic
+        const districtSelect = document.getElementById('district-select');
+        const radarName = document.getElementById('radar-name');
+        const radarExp = document.getElementById('radar-exp');
+        const radarDist = document.getElementById('radar-dist');
+        const radarTime = document.getElementById('radar-time');
+        const radarCar = document.getElementById('radar-car');
+        const btnRadar = document.getElementById('btn-radar-dispatch');
 
-        const faultData = {
-            'Не сливает воду / гудит': 'Засор помпы или поломка насоса (от 850 ₽)',
-            'Не греет воду': 'Выход из строя ТЭНа или датчика NTC (от 1 100 ₽)',
-            'Сильно шумит, стучит или прыгает': 'Износ подшипников или амортизаторов (от 1 600 ₽)',
-            'Не включается совсем': 'Поломка блока питания или платы управления (от 1 200 ₽)',
-            'Подтекает вода снизу': 'Разрыв патрубка, манжеты или сальника (от 900 ₽)',
-            'Не морозит верхняя или нижняя камера': 'Утечка фреона или засор капилляра (от 1 400 ₽)'
-        };
+        function updateRadar() {
+            const opt = districtSelect.options[districtSelect.selectedIndex];
+            radarName.textContent = opt.dataset.master;
+            radarExp.textContent = `Опыт ${opt.dataset.exp} • 4.96 ★ (180+ заказов)`;
+            radarDist.textContent = opt.dataset.dist;
+            radarTime.textContent = `Прибытие ~${opt.dataset.time}`;
+            radarCar.textContent = opt.dataset.car;
 
-        function updateFaultQuote() {
-            const sym = faultSymptom.value;
-            const tech = faultTech.value;
-            faultEstimate.textContent = faultData[sym] || 'от 900 ₽';
-            const msg = encodeURIComponent(`Здравствуйте! Нужен ремонт техники:\nТехника: ${tech}\nСимптом: ${sym}\nПрошу сориентировать по времени выезда мастера.`);
-            faultWaBtn.href = `https://wa.me/79993334455?text=${msg}`;
+            const msg = encodeURIComponent(`Срочный вызов мастера!\nРайон: ${opt.value}\nБлижайший мастер: ${opt.dataset.master}\nПрошу связаться со мной для подтверждения адреса.`);
+            btnRadar.href = `https://wa.me/79993334455?text=${msg}`;
         }
 
-        faultTech.addEventListener('change', updateFaultQuote);
-        faultSymptom.addEventListener('change', updateFaultQuote);
-        updateFaultQuote();
+        districtSelect.addEventListener('change', updateRadar);
+        updateRadar();
 
-        urgentCallBtn.addEventListener('click', (e) => {
-            const text = urgentAppliance.value || 'Ремонт бытовой техники';
-            const phone = urgentPhone.value || '';
-            const msg = encodeURIComponent(`Срочный вызов мастера!\nПроблема: ${text}\nМой телефон: ${phone}`);
-            urgentCallBtn.href = `https://wa.me/79993334455?text=${msg}`;
+        // Error Codes Decrypter
+        const codeButtons = document.querySelectorAll('.error-code-btn');
+        const codeBrand = document.getElementById('code-brand');
+        const codeVal = document.getElementById('code-val');
+        const codeDesc = document.getElementById('code-desc');
+        const codePrice = document.getElementById('code-price');
+        const codeOrderBtn = document.getElementById('code-order-btn');
+
+        codeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                codeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                codeBrand.textContent = btn.dataset.brand;
+                codeVal.textContent = `Код ${btn.dataset.code}`;
+                codeDesc.textContent = btn.dataset.cause;
+                codePrice.textContent = btn.dataset.cost;
+
+                const msg = encodeURIComponent(`Здравствуйте! На бытовой технике горит ошибка:\nБренд: ${btn.dataset.brand}\nКод: ${btn.dataset.code}\nПроблема: ${btn.dataset.cause}\nХочу вызвать мастера.`);
+                codeOrderBtn.href = `https://wa.me/79993334455?text=${msg}`;
+            });
         });
+
+        // Trigger first error code setup
+        codeButtons[0].click();
     </script>
 </body>
 </html>

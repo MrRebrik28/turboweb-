@@ -19,5 +19,11 @@ scratch/
 vault/
 .obsidian/
 *.docx
+map_agent/
+partner_agent/
+run_map_agent.py
+run_partner_agent.py
+test_sheet.py
+vk_auth_pkce.py
 
 
