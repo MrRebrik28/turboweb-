@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>AetherRay — Ray-Traced Spatial Audio Engine</title>
     <script src="coi-serviceworker.js"></script>
     <style>
@@ -33,24 +33,28 @@
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         overflow: hidden;
         height: 100vh;
+        height: 100dvh;
         display: flex;
         flex-direction: column;
+        user-select: none;
+        -webkit-user-select: none;
       }
 
       header {
         background: var(--bg-secondary);
         border-bottom: 1px solid var(--border-color);
-        padding: 8px 18px;
+        padding: 8px 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         z-index: 10;
+        flex-shrink: 0;
       }
 
       .logo-group {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
       }
 
       .logo {
@@ -58,13 +62,13 @@
         font-size: 1.15rem;
         font-weight: 700;
         color: var(--accent-cyan);
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
         text-transform: uppercase;
       }
 
       .sprint-badge {
         font-size: 0.7rem;
-        padding: 2px 8px;
+        padding: 2px 7px;
         border-radius: 4px;
         background: rgba(0, 229, 255, 0.12);
         border: 1px solid var(--accent-cyan);
@@ -79,6 +83,42 @@
         align-items: center;
         gap: 6px;
         font-family: var(--font-mono);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Language switcher */
+      .lang-switcher {
+        display: flex;
+        background: var(--bg-panel);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .lang-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        padding: 5px 9px;
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .lang-btn:hover {
+        color: var(--text-primary);
+      }
+
+      .lang-btn-active {
+        background: var(--accent-cyan);
+        color: #000 !important;
       }
 
       .app-layout {
@@ -99,6 +139,7 @@
         gap: 10px;
         overflow-y: auto;
         z-index: 5;
+        -webkit-overflow-scrolling: touch;
       }
 
       .panel-right {
@@ -123,10 +164,10 @@
         background: var(--bg-panel);
         border: 1px solid var(--border-color);
         color: var(--text-primary);
-        padding: 6px 10px;
-        border-radius: 5px;
+        padding: 7px 12px;
+        border-radius: 6px;
         font-family: var(--font-mono);
-        font-size: 0.74rem;
+        font-size: 0.75rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -194,10 +235,10 @@
         background: var(--bg-panel);
         border: 1px solid var(--border-color);
         color: var(--text-primary);
-        padding: 6px 8px;
-        border-radius: 5px;
+        padding: 7px 10px;
+        border-radius: 6px;
         font-family: var(--font-mono);
-        font-size: 0.76rem;
+        font-size: 0.78rem;
         outline: none;
       }
 
@@ -209,7 +250,7 @@
         -webkit-appearance: none;
         appearance: none;
         width: 100%;
-        height: 5px;
+        height: 6px;
         background: var(--border-color);
         border-radius: 3px;
         outline: none;
@@ -218,8 +259,8 @@
       input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 14px;
-        height: 14px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         background: var(--accent-cyan);
         cursor: pointer;
@@ -275,22 +316,21 @@
       .viewport-overlay {
         position: absolute;
         bottom: 14px;
-        left: 356px;
+        left: 50%;
+        transform: translateX(-50%);
         background: rgba(15, 20, 29, 0.88);
         backdrop-filter: blur(8px);
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        padding: 6px 12px;
+        padding: 6px 14px;
         font-family: var(--font-mono);
         font-size: 0.7rem;
         color: var(--text-secondary);
         pointer-events: none;
         z-index: 6;
-        line-height: 1.5;
-      }
-
-      .viewport-overlay strong {
-        color: var(--text-primary);
+        line-height: 1.4;
+        text-align: center;
+        white-space: nowrap;
       }
 
       .material-legend {
@@ -338,16 +378,52 @@
         display: block;
       }
 
+      /* Mobile Navigation Bar */
+      .mobile-tabs {
+        display: none;
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border-color);
+        padding: 6px 8px;
+        gap: 8px;
+        z-index: 20;
+        flex-shrink: 0;
+      }
+
+      .tab-btn {
+        flex: 1;
+        background: var(--bg-panel);
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 8px 4px;
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .tab-btn-active {
+        background: rgba(0, 229, 255, 0.15);
+        border-color: var(--accent-cyan);
+        color: var(--accent-cyan);
+      }
+
       /* Start Experience Overlay */
       #startOverlay {
         position: fixed;
         inset: 0;
-        background: rgba(5, 7, 11, 0.88);
+        background: rgba(5, 7, 11, 0.90);
         backdrop-filter: blur(16px);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 100;
+        padding: 16px;
         transition: opacity 0.4s ease;
       }
 
@@ -356,12 +432,15 @@
         border: 1px solid var(--accent-cyan);
         box-shadow: 0 0 40px rgba(0, 229, 255, 0.25);
         border-radius: 12px;
-        padding: 36px 40px;
-        max-width: 540px;
+        padding: 28px 24px;
+        max-width: 520px;
+        width: 100%;
         text-align: center;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 16px;
+        max-height: 90vh;
+        overflow-y: auto;
       }
 
       .overlay-title {
@@ -375,27 +454,27 @@
 
       .overlay-desc {
         color: var(--text-secondary);
-        font-size: 0.88rem;
-        line-height: 1.6;
+        font-size: 0.85rem;
+        line-height: 1.5;
       }
 
       .overlay-features {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        gap: 8px;
         text-align: left;
         font-family: var(--font-mono);
-        font-size: 0.74rem;
+        font-size: 0.72rem;
         background: var(--bg-panel);
         border: 1px solid var(--border-color);
-        padding: 12px;
+        padding: 10px;
         border-radius: 8px;
       }
 
       .overlay-features div {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
         color: var(--text-primary);
       }
 
@@ -403,7 +482,7 @@
         background: var(--accent-cyan);
         color: #000;
         border: none;
-        padding: 14px 28px;
+        padding: 13px 24px;
         border-radius: 8px;
         font-family: var(--font-mono);
         font-size: 0.95rem;
@@ -417,105 +496,160 @@
       .overlay-btn:hover {
         background: #33ebff;
         box-shadow: 0 0 24px rgba(0, 229, 255, 0.6);
-        transform: translateY(-1px);
+      }
+
+      /* Responsive rules for mobile screens */
+      @media (max-width: 900px) {
+        .headphone-notice {
+          display: none;
+        }
+
+        .sprint-badge {
+          display: none;
+        }
+
+        .app-layout {
+          display: block;
+          position: relative;
+        }
+
+        .panel {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          border: none;
+          display: none;
+          padding: 14px;
+          gap: 12px;
+        }
+
+        #threeContainer {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+
+        .mobile-tabs {
+          display: flex;
+        }
+
+        .viewport-overlay {
+          bottom: 10px;
+          left: 10px;
+          right: 10px;
+          transform: none;
+          font-size: 0.66rem;
+          white-space: normal;
+        }
+
+        .overlay-features {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-Czpw9DAc.js"></script>
+    <script type="module" crossorigin src="./assets/index-CeiMOayA.js"></script>
   </head>
   <body>
     <!-- Start Experience Modal Overlay -->
     <div id="startOverlay">
       <div class="overlay-modal">
-        <div class="overlay-title">AetherRay</div>
-        <div class="overlay-desc">
-          Real-time physical ray-traced spatial audio engine built with Rust, WebAssembly, Web Audio API, and Three.js.
+        <div class="overlay-title" data-i18n="modalTitle">AetherRay</div>
+        <div class="overlay-desc" data-i18n="modalDesc">
+          Браузерный движок физически корректного пространственного звука в реальном времени на Rust, WebAssembly, Web Audio API и Three.js.
         </div>
         <div class="overlay-features">
-          <div>🔹 Geometric Ray Tracing</div>
-          <div>🔹 Woodworth ITD / ILD</div>
-          <div>🔹 Fractional Delay Doppler</div>
-          <div>🔹 Householder 4-ch FDN</div>
-          <div>🔹 Multi-Wall Occlusion</div>
-          <div>🔹 Sabine / Eyring RT60</div>
+          <div data-i18n="featRayTracing">🔹 Трассировка лучей</div>
+          <div data-i18n="featItdIld">🔹 ITD / ILD Вудворта</div>
+          <div data-i18n="featDoppler">🔹 Эффект Доплера</div>
+          <div data-i18n="featFdn">🔹 4-канальная FDN Хаусхолдера</div>
+          <div data-i18n="featOcclusion">🔹 Окклюзия сквозь стены</div>
+          <div data-i18n="featRt60">🔹 Формула Сэбина / Эйринга</div>
         </div>
-        <div style="font-size: 0.82rem; color: var(--accent-amber); font-family: var(--font-mono);">
-          🎧 Please connect stereo headphones for realistic 3D binaural immersion!
+        <div style="font-size: 0.82rem; color: var(--accent-amber); font-family: var(--font-mono);" data-i18n="modalHeadphonesHint">
+          🎧 Для реалистичного 3D-погружения подключите стереонаушники!
         </div>
-        <button id="btnStartExperience" class="overlay-btn">⚡ Launch Engine</button>
+        <button id="btnStartExperience" class="overlay-btn" data-i18n="launchBtn">⚡ Запустить движок</button>
       </div>
     </div>
 
     <header>
       <div class="logo-group">
         <div class="logo">AetherRay</div>
-        <div class="sprint-badge">v1.0 • Spatial Audio Lab</div>
+        <div class="sprint-badge" data-i18n="sprintBadge">v1.0 • Лаборатория Пространственного Звука</div>
       </div>
-      <div class="headphone-notice">
-        🎧 Binaural Acoustic Simulation (Headphones Recommended)
+      <div class="headphone-notice" data-i18n="headphonesNotice">
+        🎧 Бинауральная симуляция (наденьте стереонаушники)
       </div>
-      <div>
-        <button id="btnAudioPower" class="btn btn-primary">▶ Start Audio Engine</button>
+      <div class="header-actions">
+        <div class="lang-switcher">
+          <button id="btnLangRu" class="lang-btn lang-btn-active">RU</button>
+          <button id="btnLangEn" class="lang-btn">EN</button>
+        </div>
+        <button id="btnAudioPower" class="btn btn-primary" data-i18n="startAudio">▶ Запустить аудио</button>
       </div>
     </header>
 
     <div class="app-layout">
       <!-- Left Panel: Scene, Material & Acoustic Source Controls -->
-      <div class="panel">
+      <div id="panelLeft" class="panel panel-left">
         <div class="panel-title">
-          <span>Acoustic Room Preset</span>
+          <span data-i18n="roomPreset">Акустический пресет</span>
         </div>
 
         <div class="control-group">
           <select id="selPreset">
-            <option value="bunker">Concrete Bunker (High RT60 Reverb)</option>
-            <option value="studio">Acoustic Studio (Treated Foam)</option>
-            <option value="maze">Maze & Partitions (Occlusion Test)</option>
-            <option value="corridor">Glass Corridor (Transmission)</option>
+            <option value="bunker">Бетонный бункер (Высокий RT60)</option>
+            <option value="studio">Акустическая студия (Поролон)</option>
+            <option value="maze">Лабиринт (Тест окклюзии)</option>
+            <option value="corridor">Стеклянный коридор (Прохождение)</option>
           </select>
         </div>
 
         <div class="material-legend">
           <div class="legend-item">
             <div class="legend-color" style="background: #8a9ba8;"></div>
-            <span>Concrete</span>
+            <span data-i18n="matConcrete">Бетон</span>
           </div>
           <div class="legend-item">
             <div class="legend-color" style="background: #b57c48;"></div>
-            <span>Wood</span>
+            <span data-i18n="matWood">Дерево</span>
           </div>
           <div class="legend-item">
             <div class="legend-color" style="background: #4dd0e1;"></div>
-            <span>Glass</span>
+            <span data-i18n="matGlass">Стекло</span>
           </div>
           <div class="legend-item">
             <div class="legend-color" style="background: #212121; border: 1px solid #555;"></div>
-            <span>Foam</span>
+            <span data-i18n="matFoam">Поролон</span>
           </div>
         </div>
 
         <div class="panel-title" style="margin-top: 2px;">
-          <span>Dynamic Wall Editor</span>
+          <span data-i18n="wallEditor">Редактор геометрии стен</span>
         </div>
 
         <div id="wallEditorCard" class="editor-card">
-          <div id="wallEditorStatus" style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);">
-            Click any wall in 3D scene to inspect and modify its material or orientation.
+          <div id="wallEditorStatus" style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);" data-i18n="wallEditorStatusNone">
+            Нажмите на стену в 3D сцене для изменения материала и угла.
           </div>
 
           <div id="wallEditorFields" style="display: none; flex-direction: column; gap: 6px;">
             <div class="control-group">
-              <label class="control-label">Wall Material</label>
+              <label class="control-label" data-i18n="wallMaterial">Материал стены</label>
               <select id="selWallMaterial">
-                <option value="concrete">Concrete (α=0.03, τ=0.02)</option>
-                <option value="wood">Wood (α=0.15, τ=0.15)</option>
-                <option value="glass">Glass (α=0.08, τ=0.35)</option>
-                <option value="foam">Acoustic Foam (α=0.85, τ=0.10)</option>
+                <option value="concrete">Бетон (α=0.03, τ=0.02)</option>
+                <option value="wood">Дерево (α=0.15, τ=0.15)</option>
+                <option value="glass">Стекло (α=0.08, τ=0.35)</option>
+                <option value="foam">Акустический поролон (α=0.85, τ=0.10)</option>
               </select>
             </div>
 
             <div class="control-group">
               <label class="control-label">
-                <span>Rotation Y</span>
+                <span data-i18n="wallRotation">Поворот Y</span>
                 <span class="val" id="valWallRot">0°</span>
               </label>
               <input type="range" id="rngWallRot" min="0" max="360" step="5" value="0" />
@@ -523,58 +657,58 @@
 
             <div class="control-group">
               <label class="control-label">
-                <span>Wall Length</span>
+                <span data-i18n="wallLength">Длина стены</span>
                 <span class="val" id="valWallLen">4.0 m</span>
               </label>
               <input type="range" id="rngWallLen" min="1.0" max="14.0" step="0.5" value="4.0" />
             </div>
 
             <div class="btn-grid">
-              <button id="btnDeleteWall" class="btn btn-danger">🗑 Delete Wall</button>
-              <button id="btnDeselectWall" class="btn">Deselect</button>
+              <button id="btnDeleteWall" class="btn btn-danger" data-i18n="deleteWall">🗑 Удалить стену</button>
+              <button id="btnDeselectWall" class="btn" data-i18n="deselectWall">Снять выбор</button>
             </div>
           </div>
 
           <div class="btn-grid" style="margin-top: 2px;">
-            <button id="btnAddWall" class="btn">➕ Add Wall</button>
-            <button id="btnResetPreset" class="btn">↺ Reset Preset</button>
+            <button id="btnAddWall" class="btn" data-i18n="addWall">➕ Добавить стену</button>
+            <button id="btnResetPreset" class="btn" data-i18n="resetPreset">↺ Сброс пресета</button>
           </div>
         </div>
 
         <div class="panel-title" style="margin-top: 2px;">
-          <span>Sound Generator</span>
+          <span data-i18n="soundGenerator">Генератор звука</span>
         </div>
 
         <div class="control-group">
-          <label class="control-label">Signal Preset</label>
+          <label class="control-label" data-i18n="signalPreset">Сигнал источника</label>
           <div class="btn-grid">
-            <button class="btn btn-active" data-signal="siren">🚨 Siren</button>
-            <button class="btn" data-signal="impulse">⚡ Impulse</button>
-            <button class="btn" data-signal="pink_noise">🌊 Pink Noise</button>
-            <button class="btn" data-signal="sine">🎶 440 Hz</button>
+            <button class="btn btn-active" data-signal="siren" data-i18n="sigSiren">🚨 Сирена</button>
+            <button class="btn" data-signal="impulse" data-i18n="sigImpulse">⚡ Импульс</button>
+            <button class="btn" data-signal="pink_noise" data-i18n="sigPinkNoise">🌊 Розовый шум</button>
+            <button class="btn" data-signal="sine" data-i18n="sigSine">🎶 440 Гц</button>
           </div>
         </div>
 
         <div class="control-group">
-          <label class="control-label">Custom Audio File</label>
+          <label class="control-label" data-i18n="customFile">Свой аудиофайл</label>
           <input type="file" id="fileAudio" accept="audio/*" style="font-size: 0.72rem;" />
         </div>
 
         <div class="control-group">
           <label class="control-label">
-            <span>Volume</span>
+            <span data-i18n="volume">Громкость</span>
             <span class="val" id="valVolume">50%</span>
           </label>
           <input type="range" id="rngVolume" min="0" max="1" step="0.01" value="0.5" />
         </div>
 
         <div class="panel-title" style="margin-top: 2px;">
-          <span>Ray-Tracer Parameters</span>
+          <span data-i18n="tracerParams">Параметры трассировки</span>
         </div>
 
         <div class="control-group">
           <label class="control-label">
-            <span>Rays per Frame</span>
+            <span data-i18n="raysPerFrame">Лучей в кадре</span>
             <span class="val" id="valRays">512</span>
           </label>
           <input type="range" id="rngRays" min="128" max="2048" step="128" value="512" />
@@ -582,7 +716,7 @@
 
         <div class="control-group">
           <label class="control-label">
-            <span>Max Bounces</span>
+            <span data-i18n="maxBounces">Макс. отскоков</span>
             <span class="val" id="valBounces">4</span>
           </label>
           <input type="range" id="rngBounces" min="1" max="4" step="1" value="4" />
@@ -590,34 +724,34 @@
 
         <div class="control-group">
           <label class="control-label">
-            <span>Auto-Orbit Source</span>
-            <span class="val" id="valOrbit">OFF</span>
+            <span data-i18n="autoOrbit">Орбита источника</span>
+            <span class="val" id="valOrbit">ВЫКЛ</span>
           </label>
-          <button id="btnOrbit" class="btn">🔄 Enable Orbiting Source</button>
+          <button id="btnOrbit" class="btn" data-i18n="enableOrbit">🔄 Включить орбиту</button>
         </div>
       </div>
 
       <!-- Center 3D Viewport (Three.js WebGL2) -->
       <div id="threeContainer"></div>
-      <div class="viewport-overlay">
-        <strong>Controls:</strong> Left Drag = Orbit View | Drag <strong>Orange Sphere</strong> = Sound Source | Drag <strong>Cyan Head</strong> = Listener | Click/Drag <strong>Wall</strong> = Edit Geometry | Wheel = Zoom
+      <div id="viewportOverlay" class="viewport-overlay" data-i18n="viewportHint">
+        Управление: Перетаскивание = Вращение камеры | Оранжевая сфера = Источник | Синяя голова = Слушатель | Клик по стене = Редактирование | Колесо/Pinch = Зум
       </div>
 
       <!-- Right Panel: Live Physics & DSP Telemetry -->
-      <div class="panel panel-right">
+      <div id="panelRight" class="panel panel-right">
         <div class="panel-title">
-          <span>Engine Telemetry</span>
-          <span style="font-size: 0.72rem; color: var(--accent-emerald);" id="statusIndicator">READY</span>
+          <span data-i18n="telemetryTitle">Телеметрия движка</span>
+          <span style="font-size: 0.72rem; color: var(--accent-emerald);" id="statusIndicator">ГОТОВ</span>
         </div>
 
         <table class="telemetry-table">
           <tr>
-            <td>DSP Render Time</td>
+            <td data-i18n="dspRenderTime">Время рендера DSP</td>
             <td id="telDspTime">0.00 ms</td>
           </tr>
           <tr>
-            <td>DSP Audio Budget</td>
-            <td>&lt; 2.66 ms (128 spl)</td>
+            <td data-i18n="dspBudget">Бюджет блока DSP (128 spl)</td>
+            <td>&lt; 2.66 ms</td>
           </tr>
           <tr>
             <td colspan="2">
@@ -627,73 +761,89 @@
             </td>
           </tr>
           <tr>
-            <td>Physics Worker Tick</td>
+            <td data-i18n="physicsTick">Тик физики воркера</td>
             <td id="telPhysicsTick">0.0 ms (40 Hz)</td>
           </tr>
           <tr>
-            <td>Active Early Reflections</td>
+            <td data-i18n="activeReflections">Ранние отражения</td>
             <td id="telReflections">0 / 32</td>
           </tr>
           <tr>
-            <td>Calculated RT60 Reverb</td>
+            <td data-i18n="calculatedRt60">Расчётный RT60</td>
             <td id="telRt60">0.50 s</td>
           </tr>
           <tr>
-            <td>Mean Absorption ᾱ</td>
+            <td data-i18n="meanAbsorption">Среднее поглощение ᾱ</td>
             <td id="telMeanAbs">0.03</td>
           </tr>
           <tr>
-            <td>Direct Occlusion</td>
-            <td id="telOcclusion">0.0 dB (Clear)</td>
+            <td data-i18n="directOcclusion">Окклюзия прямого звука</td>
+            <td id="telOcclusion">0.0 dB</td>
           </tr>
           <tr>
-            <td>Low-Pass Cutoff</td>
+            <td data-i18n="lowPassCutoff">Срез фильтра ВЧ</td>
             <td id="telCutoff">20 000 Hz</td>
           </tr>
           <tr>
-            <td>Direct Path Delay</td>
+            <td data-i18n="directDelay">Прямая задержка</td>
             <td id="telDelay">0 spl (0.0 ms)</td>
           </tr>
           <tr>
-            <td>Interaural ITD</td>
+            <td data-i18n="itdTitle">Межушная задержка (ITD)</td>
             <td id="telItd">0.00 ms</td>
           </tr>
           <tr>
-            <td>Azimuth Angle</td>
+            <td data-i18n="azimuthAngle">Угол азимута</td>
             <td id="telAzimuth">0.0°</td>
           </tr>
         </table>
 
         <div class="panel-title" style="margin-top: 2px;">
-          <span>Impulse Response (IR)</span>
+          <span data-i18n="irTitle">Импульсная характеристика (IR)</span>
         </div>
         <div class="ir-container">
           <canvas id="irCanvas"></canvas>
         </div>
 
         <div class="panel-title" style="margin-top: 2px;">
-          <span>Listening Layers</span>
+          <span data-i18n="listeningLayers">Слои прослушивания</span>
         </div>
 
         <div class="btn-grid">
-          <button class="btn btn-active" data-mode="0">All Audio</button>
-          <button class="btn" data-mode="1">Direct Only</button>
-          <button class="btn" data-mode="2">Reflections</button>
-          <button class="btn" data-mode="3">Reverb Only</button>
+          <button class="btn btn-active" data-mode="0" data-i18n="layerAll">Все слои</button>
+          <button class="btn" data-mode="1" data-i18n="layerDirect">Только прямой</button>
+          <button class="btn" data-mode="2" data-i18n="layerReflections">Отражения</button>
+          <button class="btn" data-mode="3" data-i18n="layerReverb">Реверберация</button>
         </div>
 
         <div class="panel-title" style="margin-top: 2px;">
-          <span>Physical Specs</span>
+          <span data-i18n="physicalSpecsTitle">Физическая модель</span>
         </div>
         <div style="font-size: 0.71rem; color: var(--text-secondary); line-height: 1.5; font-family: var(--font-mono);">
-          • Ray Generation: Fibonacci Sphere + Monte Carlo Jitter<br />
-          • Occlusion: Ray-OBB Pierce & Multi-Wall Transmission<br />
-          • Early Reflections: Top-32 Shadow Rays to Listener<br />
-          • Late Reverb: 4-Channel Householder FDN & RT60<br />
-          • Threading: Dedicated Web Worker &lt;=&gt; AudioWorklet
+          <div data-i18n="specRayGen">• Генерация лучей: Сфера Фибоначчи + джиттер Монте-Карло</div>
+          <div data-i18n="specOcclusion">• Окклюзия: Ray-OBB пересечения сквозь препятствия</div>
+          <div data-i18n="specEarlyRefl">• Ранние отражения: топ-32 Shadow Rays к слушателю</div>
+          <div data-i18n="specLateReverb">• Поздняя реверберация: 4-канальная FDN Хаусхолдера</div>
+          <div data-i18n="specThreading">• Потоки: Web Worker (40 Гц) ⇄ AudioWorklet (WASM)</div>
         </div>
       </div>
     </div>
+
+    <!-- Mobile Bottom Navigation Tab Bar -->
+    <nav class="mobile-tabs">
+      <button class="tab-btn tab-btn-active" data-tab="scene">
+        <span>🎮</span>
+        <span data-i18n="tabScene">3D Сцена</span>
+      </button>
+      <button class="tab-btn" data-tab="controls">
+        <span>⚙️</span>
+        <span data-i18n="tabControls">Настройки</span>
+      </button>
+      <button class="tab-btn" data-tab="telemetry">
+        <span>📊</span>
+        <span data-i18n="tabTelemetry">Метрики</span>
+      </button>
+    </nav>
 
   </body>
 </html>
