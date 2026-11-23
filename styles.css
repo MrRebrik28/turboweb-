@@ -1,11 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Montserrat:wght@600;700;800;900&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  --primary: #2563EB;
-  --primary-hover: #1D4ED8;
-  --emerald: #10B981;
-  --bg-main: #F8FAFC;
-  --text-dark: #0F172A;
+  /* Базовый холст (Light-First Engineering UI) */
+  --surface-canvas:      #F8FAFC; /* Чистый нейтральный светло-серый фон страницы */
+  --surface-card:        #FFFFFF; /* Белоснежные карточки первого плана */
+  --surface-elevated:    #FFFFFF; /* Выпадающие списки, модальные окна, тултипы */
+  --surface-muted:       #F1F5F9; /* Вторичные секции («зебра»), табы, заливки тегов */
+  --surface-subtle:      #E2E8F0; /* Разделители, линии сетки, неактивные границы */
+
+  /* Контрастный текст (WCAG AAA) */
+  --text-main:           #0F172A; /* Глубокий темно-сланцевый */
+  --text-muted:          #475569; /* Вторичный текст, параграфы, описания */
+  --text-caption:        #64748B; /* Метаданные, плейсхолдеры, даты, мелкие подписи */
+  --text-on-accent:      #FFFFFF; /* Белый текст поверх акцентных кнопок */
+
+  /* Акцентный цвет (60-30-10: IT/B2B Королевский сапфир) */
+  --primary:             #2563EB;
+  --primary-hover:       #1D4ED8;
+  --primary-active:      #1E40AF;
+  --primary-subtle:      #EFF6FF;
+
+  /* Успех / Гарантия (Изумруд) */
+  --emerald:             #10B981;
+  --emerald-dark:        #059669;
+  --emerald-subtle:      #ECFDF5;
+
+  /* Микро-тени (Soft Ambient Shadows) */
+  --shadow-sm:           0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card:         0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-hover:        0 12px 24px -4px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-modal:        0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-btn:          0 4px 14px 0 rgba(37, 99, 235, 0.28);
+  --shadow-btn-hover:    0 8px 22px 0 rgba(37, 99, 235, 0.38);
+
+  /* Типографическая система (Архив 35 шрифтов: Вариант 1) */
+  --font-heading:        'Montserrat', sans-serif;
+  --font-body:           'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:           'IBM Plex Mono', monospace;
 }
 
 * {
@@ -13,11 +44,22 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg-main);
-  color: var(--text-dark);
+  font-family: var(--font-body);
+  background-color: var(--surface-canvas);
+  color: var(--text-main);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+}
+
+.font-mono, .price-mono {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
 }
 
 /* Karaoke Subtitle Effect on Hero Title: мягкая волна с легким свечением */
@@ -44,10 +86,10 @@ body {
 .card-glass {
   position: relative;
   overflow: hidden;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
+  background: var(--surface-card);
+  border: 1px solid var(--surface-subtle);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
 }
 
@@ -58,7 +100,7 @@ body {
   left: 0; 
   right: 0; 
   bottom: 0;
-  background: radial-gradient(350px circle at var(--x, 50%) var(--y, 50%), rgba(37, 99, 235, 0.07), transparent 75%);
+  background: radial-gradient(350px circle at var(--x, 50%) var(--y, 50%), rgba(37, 99, 235, 0.06), transparent 75%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -71,7 +113,7 @@ body {
 
 .card-glass:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px -6px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-hover);
   border-color: #CBD5E1;
 }
 
@@ -87,16 +129,18 @@ body {
   justify-content: center;
   background-color: var(--primary);
   color: #FFFFFF;
+  font-family: var(--font-heading);
   font-weight: 700;
   border-radius: 14px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
+  box-shadow: var(--shadow-btn);
+  letter-spacing: -0.01em;
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px 0 rgba(37, 99, 235, 0.4);
+  box-shadow: var(--shadow-btn-hover);
 }
 
 .btn-primary:active {
