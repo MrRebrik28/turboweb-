@@ -37,6 +37,15 @@
   --font-heading:        'Montserrat', sans-serif;
   --font-body:           'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono:           'IBM Plex Mono', monospace;
+
+  /* Строгие границы и геометрия («Всё зачётно») */
+  --border-subtle:       #E2E8F0;
+  --border-medium:       #CBD5E1;
+  --border-control:      #64748B;
+  --radius-sharp:        4px;
+  --radius-micro:        2px;
+  --radius-pill:         9999px;
+  --ease-expo:           cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -50,6 +59,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
 }
 
 h1, h2, h3, h4, h5, h6, .font-heading {
@@ -235,15 +245,110 @@ input:user-invalid, select:user-invalid, textarea:user-invalid {
 
 /* Visually Hidden (Accessible to Screen Readers) */
 .visually-hidden {
-  position: absolute;
-  clip-path: inset(50%);
-  overflow: hidden;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  white-space: nowrap;
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Scroll Progress Indicator («Всё зачётно») */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    @keyframes grow-scroll-progress {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    .scroll-progress {
+      animation: grow-scroll-progress auto linear;
+      animation-timeline: scroll();
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+}
+
+/* Accessibility: Skip Link («Всё зачётно») */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  z-index: 10000;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-sharp);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-modal);
+  transition: top 0.2s var(--ease-expo);
+}
+
+.skip-link:focus {
+  top: 12px;
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+/* 4-уровневая система статусов и SLA («Всё зачётно») */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+.status-info {
+  color: #1D4ED8;
+  background-color: #EFF6FF;
+  border-color: #BFDBFE;
+}
+
+.status-important {
+  color: #FFFFFF;
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.status-warning {
+  color: #B45309;
+  background-color: #FFFBEB;
+  border-color: #FDE68A;
+}
+
+.status-critical {
+  color: #B91C1C;
+  background-color: #FEF2F2;
+  border-color: #FECACA;
 }
 
 /* Radio Card Control */
@@ -281,7 +386,7 @@ input[type="range"] {
   cursor: pointer;
 }
 
-/* Native Dialog */
+/* Native Dialog Strict Shell (Top-layer Animate & Scroll Lock из «Всё зачётно») */
 dialog:modal {
   overscroll-behavior: contain;
   border: none;
@@ -290,28 +395,105 @@ dialog:modal {
   margin: auto;
   max-width: 90vw;
   width: 480px;
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.22s;
+  transition-timing-function: var(--ease-expo);
+  transition-behavior: allow-discrete;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog:modal {
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+:is(dialog:modal[open]):where(:not([data-closing])) {
+  opacity: 1;
+}
+
+@starting-style {
+  :is(dialog:modal[open]):where(:not([data-closing])) {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(dialog:modal[open]):where(:not([data-closing])) {
+    transform: translateY(0) scale(1);
+  }
+  @starting-style {
+    :is(dialog:modal[open]):where(:not([data-closing])) {
+      transform: translateY(8px) scale(0.98);
+    }
+  }
 }
 
 dialog::backdrop {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background-color: rgba(15, 23, 42, 0);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   overflow: hidden;
   overscroll-behavior: contain;
+  transition-property: background-color, display, overlay;
+  transition-duration: 0.22s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
 }
 
-/* Native Details FAQ Support */
+:is(dialog:modal[open]):where(:not([data-closing]))::backdrop {
+  background-color: rgba(15, 23, 42, 0.6);
+}
+
+@starting-style {
+  :is(dialog:modal[open]):where(:not([data-closing]))::backdrop {
+    background-color: rgba(15, 23, 42, 0);
+  }
+}
+
+/* Native Details FAQ Support с interpolate-size («Всё зачётно») */
 details.faq-native > summary {
   list-style: none;
   cursor: pointer;
 }
+
 details.faq-native > summary::-webkit-details-marker {
   display: none;
 }
+
 details.faq-native[open] .faq-icon {
   transform: rotate(180deg);
   background-color: #EFF6FF;
   color: var(--primary);
+}
+
+details.faq-native::details-content {
+  interpolate-size: allow-keywords;
+  overflow: clip;
+  contain: layout;
+}
+
+details.faq-native:not([open])::details-content {
+  block-size: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  details.faq-native::details-content {
+    transition: block-size, content-visibility, display;
+    transition-duration: 0.25s;
+    transition-timing-function: var(--ease-expo);
+    transition-behavior: allow-discrete;
+  }
+}
+
+/* High Contrast Mode Assistive Support */
+@media (forced-colors: active) {
+  dialog:modal,
+  .status-badge,
+  .messenger-btn,
+  .card-glass {
+    border: 1px solid CanvasText;
+  }
 }
 
 /* FAQ Accordion Styling */

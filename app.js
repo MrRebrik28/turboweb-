@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initReferralTracking();
+  initScrollProgress();
   initKaraokeTitle();
   initScrollReveal();
   initSpotlight();
@@ -11,6 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initDynamicDate();
   initPartnerPage();
 });
+
+// Scroll Progress Fallback (для браузеров без поддержки animation-timeline: scroll())
+function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  if (window.CSS && CSS.supports && CSS.supports('animation-timeline', 'scroll()')) return;
+
+  window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight <= 0) return;
+    const progress = Math.min(1, Math.max(0, window.scrollY / totalHeight));
+    bar.style.transform = `scaleX(${progress})`;
+  }, { passive: true });
+}
 
 // 1. Karaoke / Subtitle reading animation on Hero Title
 // Плавная волна с подсветкой; в финале светятся строго "оплата — потом"
