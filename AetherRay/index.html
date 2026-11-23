@@ -675,13 +675,30 @@
         border-color: var(--accent-rose);
       }
 
-      /* Engineer Mode Drawer Panel */
+      /* Engineer Mode Drawer Panel & Backdrop */
+      .engineer-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 21;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+
+      .engineer-mode-active .engineer-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
       .engineer-panel {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
-        width: 330px;
+        width: 340px;
         background: rgba(10, 14, 22, 0.94);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
@@ -699,6 +716,28 @@
 
       .engineer-mode-active .engineer-panel {
         transform: translateX(0);
+      }
+
+      .btn-close-engineer {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        border-radius: 8px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .btn-close-engineer:hover,
+      .btn-close-engineer:active {
+        background: rgba(255, 51, 102, 0.2);
+        border-color: var(--accent-rose);
+        color: var(--accent-rose);
       }
 
       .panel-section-title {
@@ -909,6 +948,10 @@
 
         .engineer-panel {
           width: 100%;
+          max-width: 100vw;
+          z-index: 25;
+          padding-top: max(16px, env(safe-area-inset-top));
+          padding-bottom: max(28px, env(safe-area-inset-bottom));
         }
 
         .wall-context-card {
@@ -918,7 +961,7 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-CHrH4aJx.js?v=20261123_wavefield"></script>
+    <script type="module" crossorigin src="./assets/index-DAF4T6oY.js?v=20261123_drawer_fix"></script>
   </head>
   <body>
     <div id="appContainer">
@@ -1242,11 +1285,22 @@
         </button>
       </div>
 
+      <!-- Engineer Mode Backdrop -->
+      <div id="engineerBackdrop" class="engineer-backdrop"></div>
+
       <!-- Engineer Mode Drawer Panel (Hidden by default, slides out when active) -->
       <aside id="engineerPanel" class="engineer-panel">
-        <div class="panel-section-title">
-          <span data-i18n="telemetryTitle">Инженерная телеметрия</span>
-          <span style="font-size: 0.72rem; color: var(--accent-emerald);" id="statusIndicator">ГОТОВ</span>
+        <div class="panel-section-title" style="padding-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span data-i18n="telemetryTitle">Инженерная телеметрия</span>
+            <span style="font-size: 0.72rem; color: var(--accent-emerald);" id="statusIndicator">АКТИВЕН</span>
+          </div>
+          <button id="btnCloseEngineer" class="btn-close-engineer" title="Закрыть панель инженера" aria-label="Закрыть">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
 
         <table class="telemetry-table">
@@ -1350,6 +1404,14 @@
             <path d="M3 21v-5h5"/>
           </svg>
           <span data-i18n="resetPreset">Сбросить сцену</span>
+        </button>
+
+        <button id="btnExitEngineer" class="btn-dock-action" style="margin-top: 6px; justify-content: center; background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.16);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          <span data-i18n="closeEngineer">Закрыть панель инженера</span>
         </button>
       </aside>
     </div>
