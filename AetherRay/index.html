@@ -3,21 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>AetherRay — Ray-Traced Spatial Audio Engine</title>
+    <title>AetherRay — Пространственная акустика</title>
     <script src="coi-serviceworker.js"></script>
     <style>
       :root {
-        --bg-primary: #07090e;
-        --bg-secondary: #0f141d;
-        --bg-panel: #161e2c;
-        --border-color: #243144;
+        --bg-space: #07090e;
+        --glass-bg: rgba(13, 18, 27, 0.82);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-hover: rgba(255, 255, 255, 0.14);
         --accent-cyan: #00e5ff;
         --accent-emerald: #00e676;
         --accent-amber: #ffd600;
         --accent-orange: #ff9100;
-        --accent-rose: #ff1744;
-        --text-primary: #e6edf3;
+        --accent-rose: #ff3366;
+        --text-primary: #f0f6fc;
         --text-secondary: #8b9bb4;
+        --text-muted: #5c6c82;
+        --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
       }
 
@@ -28,76 +30,209 @@
       }
 
       body {
-        background-color: var(--bg-primary);
+        background-color: var(--bg-space);
         color: var(--text-primary);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: var(--font-sans);
         overflow: hidden;
+        width: 100vw;
         height: 100vh;
         height: 100dvh;
-        display: flex;
-        flex-direction: column;
         user-select: none;
         -webkit-user-select: none;
       }
 
-      header {
-        background: var(--bg-secondary);
-        border-bottom: 1px solid var(--border-color);
-        padding: 8px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        z-index: 10;
-        flex-shrink: 0;
+      #appContainer {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
       }
 
-      .logo-group {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+      /* 3D Viewport - Takes full screen */
+      #threeContainer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        outline: none;
       }
 
-      .logo {
-        font-family: var(--font-mono);
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--accent-cyan);
-        letter-spacing: 1px;
-        text-transform: uppercase;
+      /* 3D Projected Screen Badges */
+      #badgesLayer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+        overflow: hidden;
       }
 
-      .sprint-badge {
-        font-size: 0.7rem;
-        padding: 2px 7px;
-        border-radius: 4px;
-        background: rgba(0, 229, 255, 0.12);
-        border: 1px solid var(--accent-cyan);
-        color: var(--accent-cyan);
-        font-family: var(--font-mono);
-      }
-
-      .headphone-notice {
-        font-size: 0.78rem;
-        color: var(--accent-amber);
+      .scene-badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -100%);
         display: flex;
         align-items: center;
         gap: 6px;
+        padding: 4px 10px;
+        background: rgba(10, 14, 22, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
         font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        color: var(--text-primary);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        white-space: nowrap;
+        transition: opacity 0.2s ease;
+        opacity: 0;
       }
 
-      .header-actions {
+      .badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .dot-amber {
+        background: var(--accent-orange);
+        box-shadow: 0 0 8px var(--accent-orange);
+      }
+
+      .dot-cyan {
+        background: var(--accent-cyan);
+        box-shadow: 0 0 8px var(--accent-cyan);
+      }
+
+      /* Top Bar */
+      .top-bar {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 20;
+        pointer-events: none;
+        gap: 12px;
+      }
+
+      .top-bar > * {
+        pointer-events: auto;
+      }
+
+      .brand-group {
         display: flex;
         align-items: center;
         gap: 10px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        padding: 7px 14px;
+        border-radius: 12px;
       }
 
-      /* Language switcher */
+      .brand-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        color: var(--accent-cyan);
+      }
+
+      .headphone-pill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.73rem;
+        color: var(--text-secondary);
+        border-left: 1px solid var(--glass-border);
+        padding-left: 10px;
+      }
+
+      /* Presets Strip */
+      .preset-strip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        padding: 5px;
+        border-radius: 14px;
+      }
+
+      .preset-card {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text-secondary);
+        padding: 6px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        text-align: left;
+      }
+
+      .preset-card:hover {
+        background: var(--glass-hover);
+        color: var(--text-primary);
+      }
+
+      .preset-card-active {
+        background: rgba(0, 229, 255, 0.12) !important;
+        border-color: rgba(0, 229, 255, 0.35) !important;
+        color: var(--accent-cyan) !important;
+      }
+
+      .preset-card-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .preset-card-title {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        line-height: 1.2;
+      }
+
+      .preset-card-active .preset-card-title {
+        color: var(--accent-cyan);
+      }
+
+      .preset-card-desc {
+        font-size: 0.67rem;
+        color: var(--text-muted);
+      }
+
+      /* Top Right Controls */
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
       .lang-switcher {
         display: flex;
-        background: var(--bg-panel);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        overflow: hidden;
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        padding: 2px;
       }
 
       .lang-btn {
@@ -106,183 +241,487 @@
         color: var(--text-secondary);
         padding: 5px 9px;
         font-family: var(--font-mono);
-        font-size: 0.74rem;
+        font-size: 0.72rem;
         font-weight: 700;
+        border-radius: 8px;
         cursor: pointer;
         transition: all 0.2s ease;
       }
 
-      .lang-btn:hover {
+      .lang-btn-active {
+        background: rgba(255, 255, 255, 0.12);
         color: var(--text-primary);
       }
 
-      .lang-btn-active {
-        background: var(--accent-cyan);
-        color: #000 !important;
-      }
-
-      .app-layout {
-        display: grid;
-        grid-template-columns: 340px 1fr 340px;
-        flex: 1;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .panel {
-        background: rgba(15, 20, 29, 0.94);
-        backdrop-filter: blur(12px);
-        border-right: 1px solid var(--border-color);
-        padding: 12px 14px;
+      .engineer-toggle-pill {
         display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        padding: 6px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .engineer-toggle-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Switch toggle */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 18px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.15);
+        transition: 0.25s;
+        border-radius: 20px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 12px;
+        width: 12px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.25s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--accent-cyan);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(16px);
+        background-color: #000;
+      }
+
+      /* Bottom Floating Dock */
+      .bottom-dock {
+        position: absolute;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        padding: 8px 14px;
+        border-radius: 18px;
+        z-index: 20;
+        max-width: 95vw;
+      }
+
+      .dock-divider {
+        width: 1px;
+        height: 22px;
+        background: var(--glass-border);
+        flex-shrink: 0;
+      }
+
+      .btn-play-pause {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--accent-cyan);
+        color: #000;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 0 16px rgba(0, 229, 255, 0.3);
+        flex-shrink: 0;
+      }
+
+      .btn-play-pause:hover {
+        background: #33ebff;
+        box-shadow: 0 0 24px rgba(0, 229, 255, 0.5);
+        transform: scale(1.04);
+      }
+
+      .btn-playing {
+        background: #1e293b;
+        color: var(--accent-cyan);
+        border: 1px solid var(--accent-cyan);
+        box-shadow: none;
+      }
+
+      .btn-playing:hover {
+        background: rgba(0, 229, 255, 0.15);
+      }
+
+      .source-selector {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: rgba(7, 9, 14, 0.5);
+        padding: 3px;
+        border-radius: 12px;
+        border: 1px solid var(--glass-border);
+      }
+
+      .source-pill {
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        padding: 6px 11px;
+        border-radius: 9px;
+        font-size: 0.76rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.18s ease;
+        white-space: nowrap;
+      }
+
+      .source-pill:hover {
+        color: var(--text-primary);
+      }
+
+      .source-pill-active {
+        background: rgba(255, 255, 255, 0.12);
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      /* Motion Switch */
+      .switch-pill-group {
+        display: flex;
+        align-items: center;
+        background: rgba(7, 9, 14, 0.5);
+        padding: 3px;
+        border-radius: 12px;
+        border: 1px solid var(--glass-border);
+      }
+
+      .switch-pill {
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        padding: 6px 10px;
+        border-radius: 9px;
+        font-size: 0.74rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.18s ease;
+        white-space: nowrap;
+      }
+
+      .switch-pill-active {
+        background: rgba(255, 255, 255, 0.12);
+        color: var(--accent-cyan);
+      }
+
+      /* Volume Group */
+      .volume-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-secondary);
+      }
+
+      .volume-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 68px;
+        height: 4px;
+        background: var(--glass-border);
+        border-radius: 2px;
+        outline: none;
+      }
+
+      .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent-cyan);
+        cursor: pointer;
+      }
+
+      /* Action button */
+      .btn-dock-action {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        padding: 7px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+
+      .btn-dock-action:hover {
+        background: var(--glass-hover);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      /* Add Wall Popover Modal */
+      .modal-popover {
+        position: fixed;
+        bottom: 84px;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background: rgba(14, 20, 30, 0.95);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+        padding: 14px;
+        z-index: 30;
+        width: 320px;
+        max-width: 90vw;
+        display: none;
         flex-direction: column;
         gap: 10px;
-        overflow-y: auto;
-        z-index: 5;
-        -webkit-overflow-scrolling: touch;
+        transition: opacity 0.2s ease, transform 0.2s ease;
       }
 
-      .panel-right {
-        border-right: none;
-        border-left: 1px solid var(--border-color);
+      .modal-visible {
+        display: flex;
+        transform: translateX(-50%) translateY(0);
       }
 
-      .panel-title {
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        border-bottom: 1px solid var(--glass-border);
+        padding-bottom: 8px;
+      }
+
+      .btn-close {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 2px;
+        display: flex;
+      }
+
+      .btn-close:hover {
+        color: var(--text-primary);
+      }
+
+      .mat-option-btn {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        padding: 8px 12px;
+        color: var(--text-primary);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        transition: all 0.2s ease;
+        text-align: left;
+      }
+
+      .mat-option-btn:hover {
+        background: rgba(0, 229, 255, 0.08);
+        border-color: var(--accent-cyan);
+      }
+
+      .mat-option-title {
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+
+      .mat-option-desc {
+        font-size: 0.7rem;
+        color: var(--text-secondary);
+      }
+
+      /* Wall Context Menu (When wall is selected) */
+      .wall-context-card {
+        position: absolute;
+        top: 76px;
+        left: 16px;
+        background: rgba(13, 18, 27, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--accent-cyan);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+        border-radius: 14px;
+        padding: 14px;
+        width: 280px;
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 25;
+      }
+
+      .wall-card-visible {
+        display: flex;
+      }
+
+      .control-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .field-label {
+        font-size: 0.72rem;
+        color: var(--text-secondary);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .field-val {
+        color: var(--accent-cyan);
         font-family: var(--font-mono);
+      }
+
+      .custom-select {
+        background: rgba(7, 9, 14, 0.6);
+        border: 1px solid var(--glass-border);
+        color: var(--text-primary);
+        padding: 7px 10px;
+        border-radius: 8px;
         font-size: 0.76rem;
+        outline: none;
+      }
+
+      .custom-select:focus {
+        border-color: var(--accent-cyan);
+      }
+
+      .slider-range {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        background: var(--glass-border);
+        border-radius: 2px;
+        outline: none;
+      }
+
+      .slider-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--accent-cyan);
+        cursor: pointer;
+      }
+
+      .btn-danger-outline {
+        background: transparent;
+        border: 1px solid rgba(255, 51, 102, 0.4);
+        color: var(--accent-rose);
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.74rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .btn-danger-outline:hover {
+        background: rgba(255, 51, 102, 0.15);
+        border-color: var(--accent-rose);
+      }
+
+      /* Engineer Mode Drawer Panel */
+      .engineer-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 330px;
+        background: rgba(10, 14, 22, 0.94);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-left: 1px solid var(--glass-border);
+        box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6);
+        z-index: 22;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        overflow-y: auto;
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .engineer-mode-active .engineer-panel {
+        transform: translateX(0);
+      }
+
+      .panel-section-title {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        font-weight: 700;
         text-transform: uppercase;
         color: var(--accent-cyan);
-        letter-spacing: 1px;
-        border-bottom: 1px solid var(--border-color);
+        letter-spacing: 0.8px;
+        border-bottom: 1px solid var(--glass-border);
         padding-bottom: 4px;
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
-      .btn {
-        background: var(--bg-panel);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        padding: 7px 12px;
-        border-radius: 6px;
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-      }
-
-      .btn:hover {
-        border-color: var(--accent-cyan);
-        background: rgba(0, 229, 255, 0.1);
-        color: #fff;
-      }
-
-      .btn-primary {
-        background: var(--accent-cyan);
-        color: #000;
-        border: none;
-        font-weight: 700;
-      }
-
-      .btn-primary:hover {
-        background: #33ebff;
-        color: #000;
-        box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
-      }
-
-      .btn-danger {
-        border-color: var(--accent-rose);
-        color: var(--accent-rose);
-      }
-
-      .btn-danger:hover {
-        background: rgba(255, 23, 68, 0.15);
-        color: #fff;
-      }
-
-      .btn-active {
-        border-color: var(--accent-emerald) !important;
-        background: rgba(0, 230, 118, 0.15) !important;
-        color: var(--accent-emerald) !important;
-      }
-
-      .control-group {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-      }
-
-      .control-label {
-        font-size: 0.72rem;
-        color: var(--text-secondary);
-        display: flex;
-        justify-content: space-between;
-        font-family: var(--font-mono);
-      }
-
-      .control-label span.val {
-        color: var(--accent-cyan);
-        font-weight: 600;
-      }
-
-      select {
-        background: var(--bg-panel);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        padding: 7px 10px;
-        border-radius: 6px;
-        font-family: var(--font-mono);
-        font-size: 0.78rem;
-        outline: none;
-      }
-
-      select:focus {
-        border-color: var(--accent-cyan);
-      }
-
-      input[type="range"] {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        height: 6px;
-        background: var(--border-color);
-        border-radius: 3px;
-        outline: none;
-      }
-
-      input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: var(--accent-cyan);
-        cursor: pointer;
-        box-shadow: 0 0 6px rgba(0, 229, 255, 0.6);
-      }
-
-      .btn-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
-      }
-
       .telemetry-table {
         width: 100%;
         border-collapse: collapse;
         font-family: var(--font-mono);
-        font-size: 0.74rem;
+        font-size: 0.73rem;
       }
 
       .telemetry-table td {
-        padding: 4px 0;
-        border-bottom: 1px solid rgba(36, 49, 68, 0.4);
+        padding: 3px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       }
 
       .telemetry-table td:last-child {
@@ -292,9 +731,9 @@
       }
 
       .budget-bar-container {
-        height: 5px;
-        background: var(--border-color);
-        border-radius: 3px;
+        height: 4px;
+        background: var(--glass-border);
+        border-radius: 2px;
         overflow: hidden;
         margin-top: 2px;
       }
@@ -306,441 +745,504 @@
         transition: width 0.1s ease;
       }
 
-      #threeContainer {
-        width: 100%;
-        height: 100%;
-        position: relative;
+      .ir-box {
+        background: #05070a;
+        border: 1px solid var(--glass-border);
+        border-radius: 8px;
         overflow: hidden;
-      }
-
-      .viewport-overlay {
-        position: absolute;
-        bottom: 14px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(15, 20, 29, 0.88);
-        backdrop-filter: blur(8px);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        padding: 6px 14px;
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-        color: var(--text-secondary);
-        pointer-events: none;
-        z-index: 6;
-        line-height: 1.4;
-        text-align: center;
-        white-space: nowrap;
-      }
-
-      .material-legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-      }
-
-      .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .legend-color {
-        width: 9px;
-        height: 9px;
-        border-radius: 2px;
-      }
-
-      .editor-card {
-        background: rgba(22, 30, 44, 0.7);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        padding: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-      }
-
-      .ir-container {
-        background: #070a0f;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        overflow: hidden;
-        margin-top: 4px;
-        position: relative;
       }
 
       #irCanvas {
         width: 100%;
-        height: 110px;
+        height: 100px;
         display: block;
       }
 
-      /* Mobile Navigation Bar */
-      .mobile-tabs {
-        display: none;
-        background: var(--bg-secondary);
-        border-top: 1px solid var(--border-color);
-        padding: 6px 8px;
-        gap: 8px;
-        z-index: 20;
-        flex-shrink: 0;
+      .layer-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
       }
 
-      .tab-btn {
-        flex: 1;
-        background: var(--bg-panel);
-        border: 1px solid var(--border-color);
+      .layer-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
         color: var(--text-secondary);
-        padding: 8px 4px;
+        padding: 6px;
         border-radius: 6px;
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 600;
+        font-size: 0.72rem;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
         transition: all 0.2s ease;
       }
 
-      .tab-btn-active {
-        background: rgba(0, 229, 255, 0.15);
+      .layer-btn-active {
+        background: rgba(0, 229, 255, 0.12);
         border-color: var(--accent-cyan);
         color: var(--accent-cyan);
       }
 
-      /* Start Experience Overlay */
+      /* 1-Click Onboarding Start Overlay */
       #startOverlay {
         position: fixed;
         inset: 0;
-        background: rgba(5, 7, 11, 0.90);
-        backdrop-filter: blur(16px);
+        background: rgba(5, 7, 11, 0.85);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 100;
-        padding: 16px;
+        padding: 20px;
         transition: opacity 0.4s ease;
       }
 
-      .overlay-modal {
-        background: #0f141d;
-        border: 1px solid var(--accent-cyan);
-        box-shadow: 0 0 40px rgba(0, 229, 255, 0.25);
-        border-radius: 12px;
-        padding: 28px 24px;
+      .onboarding-card {
+        background: #0d121b;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 0 60px rgba(0, 229, 255, 0.15);
+        border-radius: 18px;
+        padding: 36px 32px;
         max-width: 520px;
         width: 100%;
         text-align: center;
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        max-height: 90vh;
-        overflow-y: auto;
+        align-items: center;
+        gap: 20px;
       }
 
-      .overlay-title {
-        font-family: var(--font-mono);
-        font-size: 1.6rem;
-        font-weight: 800;
-        letter-spacing: 2px;
-        color: var(--accent-cyan);
-        text-transform: uppercase;
-      }
-
-      .overlay-desc {
-        color: var(--text-secondary);
-        font-size: 0.85rem;
-        line-height: 1.5;
-      }
-
-      .overlay-features {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        text-align: left;
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        background: var(--bg-panel);
-        border: 1px solid var(--border-color);
-        padding: 10px;
-        border-radius: 8px;
-      }
-
-      .overlay-features div {
+      .onboarding-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: rgba(0, 229, 255, 0.1);
+        border: 1px solid rgba(0, 229, 255, 0.3);
         display: flex;
         align-items: center;
-        gap: 4px;
-        color: var(--text-primary);
+        justify-content: center;
+        color: var(--accent-cyan);
       }
 
-      .overlay-btn {
+      .onboarding-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        color: var(--text-primary);
+        line-height: 1.3;
+      }
+
+      .onboarding-sub {
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        max-width: 440px;
+      }
+
+      .onboarding-btn {
         background: var(--accent-cyan);
         color: #000;
         border: none;
-        padding: 13px 24px;
-        border-radius: 8px;
-        font-family: var(--font-mono);
+        padding: 14px 28px;
+        border-radius: 12px;
         font-size: 0.95rem;
-        font-weight: 800;
-        letter-spacing: 1px;
+        font-weight: 700;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
         transition: all 0.25s ease;
-        text-transform: uppercase;
+        box-shadow: 0 0 24px rgba(0, 229, 255, 0.35);
       }
 
-      .overlay-btn:hover {
+      .onboarding-btn:hover {
         background: #33ebff;
-        box-shadow: 0 0 24px rgba(0, 229, 255, 0.6);
+        box-shadow: 0 0 36px rgba(0, 229, 255, 0.55);
+        transform: translateY(-1px);
       }
 
-      /* Responsive rules for mobile screens */
+      .hidden {
+        display: none !important;
+      }
+
+      /* Mobile responsiveness */
       @media (max-width: 900px) {
-        .headphone-notice {
+        .headphone-pill {
           display: none;
         }
 
-        .sprint-badge {
-          display: none;
-        }
-
-        .app-layout {
-          display: block;
-          position: relative;
-        }
-
-        .panel {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          border: none;
-          display: none;
-          padding: 14px;
-          gap: 12px;
-        }
-
-        #threeContainer {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          display: block;
-        }
-
-        .mobile-tabs {
-          display: flex;
-        }
-
-        .viewport-overlay {
-          bottom: 10px;
+        .top-bar {
+          top: 10px;
           left: 10px;
           right: 10px;
-          transform: none;
-          font-size: 0.66rem;
-          white-space: normal;
+          flex-wrap: wrap;
         }
 
-        .overlay-features {
-          grid-template-columns: 1fr;
+        .preset-strip {
+          order: 3;
+          width: 100%;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+
+        .preset-strip::-webkit-scrollbar {
+          display: none;
+        }
+
+        .preset-card-desc {
+          display: none;
+        }
+
+        .bottom-dock {
+          bottom: 12px;
+          padding: 6px 10px;
+          gap: 6px;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+
+        .bottom-dock::-webkit-scrollbar {
+          display: none;
+        }
+
+        .engineer-panel {
+          width: 100%;
+        }
+
+        .wall-context-card {
+          left: 10px;
+          right: 10px;
+          width: auto;
         }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-CeiMOayA.js"></script>
+    <script type="module" crossorigin src="./assets/index-B-AB1RZg.js"></script>
   </head>
   <body>
-    <!-- Start Experience Modal Overlay -->
-    <div id="startOverlay">
-      <div class="overlay-modal">
-        <div class="overlay-title" data-i18n="modalTitle">AetherRay</div>
-        <div class="overlay-desc" data-i18n="modalDesc">
-          Браузерный движок физически корректного пространственного звука в реальном времени на Rust, WebAssembly, Web Audio API и Three.js.
-        </div>
-        <div class="overlay-features">
-          <div data-i18n="featRayTracing">🔹 Трассировка лучей</div>
-          <div data-i18n="featItdIld">🔹 ITD / ILD Вудворта</div>
-          <div data-i18n="featDoppler">🔹 Эффект Доплера</div>
-          <div data-i18n="featFdn">🔹 4-канальная FDN Хаусхолдера</div>
-          <div data-i18n="featOcclusion">🔹 Окклюзия сквозь стены</div>
-          <div data-i18n="featRt60">🔹 Формула Сэбина / Эйринга</div>
-        </div>
-        <div style="font-size: 0.82rem; color: var(--accent-amber); font-family: var(--font-mono);" data-i18n="modalHeadphonesHint">
-          🎧 Для реалистичного 3D-погружения подключите стереонаушники!
-        </div>
-        <button id="btnStartExperience" class="overlay-btn" data-i18n="launchBtn">⚡ Запустить движок</button>
-      </div>
-    </div>
-
-    <header>
-      <div class="logo-group">
-        <div class="logo">AetherRay</div>
-        <div class="sprint-badge" data-i18n="sprintBadge">v1.0 • Лаборатория Пространственного Звука</div>
-      </div>
-      <div class="headphone-notice" data-i18n="headphonesNotice">
-        🎧 Бинауральная симуляция (наденьте стереонаушники)
-      </div>
-      <div class="header-actions">
-        <div class="lang-switcher">
-          <button id="btnLangRu" class="lang-btn lang-btn-active">RU</button>
-          <button id="btnLangEn" class="lang-btn">EN</button>
-        </div>
-        <button id="btnAudioPower" class="btn btn-primary" data-i18n="startAudio">▶ Запустить аудио</button>
-      </div>
-    </header>
-
-    <div class="app-layout">
-      <!-- Left Panel: Scene, Material & Acoustic Source Controls -->
-      <div id="panelLeft" class="panel panel-left">
-        <div class="panel-title">
-          <span data-i18n="roomPreset">Акустический пресет</span>
-        </div>
-
-        <div class="control-group">
-          <select id="selPreset">
-            <option value="bunker">Бетонный бункер (Высокий RT60)</option>
-            <option value="studio">Акустическая студия (Поролон)</option>
-            <option value="maze">Лабиринт (Тест окклюзии)</option>
-            <option value="corridor">Стеклянный коридор (Прохождение)</option>
-          </select>
-        </div>
-
-        <div class="material-legend">
-          <div class="legend-item">
-            <div class="legend-color" style="background: #8a9ba8;"></div>
-            <span data-i18n="matConcrete">Бетон</span>
+    <div id="appContainer">
+      <!-- 1-Click Onboarding Start Screen -->
+      <div id="startOverlay">
+        <div class="onboarding-card">
+          <div class="onboarding-icon">
+            <!-- Headphones SVG icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
+            </svg>
           </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: #b57c48;"></div>
-            <span data-i18n="matWood">Дерево</span>
+          <div class="onboarding-title" data-i18n="onboardingTitle">AetherRay — Пространственная акустика в реальном времени</div>
+          <div class="onboarding-sub" data-i18n="onboardingSubtitle">
+            Рекомендуется использовать наушники — звук меняет громкость, отражения и направление в зависимости от геометрии стен и расстояния.
           </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: #4dd0e1;"></div>
-            <span data-i18n="matGlass">Стекло</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: #212121; border: 1px solid #555;"></div>
-            <span data-i18n="matFoam">Поролон</span>
-          </div>
-        </div>
-
-        <div class="panel-title" style="margin-top: 2px;">
-          <span data-i18n="wallEditor">Редактор геометрии стен</span>
-        </div>
-
-        <div id="wallEditorCard" class="editor-card">
-          <div id="wallEditorStatus" style="font-size: 0.72rem; color: var(--text-secondary); font-family: var(--font-mono);" data-i18n="wallEditorStatusNone">
-            Нажмите на стену в 3D сцене для изменения материала и угла.
-          </div>
-
-          <div id="wallEditorFields" style="display: none; flex-direction: column; gap: 6px;">
-            <div class="control-group">
-              <label class="control-label" data-i18n="wallMaterial">Материал стены</label>
-              <select id="selWallMaterial">
-                <option value="concrete">Бетон (α=0.03, τ=0.02)</option>
-                <option value="wood">Дерево (α=0.15, τ=0.15)</option>
-                <option value="glass">Стекло (α=0.08, τ=0.35)</option>
-                <option value="foam">Акустический поролон (α=0.85, τ=0.10)</option>
-              </select>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">
-                <span data-i18n="wallRotation">Поворот Y</span>
-                <span class="val" id="valWallRot">0°</span>
-              </label>
-              <input type="range" id="rngWallRot" min="0" max="360" step="5" value="0" />
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">
-                <span data-i18n="wallLength">Длина стены</span>
-                <span class="val" id="valWallLen">4.0 m</span>
-              </label>
-              <input type="range" id="rngWallLen" min="1.0" max="14.0" step="0.5" value="4.0" />
-            </div>
-
-            <div class="btn-grid">
-              <button id="btnDeleteWall" class="btn btn-danger" data-i18n="deleteWall">🗑 Удалить стену</button>
-              <button id="btnDeselectWall" class="btn" data-i18n="deselectWall">Снять выбор</button>
-            </div>
-          </div>
-
-          <div class="btn-grid" style="margin-top: 2px;">
-            <button id="btnAddWall" class="btn" data-i18n="addWall">➕ Добавить стену</button>
-            <button id="btnResetPreset" class="btn" data-i18n="resetPreset">↺ Сброс пресета</button>
-          </div>
-        </div>
-
-        <div class="panel-title" style="margin-top: 2px;">
-          <span data-i18n="soundGenerator">Генератор звука</span>
-        </div>
-
-        <div class="control-group">
-          <label class="control-label" data-i18n="signalPreset">Сигнал источника</label>
-          <div class="btn-grid">
-            <button class="btn btn-active" data-signal="siren" data-i18n="sigSiren">🚨 Сирена</button>
-            <button class="btn" data-signal="impulse" data-i18n="sigImpulse">⚡ Импульс</button>
-            <button class="btn" data-signal="pink_noise" data-i18n="sigPinkNoise">🌊 Розовый шум</button>
-            <button class="btn" data-signal="sine" data-i18n="sigSine">🎶 440 Гц</button>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <label class="control-label" data-i18n="customFile">Свой аудиофайл</label>
-          <input type="file" id="fileAudio" accept="audio/*" style="font-size: 0.72rem;" />
-        </div>
-
-        <div class="control-group">
-          <label class="control-label">
-            <span data-i18n="volume">Громкость</span>
-            <span class="val" id="valVolume">50%</span>
-          </label>
-          <input type="range" id="rngVolume" min="0" max="1" step="0.01" value="0.5" />
-        </div>
-
-        <div class="panel-title" style="margin-top: 2px;">
-          <span data-i18n="tracerParams">Параметры трассировки</span>
-        </div>
-
-        <div class="control-group">
-          <label class="control-label">
-            <span data-i18n="raysPerFrame">Лучей в кадре</span>
-            <span class="val" id="valRays">512</span>
-          </label>
-          <input type="range" id="rngRays" min="128" max="2048" step="128" value="512" />
-        </div>
-
-        <div class="control-group">
-          <label class="control-label">
-            <span data-i18n="maxBounces">Макс. отскоков</span>
-            <span class="val" id="valBounces">4</span>
-          </label>
-          <input type="range" id="rngBounces" min="1" max="4" step="1" value="4" />
-        </div>
-
-        <div class="control-group">
-          <label class="control-label">
-            <span data-i18n="autoOrbit">Орбита источника</span>
-            <span class="val" id="valOrbit">ВЫКЛ</span>
-          </label>
-          <button id="btnOrbit" class="btn" data-i18n="enableOrbit">🔄 Включить орбиту</button>
+          <button id="btnStartExperience" class="onboarding-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span data-i18n="onboardingBtn">Запустить звук и войти в сцену</span>
+          </button>
         </div>
       </div>
 
       <!-- Center 3D Viewport (Three.js WebGL2) -->
       <div id="threeContainer"></div>
-      <div id="viewportOverlay" class="viewport-overlay" data-i18n="viewportHint">
-        Управление: Перетаскивание = Вращение камеры | Оранжевая сфера = Источник | Синяя голова = Слушатель | Клик по стене = Редактирование | Колесо/Pinch = Зум
+
+      <!-- 3D Projected Badges Layer -->
+      <div id="badgesLayer">
+        <div id="badgeSource" class="scene-badge">
+          <span class="badge-dot dot-amber"></span>
+          <span data-i18n="badgeSource">Источник звука (перетащите)</span>
+        </div>
+        <div id="badgeListener" class="scene-badge">
+          <span class="badge-dot dot-cyan"></span>
+          <span data-i18n="badgeListener">Слушатель</span>
+        </div>
       </div>
 
-      <!-- Right Panel: Live Physics & DSP Telemetry -->
-      <div id="panelRight" class="panel panel-right">
-        <div class="panel-title">
-          <span data-i18n="telemetryTitle">Телеметрия движка</span>
+      <!-- Top Bar: Brand + Presets Strip + Mode Toggle -->
+      <div class="top-bar">
+        <div class="brand-group">
+          <div class="brand-logo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 10v4"/>
+              <path d="M6 6v12"/>
+              <path d="M10 3v18"/>
+              <path d="M14 7v10"/>
+              <path d="M18 5v14"/>
+              <path d="M22 10v4"/>
+            </svg>
+            <span data-i18n="appTitle">AetherRay</span>
+          </div>
+          <div class="headphone-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
+            </svg>
+            <span data-i18n="headphonesNotice">Наденьте наушники для 3D-звука</span>
+          </div>
+        </div>
+
+        <!-- 4 Acoustic Presets with Clear Human Labels -->
+        <div class="preset-strip">
+          <button class="preset-card preset-card-active" data-preset="bunker">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M9 3v18"/>
+              <path d="M15 3v18"/>
+            </svg>
+            <div class="preset-card-info">
+              <div class="preset-card-title" data-i18n="presetEchoTitle">Гулко и звонко</div>
+              <div class="preset-card-desc" data-i18n="presetEchoDesc">Бетонный зал</div>
+            </div>
+          </button>
+
+          <button class="preset-card" data-preset="studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9 10a3 3 0 0 1 6 0v4a3 3 0 0 1-6 0z"/>
+            </svg>
+            <div class="preset-card-info">
+              <div class="preset-card-title" data-i18n="presetStudioTitle">Мягко и тихо</div>
+              <div class="preset-card-desc" data-i18n="presetStudioDesc">Студия звукозаписи</div>
+            </div>
+          </button>
+
+          <button class="preset-card" data-preset="corridor">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="1"/>
+              <path d="M12 4v16"/>
+              <path d="M3 12h18"/>
+            </svg>
+            <div class="preset-card-info">
+              <div class="preset-card-title" data-i18n="presetGlassTitle">Стеклянный офис</div>
+              <div class="preset-card-desc" data-i18n="presetGlassDesc">Звук проходит сквозь перегородки</div>
+            </div>
+          </button>
+
+          <button class="preset-card" data-preset="maze">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h10v6h4"/>
+              <path d="M7 3v14h10v4"/>
+            </svg>
+            <div class="preset-card-info">
+              <div class="preset-card-title" data-i18n="presetMazeTitle">Лабиринт</div>
+              <div class="preset-card-desc" data-i18n="presetMazeDesc">Распространение звука за углом</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Top Right Actions: Language + Engineer Mode Toggle -->
+        <div class="top-actions">
+          <div class="lang-switcher">
+            <button id="btnLangRu" class="lang-btn lang-btn-active">RU</button>
+            <button id="btnLangEn" class="lang-btn">EN</button>
+          </div>
+
+          <label class="engineer-toggle-pill" for="toggleEngineerMode">
+            <span class="engineer-toggle-label">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"/>
+                <line x1="4" y1="10" x2="4" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12" y2="3"/>
+                <line x1="20" y1="21" x2="20" y2="16"/>
+                <line x1="20" y1="12" x2="20" y2="3"/>
+                <line x1="1" y1="14" x2="7" y2="14"/>
+                <line x1="9" y1="8" x2="15" y2="8"/>
+                <line x1="17" y1="16" x2="23" y2="16"/>
+              </svg>
+              <span data-i18n="engineerMode">Режим инженера</span>
+            </span>
+            <div class="switch">
+              <input type="checkbox" id="toggleEngineerMode" />
+              <span class="slider"></span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Selected Wall Context Floating Menu -->
+      <div id="wallMenuCard" class="wall-context-card">
+        <div class="modal-header">
+          <span data-i18n="wallMenuTitle">Параметры стены</span>
+          <button id="btnCloseWallMenu" class="btn-close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="control-field">
+          <label class="field-label" data-i18n="wallChooseMaterial">Материал</label>
+          <select id="selWallMaterial" class="custom-select">
+            <option value="concrete" data-i18n="matConcreteDesc">Бетон — глушит прямой звук</option>
+            <option value="wood" data-i18n="matWoodDesc">Дерево — тёплые отражения</option>
+            <option value="glass" data-i18n="matGlassDesc">Стекло — пропускает часть звука</option>
+            <option value="foam" data-i18n="matFoamDesc">Поролон — поглощает эхо</option>
+          </select>
+        </div>
+
+        <div class="control-field">
+          <div class="field-label">
+            <span data-i18n="wallRotate">Поворот</span>
+            <span id="valWallRot" class="field-val">0°</span>
+          </div>
+          <input type="range" id="rngWallRot" class="slider-range" min="0" max="360" step="5" value="0" />
+        </div>
+
+        <div class="control-field">
+          <div class="field-label">
+            <span data-i18n="wallLength">Длина</span>
+            <span id="valWallLen" class="field-val">4.0 m</span>
+          </div>
+          <input type="range" id="rngWallLen" class="slider-range" min="1.0" max="14.0" step="0.5" value="4.0" />
+        </div>
+
+        <button id="btnDeleteWall" class="btn-danger-outline">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          <span data-i18n="wallDelete">Удалить стену</span>
+        </button>
+      </div>
+
+      <!-- Add Wall Modal Popover -->
+      <div id="addWallModal" class="modal-popover">
+        <div class="modal-header">
+          <span data-i18n="wallChooseMaterial">Выберите материал новой стены</span>
+          <button id="btnCloseAddWallModal" class="btn-close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <button class="mat-option-btn" data-add-mat="concrete">
+          <span class="mat-option-title" data-i18n="matConcreteTitle">Бетон</span>
+          <span class="mat-option-desc" data-i18n="matConcreteDesc">Бетон — глушит прямой звук</span>
+        </button>
+
+        <button class="mat-option-btn" data-add-mat="wood">
+          <span class="mat-option-title" data-i18n="matWoodTitle">Дерево</span>
+          <span class="mat-option-desc" data-i18n="matWoodDesc">Дерево — тёплые отражения</span>
+        </button>
+
+        <button class="mat-option-btn" data-add-mat="glass">
+          <span class="mat-option-title" data-i18n="matGlassTitle">Стекло</span>
+          <span class="mat-option-desc" data-i18n="matGlassDesc">Стекло — пропускает часть звука</span>
+        </button>
+
+        <button class="mat-option-btn" data-add-mat="foam">
+          <span class="mat-option-title" data-i18n="matFoamTitle">Поролон</span>
+          <span class="mat-option-desc" data-i18n="matFoamDesc">Поролон — поглощает эхо</span>
+        </button>
+      </div>
+
+      <!-- Bottom Floating Audio Dock -->
+      <div class="bottom-dock">
+        <!-- Play / Pause -->
+        <button id="btnPlayPause" class="btn-play-pause" title="Play / Pause">
+          <svg id="iconPlay" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <svg id="iconPause" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16"/>
+            <rect x="14" y="4" width="4" height="16"/>
+          </svg>
+        </button>
+
+        <div class="dock-divider"></div>
+
+        <!-- Audio Source Selector -->
+        <div class="source-selector">
+          <button class="source-pill source-pill-active" data-source="melody">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+            <span data-i18n="sourceMelody">Мелодия</span>
+          </button>
+
+          <button class="source-pill" data-source="voice">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+            </svg>
+            <span data-i18n="sourceVoice">Голос</span>
+          </button>
+
+          <button class="source-pill" data-source="siren">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.93 4.93l4.24 4.24"/>
+              <path d="M14.83 9.17l4.24-4.24"/>
+              <path d="M14 14l5.66 5.66"/>
+              <path d="M4.34 19.66L10 14"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <span data-i18n="sourceSiren">Сирена</span>
+          </button>
+
+          <button class="source-pill" data-source="file">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span data-i18n="sourceFile">Загрузить файл</span>
+          </button>
+          <input type="file" id="fileAudioInput" accept="audio/*" style="display: none;" />
+        </div>
+
+        <div class="dock-divider"></div>
+
+        <!-- Motion: Manual vs Auto Orbit -->
+        <div class="switch-pill-group">
+          <button id="btnMotionManual" class="switch-pill switch-pill-active">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
+            </svg>
+            <span data-i18n="motionManual">Вручную</span>
+          </button>
+          <button id="btnMotionAuto" class="switch-pill">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+              <path d="M21 3v5h-5"/>
+              <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+              <path d="M3 21v-5h5"/>
+            </svg>
+            <span data-i18n="motionAuto">Авто-полёт</span>
+          </button>
+        </div>
+
+        <div class="dock-divider"></div>
+
+        <!-- Volume -->
+        <div class="volume-group">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+          <input type="range" id="rngVolume" class="volume-slider" min="0" max="1" step="0.01" value="0.6" title="Volume" />
+        </div>
+
+        <div class="dock-divider"></div>
+
+        <!-- Add Wall Button -->
+        <button id="btnAddWallBtn" class="btn-dock-action">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span data-i18n="addWallBtn">Добавить стену</span>
+        </button>
+      </div>
+
+      <!-- Engineer Mode Drawer Panel (Hidden by default, slides out when active) -->
+      <aside id="engineerPanel" class="engineer-panel">
+        <div class="panel-section-title">
+          <span data-i18n="telemetryTitle">Инженерная телеметрия</span>
           <span style="font-size: 0.72rem; color: var(--accent-emerald);" id="statusIndicator">ГОТОВ</span>
         </div>
 
@@ -798,52 +1300,56 @@
           </tr>
         </table>
 
-        <div class="panel-title" style="margin-top: 2px;">
+        <!-- IR Graph Canvas -->
+        <div class="panel-section-title">
           <span data-i18n="irTitle">Импульсная характеристика (IR)</span>
         </div>
-        <div class="ir-container">
+        <div class="ir-box">
           <canvas id="irCanvas"></canvas>
         </div>
 
-        <div class="panel-title" style="margin-top: 2px;">
+        <!-- Listening Layers -->
+        <div class="panel-section-title">
           <span data-i18n="listeningLayers">Слои прослушивания</span>
         </div>
-
-        <div class="btn-grid">
-          <button class="btn btn-active" data-mode="0" data-i18n="layerAll">Все слои</button>
-          <button class="btn" data-mode="1" data-i18n="layerDirect">Только прямой</button>
-          <button class="btn" data-mode="2" data-i18n="layerReflections">Отражения</button>
-          <button class="btn" data-mode="3" data-i18n="layerReverb">Реверберация</button>
+        <div class="layer-grid">
+          <button class="layer-btn layer-btn-active" data-layer-mode="0" data-i18n="layerAll">Все слои</button>
+          <button class="layer-btn" data-layer-mode="1" data-i18n="layerDirect">Только прямой</button>
+          <button class="layer-btn" data-layer-mode="2" data-i18n="layerReflections">Отражения</button>
+          <button class="layer-btn" data-layer-mode="3" data-i18n="layerReverb">Реверберация</button>
         </div>
 
-        <div class="panel-title" style="margin-top: 2px;">
-          <span data-i18n="physicalSpecsTitle">Физическая модель</span>
+        <!-- Ray Tracer Parameters -->
+        <div class="panel-section-title">
+          <span data-i18n="tracerParams">Параметры трассировки</span>
         </div>
-        <div style="font-size: 0.71rem; color: var(--text-secondary); line-height: 1.5; font-family: var(--font-mono);">
-          <div data-i18n="specRayGen">• Генерация лучей: Сфера Фибоначчи + джиттер Монте-Карло</div>
-          <div data-i18n="specOcclusion">• Окклюзия: Ray-OBB пересечения сквозь препятствия</div>
-          <div data-i18n="specEarlyRefl">• Ранние отражения: топ-32 Shadow Rays к слушателю</div>
-          <div data-i18n="specLateReverb">• Поздняя реверберация: 4-канальная FDN Хаусхолдера</div>
-          <div data-i18n="specThreading">• Потоки: Web Worker (40 Гц) ⇄ AudioWorklet (WASM)</div>
+        <div class="control-field">
+          <div class="field-label">
+            <span data-i18n="raysPerFrame">Лучей в кадре</span>
+            <span id="valRays" class="field-val">512</span>
+          </div>
+          <input type="range" id="rngRays" class="slider-range" min="128" max="2048" step="128" value="512" />
         </div>
-      </div>
+
+        <div class="control-field">
+          <div class="field-label">
+            <span data-i18n="maxBounces">Макс. отскоков</span>
+            <span id="valBounces" class="field-val">4</span>
+          </div>
+          <input type="range" id="rngBounces" class="slider-range" min="1" max="4" step="1" value="4" />
+        </div>
+
+        <button id="btnResetPreset" class="btn-dock-action" style="margin-top: 6px; justify-content: center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+            <path d="M3 21v-5h5"/>
+          </svg>
+          <span data-i18n="resetPreset">Сбросить сцену</span>
+        </button>
+      </aside>
     </div>
-
-    <!-- Mobile Bottom Navigation Tab Bar -->
-    <nav class="mobile-tabs">
-      <button class="tab-btn tab-btn-active" data-tab="scene">
-        <span>🎮</span>
-        <span data-i18n="tabScene">3D Сцена</span>
-      </button>
-      <button class="tab-btn" data-tab="controls">
-        <span>⚙️</span>
-        <span data-i18n="tabControls">Настройки</span>
-      </button>
-      <button class="tab-btn" data-tab="telemetry">
-        <span>📊</span>
-        <span data-i18n="tabTelemetry">Метрики</span>
-      </button>
-    </nav>
 
   </body>
 </html>
