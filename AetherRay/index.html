@@ -1004,7 +1004,7 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-DHJV4fMT.js?v=20261124_phonons"></script>
+    <script type="module" crossorigin src="./assets/index-BVM3GSy8.js?v=20261124_modeswitch"></script>
   </head>
   <body>
     <div id="appContainer">
@@ -1116,8 +1116,13 @@
           </button>
         </div>
 
-        <!-- Top Right Actions: Language + Engineer Mode Toggle -->
+        <!-- Top Right Actions: Visual Mode Switcher + Language + Engineer Mode Toggle -->
         <div class="top-actions">
+          <div class="switch-pill-group visual-mode-switcher" style="background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 10px;">
+            <button id="btnModeStream" class="switch-pill switch-pill-active" data-i18n="visualModeStream">Поток</button>
+            <button id="btnModeWaves" class="switch-pill" data-i18n="visualModeWaves">Волны</button>
+          </div>
+
           <div class="lang-switcher">
             <button id="btnLangRu" class="lang-btn lang-btn-active">RU</button>
             <button id="btnLangEn" class="lang-btn">EN</button>
