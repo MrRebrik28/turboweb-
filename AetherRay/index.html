@@ -476,6 +476,45 @@
         cursor: pointer;
       }
 
+      /* Wave Speed Group */
+      .speed-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-secondary);
+      }
+
+      .speed-val {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--accent-amber);
+        min-width: 28px;
+        text-align: right;
+        user-select: none;
+      }
+
+      .speed-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 64px;
+        height: 4px;
+        background: var(--glass-border);
+        border-radius: 2px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .speed-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent-amber);
+        cursor: pointer;
+        box-shadow: 0 0 6px rgba(255, 214, 0, 0.5);
+      }
+
       /* Action button */
       .btn-dock-action {
         background: rgba(255, 255, 255, 0.08);
@@ -946,6 +985,10 @@
           display: none;
         }
 
+        .speed-slider {
+          width: 50px;
+        }
+
         .engineer-panel {
           width: 100%;
           max-width: 100vw;
@@ -961,7 +1004,7 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-B0YWra_T.js?v=20261124_phonons"></script>
+    <script type="module" crossorigin src="./assets/index-BOU8cJCN.js?v=20261124_wavespeed"></script>
   </head>
   <body>
     <div id="appContainer">
@@ -1275,6 +1318,17 @@
 
         <div class="dock-divider"></div>
 
+        <!-- Wave Speed Slider (Independent from Audio) -->
+        <div class="speed-group" title="Скорость волн">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span class="speed-val" id="valWaveSpeed">1.0x</span>
+          <input type="range" id="rngWaveSpeed" class="speed-slider" min="0.1" max="2.5" step="0.1" value="1.0" aria-label="Скорость волн" />
+        </div>
+
+        <div class="dock-divider"></div>
+
         <!-- Add Wall Button -->
         <button id="btnAddWallBtn" class="btn-dock-action">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1379,6 +1433,13 @@
         <!-- Ray Tracer Parameters -->
         <div class="panel-section-title">
           <span data-i18n="tracerParams">Параметры трассировки</span>
+        </div>
+        <div class="control-field">
+          <div class="field-label">
+            <span data-i18n="waveSpeed">Скорость волн</span>
+            <span id="valWaveSpeedPanel" class="field-val">1.0x</span>
+          </div>
+          <input type="range" id="rngWaveSpeedPanel" class="slider-range" min="0.1" max="2.5" step="0.1" value="1.0" />
         </div>
         <div class="control-field">
           <div class="field-label">
