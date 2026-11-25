@@ -14,11 +14,13 @@
   --text-caption:        #64748B; /* Метаданные, плейсхолдеры, даты, мелкие подписи */
   --text-on-accent:      #FFFFFF; /* Белый текст поверх акцентных кнопок */
 
-  /* Акцентный цвет (60-30-10: IT/B2B Королевский сапфир) */
-  --primary:             #2563EB;
-  --primary-hover:       #1D4ED8;
-  --primary-active:      #1E40AF;
-  --primary-subtle:      #EFF6FF;
+  /* Акцентный цвет: Blue Iris (Pantone 18-3943 Blue Iris) + Второй акцент */
+  --primary:             #5B5EA6; /* Глубокий благородный Blue Iris */
+  --primary-hover:       #4B4E94;
+  --primary-active:      #3F4280;
+  --primary-subtle:      #F0F1FA;
+  --accent-secondary:    #059669; /* Сбалансированный изумрудно-зеленый (надежность, статус, конверсия) */
+  --accent-amber:        #D97706; /* Теплый янтарный для бейджей и акцентов */
 
   /* Успех / Гарантия (Изумруд) */
   --emerald:             #10B981;
@@ -30,8 +32,8 @@
   --shadow-card:         0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
   --shadow-hover:        0 12px 24px -4px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
   --shadow-modal:        0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --shadow-btn:          0 4px 14px 0 rgba(37, 99, 235, 0.28);
-  --shadow-btn-hover:    0 8px 22px 0 rgba(37, 99, 235, 0.38);
+  --shadow-btn:          0 4px 14px 0 rgba(91, 94, 166, 0.28);
+  --shadow-btn-hover:    0 8px 22px 0 rgba(91, 94, 166, 0.38);
 
   /* Типографическая система (Архив 35 шрифтов: Вариант 1) */
   --font-heading:        'Montserrat', sans-serif;
@@ -524,5 +526,70 @@ details.faq-native:not([open])::details-content {
 @keyframes faqFadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   HYBRID: SWISS POSTER + APPLE CUPERTINO PRO (STRICT GEOMETRY)
+   ========================================================================== */
+.apple-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.bento-squircle {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0px; /* Абсолютно ровные прямые углы для информационных блоков */
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease-expo), box-shadow 0.2s var(--ease-expo), border-color 0.2s ease;
+}
+
+.bento-squircle:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-medium);
+}
+
+.btn-pill, .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  border-radius: 0px; /* Прямые строгие кнопки */
+  transition: all 0.2s var(--ease-expo);
+  box-shadow: 0 2px 8px rgba(91, 94, 166, 0.25);
+}
+
+.btn-pill:hover, .btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(91, 94, 166, 0.35);
+}
+
+.device-mockup {
+  border: 4px solid #0F172A;
+  border-radius: 0px; /* Строгая форма дисплея */
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  background: #FFFFFF;
+  overflow: hidden;
+  position: relative;
+}
+
+.device-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 18px;
+  background: #0F172A;
+  border-radius: 0px;
+  z-index: 20;
 }
 

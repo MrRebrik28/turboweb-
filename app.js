@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initReferralTracking();
   initScrollProgress();
-  initKaraokeTitle();
+  // initKaraokeTitle(); // Отключено для мгновенного считывания статичного заголовка
   initScrollReveal();
   initSpotlight();
   initMessengerSelector();
