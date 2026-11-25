@@ -541,41 +541,41 @@ details.faq-native:not([open])::details-content {
 .bento-squircle {
   background: #FFFFFF;
   border: 1px solid var(--border-subtle);
-  border-radius: 28px;
-  box-shadow: var(--shadow-card);
-  transition: transform 0.3s var(--ease-expo), box-shadow 0.3s var(--ease-expo), border-color 0.2s ease;
+  border-radius: 0px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease-expo), box-shadow 0.2s var(--ease-expo), border-color 0.2s ease;
 }
 
 .bento-squircle:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
   border-color: var(--border-medium);
 }
 
-.btn-pill {
+.btn-pill, .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #0071E3;
+  background-color: var(--primary);
   color: #FFFFFF;
   font-family: var(--font-heading);
   font-weight: 700;
-  border-radius: 9999px;
+  border-radius: 0px;
   transition: all 0.2s var(--ease-expo);
-  box-shadow: 0 2px 10px rgba(0, 113, 227, 0.25);
+  box-shadow: 0 2px 8px rgba(91, 94, 166, 0.25);
 }
 
-.btn-pill:hover {
-  background-color: #0077ED;
+.btn-pill:hover, .btn-primary:hover {
+  background-color: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.35);
+  box-shadow: 0 6px 18px rgba(91, 94, 166, 0.35);
 }
 
 .device-mockup {
-  border: 10px solid #1D1D1F;
-  border-radius: 40px;
-  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: 4px solid #0F172A;
+  border-radius: 0px;
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.08);
   background: #FFFFFF;
   overflow: hidden;
   position: relative;
@@ -586,11 +586,10 @@ details.faq-native:not([open])::details-content {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 84px;
-  height: 20px;
-  background: #1D1D1F;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  width: 80px;
+  height: 18px;
+  background: #0F172A;
+  border-radius: 0px;
   z-index: 20;
 }
 
