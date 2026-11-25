@@ -13,7 +13,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="theme-color" content="#2563EB">
+    <meta name="theme-color" content="#5B5EA6">
 
     <!-- OpenGraph (Telegram, WhatsApp, VK) -->
     <meta property="og:type" content="website">
@@ -148,8 +148,8 @@
                             50: '#EFF6FF',
                             100: '#DBEAFE',
                             500: '#3B82F6',
-                            600: '#2563EB',
-                            700: '#1D4ED8',
+                            600: '#5B5EA6',
+                            700: '#4B4E94',
                             800: '#1E40AF',
                         },
                         surface: {
@@ -191,38 +191,37 @@
     <header class="sticky top-0 z-50 bg-[#F8FAFC]/95 backdrop-blur-md border-b border-slate-200/80 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Логотип -->
-            <a href="#" class="flex items-center gap-3 group" aria-label="LocalWeb Главная">
-                <div class="w-10 h-10 rounded-none bg-[#2563EB] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+            <a href="/" class="flex items-center gap-3 group" aria-label="LocalWeb Главная">
+                <div class="w-10 h-10 rounded-none bg-[#5B5EA6] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                 </div>
                 <div>
-                    <span class="font-heading font-extrabold text-xl tracking-tight text-[#0F172A]">Local<span class="text-[#2563EB]">Web</span></span>
+                    <span class="font-heading font-extrabold text-xl tracking-tight text-[#0F172A]">Local<span class="text-[#5B5EA6]">Web</span></span>
                     <span class="hidden sm:block text-[11px] text-slate-500 font-medium leading-none">Сайты для локального бизнеса</span>
                 </div>
             </a>
 
             <!-- Навигация (Закон Миллера: ровно 6 пунктов) -->
             <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
-                <a href="#offers" class="hover:text-[#2563EB] transition-colors py-2">Условия</a>
-                <a href="#cases" class="hover:text-[#2563EB] transition-colors py-2">Примеры работ</a>
-                <a href="#why" class="hover:text-[#2563EB] transition-colors py-2">Зачем сайт</a>
-                <a href="#compare" class="hover:text-[#2563EB] transition-colors py-2">Сравнение</a>
-                <a href="#faq" class="hover:text-[#2563EB] transition-colors py-2">FAQ</a>
-                <a href="#form" class="hover:text-[#2563EB] transition-colors py-2">Заказать</a>
+                <a href="#offers" class="hover:text-[#5B5EA6] transition-colors py-2">Условия</a>
+                <a href="#cases" class="hover:text-[#5B5EA6] transition-colors py-2">Примеры работ</a>
+                <a href="#why" class="hover:text-[#5B5EA6] transition-colors py-2">Зачем сайт</a>
+                <a href="#compare" class="hover:text-[#5B5EA6] transition-colors py-2">Сравнение</a>
+                <a href="#faq" class="hover:text-[#5B5EA6] transition-colors py-2">FAQ</a>
+                <a href="#form" class="hover:text-[#5B5EA6] transition-colors py-2">Заказать</a>
             </nav>
 
             <!-- Статус и Кнопка CTA (Закон Фиттса: крупная кликабельная область) -->
             <div class="flex items-center gap-3 sm:gap-4">
                 <div class="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-none bg-white border border-slate-200/90 shadow-xs text-xs font-semibold text-slate-700 select-none">
                     <span class="relative flex h-2.5 w-2.5">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-none bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-none h-2.5 w-2.5 bg-[#10B981]"></span>
                     </span>
                     <span>Свободен 1 слот на MVP <span id="current-date" class="text-[#059669] font-bold">сегодня</span></span>
                 </div>
-                <a href="#form" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs sm:text-sm font-heading font-bold px-4 sm:px-5 py-2.5 rounded-none transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0">
+                <a href="#form" class="bg-[#5B5EA6] hover:bg-[#4B4E94] text-white text-xs sm:text-sm font-heading font-bold px-4 sm:px-5 py-2.5 rounded-none transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0">
                     Оставить заявку
                 </a>
             </div>
@@ -232,14 +231,6 @@
     <!-- БЛОК 1 (ПРОДОЛЖЕНИЕ): HERO СЕКЦИЯ (Z-Pattern & Visual Hierarchy) -->
     <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
         <div class="max-w-4xl mx-auto text-center">
-            
-            <!-- Живой бейдж доверия -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-none bg-blue-50 border border-blue-200/70 text-[#2563EB] text-xs sm:text-sm font-semibold mb-8 reveal">
-                <svg class="w-4 h-4 text-[#2563EB] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                </svg>
-                <span>Без предоплаты • Рабочий черновик до заключения сделки</span>
-            </div>
 
             <!-- Главный заголовок H1 (Montserrat 800) с караоке-эффектом -->
             <h1 id="hero-title" class="font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-tight leading-[1.12] mb-6 reveal">
@@ -264,7 +255,7 @@
             <!-- 3 плашки фактов: строго 3 карточки (Закон Миллера: фокус на 3 метриках) -->
             <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto text-center reveal">
                 <div class="p-5 bg-white rounded-none border border-slate-200/90 shadow-card hover:shadow-hover transition-shadow">
-                    <div class="font-heading text-3xl font-extrabold text-[#2563EB]">24 часа</div>
+                    <div class="font-heading text-3xl font-extrabold text-[#5B5EA6]">24 часа</div>
                     <div class="text-xs text-slate-500 font-medium mt-1.5">Показываем готовый черновик</div>
                 </div>
                 <div class="p-5 bg-white rounded-none border border-slate-200/90 shadow-card hover:shadow-hover transition-shadow">
@@ -282,7 +273,7 @@
     <!-- БЛОК 2: УСЛОВИЯ И ЦЕНА (BENTO GRID - Light-First Engineering) -->
     <section id="offers" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="max-w-2xl mx-auto text-center mb-14 reveal">
-            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#2563EB]">Условия работы</span>
+            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#5B5EA6]">Условия работы</span>
             <h2 class="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mt-2">
                 Понятный процесс без кота в мешке
             </h2>
@@ -314,12 +305,12 @@
             </div>
 
             <!-- Карточка 2: 7 500 ₽ (1 колонка, акцентная) -->
-            <div class="card-glass p-8 md:p-10 border-2 border-[#2563EB] bg-gradient-to-br from-blue-50/50 via-white to-white flex flex-col justify-between reveal">
+            <div class="card-glass p-8 md:p-10 border-2 border-[#5B5EA6] bg-gradient-to-br from-blue-50/50 via-white to-white flex flex-col justify-between reveal">
                 <div>
-                    <span class="inline-block px-3 py-1 rounded-none bg-blue-100 text-[#2563EB] text-xs font-heading font-bold uppercase tracking-wider mb-6">
+                    <span class="inline-block px-3 py-1 rounded-none bg-blue-100 text-[#5B5EA6] text-xs font-heading font-bold uppercase tracking-wider mb-6">
                         Фиксированная цена
                     </span>
-                    <div class="font-heading font-mono text-4xl sm:text-5xl font-black text-[#2563EB] mb-2 tracking-tight">
+                    <div class="font-heading font-mono text-4xl sm:text-5xl font-black text-[#5B5EA6] mb-2 tracking-tight">
                         7 500 ₽
                     </div>
                     <h3 class="font-heading text-xl font-extrabold text-[#0F172A] mb-3">
@@ -336,7 +327,7 @@
 
             <!-- Карточка 3: Белая оплата и закрывающие -->
             <div class="card-glass p-8 reveal">
-                <div class="w-12 h-12 rounded-none bg-blue-50 text-[#2563EB] flex items-center justify-center mb-6 border border-blue-100">
+                <div class="w-12 h-12 rounded-none bg-indigo-50 text-[#5B5EA6] flex items-center justify-center mb-6 border border-blue-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -351,7 +342,7 @@
 
             <!-- Карточка 4: Поддержка (2 колонки) -->
             <div class="card-glass p-8 md:col-span-2 reveal">
-                <div class="w-12 h-12 rounded-none bg-blue-50 text-[#2563EB] flex items-center justify-center mb-6 border border-blue-100">
+                <div class="w-12 h-12 rounded-none bg-indigo-50 text-[#5B5EA6] flex items-center justify-center mb-6 border border-blue-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
@@ -369,7 +360,7 @@
     <!-- БЛОК: ПРИМЕРЫ РАБОТ / ДЕМО-САЙТЫ (Light-First Showcase) -->
     <section id="cases" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="max-w-3xl mx-auto text-center mb-14 reveal">
-            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#2563EB]">Примеры решений</span>
+            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#5B5EA6]">Примеры решений</span>
             <h2 class="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mt-2">
                 Посмотрите, как работает наш сайт для вашей сферы
             </h2>
@@ -390,7 +381,7 @@
                     <div class="mb-3">
                         <span class="text-[11px] font-heading font-bold uppercase tracking-wider text-rose-600">Еда & Hand-made</span>
                         <h3 class="font-heading text-xl font-extrabold text-[#0F172A] mt-1 leading-snug">
-                            <a href="demo/bakery/" target="_blank" rel="noopener" class="hover:text-[#2563EB] transition-colors">
+                            <a href="demo/bakery/" target="_blank" rel="noopener" class="hover:text-[#5B5EA6] transition-colors">
                                 Кондитерская «SweetCraft»
                             </a>
                         </h3>
@@ -409,7 +400,7 @@
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <span class="text-xs text-slate-500 font-semibold">Готовое решение</span>
-                    <a href="demo/bakery/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
+                    <a href="demo/bakery/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#5B5EA6] hover:text-[#4B4E94] transition-colors group">
                         <span>Открыть демо</span>
                         <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -430,7 +421,7 @@
                     <div class="mb-3">
                         <span class="text-[11px] font-heading font-bold uppercase tracking-wider text-pink-600">Бьюти-индустрия</span>
                         <h3 class="font-heading text-xl font-extrabold text-[#0F172A] mt-1 leading-snug">
-                            <a href="demo/nails/" target="_blank" rel="noopener" class="hover:text-[#2563EB] transition-colors">
+                            <a href="demo/nails/" target="_blank" rel="noopener" class="hover:text-[#5B5EA6] transition-colors">
                                 Студия «Velvet Nails»
                             </a>
                         </h3>
@@ -449,7 +440,7 @@
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <span class="text-xs text-slate-500 font-semibold">Готовое решение</span>
-                    <a href="demo/nails/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
+                    <a href="demo/nails/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#5B5EA6] hover:text-[#4B4E94] transition-colors group">
                         <span>Открыть демо</span>
                         <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -462,7 +453,7 @@
             <!-- 3. Автосервис и СТО -->
             <article class="card-glass p-5 sm:p-6 flex flex-col justify-between reveal border-t-4 border-t-blue-500">
                 <div>
-                    <a href="demo/auto/" target="_blank" rel="noopener" class="block rounded-none overflow-hidden mb-4 aspect-video relative group/img bg-blue-50">
+                    <a href="demo/auto/" target="_blank" rel="noopener" class="block rounded-none overflow-hidden mb-4 aspect-video relative group/img bg-indigo-50">
                         <img src="assets/demo/auto/hero.webp" alt="Автосервис МоторПро" width="600" height="340" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300">
                         <span class="absolute top-2.5 right-2.5 badge-emerald font-mono text-[11px] font-bold shadow-xs">0.4 сек • 100/100</span>
                     </a>
@@ -470,7 +461,7 @@
                     <div class="mb-3">
                         <span class="text-[11px] font-heading font-bold uppercase tracking-wider text-blue-600">Авто и транспорт</span>
                         <h3 class="font-heading text-xl font-extrabold text-[#0F172A] mt-1 leading-snug">
-                            <a href="demo/auto/" target="_blank" rel="noopener" class="hover:text-[#2563EB] transition-colors">
+                            <a href="demo/auto/" target="_blank" rel="noopener" class="hover:text-[#5B5EA6] transition-colors">
                                 Автосервис «МоторПро»
                             </a>
                         </h3>
@@ -489,7 +480,7 @@
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <span class="text-xs text-slate-500 font-semibold">Готовое решение</span>
-                    <a href="demo/auto/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
+                    <a href="demo/auto/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#5B5EA6] hover:text-[#4B4E94] transition-colors group">
                         <span>Открыть демо</span>
                         <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -510,7 +501,7 @@
                     <div class="mb-3">
                         <span class="text-[11px] font-heading font-bold uppercase tracking-wider text-teal-600">Срочные услуги на дому</span>
                         <h3 class="font-heading text-xl font-extrabold text-[#0F172A] mt-1 leading-snug">
-                            <a href="demo/appliances/" target="_blank" rel="noopener" class="hover:text-[#2563EB] transition-colors">
+                            <a href="demo/appliances/" target="_blank" rel="noopener" class="hover:text-[#5B5EA6] transition-colors">
                                 Сервис «РемБыт»
                             </a>
                         </h3>
@@ -529,7 +520,7 @@
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <span class="text-xs text-slate-500 font-semibold">Готовое решение</span>
-                    <a href="demo/appliances/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
+                    <a href="demo/appliances/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#5B5EA6] hover:text-[#4B4E94] transition-colors group">
                         <span>Открыть демо</span>
                         <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -550,7 +541,7 @@
                     <div class="mb-3">
                         <span class="text-[11px] font-heading font-bold uppercase tracking-wider text-orange-600">Строительство & Отделка</span>
                         <h3 class="font-heading text-xl font-extrabold text-[#0F172A] mt-1 leading-snug">
-                            <a href="demo/renovation/" target="_blank" rel="noopener" class="hover:text-[#2563EB] transition-colors">
+                            <a href="demo/renovation/" target="_blank" rel="noopener" class="hover:text-[#5B5EA6] transition-colors">
                                 Компания «РемСтрой Pro»
                             </a>
                         </h3>
@@ -569,7 +560,7 @@
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <span class="text-xs text-slate-500 font-semibold">Готовое решение</span>
-                    <a href="demo/renovation/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
+                    <a href="demo/renovation/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-[#5B5EA6] hover:text-[#4B4E94] transition-colors group">
                         <span>Открыть демо</span>
                         <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -580,15 +571,15 @@
             </article>
 
             <!-- 6. Bento Callout Card for Any Other Niche (Light-First Engineering) -->
-            <article class="card-glass p-6 sm:p-7 flex flex-col justify-between reveal md:col-span-2 lg:col-span-1 border-2 border-dashed border-blue-200 bg-gradient-to-br from-blue-50/50 via-white to-white">
+            <article class="card-glass p-6 sm:p-7 flex flex-col justify-between reveal md:col-span-2 lg:col-span-1 border-2 border-dashed border-indigo-200 bg-gradient-to-br from-blue-50/50 via-white to-white">
                 <div>
                     <div class="flex items-center justify-between gap-2 mb-5">
-                        <div class="w-12 h-12 rounded-none bg-blue-100 text-[#2563EB] flex items-center justify-center border border-blue-200/60 shadow-xs">
+                        <div class="w-12 h-12 rounded-none bg-blue-100 text-[#5B5EA6] flex items-center justify-center border border-indigo-200/60 shadow-xs">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
-                        <span class="inline-flex items-center px-3 py-1 rounded-none text-xs font-heading font-bold bg-blue-100 text-[#2563EB] border border-blue-200">
+                        <span class="inline-flex items-center px-3 py-1 rounded-none text-xs font-heading font-bold bg-blue-100 text-[#5B5EA6] border border-indigo-200">
                             Индивидуально
                         </span>
                     </div>
@@ -602,7 +593,7 @@
                     </p>
                 </div>
 
-                <a href="#form" class="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-heading font-bold py-3.5 px-5 rounded-none text-center text-sm transition-all shadow-btn hover:shadow-btn-hover flex items-center justify-center gap-2">
+                <a href="#form" class="w-full bg-[#5B5EA6] hover:bg-[#4B4E94] text-white font-heading font-bold py-3.5 px-5 rounded-none text-center text-sm transition-all shadow-btn hover:shadow-btn-hover flex items-center justify-center gap-2">
                     <span>Обсудить сайт для моей ниши</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -615,7 +606,7 @@
     <!-- БЛОК 3: ЗАЧЕМ БИЗНЕСУ САЙТ (Light-First Psychology & Focus) -->
     <section id="why" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="max-w-3xl mx-auto text-center mb-14 reveal">
-            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#2563EB]">Зачем это нужно</span>
+            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#5B5EA6]">Зачем это нужно</span>
             <h2 class="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mt-2">
                 Почему одной группы в соцсетях сегодня уже мало
             </h2>
@@ -661,12 +652,12 @@
             <!-- 3. Рутина -->
             <div class="card-glass p-8 border-l-4 border-l-blue-500 reveal">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-none bg-blue-50 text-[#2563EB] flex items-center justify-center border border-blue-100">
+                    <div class="w-10 h-10 rounded-none bg-indigo-50 text-[#5B5EA6] flex items-center justify-center border border-blue-100">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                         </svg>
                     </div>
-                    <span class="text-xs font-heading font-bold text-[#2563EB] uppercase tracking-wider">Экономия времени</span>
+                    <span class="text-xs font-heading font-bold text-[#5B5EA6] uppercase tracking-wider">Экономия времени</span>
                 </div>
                 <h3 class="font-heading text-xl font-extrabold text-[#0F172A] mb-2.5">
                     Однотипные вопросы в переписках
@@ -699,7 +690,7 @@
     <!-- БЛОК 4: СРАВНЕНИЕ (Таблица преимуществ) -->
     <section id="compare" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="max-w-3xl mx-auto text-center mb-14 reveal">
-            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#2563EB]">Честное сравнение</span>
+            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#5B5EA6]">Честное сравнение</span>
             <h2 class="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mt-2">
                 Сравнение: мы, конструкторы или веб-студии
             </h2>
@@ -711,7 +702,7 @@
                     <thead>
                         <tr class="bg-slate-50/80 border-b border-slate-200">
                             <th class="p-6 text-sm font-heading font-bold text-slate-500 w-1/4">Критерий</th>
-                            <th class="p-6 text-sm font-heading font-extrabold text-[#2563EB] bg-blue-50/70 border-x border-blue-200 w-1/3">
+                            <th class="p-6 text-sm font-heading font-extrabold text-[#5B5EA6] bg-indigo-50/70 border-x border-indigo-200 w-1/3">
                                 <div class="flex items-center gap-2">
                                     <span>LocalWeb</span>
                                     <span class="badge-emerald font-heading text-[10px] py-0.5">Оптимально</span>
@@ -724,7 +715,7 @@
                     <tbody class="divide-y divide-slate-100 text-sm">
                         <tr>
                             <td class="p-6 font-heading font-bold text-slate-900">Стоимость запуска</td>
-                            <td class="p-6 font-heading font-mono font-bold text-[#2563EB] bg-blue-50/40 border-x border-blue-200">
+                            <td class="p-6 font-heading font-mono font-bold text-[#5B5EA6] bg-indigo-50/40 border-x border-indigo-200">
                                 7 500 ₽ один раз
                             </td>
                             <td class="p-6 text-slate-600">Вроде бесплатно, но тратите десятки часов личного времени</td>
@@ -732,7 +723,7 @@
                         </tr>
                         <tr>
                             <td class="p-6 font-heading font-bold text-slate-900">Ежегодные платежи</td>
-                            <td class="p-6 font-heading font-mono font-bold text-[#059669] bg-blue-50/40 border-x border-blue-200">
+                            <td class="p-6 font-heading font-mono font-bold text-[#059669] bg-indigo-50/40 border-x border-indigo-200">
                                 0 ₽ за платформу (код сайта ваш)
                             </td>
                             <td class="p-6 text-slate-600">7 200 – 12 000 ₽ каждый год (забыли оплатить — сайт отключен)</td>
@@ -740,7 +731,7 @@
                         </tr>
                         <tr>
                             <td class="p-6 font-heading font-bold text-slate-900">Риск при заказе</td>
-                            <td class="p-6 font-heading font-bold text-[#2563EB] bg-blue-50/40 border-x border-blue-200">
+                            <td class="p-6 font-heading font-bold text-[#5B5EA6] bg-indigo-50/40 border-x border-indigo-200">
                                 Черновик за 24 часа без предоплаты
                             </td>
                             <td class="p-6 text-slate-600">Разбираетесь сами методом проб и ошибок</td>
@@ -748,7 +739,7 @@
                         </tr>
                         <tr>
                             <td class="p-6 font-heading font-bold text-slate-900">Скорость и качество</td>
-                            <td class="p-6 font-heading font-bold text-[#2563EB] bg-blue-50/40 border-x border-blue-200">
+                            <td class="p-6 font-heading font-bold text-[#5B5EA6] bg-indigo-50/40 border-x border-indigo-200">
                                 Мгновенное открытие на телефонах, чистый код
                             </td>
                             <td class="p-6 text-slate-600">Тяжелые стандартные скрипты, часто медленная загрузка</td>
@@ -756,7 +747,7 @@
                         </tr>
                         <tr>
                             <td class="p-6 font-heading font-bold text-slate-900">Формат общения</td>
-                            <td class="p-6 font-heading font-bold text-[#2563EB] bg-blue-50/40 border-x border-blue-200">
+                            <td class="p-6 font-heading font-bold text-[#5B5EA6] bg-indigo-50/40 border-x border-indigo-200">
                                 Напрямую с разработчиком в Telegram
                             </td>
                             <td class="p-6 text-slate-600">Один на один с документацией и ботом поддержки</td>
@@ -775,7 +766,7 @@
                 
                 <!-- Левая колонка -->
                 <div class="lg:col-span-5">
-                    <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#2563EB]">Шаг вперед</span>
+                    <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#5B5EA6]">Шаг вперед</span>
                     <h2 class="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mt-2 mb-6">
                         Обсудить сайт и получить черновик
                     </h2>
@@ -826,11 +817,11 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="user-name" class="block text-xs font-heading font-bold text-slate-700 mb-1.5">Имя <span class="text-rose-500">*</span></label>
-                                <input type="text" id="user-name" required minlength="2" maxlength="60" placeholder="Иван" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/20">
+                                <input type="text" id="user-name" required minlength="2" maxlength="60" placeholder="Иван" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#5B5EA6] focus:ring-2 focus:ring-blue-500/20">
                             </div>
                             <div>
                                 <label for="user-surname" class="block text-xs font-heading font-bold text-slate-700 mb-1.5">Фамилия</label>
-                                <input type="text" id="user-surname" maxlength="60" placeholder="Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/20">
+                                <input type="text" id="user-surname" maxlength="60" placeholder="Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#5B5EA6] focus:ring-2 focus:ring-blue-500/20">
                             </div>
                         </div>
 
@@ -838,11 +829,11 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="user-company" class="block text-xs font-heading font-bold text-slate-700 mb-1.5">Название фирмы или проекта</label>
-                                <input type="text" id="user-company" maxlength="100" placeholder="Кофейня Бодрость или ИП Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/20">
+                                <input type="text" id="user-company" maxlength="100" placeholder="Кофейня Бодрость или ИП Иванов" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#5B5EA6] focus:ring-2 focus:ring-blue-500/20">
                             </div>
                             <div>
                                 <label for="user-niche" class="block text-xs font-heading font-bold text-slate-700 mb-1.5">Сфера бизнеса</label>
-                                <input type="text" id="user-niche" maxlength="100" placeholder="Автосервис, ремонт, юридические услуги..." class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/20">
+                                <input type="text" id="user-niche" maxlength="100" placeholder="Автосервис, ремонт, юридические услуги..." class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#5B5EA6] focus:ring-2 focus:ring-blue-500/20">
                             </div>
                         </div>
 
@@ -866,20 +857,20 @@
                                     Телефон
                                 </button>
                             </div>
-                            <input type="text" id="contact-input" required minlength="3" maxlength="100" placeholder="@username или номер в Telegram" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/20">
+                            <input type="text" id="contact-input" required minlength="3" maxlength="100" placeholder="@username или номер в Telegram" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#5B5EA6] focus:ring-2 focus:ring-blue-500/20">
                         </div>
 
                         <!-- Пожелания -->
                         <div>
                             <label for="user-notes" class="block text-xs font-heading font-bold text-slate-700 mb-1.5">Пожелания или ссылка на соцсети (если есть)</label>
-                            <textarea id="user-notes" rows="3" maxlength="1000" placeholder="Можно описать пару пожеланий своими словами или оставить поле пустым" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#2563EB] focus:ring-2 focus:ring-blue-500/20"></textarea>
+                            <textarea id="user-notes" rows="3" maxlength="1000" placeholder="Можно описать пару пожеланий своими словами или оставить поле пустым" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-none text-sm text-[#0F172A] focus:border-[#5B5EA6] focus:ring-2 focus:ring-blue-500/20"></textarea>
                         </div>
 
                         <!-- Чекбокс согласия (152-ФЗ) -->
                         <div class="pt-1">
                             <label class="flex items-start gap-2.5 cursor-pointer text-xs text-slate-600 select-none">
-                                <input type="checkbox" id="privacy-consent" name="privacy_consent" required checked class="mt-0.5 w-4 h-4 rounded text-[#2563EB] border-slate-300 focus:ring-blue-500">
-                                <span>Даю согласие на обработку данных в соответствии с <a href="policy.html" target="_blank" class="underline text-[#2563EB] hover:text-[#1D4ED8] transition-colors">Политикой конфиденциальности (152-ФЗ)</a></span>
+                                <input type="checkbox" id="privacy-consent" name="privacy_consent" required checked class="mt-0.5 w-4 h-4 rounded text-[#5B5EA6] border-slate-300 focus:ring-blue-500">
+                                <span>Даю согласие на обработку данных в соответствии с <a href="policy.html" target="_blank" class="underline text-[#5B5EA6] hover:text-[#4B4E94] transition-colors">Политикой конфиденциальности (152-ФЗ)</a></span>
                             </label>
                         </div>
 
@@ -900,7 +891,7 @@
     <!-- РАЗДЕЛ: ЧАСТЫЕ ВОПРОСЫ (FAQ) -->
     <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <div class="max-w-2xl mx-auto text-center mb-12 reveal">
-            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#2563EB]">Ответы на вопросы</span>
+            <span class="text-xs font-heading font-bold uppercase tracking-wider text-[#5B5EA6]">Ответы на вопросы</span>
             <h2 class="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mt-2">
                 Частые вопросы перед стартом
             </h2>
@@ -1042,12 +1033,12 @@
         <div class="mt-12 text-center reveal">
             <span class="text-sm font-medium text-slate-600 block mb-3.5">Остались вопросы или хотите обсудить нестандартную задачу?</span>
             <div class="flex flex-wrap items-center justify-center gap-3">
-                <a href="https://t.me/LocalWebRu" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-none bg-white border border-slate-200 hover:border-[#2563EB] hover:text-[#2563EB] text-slate-700 font-heading font-bold text-sm transition-all shadow-xs hover:shadow-sm">
-                    <svg class="w-4 h-4 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.941z"/></svg>
+                <a href="https://t.me/LocalWebRu" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-none bg-white border border-slate-200 hover:border-[#5B5EA6] hover:text-[#5B5EA6] text-slate-700 font-heading font-bold text-sm transition-all shadow-xs hover:shadow-sm">
+                    <svg class="w-4 h-4 text-[#5B5EA6]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.941z"/></svg>
                     Telegram: @LocalWebRu
                 </a>
-                <a href="https://vk.com/public242777884" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-none bg-white border border-slate-200 hover:border-[#2563EB] hover:text-[#2563EB] text-slate-700 font-heading font-bold text-sm transition-all shadow-xs hover:shadow-sm">
-                    <svg class="w-4 h-4 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24"><path d="M15.684 0H8.316C3.592 0 0 3.592 0 8.316v7.368C0 20.408 3.592 24 8.316 24h7.368C20.408 24 24 20.408 24 15.684V8.316C24 3.592 20.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.05-1.714-1.033-.996-1.49-1.124-1.745-1.124-.356 0-.458.102-.458.593v1.643c0 .424-.135.686-1.254.686-1.847 0-3.898-1.119-5.339-3.203-2.17-3.085-2.763-5.407-2.763-5.881 0-.254.102-.491.593-.491h1.746c.44 0 .61.203.78.678.847 2.475 2.271 4.644 2.864 4.644.22 0 .322-.102.322-.661V10.75c-.068-1.186-.695-1.288-.695-1.712 0-.203.17-.407.44-.407h2.746c.373 0 .508.186.508.627v3.373c0 .356.153.492.254.492.22 0 .407-.136.814-.542 1.254-1.407 2.153-3.576 2.153-3.576.119-.254.339-.373.78-.373h1.746c.525 0 .644.271.525.644-.22 1.017-2.356 4.034-2.458 4.22-.203.322-.288.475 0 .847.203.271.881.864 1.339 1.39 1.085 1.22 1.932 2.237 2.153 2.949.17.475-.085.746-.61.746z"/></svg>
+                <a href="https://vk.com/public242777884" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-none bg-white border border-slate-200 hover:border-[#5B5EA6] hover:text-[#5B5EA6] text-slate-700 font-heading font-bold text-sm transition-all shadow-xs hover:shadow-sm">
+                    <svg class="w-4 h-4 text-[#5B5EA6]" fill="currentColor" viewBox="0 0 24 24"><path d="M15.684 0H8.316C3.592 0 0 3.592 0 8.316v7.368C0 20.408 3.592 24 8.316 24h7.368C20.408 24 24 20.408 24 15.684V8.316C24 3.592 20.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.05-1.714-1.033-.996-1.49-1.124-1.745-1.124-.356 0-.458.102-.458.593v1.643c0 .424-.135.686-1.254.686-1.847 0-3.898-1.119-5.339-3.203-2.17-3.085-2.763-5.407-2.763-5.881 0-.254.102-.491.593-.491h1.746c.44 0 .61.203.78.678.847 2.475 2.271 4.644 2.864 4.644.22 0 .322-.102.322-.661V10.75c-.068-1.186-.695-1.288-.695-1.712 0-.203.17-.407.44-.407h2.746c.373 0 .508.186.508.627v3.373c0 .356.153.492.254.492.22 0 .407-.136.814-.542 1.254-1.407 2.153-3.576 2.153-3.576.119-.254.339-.373.78-.373h1.746c.525 0 .644.271.525.644-.22 1.017-2.356 4.034-2.458 4.22-.203.322-.288.475 0 .847.203.271.881.864 1.339 1.39 1.085 1.22 1.932 2.237 2.153 2.949.17.475-.085.746-.61.746z"/></svg>
                     ВКонтакте: vk.com/public242777884
                 </a>
             </div>
@@ -1060,7 +1051,7 @@
             <!-- 1: О студии -->
             <div class="md:col-span-2">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-8 h-8 rounded-none bg-[#2563EB] flex items-center justify-center text-white font-heading font-bold text-sm">
+                    <div class="w-8 h-8 rounded-none bg-[#5B5EA6] flex items-center justify-center text-white font-heading font-bold text-sm">
                         LW
                     </div>
                     <span class="font-heading font-extrabold text-xl text-white tracking-tight">LocalWeb</span>
@@ -1085,8 +1076,8 @@
                     <li><a href="#faq" class="hover:text-white transition-colors">Частые вопросы (FAQ)</a></li>
                     <li><a href="blog/index.html" class="hover:text-white transition-colors">Статьи и гайды</a></li>
                     <li><a href="#form" class="hover:text-white transition-colors">Оставить заявку</a></li>
-                    <li class="pt-2"><a href="https://t.me/LocalWebRu" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-white font-medium transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.941z"/></svg> Telegram: @LocalWebRu</a></li>
-                    <li><a href="https://vk.com/public242777884" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-white font-medium transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M15.684 0H8.316C3.592 0 0 3.592 0 8.316v7.368C0 20.408 3.592 24 8.316 24h7.368C20.408 24 24 20.408 24 15.684V8.316C24 3.592 20.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.05-1.714-1.033-.996-1.49-1.124-1.745-1.124-.356 0-.458.102-.458.593v1.643c0 .424-.135.686-1.254.686-1.847 0-3.898-1.119-5.339-3.203-2.17-3.085-2.763-5.407-2.763-5.881 0-.254.102-.491.593-.491h1.746c.44 0 .61.203.78.678.847 2.475 2.271 4.644 2.864 4.644.22 0 .322-.102.322-.661V10.75c-.068-1.186-.695-1.288-.695-1.712 0-.203.17-.407.44-.407h2.746c.373 0 .508.186.508.627v3.373c0 .356.153.492.254.492.22 0 .407-.136.814-.542 1.254-1.407 2.153-3.576 2.153-3.576.119-.254.339-.373.78-.373h1.746c.525 0 .644.271.525.644-.22 1.017-2.356 4.034-2.458 4.22-.203.322-.288.475 0 .847.203.271.881.864 1.339 1.39 1.085 1.22 1.932 2.237 2.153 2.949.17.475-.085.746-.61.746z"/></svg> ВКонтакте: vk.com/public242777884</a></li>
+                    <li class="pt-2"><a href="https://t.me/LocalWebRu" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-white font-medium transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.941z"/></svg> Telegram: @LocalWebRu</a></li>
+                    <li><a href="https://vk.com/public242777884" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-white font-medium transition-colors flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M15.684 0H8.316C3.592 0 0 3.592 0 8.316v7.368C0 20.408 3.592 24 8.316 24h7.368C20.408 24 24 20.408 24 15.684V8.316C24 3.592 20.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.05-1.714-1.033-.996-1.49-1.124-1.745-1.124-.356 0-.458.102-.458.593v1.643c0 .424-.135.686-1.254.686-1.847 0-3.898-1.119-5.339-3.203-2.17-3.085-2.763-5.407-2.763-5.881 0-.254.102-.491.593-.491h1.746c.44 0 .61.203.78.678.847 2.475 2.271 4.644 2.864 4.644.22 0 .322-.102.322-.661V10.75c-.068-1.186-.695-1.288-.695-1.712 0-.203.17-.407.44-.407h2.746c.373 0 .508.186.508.627v3.373c0 .356.153.492.254.492.22 0 .407-.136.814-.542 1.254-1.407 2.153-3.576 2.153-3.576.119-.254.339-.373.78-.373h1.746c.525 0 .644.271.525.644-.22 1.017-2.356 4.034-2.458 4.22-.203.322-.288.475 0 .847.203.271.881.864 1.339 1.39 1.085 1.22 1.932 2.237 2.153 2.949.17.475-.085.746-.61.746z"/></svg> ВКонтакте: vk.com/public242777884</a></li>
                 </ul>
             </div>
 
@@ -1114,7 +1105,7 @@
                         <p><span class="text-slate-400">Статус:</span> Самозанятый (НПД)</p>
                         <p><span class="text-slate-400">ИНН:</span> 420560867537</p>
                         <p><span class="text-slate-400">Email:</span> jarovenkoaleksander@yandex.ru</p>
-                        <p><span class="text-slate-400">Связь:</span> <a href="https://t.me/LocalWebRu" target="_blank" class="text-blue-400 hover:underline">@LocalWebRu</a></p>
+                        <p><span class="text-slate-400">Связь:</span> <a href="https://t.me/LocalWebRu" target="_blank" class="text-indigo-400 hover:underline">@LocalWebRu</a></p>
                     </div>
                 </details>
             </div>
@@ -1145,7 +1136,7 @@
                 Мы свяжемся с вами в течение 15 минут для уточнения деталей первого черновика.
             </p>
             <p class="text-xs text-slate-500 mb-6">
-                Или можно сразу <a href="https://t.me/LocalWebRu" target="_blank" rel="noopener noreferrer" class="text-[#2563EB] hover:text-blue-700 font-heading font-bold underline underline-offset-2 transition-colors">связаться с администратором в Telegram</a>.
+                Или можно сразу <a href="https://t.me/LocalWebRu" target="_blank" rel="noopener noreferrer" class="text-[#5B5EA6] hover:text-blue-700 font-heading font-bold underline underline-offset-2 transition-colors">связаться с администратором в Telegram</a>.
             </p>
             <button id="dialog-close-btn" type="button" class="btn-primary w-full py-3.5 text-sm font-heading font-bold">
                 Отлично, жду!
