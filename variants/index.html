@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalWeb // Интерактивная витрина 5 концепций дизайна</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+        .font-mono { font-family: 'IBM Plex Mono', monospace; }
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+
+        .tab-btn {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .tab-btn.active {
+            background-color: #2563EB;
+            color: #FFFFFF;
+            border-color: #3B82F6;
+            box-shadow: 0 0 16px rgba(37, 99, 235, 0.4);
+        }
+        .viewport-btn.active {
+            background-color: #334155;
+            color: #38BDF8;
+        }
+        .preview-container {
+            transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- ВЕРХНЯЯ ПАНЕЛЬ УПРАВЛЕНИЯ -->
+    <header class="bg-slate-900 border-b border-slate-800 px-4 py-3 flex flex-wrap items-center justify-between gap-4 shrink-0 z-30">
+        <!-- Логотип и контекст -->
+        <div class="flex items-center gap-3">
+            <a href="../" class="flex items-center gap-2 group" title="Вернуться на основной сайт">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm group-hover:scale-105 transition-transform">
+                    LW
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-heading font-extrabold text-sm text-white tracking-tight">LOCALWEB</span>
+                        <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800 font-bold">5 ДИЗАЙН-КОНЦЕПЦИЙ</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 block font-mono">ОТ ЭКСПЕРИМЕНТАЛЬНОГО ДО APPLE PRO</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Переключатели вариантов -->
+        <div class="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
+            <button onclick="selectVariant(1)" id="btn-v1" class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-heading font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap">
+                1. Брутализм (Blueprint)
+            </button>
+            <button onclick="selectVariant(2)" id="btn-v2" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-heading font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap">
+                2. Нео-Финтех (Linear)
+            </button>
+            <button onclick="selectVariant(3)" id="btn-v3" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-heading font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap">
+                3. Швейцарская сетка (Swiss)
+            </button>
+            <button onclick="selectVariant(4)" id="btn-v4" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-heading font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap">
+                4. Бутик & Эдиториал (Vogue)
+            </button>
+            <button onclick="selectVariant(5)" id="btn-v5" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-heading font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap">
+                5. Купертино (Apple Pro)
+            </button>
+        </div>
+
+        <!-- Переключатель вьюпортов и открытие во весь экран -->
+        <div class="flex items-center gap-3">
+            <div class="hidden sm:flex items-center bg-slate-800 rounded-lg p-0.5 border border-slate-700 text-xs">
+                <button onclick="setViewport('100%')" id="vp-desktop" class="viewport-btn active px-2.5 py-1 rounded text-slate-300 font-mono" title="Десктоп 100%">
+                    1280px
+                </button>
+                <button onclick="setViewport('768px')" id="vp-tablet" class="viewport-btn px-2.5 py-1 rounded text-slate-300 font-mono" title="Планшет 768px">
+                    768px
+                </button>
+                <button onclick="setViewport('390px')" id="vp-mobile" class="viewport-btn px-2.5 py-1 rounded text-slate-300 font-mono" title="Смартфон iPhone 390px">
+                    390px
+                </button>
+            </div>
+
+            <a id="external-link" href="1-experimental-blueprint.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white flex items-center gap-1.5 transition-colors" title="Открыть этот макет в отдельной вкладке">
+                <span>Во весь экран</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- ИНФОРМАЦИОННАЯ ПЛАШКА АКТИВНОГО ВАРИАНТА -->
+    <div id="info-drawer" class="bg-slate-900/90 border-b border-slate-800 px-6 py-2.5 text-xs flex flex-wrap items-center justify-between gap-4 font-mono">
+        <div class="flex items-center gap-3">
+            <span id="info-tag" class="px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700 font-bold">
+                ВЫБРАН ВАРИАНТ 1
+            </span>
+            <span id="info-title" class="text-white font-bold font-sans">
+                Кинетический Архитектурный Брутализм (Kinetic Blueprint)
+            </span>
+        </div>
+        <div class="flex items-center gap-6 text-slate-400">
+            <div>Шрифты: <span id="info-fonts" class="text-slate-200">Montserrat 900 + IBM Plex Mono</span></div>
+            <div>Холст: <span id="info-canvas" class="text-slate-200">Изометрическая сетка 1px (100% Light)</span></div>
+            <div>Фокус: <span id="info-focus" class="text-slate-200">Честный инжиниринг и технологичность</span></div>
+        </div>
+    </div>
+
+    <!-- ОКНО ЖИВОГО ПРОСМОТРА (LIVE IFRAME) -->
+    <div class="flex-1 bg-slate-950 p-3 sm:p-6 flex items-center justify-center overflow-hidden">
+        <div id="preview-wrapper" class="preview-container w-full h-full max-w-full bg-white rounded-xl shadow-2xl overflow-hidden border border-slate-800 transition-all flex flex-col">
+            <iframe id="preview-frame" src="1-experimental-blueprint.html" class="w-full h-full border-0" title="Живой прототип варианта"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const variantsData = {
+            1: {
+                url: '1-experimental-blueprint.html',
+                tag: 'ВАРИАНТ 1 // САМЫЙ ЭКСПЕРИМЕНТАЛЬНЫЙ',
+                title: 'Кинетический Архитектурный Брутализм (Blueprint Wireframe)',
+                fonts: 'Montserrat 900 + IBM Plex Mono',
+                canvas: 'Миллиметровая сетка 1px (#F8FAFC)',
+                focus: 'Инженерная открытость, координаты, штампы ОТК'
+            },
+            2: {
+                url: '2-neo-fintech.html',
+                tag: 'ВАРИАНТ 2 // НЕО-ФИНТЕХ',
+                title: 'Скоростная Инженерия (Linear & Stripe Velocity)',
+                fonts: 'Montserrat 700 + Open Sans + Tabular Nums',
+                canvas: 'Ультра-чистый градиент (#F8FAFC → #FFFFFF)',
+                focus: 'Интерактивный симулятор ниши, 60 FPS, островная навигация'
+            },
+            3: {
+                url: '3-swiss-precision.html',
+                tag: 'ВАРИАНТ 3 // ШВЕЙЦАРСКАЯ СЕТКА',
+                title: 'Прецизионная Модульная Сетка (Bauhaus & Всё зачётно)',
+                fonts: 'Montserrat Bold + IBM Plex Mono',
+                canvas: 'Холодный серый холст (#F1F5F9) + 1px hairline',
+                focus: 'Сравнительный аудит, нумерованные модули, строгие 4px углы'
+            },
+            4: {
+                url: '4-editorial-boutique.html',
+                tag: 'ВАРИАНТ 4 // БУТИК & ЭДИТОРИАЛ',
+                title: 'Журнальная Эстетика Ремесла (Kinfolk / Vogue Editorial)',
+                fonts: 'Playfair Display Serif + Open Sans',
+                canvas: 'Теплый льняной кремовый (#FAF8F5)',
+                focus: 'Истории мастеров, цитаты клиентов, благородная бронза'
+            },
+            5: {
+                url: '5-apple-pro.html',
+                tag: 'ВАРИАНТ 5 // КУПЕРТИНО ПРО',
+                title: 'Промышленный Минимализм в стиле Apple (Cupertino Luxury)',
+                fonts: 'SF Pro / Montserrat (-0.035em tracking)',
+                canvas: 'Apple Light Grey (#F5F5F7) + Pure White',
+                focus: 'Мокап iPhone 16 Pro, суперэллипсы 28px, тактильные капсулы'
+            }
+        };
+
+        function selectVariant(id) {
+            const data = variantsData[id];
+            if (!data) return;
+
+            // Обновляем фрейм и внешнюю ссылку
+            document.getElementById('preview-frame').src = data.url;
+            document.getElementById('external-link').href = data.url;
+
+            // Обновляем инфо-плашку
+            document.getElementById('info-tag').textContent = data.tag;
+            document.getElementById('info-title').textContent = data.title;
+            document.getElementById('info-fonts').textContent = data.fonts;
+            document.getElementById('info-canvas').textContent = data.canvas;
+            document.getElementById('info-focus').textContent = data.focus;
+
+            // Стили табов
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-v' + id).classList.add('active');
+        }
+
+        function setViewport(width) {
+            const wrapper = document.getElementById('preview-wrapper');
+            wrapper.style.maxWidth = width;
+
+            document.querySelectorAll('.viewport-btn').forEach(btn => btn.classList.remove('active'));
+            if (width === '100%') document.getElementById('vp-desktop').classList.add('active');
+            if (width === '768px') document.getElementById('vp-tablet').classList.add('active');
+            if (width === '390px') document.getElementById('vp-mobile').classList.add('active');
+        }
+    </script>
+</body>
+</html>

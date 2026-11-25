@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalWeb // Вариант 3: Швейцарская Прецизионная Сетка</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --swiss-canvas: #F8FAFC;
+            --swiss-surface: #FFFFFF;
+            --swiss-border: #E2E8F0;
+            --swiss-border-strong: #CBD5E1;
+            --swiss-ink: #0F172A;
+            --swiss-cobalt: #1E40AF;
+            --radius-sharp: 4px;
+            --radius-micro: 2px;
+        }
+        body {
+            background-color: var(--swiss-canvas);
+            color: var(--swiss-ink);
+            font-family: 'Open Sans', -apple-system, sans-serif;
+            font-variant-numeric: tabular-nums;
+        }
+        .font-mono { font-family: 'IBM Plex Mono', monospace; }
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+
+        .swiss-grid-box {
+            background: var(--swiss-surface);
+            border: 1px solid var(--swiss-border);
+            border-radius: var(--radius-sharp);
+        }
+        .hairline-divider {
+            height: 1px;
+            background-color: var(--swiss-border);
+        }
+        .swiss-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: var(--radius-micro);
+            background: #F1F5F9;
+            color: #334155;
+            border: 1px solid #E2E8F0;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Топ-индикатор -->
+    <aside aria-label="Техническая спецификация варианта" class="w-full bg-[#1E293B] text-slate-200 text-xs py-1.5 px-4 flex justify-between items-center z-50 font-mono">
+        <div>
+            <span class="text-blue-300 font-bold">VARIANT_03 // SWISS_PRECISION</span>
+            <span class="hidden sm:inline text-slate-400"> | INTERNATIONAL TYPOGRAPHIC STYLE</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span>GRID: 8PT STRICT</span>
+            <span class="text-emerald-400">WCAG AAA COMPLIANT</span>
+        </div>
+    </aside>
+
+    <!-- Строгий академический хэдер -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-6 h-6 bg-slate-900 text-white flex items-center justify-center font-mono font-bold text-xs rounded-[2px]">
+                    +
+                </div>
+                <div>
+                    <span class="font-heading font-extrabold text-sm tracking-tight text-slate-900 uppercase">LOCALWEB // СТУДИЯ</span>
+                    <span class="hidden sm:inline-block text-[11px] font-mono text-slate-500 ml-2">ВЕБ-ИНЖИНИРИНГ</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6 font-mono text-xs text-slate-600">
+                <a href="#table" class="hover:text-blue-900">[01] СРАВНЕНИЕ</a>
+                <a href="#cases" class="hover:text-blue-900">[02] РЕШЕНИЯ</a>
+                <a href="#sla" class="hover:text-blue-900">[03] SLA СТАНДАРТ</a>
+                <a href="#order" class="hover:text-blue-900">[04] РЕГЛАМЕНТ</a>
+            </nav>
+
+            <a href="#order" class="font-mono text-xs font-bold px-3.5 py-1.5 bg-blue-900 text-white rounded-[4px] hover:bg-blue-800 transition-colors">
+                ЗАКАЗ: 7 500 ₽
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <!-- HERO СТРОГОГО МОДУЛЬНОГО ТИПА -->
+        <section class="swiss-grid-box p-8 sm:p-12 mb-10">
+            <div class="flex items-center gap-2 mb-4 font-mono text-xs text-slate-500">
+                <span class="swiss-tag text-blue-800 font-bold">МОДУЛЬ 01</span>
+                <span>ПРОИЗВОДСТВЕННЫЙ СТАНДАРТ РАЗРАБОТКИ</span>
+            </div>
+
+            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl text-slate-900 tracking-tight leading-tight mb-6">
+                Разработка коммерческих сайтов<br>
+                с математической точностью за 24 часа.
+            </h1>
+
+            <div class="hairline-divider mb-8"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs mb-8">
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span class="text-slate-400 block mb-1">01 / СРОК СДАЧИ</span>
+                    <span class="font-bold text-slate-900 text-sm">24 часа с момента брифа</span>
+                    <p class="text-slate-500 text-[11px] mt-1 font-sans">Рабочий черновик готов на следующие сутки.</p>
+                </div>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span class="text-slate-400 block mb-1">02 / ПРЕДОПЛАТА</span>
+                    <span class="font-bold text-emerald-700 text-sm">0 ₽ до приемки результата</span>
+                    <p class="text-slate-500 text-[11px] mt-1 font-sans">Оплата только после вашего одобрения.</p>
+                </div>
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-[4px]">
+                    <span class="text-slate-400 block mb-1">03 / СТОИМОСТЬ</span>
+                    <span class="font-bold text-blue-900 text-sm">7 500 ₽ (фиксированная)</span>
+                    <p class="text-slate-500 text-[11px] mt-1 font-sans">Никаких скрытых платежей и подписок.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="#order" class="bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold px-6 py-3 rounded-[4px] transition-colors">
+                    ОФОРМИТЬ ТЕХНИЧЕСКИЙ БРИФ →
+                </a>
+                <span class="font-mono text-xs text-slate-500">
+                    СООТВЕТСТВИЕ 152-ФЗ О ПЕРСОНАЛЬНЫХ ДАННЫХ
+                </span>
+            </div>
+        </section>
+
+        <!-- СРАВНИТЕЛЬНАЯ ТАБЛИЦА СТАНДАРТОВ (Спецификация) -->
+        <section id="table" class="swiss-grid-box p-6 sm:p-8 mb-10 overflow-x-auto">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <span class="swiss-tag text-slate-700 font-bold">МОДУЛЬ 02</span>
+                    <h2 class="font-heading font-bold text-xl text-slate-900 mt-1">Сравнительный аудит подходов</h2>
+                </div>
+                <span class="font-mono text-xs text-slate-400">РЕВИЗИЯ 2026.11</span>
+            </div>
+
+            <table class="w-full text-left font-mono text-xs border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-200 text-slate-500">
+                        <th class="py-3 px-3">КРИТЕРИЙ</th>
+                        <th class="py-3 px-3">ОБЫЧНЫЕ ВЕБ-СТУДИИ</th>
+                        <th class="py-3 px-3">КОНСТРУКТОРЫ САЙТОВ</th>
+                        <th class="py-3 px-3 bg-blue-50 text-blue-950 font-bold">LOCALWEB СТУДИЯ</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-slate-700">
+                    <tr>
+                        <td class="py-3 px-3 font-semibold text-slate-900">Срок запуска</td>
+                        <td class="py-3 px-3 text-red-700">3–6 недель</td>
+                        <td class="py-3 px-3 text-amber-700">Самостоятельно (дни/недели)</td>
+                        <td class="py-3 px-3 bg-blue-50/50 font-bold text-emerald-700">24–48 часов</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-3 font-semibold text-slate-900">Предоплата</td>
+                        <td class="py-3 px-3 text-red-700">50%–100% аванс</td>
+                        <td class="py-3 px-3 text-amber-700">Оплата тарифа сразу</td>
+                        <td class="py-3 px-3 bg-blue-50/50 font-bold text-emerald-700">0 ₽ (оплата по факту)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-3 font-semibold text-slate-900">Ежемесячная плата</td>
+                        <td class="py-3 px-3">Хостинг (500–1500 ₽/мес)</td>
+                        <td class="py-3 px-3 text-red-700">1 500 – 3 000 ₽/мес</td>
+                        <td class="py-3 px-3 bg-blue-50/50 font-bold text-emerald-700">0 ₽ (пожизненно)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-3 font-semibold text-slate-900">Стоимость запуска</td>
+                        <td class="py-3 px-3">35 000 – 120 000 ₽</td>
+                        <td class="py-3 px-3">18 000 – 36 000 ₽/год</td>
+                        <td class="py-3 px-3 bg-blue-50/50 font-bold text-blue-900">7 500 ₽ фиксированно</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- РЕЕСТР ОТРАСЛЕЙ (КЕЙСЫ) -->
+        <section id="cases" class="mb-10">
+            <div class="flex items-center gap-2 mb-4 font-mono text-xs text-slate-500">
+                <span class="swiss-tag text-slate-700 font-bold">МОДУЛЬ 03</span>
+                <span>БАЗА ГОТОВЫХ ОТРАСЛЕВЫХ ШАБЛОНОВ</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="swiss-grid-box p-4">
+                    <span class="font-mono text-[10px] text-slate-400 block mb-1">№ 01 // ПЕКАРНЯ</span>
+                    <img src="../assets/demo/bakery/hero.webp" alt="Пекарня" class="w-full h-32 object-cover rounded-[2px] mb-3">
+                    <h3 class="font-heading font-bold text-sm text-slate-900 mb-1">Кондитерская мастерская</h3>
+                    <p class="text-xs text-slate-500 font-sans mb-3">Калькулятор веса, каталог начинок, заявки в WhatsApp.</p>
+                    <a href="../demo/bakery/" class="font-mono text-xs text-blue-800 font-bold hover:underline">ПРОВЕРИТЬ ДЕМО →</a>
+                </div>
+
+                <div class="swiss-grid-box p-4">
+                    <span class="font-mono text-[10px] text-slate-400 block mb-1">№ 02 // АВТОСЕРВИС</span>
+                    <img src="../assets/demo/auto/hero.webp" alt="Авто" class="w-full h-32 object-cover rounded-[2px] mb-3">
+                    <h3 class="font-heading font-bold text-sm text-slate-900 mb-1">Техцентр СТО</h3>
+                    <p class="text-xs text-slate-500 font-sans mb-3">Расчет ТО по симптомам, онлайн-запись, гарантия.</p>
+                    <a href="../demo/auto/" class="font-mono text-xs text-blue-800 font-bold hover:underline">ПРОВЕРИТЬ ДЕМО →</a>
+                </div>
+
+                <div class="swiss-grid-box p-4">
+                    <span class="font-mono text-[10px] text-slate-400 block mb-1">№ 03 // БЬЮТИ</span>
+                    <img src="../assets/demo/nails/hero.webp" alt="Ногти" class="w-full h-32 object-cover rounded-[2px] mb-3">
+                    <h3 class="font-heading font-bold text-sm text-slate-900 mb-1">Студия маникюра</h3>
+                    <p class="text-xs text-slate-500 font-sans mb-3">Стерилизация СанПиН, фото до/после, запись к мастеру.</p>
+                    <a href="../demo/nails/" class="font-mono text-xs text-blue-800 font-bold hover:underline">ПРОВЕРИТЬ ДЕМО →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- РЕГЛАМЕНТ ЗАКАЗА -->
+        <section id="order" class="swiss-grid-box p-8 bg-white">
+            <div class="max-w-2xl">
+                <span class="swiss-tag text-blue-900 font-bold mb-2 inline-block">МОДУЛЬ 04 // РЕГЛАМЕНТ</span>
+                <h2 class="font-heading font-bold text-2xl text-slate-900 mb-3">Порядок взаимодействия</h2>
+                <p class="text-xs text-slate-600 font-sans leading-relaxed mb-6">
+                    1. Передаете исходные данные (название, телефон, услуги).<br>
+                    2. В течение 24 часов инженер собирает прототип на выделенном URL.<br>
+                    3. Вы проводите аудит на смартфоне.<br>
+                    4. При согласии — оплата 7 500 ₽ с выдачей электронного чека ФНС.
+                </p>
+
+                <div class="flex flex-wrap gap-3 font-mono text-xs">
+                    <a href="https://t.me/LocalWebRu" target="_blank" class="bg-blue-900 hover:bg-blue-800 text-white font-bold px-5 py-2.5 rounded-[4px]">
+                        СВЯЗАТЬСЯ В TELEGRAM
+                    </a>
+                    <a href="mailto:jarovenkoaleksander@yandex.ru" class="border border-slate-300 hover:bg-slate-50 text-slate-800 font-bold px-5 py-2.5 rounded-[4px]">
+                        НАПИСАТЬ НА EMAIL
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white py-6 text-center font-mono text-xs text-slate-400">
+        SWISS STANDARDS // LOCALWEB PRODUCTION // ISO-INSPIRED 2026
+    </footer>
+
+</body>
+</html>

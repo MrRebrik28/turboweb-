@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalWeb // Швейцарский плакат (Swiss Style)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Строго шрифты из DESIGN_SYSTEM_RULES.md (Вариант 1): Montserrat + Open Sans + IBM Plex Mono (без Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --surface-canvas: #F8FAFC;
+            --surface-card: #FFFFFF;
+            --surface-muted: #F1F5F9;
+            --border-hairline: #CBD5E1;
+            --border-strong: #0F172A;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --text-caption: #64748B;
+            --accent: #2563EB;
+            --accent-hover: #1D4ED8;
+            --radius-sharp: 4px;
+            --radius-micro: 2px;
+        }
+        html, body {
+            max-width: 100vw;
+            overflow-x: clip;
+        }
+        body {
+            background-color: var(--surface-canvas);
+            color: var(--text-main);
+            font-family: 'Open Sans', sans-serif;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-smoothing: antialiased;
+        }
+        .font-poster {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.04em;
+        }
+        .font-mono {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .swiss-rule {
+            border-color: var(--border-strong);
+        }
+        .swiss-hairline {
+            border-color: var(--border-hairline);
+        }
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            z-index: 9999;
+            pointer-events: none;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            @supports (animation-timeline: scroll()) {
+                @keyframes grow-scroll-progress {
+                    from { transform: scaleX(0); }
+                    to { transform: scaleX(1); }
+                }
+                .scroll-progress {
+                    animation: grow-scroll-progress auto linear;
+                    animation-timeline: scroll();
+                }
+            }
+        }
+        .skip-link {
+            position: fixed;
+            top: -100px;
+            left: 12px;
+            z-index: 10000;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #FFFFFF;
+            border-radius: var(--radius-sharp);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .skip-link:focus {
+            top: 12px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+
+    <a href="#main-poster" class="skip-link">Перейти к содержанию</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ВЕРХНЯЯ ПЛАКАТНАЯ ШАПКА -->
+    <header class="border-b-2 border-[#0F172A] bg-white sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-[#2563EB] text-white flex items-center justify-center font-poster font-black text-sm rounded-[2px]">
+                    LW
+                </div>
+                <span class="font-poster font-black text-lg tracking-tight uppercase text-[#0F172A]">
+                    LocalWeb<span class="text-[#2563EB]">.</span>
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 font-mono text-xs font-semibold uppercase tracking-wider text-[#475569]">
+                <a href="#manifesto" class="hover:text-[#2563EB] transition-colors">01 / Манифест</a>
+                <a href="#cases" class="hover:text-[#2563EB] transition-colors">02 / Примеры</a>
+                <a href="#terms" class="hover:text-[#2563EB] transition-colors">03 / Условия</a>
+                <a href="#order" class="hover:text-[#2563EB] transition-colors">04 / Заказ</a>
+            </nav>
+
+            <a href="#order" class="bg-[#0F172A] hover:bg-[#2563EB] text-white font-mono text-xs font-bold uppercase px-4 py-2.5 rounded-[4px] transition-colors whitespace-nowrap">
+                7 500 ₽ / 24Ч
+            </a>
+        </div>
+    </header>
+
+    <main id="main-poster" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+        <!-- ПЛАКАТНЫЙ HERO (Асимметричная швейцарская сетка) -->
+        <section id="manifesto" class="bg-white border-2 border-[#0F172A] mb-12">
+            <!-- Верхняя строка метаданных -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 border-b border-[#CBD5E1] font-mono text-[11px] uppercase text-[#64748B]">
+                <div class="p-3 border-r border-[#CBD5E1]">
+                    <span class="block text-[9px] text-[#94A3B8]">ФОРМАТ</span>
+                    <strong class="text-[#0F172A]">SWISS_POSTER_GRID</strong>
+                </div>
+                <div class="p-3 sm:border-r border-[#CBD5E1]">
+                    <span class="block text-[9px] text-[#94A3B8]">СРОК СДАЧИ</span>
+                    <strong class="text-[#2563EB]">24 ЧАСА</strong>
+                </div>
+                <div class="p-3 border-t sm:border-t-0 border-r border-[#CBD5E1]">
+                    <span class="block text-[9px] text-[#94A3B8]">ПРЕДОПЛАТА</span>
+                    <strong class="text-[#0F172A]">0 ₽ АВАНСА</strong>
+                </div>
+                <div class="p-3 border-t sm:border-t-0">
+                    <span class="block text-[9px] text-[#94A3B8]">СТОИМОСТЬ</span>
+                    <strong class="text-[#0F172A]">7 500 ₽ ФИКС</strong>
+                </div>
+            </div>
+
+            <!-- Главная типографическая композиция -->
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <!-- Левая колонка: Монументальный заголовок -->
+                <div class="lg:col-span-8 p-6 sm:p-12 lg:border-r border-[#CBD5E1] flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block font-mono text-xs font-bold uppercase tracking-widest text-[#2563EB] mb-4">
+                            [01] ЦИФРОВАЯ ВИТРИНА ДЛЯ МАЛОГО БИЗНЕСА
+                        </span>
+                        <h1 class="font-poster font-black text-4xl sm:text-6xl lg:text-7xl text-[#0F172A] leading-[0.96] uppercase mb-8">
+                            САЙТ<br>
+                            ЗА 24 ЧАСА.<br>
+                            <span class="text-[#2563EB]">ОПЛАТА</span><br>
+                            ПОСЛЕ.
+                        </h1>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pt-6 border-t border-[#E2E8F0]">
+                        <p class="text-sm sm:text-base text-[#475569] max-w-md leading-relaxed">
+                            Сначала собираем рабочий прототип на вашем смартфоне. Никаких конструкторов, ежемесячных списаний и брифов на 20 страниц.
+                        </p>
+                        <a href="#order" class="inline-flex items-center justify-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-mono text-xs font-bold uppercase px-6 py-4 rounded-[4px] transition-colors shrink-0">
+                            <span>Заказать черновик</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Правая колонка: Плакатные цифры и факты -->
+                <div class="lg:col-span-4 bg-[#F1F5F9] flex flex-col justify-between border-t lg:border-t-0 border-[#CBD5E1]">
+                    <div class="p-6 sm:p-8 border-b border-[#CBD5E1]">
+                        <span class="font-mono text-xs text-[#64748B] block mb-1">01 / ЦЕНА ПОД КЛЮЧ</span>
+                        <div class="font-poster font-black text-5xl text-[#0F172A]">7 500 ₽</div>
+                        <span class="font-mono text-xs text-[#475569] mt-2 block">Официальный чек ФНС (54-ФЗ / 422-ФЗ)</span>
+                    </div>
+
+                    <div class="p-6 sm:p-8 border-b border-[#CBD5E1]">
+                        <span class="font-mono text-xs text-[#64748B] block mb-1">02 / АБОНЕНТСКАЯ ПЛАТА</span>
+                        <div class="font-poster font-black text-5xl text-[#2563EB]">0 ₽</div>
+                        <span class="font-mono text-xs text-[#475569] mt-2 block">Пожизненный облачный хостинг + SSL</span>
+                    </div>
+
+                    <div class="p-6 sm:p-8">
+                        <span class="font-mono text-xs text-[#64748B] block mb-1">03 / СКОРОСТЬ ЗАГРУЗКИ</span>
+                        <div class="font-poster font-black text-5xl text-[#0F172A]">0.4 с</div>
+                        <span class="font-mono text-xs text-[#475569] mt-2 block">Чистый код без тяжелых CMS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ 02: ПРИМЕРЫ РАБОТ (Модульная сетка с фото) -->
+        <section id="cases" class="mb-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-[#0F172A] pb-3 mb-6 gap-2">
+                <div>
+                    <span class="font-mono text-xs font-bold text-[#2563EB] uppercase">[02] ОТРАСЛЕВЫЕ РЕШЕНИЯ</span>
+                    <h2 class="font-poster font-black text-2xl sm:text-4xl uppercase text-[#0F172A] mt-1">
+                        Готовые прототипы
+                    </h2>
+                </div>
+                <span class="font-mono text-xs text-[#64748B]">3 ИЗ 5 ДОСТУПНЫХ НИШ</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 border border-[#CBD5E1] bg-white">
+                <!-- Кейс 1 -->
+                <article class="p-6 border-b md:border-b-0 md:border-r border-[#CBD5E1] flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center font-mono text-xs text-[#64748B] mb-3">
+                            <span>01 / КОНДИТЕРСКАЯ</span>
+                            <span class="text-[#2563EB] font-bold">24Ч</span>
+                        </div>
+                        <img src="../assets/demo/bakery/hero.webp" alt="Кондитерская SweetCraft" class="w-full h-48 object-cover border border-[#E2E8F0] mb-4">
+                        <h3 class="font-poster font-extrabold text-xl uppercase text-[#0F172A] mb-2">SweetCraft</h3>
+                        <p class="text-xs text-[#475569] leading-relaxed mb-4">
+                            Калькулятор веса торта по числу гостей, каталог начинок и мгновенный заказ в WhatsApp.
+                        </p>
+                    </div>
+                    <a href="../demo/bakery/" class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#2563EB] hover:underline">
+                        <span>Открыть макет</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </article>
+
+                <!-- Кейс 2 -->
+                <article class="p-6 border-b md:border-b-0 md:border-r border-[#CBD5E1] flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center font-mono text-xs text-[#64748B] mb-3">
+                            <span>02 / АВТОСЕРВИС</span>
+                            <span class="text-[#2563EB] font-bold">24Ч</span>
+                        </div>
+                        <img src="../assets/demo/auto/hero.webp" alt="Автосервис МоторПро" class="w-full h-48 object-cover border border-[#E2E8F0] mb-4">
+                        <h3 class="font-poster font-extrabold text-xl uppercase text-[#0F172A] mb-2">МоторПро</h3>
+                        <p class="text-xs text-[#475569] leading-relaxed mb-4">
+                            Калькулятор ТО по симптомам, онлайн-запись на подъемник и гарантия 1 год.
+                        </p>
+                    </div>
+                    <a href="../demo/auto/" class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#2563EB] hover:underline">
+                        <span>Открыть макет</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </article>
+
+                <!-- Кейс 3 -->
+                <article class="p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center font-mono text-xs text-[#64748B] mb-3">
+                            <span>03 / СТУДИЯ КРАСОТЫ</span>
+                            <span class="text-[#2563EB] font-bold">24Ч</span>
+                        </div>
+                        <img src="../assets/demo/nails/hero.webp" alt="Студия Velvet Nails" class="w-full h-48 object-cover border border-[#E2E8F0] mb-4">
+                        <h3 class="font-poster font-extrabold text-xl uppercase text-[#0F172A] mb-2">Velvet Nails</h3>
+                        <p class="text-xs text-[#475569] leading-relaxed mb-4">
+                            Прайс-лист услуг, блок стерилизации по СанПиН в 3 этапа и онлайн-запись к мастеру.
+                        </p>
+                    </div>
+                    <a href="../demo/nails/" class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#2563EB] hover:underline">
+                        <span>Открыть макет</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ 03: ЗАКАЗ В 1 КЛИК -->
+        <section id="order" class="bg-white border-2 border-[#0F172A] p-6 sm:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7">
+                    <span class="font-mono text-xs font-bold text-[#2563EB] uppercase block mb-2">[03] СТАРТ БЕЗ РИСКА</span>
+                    <h2 class="font-poster font-black text-3xl sm:text-5xl uppercase text-[#0F172A] leading-none mb-4">
+                        НАЧНИТЕ СЕГОДНЯ.
+                    </h2>
+                    <p class="text-sm text-[#475569] max-w-lg leading-relaxed">
+                        Напишите в удобный мессенджер, чем занимается ваш бизнес. Завтра вы получите готовую ссылку на рабочий черновик.
+                    </p>
+                </div>
+                <div class="lg:col-span-5 flex flex-col gap-3 font-mono text-xs font-bold uppercase">
+                    <a href="https://t.me/LocalWebRu" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-4 rounded-[4px] transition-colors">
+                        <span>Написать в Telegram</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/79990000000" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between bg-white hover:bg-[#F1F5F9] text-[#0F172A] border border-[#0F172A] px-5 py-4 rounded-[4px] transition-colors">
+                        <span>Написать в WhatsApp</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-[#CBD5E1] bg-white py-6 text-center font-mono text-xs text-[#64748B]">
+        LOCALWEB // SWISS POSTER EDITION // LIGHT-FIRST 2026
+    </footer>
+
+</body>
+</html>

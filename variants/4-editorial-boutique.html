@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalWeb // Вариант 4: Бутик & Журнальный Эдиториал</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --linen-bg: #FAF8F5;
+            --linen-card: #FFFFFF;
+            --linen-subtle: #F2EDE4;
+            --linen-ink: #27272A;
+            --linen-bronze: #B45309;
+            --linen-olive: #15803D;
+        }
+        body {
+            background-color: var(--linen-bg);
+            color: var(--linen-ink);
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+        .editorial-frame {
+            background: #FFFFFF;
+            border: 1px solid #EAE3D2;
+            padding: 12px;
+            box-shadow: 0 4px 20px -2px rgba(180, 83, 9, 0.05);
+        }
+        .quote-lead {
+            border-left: 2px solid var(--linen-bronze);
+            padding-left: 1.25rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Топ-плашка варианта -->
+    <aside aria-label="Техническая спецификация варианта" class="w-full bg-[#27272A] text-[#F3EFEA] text-xs py-1.5 px-4 flex justify-between items-center z-50 tracking-wider">
+        <div class="flex items-center gap-3">
+            <span class="font-bold text-amber-300">VARIANT_04 // WARM_EDITORIAL</span>
+            <span class="hidden sm:inline text-slate-400">| LUXURY BOUTIQUE & ARTISAN STORIES</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-amber-200">100% LIGHT-CREAM</span>
+            <span class="text-slate-400">PLAYFAIR DISPLAY</span>
+        </div>
+    </aside>
+
+    <!-- Изысканная навигация -->
+    <header class="border-b border-[#EAE3D2] bg-[#FAF8F5]/90 backdrop-blur sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-baseline gap-2 group">
+                <span class="font-serif font-bold text-2xl tracking-normal text-[#27272A]">LocalWeb</span>
+                <span class="text-[11px] uppercase tracking-widest text-amber-800 font-semibold">Atelier</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest text-slate-700 font-semibold">
+                <a href="#philosophy" class="hover:text-amber-800 transition-colors">Философия</a>
+                <a href="#stories" class="hover:text-amber-800 transition-colors">Истории дел</a>
+                <a href="#guarantee" class="hover:text-amber-800 transition-colors">Доверие</a>
+                <a href="#atelier" class="hover:text-amber-800 transition-colors">Заказ</a>
+            </nav>
+
+            <a href="#atelier" class="text-xs uppercase tracking-widest font-semibold px-5 py-2.5 bg-[#27272A] text-white hover:bg-amber-900 transition-colors">
+                Черновик за 24 ч
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-16">
+        <!-- HERO В СТИЛЕ СТАТЬИ ЖУРНАЛА VOGUE / KINFOLK -->
+        <section class="mb-20 text-center max-w-3xl mx-auto">
+            <span class="text-xs uppercase tracking-[0.25em] text-amber-800 font-semibold block mb-4">
+                Эстетика. Скорость. Честность.
+            </span>
+            <h1 class="font-serif text-4xl sm:text-6xl text-[#1C1917] leading-[1.15] mb-6">
+                Сайт, созданный подчеркнуть <em>достоинство</em> вашего дела.
+            </h1>
+            <p class="text-slate-600 text-lg leading-relaxed font-light mb-8 max-w-2xl mx-auto">
+                Мы создаем веб-страницы для местных мастеров, кондитерских, мастерских и салонов. Сначала собираем живой черновик, показываем его вам на экране смартфона — и только потом, если вам нравится, происходит оплата.
+            </p>
+            <div class="inline-flex items-center gap-6">
+                <a href="#atelier" class="px-8 py-4 bg-[#27272A] hover:bg-amber-900 text-white text-xs uppercase tracking-widest font-semibold transition-colors">
+                    Попробовать без оплаты
+                </a>
+                <span class="font-serif italic text-sm text-slate-500">
+                    Фиксировано 7 500 ₽
+                </span>
+            </div>
+        </section>
+
+        <!-- БОЛЬШАЯ ФОТО-ИСТОРИЯ (EDITORIAL SHOWCASE) -->
+        <section id="stories" class="mb-20">
+            <div class="editorial-frame mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#FAF8F5] p-6 sm:p-10">
+                    <div class="md:col-span-7">
+                        <img src="../assets/demo/bakery/hero.webp" alt="Кондитерская" class="w-full h-80 object-cover shadow-sm">
+                    </div>
+                    <div class="md:col-span-5">
+                        <span class="text-[11px] uppercase tracking-widest text-amber-800 font-bold block mb-2">ИСТОРИЯ № 1 // КОНДИТЕРСКАЯ</span>
+                        <h2 class="font-serif text-2xl text-[#1C1917] mb-4">Мастерская тортов «SweetCraft»</h2>
+                        <div class="quote-lead text-slate-600 text-sm mb-6 leading-relaxed">
+                            «Раньше клиенты терялись в переписке в директе. После запуска сайта с понятным каталогом начинок и кнопкой WhatsApp мы закрыли 14 заказов за первые выходные».
+                        </div>
+                        <a href="../demo/bakery/" class="text-xs uppercase tracking-widest font-semibold text-amber-900 hover:underline">
+                            Открыть пример сайта →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сетка малых историй -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="editorial-frame p-6">
+                    <img src="../assets/demo/nails/hero.webp" alt="Ногти" class="w-full h-56 object-cover mb-4">
+                    <span class="text-[10px] uppercase tracking-widest text-amber-800 font-bold block mb-1">КРАСОТА & УХОД</span>
+                    <h3 class="font-serif text-xl text-[#1C1917] mb-2">Студия маникюра «Velvet Nails»</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed font-light mb-4">
+                        Элегантный онлайн-прайс, прозрачный показ стерилизации инструментов и запись без ожидания ответа администратора.
+                    </p>
+                    <a href="../demo/nails/" class="text-xs uppercase tracking-widest font-semibold text-amber-900 hover:underline">
+                        Смотреть макет →
+                    </a>
+                </div>
+
+                <div class="editorial-frame p-6">
+                    <img src="../assets/demo/auto/hero.webp" alt="Авто" class="w-full h-56 object-cover mb-4">
+                    <span class="text-[10px] uppercase tracking-widest text-amber-800 font-bold block mb-1">ТЕХНИЧЕСКИЙ СЕРВИС</span>
+                    <h3 class="font-serif text-xl text-[#1C1917] mb-2">Автосервис «МоторПро»</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed font-light mb-4">
+                        Чистый светлый макет европейского техцентра: прозрачные цены на ТО и запись на свободный подъемник за минуту.
+                    </p>
+                    <a href="../demo/auto/" class="text-xs uppercase tracking-widest font-semibold text-amber-900 hover:underline">
+                        Смотреть макет →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПРИЗЫВ: АТЕЛЬЕ -->
+        <section id="atelier" class="bg-white border border-[#EAE3D2] p-10 sm:p-14 text-center">
+            <span class="text-xs uppercase tracking-[0.2em] text-amber-800 font-semibold block mb-3">ВАШ ЛИЧНЫЙ ЧЕРНОВИК</span>
+            <h2 class="font-serif text-3xl sm:text-4xl text-[#1C1917] mb-4">Начнем знакомство без обязательств</h2>
+            <p class="text-slate-600 text-sm max-w-xl mx-auto mb-8 font-light leading-relaxed">
+                Расскажите о своем деле в Telegram или WhatsApp. За 24 часа мы подготовим полноценную страницу и пришлем ссылку. Если сайт вас вдохновит — стоимость составит фиксированные 7 500 ₽.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://t.me/LocalWebRu" target="_blank" class="px-8 py-3.5 bg-[#27272A] hover:bg-amber-900 text-white text-xs uppercase tracking-widest font-semibold transition-colors w-full sm:w-auto">
+                    Написать в Telegram
+                </a>
+                <a href="https://wa.me/79990000000" target="_blank" class="px-8 py-3.5 border border-[#27272A] hover:bg-amber-50 text-[#27272A] text-xs uppercase tracking-widest font-semibold transition-colors w-full sm:w-auto">
+                    Написать в WhatsApp
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-[#EAE3D2] py-8 text-center text-xs text-slate-400 font-light">
+        LOCALWEB ATELIER // ИЗЫСКАННЫЙ ДИЗАЙН ДЛЯ ЛОКАЛЬНОГО БИЗНЕСА // 2026
+    </footer>
+
+</body>
+</html>

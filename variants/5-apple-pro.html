@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalWeb // Вариант 5: Профессиональный в стиле Apple</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --apple-bg: #F5F5F7;
+            --apple-card: #FFFFFF;
+            --apple-text: #1D1D1F;
+            --apple-subtext: #86868B;
+            --apple-blue: #0071E3;
+            --apple-blue-hover: #0077ED;
+            --apple-green: #34C759;
+            --apple-border: rgba(0, 0, 0, 0.08);
+            --apple-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            --apple-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.08);
+        }
+        body {
+            background-color: var(--apple-bg);
+            color: var(--apple-text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", 'Open Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-variant-numeric: tabular-nums;
+        }
+        .font-apple-headline {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", 'Montserrat', sans-serif;
+            letter-spacing: -0.035em;
+            font-weight: 800;
+        }
+        .apple-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .apple-card {
+            background: var(--apple-card);
+            border-radius: 28px;
+            box-shadow: var(--apple-shadow);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .apple-card:hover {
+            transform: scale(1.01);
+            box-shadow: var(--apple-shadow-hover);
+        }
+        .apple-pill-btn {
+            background: var(--apple-blue);
+            color: #FFFFFF;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
+        }
+        .apple-pill-btn:hover {
+            background: var(--apple-blue-hover);
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(0, 113, 227, 0.35);
+        }
+        .apple-secondary-btn {
+            background: rgba(0, 113, 227, 0.08);
+            color: var(--apple-blue);
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .apple-secondary-btn:hover {
+            background: rgba(0, 113, 227, 0.15);
+        }
+        .device-mockup {
+            border: 12px solid #1D1D1F;
+            border-radius: 44px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0,0,0,0.1);
+            background: #FFFFFF;
+            overflow: hidden;
+            position: relative;
+        }
+        .device-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 22px;
+            background: #1D1D1F;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Топ-индикатор варианта -->
+    <aside aria-label="Техническая спецификация варианта" class="w-full bg-[#1D1D1F] text-white text-xs py-1.5 px-4 flex justify-between items-center z-50">
+        <div class="flex items-center gap-3">
+            <span class="font-bold text-[#2997FF]">VARIANT_05 // APPLE_CUPERTINO_PRO</span>
+            <span class="hidden sm:inline text-slate-400">| HUMAN INTERFACE LUXURY & AIR</span>
+        </div>
+        <div class="flex items-center gap-3 font-mono">
+            <span class="text-emerald-400">SQUIRCLE 28PX</span>
+            <span class="text-slate-400">0% NOISE</span>
+        </div>
+    </aside>
+
+    <!-- Фирменный полупрозрачный навбар Apple -->
+    <header class="apple-nav sticky top-0 z-40 h-14 flex items-center">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 w-full flex items-center justify-between text-xs">
+            <a href="#" class="flex items-center gap-2 group font-semibold text-slate-900 text-sm">
+                <svg class="w-4 h-4 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                <span>LocalWeb</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-7 text-slate-600 font-medium">
+                <a href="#overview" class="hover:text-black transition-colors">Обзор</a>
+                <a href="#bento" class="hover:text-black transition-colors">Инновации</a>
+                <a href="#cases" class="hover:text-black transition-colors">Галерея</a>
+                <a href="#pricing" class="hover:text-black transition-colors">Купить</a>
+            </nav>
+
+            <a href="#pricing" class="apple-pill-btn text-[11px] px-3.5 py-1.5">
+                Заказать за 7 500 ₽
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-24">
+        <!-- HERO SECTION: Apple Keynote Style -->
+        <section id="overview" class="text-center max-w-3xl mx-auto mb-20">
+            <span class="text-xs font-semibold uppercase tracking-widest text-slate-500 block mb-3">
+                Новый стандарт веб-разработки
+            </span>
+            <h1 class="font-apple-headline text-5xl sm:text-7xl text-slate-900 mb-4 leading-[1.04]">
+                Сайт для вашего дела.
+            </h1>
+            <p class="font-apple-headline text-3xl sm:text-5xl text-slate-400 mb-8 leading-[1.1]">
+                Невероятно быстрый. Абсолютно ваш.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#pricing" class="apple-pill-btn text-sm px-7 py-3 w-full sm:w-auto">
+                    Заказать без предоплаты
+                </a>
+                <a href="#cases" class="apple-secondary-btn text-sm px-6 py-3 w-full sm:w-auto">
+                    Смотреть презентацию →
+                </a>
+            </div>
+
+            <!-- МОКАП IPHONE 16 PRO С ЖИВЫМ САЙТОМ -->
+            <div class="relative max-w-xs sm:max-w-sm mx-auto">
+                <div class="device-mockup">
+                    <div class="device-notch"></div>
+                    <div class="pt-8 px-4 pb-6 bg-[#F8FAFC]">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-200 pb-2">
+                            <span class="text-[10px] font-bold text-slate-800">LocalWeb Mobile</span>
+                            <span class="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded-full">● 100/100 SPEED</span>
+                        </div>
+                        <img src="../assets/demo/bakery/hero.webp" alt="Экран сайта" class="w-full h-44 object-cover rounded-xl shadow-sm mb-3">
+                        <div class="text-left">
+                            <span class="text-[10px] font-semibold text-blue-600 uppercase">Кондитерская</span>
+                            <h4 class="font-apple-headline text-sm text-slate-900 font-bold leading-tight mt-0.5">Торты на заказ в Москве</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 leading-snug">Готовый прототип работает на вашем смартфоне ровно через 24 часа.</p>
+                            <div class="mt-3 w-full py-2 bg-blue-600 text-white rounded-lg text-center text-[10px] font-bold">
+                                Оформить заказ в 1 клик
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Эффект отражения под девайсом -->
+                <div class="w-3/4 h-6 bg-gradient-to-r from-transparent via-slate-300/40 to-transparent mx-auto blur-md mt-4 rounded-full"></div>
+            </div>
+        </section>
+
+        <!-- APPLE BENTO GRID (ИННОВАЦИИ В ЧИСТОМ СТИЛЕ) -->
+        <section id="bento" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="font-apple-headline text-3xl sm:text-5xl text-slate-900 mb-3">
+                    Всё, что имеет значение.
+                </h2>
+                <p class="text-slate-500 text-base max-w-xl mx-auto">
+                    Разработано с заботой о каждой детали. Без компромиссов.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Карточка 1: Скорость (Большая) -->
+                <div class="apple-card p-8 md:col-span-8 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">ИННОВАЦИЯ № 1</span>
+                        <h3 class="font-apple-headline text-2xl sm:text-3xl text-slate-900 mt-2 mb-3">
+                            24 часа. От идеи до экрана.
+                        </h3>
+                        <p class="text-slate-500 text-sm max-w-md leading-relaxed">
+                            Пока другие агентства тратят недели на согласование прототипов и составление брифов на 20 страниц, мы сразу пишем чистый код и передаем вам живой результат на следующий день.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-400">Спринт без проволочек</span>
+                        <span class="text-emerald-600 font-apple-headline font-bold text-lg">24:00:00</span>
+                    </div>
+                </div>
+
+                <!-- Карточка 2: 0 ₽ предоплаты (Квадратная) -->
+                <div class="apple-card p-8 md:col-span-4 flex flex-col justify-between bg-gradient-to-b from-white to-blue-50/30">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-blue-600 font-bold">БЕЗУПРЕЧНОЕ ДОВЕРИЕ</span>
+                        <h3 class="font-apple-headline text-2xl text-slate-900 mt-2 mb-3">
+                            0 ₽ аванса.
+                        </h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">
+                            Мы уверены в своем продукте. Если результат вам не понравится — вы не платите ни единого рубля.
+                        </p>
+                    </div>
+                    <div class="mt-8">
+                        <span class="inline-block px-3 py-1 bg-white rounded-full border border-slate-200 text-xs font-semibold text-slate-700 shadow-xs">
+                            Гарантия спокойствия
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Карточка 3: 0 ₽ хостинг (Квадратная) -->
+                <div class="apple-card p-8 md:col-span-4 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">ЭКОНОМИКА</span>
+                        <h3 class="font-apple-headline text-2xl text-slate-900 mt-2 mb-3">
+                            0 ₽ в месяц.
+                        </h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">
+                            Сайт размещается в защищенном облаке с бесплатным пожизненным хостингом и SSL-сертификатом.
+                        </p>
+                    </div>
+                    <div class="mt-8 text-xs text-slate-400">
+                        Экономия до 36 000 ₽ / год
+                    </div>
+                </div>
+
+                <!-- Карточка 4: Технологии (Большая) -->
+                <div class="apple-card p-8 md:col-span-8 flex flex-col justify-between bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/20">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-emerald-600 font-bold">ПРОИЗВОДИТЕЛЬНОСТЬ</span>
+                        <h3 class="font-apple-headline text-2xl sm:text-3xl text-slate-900 mt-2 mb-3">
+                            100 из 100 в Google PageSpeed.
+                        </h3>
+                        <p class="text-slate-500 text-sm max-w-md leading-relaxed">
+                            Мгновенная загрузка за 0.4 секунды даже на слабом 3G-интернете. Клиенты не уходят к конкурентам из-за зависшего сайта.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center gap-4">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                        <span class="text-xs font-semibold text-slate-700">Оптимизировано для всех устройств iOS и Android</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПРЕЗЕНТАЦИЯ КЕЙСОВ В СТИЛЕ СЛАЙДОВ APPLE -->
+        <section id="cases" class="mb-20">
+            <div class="text-center mb-10">
+                <span class="text-xs uppercase tracking-widest text-slate-400 font-semibold block mb-2">РЕАЛЬНЫЕ РЕШЕНИЯ</span>
+                <h2 class="font-apple-headline text-3xl sm:text-4xl text-slate-900">Готовые прототипы</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="apple-card p-6">
+                    <img src="../assets/demo/bakery/hero.webp" alt="Пекарня" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <span class="text-xs font-semibold text-blue-600">SweetCraft Bakery</span>
+                    <h3 class="font-apple-headline text-lg text-slate-900 mt-1 mb-2">Кондитерская мастерская</h3>
+                    <p class="text-xs text-slate-500 mb-4 leading-relaxed">Калькулятор торта, каталог и прямая связь в мессенджеры.</p>
+                    <a href="../demo/bakery/" class="apple-secondary-btn inline-block text-xs px-4 py-2">Смотреть демо</a>
+                </div>
+
+                <div class="apple-card p-6">
+                    <img src="../assets/demo/auto/hero.webp" alt="Автосервис" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <span class="text-xs font-semibold text-blue-600">MotorPro Service</span>
+                    <h3 class="font-apple-headline text-lg text-slate-900 mt-1 mb-2">Автосервис и СТО</h3>
+                    <p class="text-xs text-slate-500 mb-4 leading-relaxed">Онлайн-диагностика поломок и запись на подъемник.</p>
+                    <a href="../demo/auto/" class="apple-secondary-btn inline-block text-xs px-4 py-2">Смотреть демо</a>
+                </div>
+
+                <div class="apple-card p-6">
+                    <img src="../assets/demo/nails/hero.webp" alt="Салон красоты" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <span class="text-xs font-semibold text-blue-600">Velvet Nails</span>
+                    <h3 class="font-apple-headline text-lg text-slate-900 mt-1 mb-2">Студия маникюра</h3>
+                    <p class="text-xs text-slate-500 mb-4 leading-relaxed">Прайс-лист, галерея «До/После» и стандарт СанПиН.</p>
+                    <a href="../demo/nails/" class="apple-secondary-btn inline-block text-xs px-4 py-2">Смотреть демо</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- КУПИТЬ / СДЕЛАТЬ ЗАКАЗ (APPLE ORDER SECTION) -->
+        <section id="pricing" class="apple-card p-10 sm:p-16 text-center bg-white">
+            <span class="text-xs uppercase tracking-widest text-slate-400 font-semibold block mb-3">ОФИЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ</span>
+            <h2 class="font-apple-headline text-4xl sm:text-5xl text-slate-900 mb-4">
+                7 500 ₽
+            </h2>
+            <p class="text-slate-500 text-base max-w-lg mx-auto mb-8 leading-relaxed">
+                Полный цикл под ключ. Включает адаптивный дизайн, интеграцию с Telegram-ботом, пожизненный хостинг и 30 дней бесплатной поддержки.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+                <a href="https://t.me/LocalWebRu" target="_blank" class="apple-pill-btn text-sm px-8 py-3.5 w-full sm:w-auto">
+                    Заказать в Telegram
+                </a>
+                <a href="https://wa.me/79990000000" target="_blank" class="apple-secondary-btn text-sm px-8 py-3.5 w-full sm:w-auto">
+                    Заказать в WhatsApp
+                </a>
+            </div>
+
+            <p class="text-[11px] text-slate-400 mt-8">
+                Оплата после демонстрации прототипа • Фискальный чек ФНС России • 152-ФЗ
+            </p>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-200/80 bg-white py-10 text-center text-xs text-slate-400">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span>© 2026 LocalWeb. Зарегистрировано в соответствии с законодательством РФ.</span>
+            <span>Дизайн вдохновлен эстетикой Apple Human Interface Guidelines.</span>
+        </div>
+    </footer>
+
+</body>
+</html>

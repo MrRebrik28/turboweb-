@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>LocalWeb // Презентация 5 концепций дизайна интерфейса</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: 297mm 210mm;
+            margin: 0;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #E2E8F0;
+            font-family: 'Open Sans', sans-serif;
+            font-variant-numeric: tabular-nums;
+        }
+        .slide {
+            width: 297mm;
+            height: 210mm;
+            max-width: 297mm;
+            max-height: 210mm;
+            margin: 0 auto;
+            page-break-after: always;
+            page-break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 14mm 16mm;
+        }
+        .font-mono { font-family: 'IBM Plex Mono', monospace; }
+        .font-heading { font-family: 'Montserrat', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 3mm;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 8.5pt;
+            color: #64748B;
+        }
+        .hairline-card {
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            background: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+         СЛАЙД 1: ТИТУЛЬНЫЙ (ОБЛОЖКА)
+         ========================================== -->
+    <div class="slide" style="background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 60%, #EFF6FF 100%);">
+        <!-- Шапка обложки -->
+        <div class="flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#2563EB] flex items-center justify-center text-white font-heading font-black text-lg shadow-sm">
+                    LW
+                </div>
+                <div>
+                    <span class="font-heading font-extrabold text-xl tracking-tight text-[#0F172A]">Local<span class="text-[#2563EB]">Web</span></span>
+                    <span class="block text-[9pt] font-mono text-slate-500 uppercase tracking-widest">ДИЗАЙН-СТРАТЕГИЯ // 2026</span>
+                </div>
+            </div>
+            <div class="px-3.5 py-1.5 rounded-full border border-blue-200 bg-white shadow-xs text-[9pt] font-mono font-bold text-blue-700">
+                100% LIGHT-FIRST · ZERO-EMOJI · 7 500 ₽
+            </div>
+        </div>
+
+        <!-- Центральный заголовок -->
+        <div class="max-w-4xl my-auto">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-blue-50 border border-blue-200 text-blue-800 text-[10pt] font-mono font-bold mb-4">
+                ПРЕЗЕНТАЦИЯ АРХИТЕКТУРНЫХ РЕШЕНИЙ
+            </div>
+            <h1 class="font-heading font-black text-[38pt] text-[#0F172A] leading-[1.06] mb-5 tracking-tight">
+                5 концепций дизайна интерфейса<br>
+                <span class="text-[#2563EB]">для сайта LocalWeb</span>
+            </h1>
+            <p class="text-slate-600 text-[13pt] leading-relaxed max-w-2xl font-light mb-8">
+                Спектральный анализ и готовые интерактивные прототипы: от ультра-экспериментального архитектурного брутализма до премиального минимализма Apple Cupertino Pro.
+            </p>
+
+            <div class="grid grid-cols-4 gap-4 max-w-3xl font-mono text-[9pt]">
+                <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-xs">
+                    <span class="text-slate-400 block text-[8pt]">ТАРИФ</span>
+                    <strong class="text-slate-900 text-[11pt]">7 500 ₽</strong>
+                </div>
+                <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-xs">
+                    <span class="text-slate-400 block text-[8pt]">СРОК СДАЧИ</span>
+                    <strong class="text-slate-900 text-[11pt]">24 часа</strong>
+                </div>
+                <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-xs">
+                    <span class="text-slate-400 block text-[8pt]">УСЛОВИЕ</span>
+                    <strong class="text-emerald-600 text-[11pt]">0 ₽ аванс</strong>
+                </div>
+                <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-xs">
+                    <span class="text-slate-400 block text-[8pt]">ХОСТИНГ</span>
+                    <strong class="text-blue-600 text-[11pt]">0 ₽ / месяц</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подвал обложки -->
+        <div class="slide-footer">
+            <span>АВТОР: АЛЕКСАНДР ЯРОВЕНКО (MRREBRIK28)</span>
+            <span>СТУДИЯ LOCALWEB // СТАНДАРТ 2026.11</span>
+            <span>СЛАЙД 01 / 08</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         СЛАЙД 2: СРАВНИТЕЛЬНАЯ МАТРИЦА 5 КОНЦЕПЦИЙ
+         ========================================== -->
+    <div class="slide">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <div>
+                    <span class="text-[9pt] font-mono font-bold text-blue-600 uppercase tracking-wider">МАТРИЦА ВЫБОРА // АРХИТЕКТУРНЫЙ АУДИТ</span>
+                    <h2 class="font-heading font-black text-[20pt] text-[#0F172A] leading-tight">
+                        Сравнительный спектр 5 концепций интерфейса
+                    </h2>
+                </div>
+                <span class="px-3 py-1 rounded bg-slate-100 text-slate-700 font-mono text-[8.5pt]">A4 LANDSCAPE OVERVIEW</span>
+            </div>
+            <div class="w-full h-0.5 bg-slate-200 mb-4"></div>
+        </div>
+
+        <div class="overflow-hidden border border-slate-200 rounded-xl bg-white shadow-xs my-auto">
+            <table class="w-full text-left font-mono text-[8.5pt] border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                        <th class="py-2.5 px-3 font-bold">КРИТЕРИЙ</th>
+                        <th class="py-2.5 px-3 font-bold text-blue-900 bg-blue-50/50">1. БРУТАЛИЗМ</th>
+                        <th class="py-2.5 px-3 font-bold text-blue-700">2. НЕО-ФИНТЕХ</th>
+                        <th class="py-2.5 px-3 font-bold text-slate-800">3. ШВЕЙЦАРСКАЯ</th>
+                        <th class="py-2.5 px-3 font-bold text-amber-900 bg-amber-50/40">4. ЭДИТОРИАЛ</th>
+                        <th class="py-2.5 px-3 font-bold text-indigo-950 bg-slate-100/60">5. APPLE PRO</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-sans text-[8.5pt] text-slate-700">
+                    <tr>
+                        <td class="py-2.5 px-3 font-mono font-bold text-slate-900">Идея & Образ</td>
+                        <td class="py-2.5 px-3 bg-blue-50/20 font-medium">Сборочный чертеж</td>
+                        <td class="py-2.5 px-3 font-medium">Linear & Stripe скорость</td>
+                        <td class="py-2.5 px-3 font-medium">Логика, Баухаус, Всё зачётно</td>
+                        <td class="py-2.5 px-3 bg-amber-50/20 font-medium">Kinfolk / Vogue ателье</td>
+                        <td class="py-2.5 px-3 bg-slate-100/30 font-bold text-slate-900">Индустриальный флагман</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2.5 px-3 font-mono font-bold text-slate-900">Холст (Light-Only)</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-blue-50/20">#F8FAFC + Сетка 24px</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt]">#F8FAFC → #FFFFFF</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt]">#F1F5F9 (Лабораторный)</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-amber-50/20">#FAF8F5 (Теплый лен)</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-slate-100/30">#F5F5F7 (Серый Apple)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2.5 px-3 font-mono font-bold text-slate-900">Типографика</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-blue-50/20">Montserrat 900 + Mono</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt]">Montserrat 700 + Open Sans</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt]">Montserrat + Tabular Nums</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-amber-50/20">Playfair Display + Sans</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-slate-100/30">SF Pro / Montserrat (-0.035em)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2.5 px-3 font-mono font-bold text-slate-900">Углы & Линии</td>
+                        <td class="py-2.5 px-3 bg-blue-50/20 font-mono text-[8pt]">0px (Острые рамки)</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt]">12–16px (Финтех)</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt]">4px / 2px (Hairline 1px)</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-amber-50/20">8–12px (Паспарту)</td>
+                        <td class="py-2.5 px-3 font-mono text-[8pt] bg-slate-100/30">28–32px (Суперэллипс)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2.5 px-3 font-mono font-bold text-slate-900">Ключевой интерактив</td>
+                        <td class="py-2.5 px-3 bg-blue-50/20">Штампы, схема модулей</td>
+                        <td class="py-2.5 px-3">Live симулятор ниш</td>
+                        <td class="py-2.5 px-3">Таблица аудита студий</td>
+                        <td class="py-2.5 px-3 bg-amber-50/20">Цитаты и фото-истории</td>
+                        <td class="py-2.5 px-3 bg-slate-100/30 font-semibold">Мокап iPhone 16 Pro + Bento</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2.5 px-3 font-mono font-bold text-slate-900">Эмоция клиента</td>
+                        <td class="py-2.5 px-3 bg-blue-50/20">«Честные инженеры»</td>
+                        <td class="py-2.5 px-3">«Сверхбыстрый сервис»</td>
+                        <td class="py-2.5 px-3">«Полная прозрачность»</td>
+                        <td class="py-2.5 px-3 bg-amber-50/20">«Уважение к ремеслу»</td>
+                        <td class="py-2.5 px-3 bg-slate-100/30 font-semibold text-blue-700">«Продукт мирового класса»</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2.5 px-3 font-mono font-bold text-slate-900">Целевой сектор</td>
+                        <td class="py-2.5 px-3 bg-blue-50/20">B2B, СТО, монтаж</td>
+                        <td class="py-2.5 px-3">IT, клининг, доставка</td>
+                        <td class="py-2.5 px-3">Юристы, бухгалтерия</td>
+                        <td class="py-2.5 px-3 bg-amber-50/20">Кондитеры, бьюти, декор</td>
+                        <td class="py-2.5 px-3 bg-slate-100/30 font-bold text-slate-900">Универсально для всех ниш</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slide-footer">
+            <span>LOCALWEB // СРАВНИТЕЛЬНЫЙ АНАЛИЗ</span>
+            <span>ВСЕ ВАРИАНТЫ: АДАПТИВНОСТЬ 390PX & 1280PX</span>
+            <span>СЛАЙД 02 / 08</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         СЛАЙД 3: ВАРИАНТ 1 — КИНЕТИЧЕСКИЙ БРУТАЛИЗМ
+         ========================================== -->
+    <div class="slide" style="background-image: radial-gradient(#CBD5E1 1px, transparent 1px); background-size: 20px 20px; background-color: #F8FAFC;">
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 bg-blue-900 text-white font-mono text-[8pt] font-bold">ВАРИАНТ 01</span>
+                    <span class="font-mono text-[8pt] text-slate-500 uppercase">САМЫЙ ЭКСПЕРИМЕНТАЛЬНЫЙ</span>
+                </div>
+                <span class="font-mono text-[8pt] text-blue-700 font-bold">[SLA: 24:00:00]</span>
+            </div>
+            <h2 class="font-heading font-black text-[22pt] text-slate-900 leading-tight">
+                Кинетический Архитектурный Брутализм
+            </h2>
+            <p class="font-mono text-[8.5pt] text-slate-500 mb-3">KINETIC_BLUEPRINT // ИНЖЕНЕРНЫЙ ЧЕРТЕЖ ЦИФРОВОГО АКТИВА</p>
+            <div class="w-full h-px bg-slate-300 mb-4"></div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-5 my-auto">
+            <!-- Левая колонка: описание и токены -->
+            <div class="col-span-5 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="p-3 bg-white border border-slate-300 shadow-[3px_3px_0px_#0F172A]">
+                        <span class="font-mono text-[8pt] text-blue-700 font-bold block mb-1">СУТЬ КОНЦЕПЦИИ</span>
+                        <p class="text-[9.5pt] text-slate-700 leading-relaxed font-sans">
+                            Сайт оформлен как честный производственный чертеж. Клиент видит не "маркетинговую пыль", а прозрачную схему узлов своего будущего веб-инструмента.
+                        </p>
+                    </div>
+
+                    <div class="p-3 bg-white border border-slate-300">
+                        <span class="font-mono text-[8pt] text-slate-400 block mb-1">ТЕХНИЧЕСКИЕ ТОКЕНЫ</span>
+                        <div class="grid grid-cols-2 gap-2 font-mono text-[8pt]">
+                            <div>Фон: <strong class="text-slate-800">#F8FAFC (Сетка)</strong></div>
+                            <div>Акцент: <strong class="text-blue-700">#1D4ED8</strong></div>
+                            <div>Шрифт: <strong class="text-slate-800">Montserrat 900</strong></div>
+                            <div>Цифры: <strong class="text-slate-800">IBM Plex Mono</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 bg-blue-50 border border-dashed border-blue-300 font-mono text-[8pt] text-blue-900">
+                        ✓ Штампы верификации [ОТК APPROVED]<br>
+                        ✓ Моноширинные таймеры отсчета дедлайна<br>
+                        ✓ Предельная плотность фактуры и доверия
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-300 font-mono text-[8.5pt]">
+                    <span class="text-slate-500">РЕКОМЕНДУЕМЫЕ ОТРАСЛИ:</span>
+                    <div class="font-bold text-slate-800 mt-0.5">СТО, спецтехника, стройка, B2B-поставки, металлообработка</div>
+                </div>
+            </div>
+
+            <!-- Правая колонка: визуализация макета -->
+            <div class="col-span-7 bg-white border border-slate-300 p-4 shadow-[5px_5px_0px_rgba(15,23,42,0.1)]">
+                <div class="flex justify-between items-center font-mono text-[8pt] text-slate-400 border-b border-slate-200 pb-2 mb-3">
+                    <span>PREVIEW // 1-EXPERIMENTAL-BLUEPRINT.HTML</span>
+                    <span class="text-emerald-600 font-bold">100% LIGHT</span>
+                </div>
+
+                <!-- Мини-макет -->
+                <div class="space-y-3">
+                    <div class="p-4 bg-slate-50 border border-slate-300">
+                        <span class="inline-block px-2 py-0.5 bg-slate-200 font-mono text-[7pt] text-slate-700 mb-2">FRAME_ID: #HERO_ROOT</span>
+                        <h3 class="font-heading font-black text-[14pt] text-slate-900 leading-tight">
+                            САЙТ ЗА 24Ч. ЧЕСТНЫЙ ИНЖИНИРИНГ.
+                        </h3>
+                        <p class="text-[8pt] text-slate-600 mt-1 font-sans">Рабочий черновик до оплаты. 0 ₽ предоплаты. Фиксированная ставка 7 500 ₽.</p>
+                        <div class="mt-2.5 flex items-center gap-2">
+                            <span class="px-2.5 py-1 bg-blue-700 text-white font-mono text-[7.5pt] font-bold">[ ЗАКАЗАТЬ ЧЕРНОВИК ]</span>
+                            <span class="font-mono text-[7pt] text-slate-500">ТАКТ: 24 ЧАСА</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="p-2 border border-slate-200 bg-white">
+                            <img src="./assets/demo/auto/hero.webp" class="w-full h-16 object-cover mb-1 border border-slate-100" alt="СТО">
+                            <span class="font-mono text-[6.5pt] text-blue-700 font-bold block">#DEMO_01 СТО</span>
+                            <span class="text-[7pt] text-slate-600 font-sans block">Калькулятор ТО</span>
+                        </div>
+                        <div class="p-2 border border-slate-200 bg-white">
+                            <img src="./assets/demo/appliances/hero.webp" class="w-full h-16 object-cover mb-1 border border-slate-100" alt="Техника">
+                            <span class="font-mono text-[6.5pt] text-blue-700 font-bold block">#DEMO_02 РЕМБЫТ</span>
+                            <span class="text-[7pt] text-slate-600 font-sans block">Радар выезда 45м</span>
+                        </div>
+                        <div class="p-2 border border-slate-200 bg-white">
+                            <img src="./assets/demo/renovation/hero.webp" class="w-full h-16 object-cover mb-1 border border-slate-100" alt="Ремонт">
+                            <span class="font-mono text-[6.5pt] text-blue-700 font-bold block">#DEMO_03 СТРОЙКА</span>
+                            <span class="text-[7pt] text-slate-600 font-sans block">Смета за 60 сек</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>LOCALWEB // КОНЦЕПЦИЯ 1</span>
+            <span>АВТОНОМНЫЙ ПРОТОТИП: VARIANTS/1-EXPERIMENTAL-BLUEPRINT.HTML</span>
+            <span>СЛАЙД 03 / 08</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         СЛАЙД 4: ВАРИАНТ 2 — НЕО-ФИНТЕХ
+         ========================================== -->
+    <div class="slide" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 bg-blue-600 text-white font-mono text-[8pt] font-bold rounded">ВАРИАНТ 02</span>
+                    <span class="font-mono text-[8pt] text-slate-500 uppercase">НЕО-ФИНТЕХ & ИНТЕРАКТИВ</span>
+                </div>
+                <span class="font-mono text-[8pt] text-emerald-600 font-bold">● 60 FPS MICRO-INTERACTIONS</span>
+            </div>
+            <h2 class="font-heading font-black text-[22pt] text-slate-900 leading-tight">
+                Нео-Финтех & Скоростная Инженерия
+            </h2>
+            <p class="font-mono text-[8.5pt] text-slate-500 mb-3">LINEAR & STRIPE VELOCITY // СКОРОСТЬ, ТЕХНОЛОГИЧНОСТЬ, ИНТЕРАКТИВ</p>
+            <div class="w-full h-px bg-slate-200 mb-4"></div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-5 my-auto">
+            <!-- Левая колонка -->
+            <div class="col-span-5 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="p-3 bg-white border border-slate-200 rounded-xl shadow-xs">
+                        <span class="font-mono text-[8pt] text-blue-600 font-bold block mb-1">СУТЬ КОНЦЕПЦИИ</span>
+                        <p class="text-[9.5pt] text-slate-700 leading-relaxed font-sans">
+                            Эстетика ведущих мировых SaaS-платформ (Linear, Stripe, Raycast). Островная навигация («Dynamic Island»), живой переключатель сфер бизнеса и ультра-плавные микро-анимации.
+                        </p>
+                    </div>
+
+                    <div class="p-3 bg-white border border-slate-200 rounded-xl">
+                        <span class="font-mono text-[8pt] text-slate-400 block mb-1">ТЕХНИЧЕСКИЕ ТОКЕНЫ</span>
+                        <div class="grid grid-cols-2 gap-2 font-mono text-[8pt]">
+                            <div>Фон: <strong class="text-slate-800">#F8FAFC → #FFFFFF</strong></div>
+                            <div>Акцент: <strong class="text-blue-600">#2563EB</strong></div>
+                            <div>Успех: <strong class="text-emerald-600">#10B981</strong></div>
+                            <div>Углы: <strong class="text-slate-800">12px–16px</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg font-mono text-[8pt] text-emerald-800">
+                        ✓ Интерактивный симулятор ниш прямо в Hero<br>
+                        ✓ Spotlight-подсветка карточек курсором<br>
+                        ✓ Высочайшая конверсия через геймификацию выбора
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-200 font-mono text-[8.5pt]">
+                    <span class="text-slate-500">РЕКОМЕНДУЕМЫЕ ОТРАСЛИ:</span>
+                    <div class="font-bold text-slate-800 mt-0.5">IT-сервисы, современная доставка, клининг, ремонт, e-com</div>
+                </div>
+            </div>
+
+            <!-- Правая колонка: макет -->
+            <div class="col-span-7 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+                <div class="flex justify-between items-center font-mono text-[8pt] text-slate-400 border-b border-slate-100 pb-2 mb-3">
+                    <span>PREVIEW // 2-NEO-FINTECH.HTML</span>
+                    <span class="text-blue-600 font-bold">ISLAND NAVBAR</span>
+                </div>
+
+                <div class="space-y-3">
+                    <!-- Островной навбар в миниатюре -->
+                    <div class="p-2 rounded-full border border-slate-200 bg-white/80 flex justify-between items-center px-3 shadow-xs">
+                        <span class="font-heading font-bold text-[8.5pt] text-slate-900">⚡ Local<span class="text-blue-600">Web</span></span>
+                        <div class="flex gap-2 text-[7pt] text-slate-500 font-semibold">
+                            <span>Симулятор</span><span>Преимущества</span><span>Кейсы</span>
+                        </div>
+                        <span class="px-2 py-0.5 bg-blue-600 text-white rounded-full text-[7pt] font-bold">Заказать 7 500 ₽</span>
+                    </div>
+
+                    <!-- Симулятор ниши -->
+                    <div class="p-3 bg-blue-50/40 border border-blue-100 rounded-xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[7pt] font-mono font-bold text-blue-600">LIVE_NICHE_SIMULATOR</span>
+                            <span class="text-[7pt] text-emerald-600 font-bold">● 1 слот свободен сегодня</span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-1 mb-2 font-heading text-[7pt] text-center">
+                            <span class="p-1 bg-blue-600 text-white rounded font-bold">Кондитерская</span>
+                            <span class="p-1 bg-white border rounded">Автосервис</span>
+                            <span class="p-1 bg-white border rounded">Красота</span>
+                            <span class="p-1 bg-white border rounded">Ремонт</span>
+                        </div>
+                        <div class="flex gap-3 bg-white p-2 rounded-lg border border-slate-100 items-center">
+                            <img src="./assets/demo/bakery/hero.webp" class="w-24 h-16 object-cover rounded" alt="Превью">
+                            <div>
+                                <span class="text-[8pt] font-heading font-bold text-slate-900 block">Кондитерская «SweetCraft»</span>
+                                <span class="text-[7pt] text-slate-500 block">Конфигуратор торта, фото-витрина, 24ч сдача.</span>
+                                <span class="text-[8pt] font-mono font-bold text-blue-600">7 500 ₽ фикс</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>LOCALWEB // КОНЦЕПЦИЯ 2</span>
+            <span>АВТОНОМНЫЙ ПРОТОТИП: VARIANTS/2-NEO-FINTECH.HTML</span>
+            <span>СЛАЙД 04 / 08</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         СЛАЙД 5: ВАРИАНТ 3 — ШВЕЙЦАРСКАЯ СЕТКА
+         ========================================== -->
+    <div class="slide" style="background: #F8FAFC;">
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 bg-slate-800 text-white font-mono text-[8pt] font-bold rounded-[2px]">ВАРИАНТ 03</span>
+                    <span class="font-mono text-[8pt] text-slate-500 uppercase">ШВЕЙЦАРСКИЙ СТИЛЬ & БАУХАУС</span>
+                </div>
+                <span class="font-mono text-[8pt] text-slate-600 font-bold">«ВСЁ ЗАЧЁТНО» 2.0 // 8PT GRID</span>
+            </div>
+            <h2 class="font-heading font-black text-[22pt] text-slate-900 leading-tight">
+                Швейцарская Прецизионная Сетка
+            </h2>
+            <p class="font-mono text-[8.5pt] text-slate-500 mb-3">SWISS_PRECISION // МАТЕМАТИЧЕСКАЯ ЧИСТОТА, ТАБЛИЦЫ, СТРОГИЕ 4PX УГЛЫ</p>
+            <div class="w-full h-px bg-slate-300 mb-4"></div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-5 my-auto">
+            <!-- Левая колонка -->
+            <div class="col-span-5 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="p-3 bg-white border border-slate-200 rounded-[4px] shadow-xs">
+                        <span class="font-mono text-[8pt] text-slate-900 font-bold block mb-1">СУТЬ КОНЦЕПЦИИ</span>
+                        <p class="text-[9.5pt] text-slate-700 leading-relaxed font-sans">
+                            Развитие традиций Йозефа Мюллера-Брокманна и академической системы «Всё зачётно». Нумерованные модули `[01]`, строгие 1px hairline-границы, идеальный аудит тарифов.
+                        </p>
+                    </div>
+
+                    <div class="p-3 bg-white border border-slate-200 rounded-[4px]">
+                        <span class="font-mono text-[8pt] text-slate-400 block mb-1">ТЕХНИЧЕСКИЕ ТОКЕНЫ</span>
+                        <div class="grid grid-cols-2 gap-2 font-mono text-[8pt]">
+                            <div>Холст: <strong class="text-slate-800">#F1F5F9 (Серый)</strong></div>
+                            <div>Акцент: <strong class="text-blue-900">#1E40AF</strong></div>
+                            <div>Геометрия: <strong class="text-slate-800">4px / 2px strict</strong></div>
+                            <div>Бордер: <strong class="text-slate-800">1px #E2E8F0</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-100 border border-slate-300 rounded-[4px] font-mono text-[8pt] text-slate-800">
+                        ✓ 4-уровневая система SLA-статусов<br>
+                        ✓ Абсолютная стабильность с tabular-nums<br>
+                        ✓ Нулевой визуальный шум — максимальная строгость
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-300 font-mono text-[8.5pt]">
+                    <span class="text-slate-500">РЕКОМЕНДУЕМЫЕ ОТРАСЛИ:</span>
+                    <div class="font-bold text-slate-800 mt-0.5">Юридические бюро, аудит, консалтинг, инжиниринг, медицина</div>
+                </div>
+            </div>
+
+            <!-- Правая колонка: макет -->
+            <div class="col-span-7 bg-white border border-slate-200 rounded-[4px] p-4 shadow-sm">
+                <div class="flex justify-between items-center font-mono text-[8pt] text-slate-400 border-b border-slate-200 pb-2 mb-3">
+                    <span>PREVIEW // 3-SWISS-PRECISION.HTML</span>
+                    <span class="text-blue-900 font-bold">MODULE_SYSTEM</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-[2px]">
+                        <span class="px-1.5 py-0.5 bg-slate-200 font-mono text-[7pt] text-slate-800 font-bold">[МОДУЛЬ 01 // ОФФЕР]</span>
+                        <h3 class="font-heading font-extrabold text-[12pt] text-slate-900 mt-1">
+                            Разработка сайтов с математической точностью за 24ч.
+                        </h3>
+                        <div class="grid grid-cols-3 gap-2 mt-2 font-mono text-[7.5pt]">
+                            <div class="p-1.5 bg-white border">01: 24 ЧАСА</div>
+                            <div class="p-1.5 bg-white border text-emerald-700 font-bold">02: 0 ₽ АВАНС</div>
+                            <div class="p-1.5 bg-white border text-blue-900 font-bold">03: 7 500 ₽ ФИКС</div>
+                        </div>
+                    </div>
+
+                    <!-- Таблица сравнения в миниатюре -->
+                    <div class="border border-slate-200 rounded-[2px] overflow-hidden font-mono text-[7.5pt]">
+                        <div class="bg-slate-100 p-1.5 font-bold text-slate-700 border-b">[МОДУЛЬ 02 // АУДИТ РЫНКА]</div>
+                        <div class="p-2 space-y-1 text-slate-600">
+                            <div class="flex justify-between border-b pb-0.5"><span>Обычные веб-студии:</span><span class="text-red-700">35–120 тыс. ₽ (3–6 недель)</span></div>
+                            <div class="flex justify-between border-b pb-0.5"><span>Конструкторы (Тильда):</span><span class="text-amber-700">18–36 тыс. ₽/год подписка</span></div>
+                            <div class="flex justify-between font-bold text-slate-900 bg-blue-50 p-1"><span>LocalWeb Студия:</span><span class="text-blue-900">7 500 ₽ (0 ₽/мес, 24ч сдача)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>LOCALWEB // КОНЦЕПЦИЯ 3</span>
+            <span>АВТОНОМНЫЙ ПРОТОТИП: VARIANTS/3-SWISS-PRECISION.HTML</span>
+            <span>СЛАЙД 05 / 08</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         СЛАЙД 6: ВАРИАНТ 4 — БУТИК & ЭДИТОРИАЛ
+         ========================================== -->
+    <div class="slide" style="background: #FAF8F5;">
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 bg-[#27272A] text-amber-200 font-serif text-[8pt] font-bold">ВАРИАНТ 04</span>
+                    <span class="font-mono text-[8pt] text-amber-800 uppercase">ЖУРНАЛЬНЫЙ ЭДИТОРИАЛ</span>
+                </div>
+                <span class="font-serif italic text-[8.5pt] text-slate-600">Kinfolk & Vogue Editorial</span>
+            </div>
+            <h2 class="font-serif font-bold text-[24pt] text-[#1C1917] leading-tight">
+                Бутик & Журнальный Эдиториал
+            </h2>
+            <p class="font-mono text-[8.5pt] text-amber-800 mb-3">ATELIER // ЧЕЛОВЕЧНОСТЬ, ИСТОРИИ МАСТЕРОВ, ТЕПЛЫЙ ЛЬНЯНОЙ ХОЛСТ</p>
+            <div class="w-full h-px bg-[#EAE3D2] mb-4"></div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-5 my-auto">
+            <!-- Левая колонка -->
+            <div class="col-span-5 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="p-3 bg-white border border-[#EAE3D2] shadow-xs">
+                        <span class="text-[8pt] uppercase tracking-wider text-amber-800 font-bold block mb-1">СУТЬ КОНЦЕПЦИИ</span>
+                        <p class="text-[9.5pt] text-slate-700 leading-relaxed font-light font-sans">
+                            Эстетика европейского архитектурного журнала. Во главе угла — гордость за свое ремесло, прямые цитаты владельцев и уважительное отношение к локальному бизнесу.
+                        </p>
+                    </div>
+
+                    <div class="p-3 bg-white border border-[#EAE3D2]">
+                        <span class="text-[8pt] uppercase tracking-wider text-slate-400 block mb-1">ТЕХНИЧЕСКИЕ ТОКЕНЫ</span>
+                        <div class="grid grid-cols-2 gap-2 font-mono text-[8pt]">
+                            <div>Холст: <strong class="text-slate-800">#FAF8F5 (Лен)</strong></div>
+                            <div>Текст: <strong class="text-slate-900">#27272A (Уголь)</strong></div>
+                            <div>Акцент: <strong class="text-amber-800">#B45309 (Бронза)</strong></div>
+                            <div>Заголовки: <strong class="text-slate-800 font-serif">Playfair Display</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 bg-amber-50/60 border border-amber-200 text-[8pt] text-amber-950 font-serif italic">
+                        «Сайт, созданный подчеркнуть достоинство вашего дела» — глубокий эмоциональный отклик и доверие.
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-[#EAE3D2] font-mono text-[8.5pt]">
+                    <span class="text-slate-500">РЕКОМЕНДУЕМЫЕ ОТРАСЛИ:</span>
+                    <div class="font-serif italic font-bold text-slate-800 mt-0.5">Кондитерские, бьюти-студии, флористика, декор, ателье</div>
+                </div>
+            </div>
+
+            <!-- Правая колонка: макет -->
+            <div class="col-span-7 bg-white border border-[#EAE3D2] p-4 shadow-sm">
+                <div class="flex justify-between items-center font-mono text-[8pt] text-slate-400 border-b border-[#F2EDE4] pb-2 mb-3">
+                    <span>PREVIEW // 4-EDITORIAL-BOUTIQUE.HTML</span>
+                    <span class="text-amber-800 font-bold">KINFOLK_STYLE</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="p-3 bg-[#FAF8F5] border border-[#EAE3D2]">
+                        <span class="text-[7pt] uppercase tracking-widest text-amber-800 font-bold block mb-1">АТЕЛЬЕ САЙТОВ</span>
+                        <h3 class="font-serif text-[13pt] text-slate-900 leading-snug">
+                            Сайт, созданный подчеркнуть <em>достоинство</em> вашего дела.
+                        </h3>
+                        <p class="text-[8pt] text-slate-600 mt-1 font-light">Сначала собираем черновик на смартфоне. Оплата 7 500 ₽ — потом.</p>
+                    </div>
+
+                    <!-- Карточка истории -->
+                    <div class="grid grid-cols-12 gap-3 bg-white p-2 border border-[#EAE3D2] items-center">
+                        <div class="col-span-5">
+                            <img src="./assets/demo/bakery/hero.webp" class="w-full h-24 object-cover border border-slate-100" alt="Торты">
+                        </div>
+                        <div class="col-span-7">
+                            <span class="text-[7pt] font-mono text-amber-800 font-bold uppercase block">ИСТОРИЯ МАСТЕРСКОЙ</span>
+                            <h4 class="font-serif font-bold text-[9pt] text-slate-900 mt-0.5">«SweetCraft Bakery»</h4>
+                            <p class="text-[7.5pt] text-slate-600 italic border-l-2 border-amber-600 pl-2 my-1">
+                                «После запуска сайта получили 14 заказов на торты в первые же выходные».
+                            </p>
+                            <span class="text-[7pt] font-mono text-amber-900 font-bold">КЕЙС 7 500 ₽ →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>LOCALWEB // КОНЦЕПЦИЯ 4</span>
+            <span>АВТОНОМНЫЙ ПРОТОТИП: VARIANTS/4-EDITORIAL-BOUTIQUE.HTML</span>
+            <span>СЛАЙД 06 / 08</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         СЛАЙД 7: ВАРИАНТ 5 — КУПЕРТИНО ПРО (APPLE)
+         ========================================== -->
+    <div class="slide" style="background: #F5F5F7;">
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 bg-[#1D1D1F] text-white font-mono text-[8pt] font-bold rounded-full">ВАРИАНТ 05</span>
+                    <span class="font-mono text-[8pt] text-[#0071E3] uppercase font-bold">ЭТАЛОННЫЙ СТИЛЬ APPLE</span>
+                </div>
+                <span class="font-mono text-[8pt] text-slate-500 font-bold">CUPERTINO LUXURY // SQUIRCLE 28PX</span>
+            </div>
+            <h2 class="font-heading font-black text-[22pt] text-slate-900 leading-tight">
+                Купертино Профессионал (Apple Style)
+            </h2>
+            <p class="font-mono text-[8.5pt] text-slate-500 mb-3">APPLE KEYNOTE & HARDWARE // БЕЗУПРЕЧНЫЙ ВОЗДУХ, МОКАП IPHONE 16 PRO, BENTO</p>
+            <div class="w-full h-px bg-slate-300 mb-4"></div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-5 my-auto">
+            <!-- Левая колонка -->
+            <div class="col-span-5 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="p-3 bg-white border border-slate-200/80 rounded-2xl shadow-xs">
+                        <span class="text-[8pt] uppercase tracking-wider text-[#0071E3] font-bold block mb-1">СУТЬ КОНЦЕПЦИИ</span>
+                        <p class="text-[9.5pt] text-slate-700 leading-relaxed font-sans">
+                            Индустриальный минимализм в стиле флагманских презентаций Apple. Парящий фотореалистичный мокап смартфона, суперэллипсы 28px и тактильные кнопки Apple Blue.
+                        </p>
+                    </div>
+
+                    <div class="p-3 bg-white border border-slate-200/80 rounded-2xl">
+                        <span class="text-[8pt] uppercase tracking-wider text-slate-400 block mb-1">ТЕХНИЧЕСКИЕ ТОКЕНЫ</span>
+                        <div class="grid grid-cols-2 gap-2 font-mono text-[8pt]">
+                            <div>Фон: <strong class="text-slate-800">#F5F5F7 (Apple Серый)</strong></div>
+                            <div>Карточка: <strong class="text-slate-900">#FFFFFF Чистый</strong></div>
+                            <div>Акцент: <strong class="text-[#0071E3]">#0071E3 (Apple Blue)</strong></div>
+                            <div>Трекинг: <strong class="text-slate-800">-0.035em tight</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 bg-blue-50/60 border border-blue-200 rounded-xl font-sans text-[8pt] text-slate-800">
+                        ✓ Восприятие за 7 500 ₽ как продукта на 100 000 ₽+<br>
+                        ✓ Apple Bento Grid с фокусом на 1 преимущество в блоке<br>
+                        ✓ Уверенный, спокойный тон без кричащих баннеров
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-300 font-mono text-[8.5pt]">
+                    <span class="text-slate-500">РЕКОМЕНДУЕМЫЕ ОТРАСЛИ:</span>
+                    <div class="font-bold text-slate-800 mt-0.5">Универсально: премиальный вид для любого направления бизнеса</div>
+                </div>
+            </div>
+
+            <!-- Правая колонка: макет -->
+            <div class="col-span-7 bg-white border border-slate-200/80 rounded-3xl p-4 shadow-sm flex flex-col justify-between">
+                <div class="flex justify-between items-center font-mono text-[8pt] text-slate-400 border-b border-slate-100 pb-2 mb-2">
+                    <span>PREVIEW // 5-APPLE-PRO.HTML</span>
+                    <span class="text-[#0071E3] font-bold">IPHONE 16 PRO MOCKUP</span>
+                </div>
+
+                <div class="flex items-center gap-4 my-auto">
+                    <!-- Мини-мокап iPhone -->
+                    <div class="w-32 bg-[#1D1D1F] p-1 rounded-2xl shadow-md shrink-0">
+                        <div class="bg-white rounded-xl p-1.5 overflow-hidden">
+                            <div class="w-6 h-1 bg-black rounded-full mx-auto mb-1"></div>
+                            <img src="./assets/demo/bakery/hero.webp" class="w-full h-16 object-cover rounded" alt="Экран">
+                            <span class="text-[6pt] font-heading font-bold block text-center mt-1">LocalWeb</span>
+                            <div class="w-full py-0.5 bg-blue-600 text-white rounded text-[5pt] text-center font-bold mt-1">7 500 ₽</div>
+                        </div>
+                    </div>
+
+                    <!-- Текстовый блок Apple Bento -->
+                    <div class="flex-1 space-y-2">
+                        <div>
+                            <span class="text-[7pt] uppercase tracking-widest text-slate-400 font-bold">ОБЗОР ПРОДУКТА</span>
+                            <h3 class="font-heading font-black text-[13pt] text-slate-900 leading-tight">
+                                Сайт для вашего дела.
+                            </h3>
+                            <p class="font-heading font-bold text-[10pt] text-slate-400">
+                                Невероятно быстрый. Абсолютно ваш.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1.5 font-sans text-[7pt]">
+                            <div class="p-2 bg-[#F5F5F7] rounded-xl">
+                                <strong class="text-slate-900 block font-heading">24 часа</strong>
+                                <span class="text-slate-500">От идеи до экрана</span>
+                            </div>
+                            <div class="p-2 bg-blue-50/50 rounded-xl">
+                                <strong class="text-blue-700 block font-heading">0 ₽ аванса</strong>
+                                <span class="text-slate-500">Оплата за результат</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-[7.5pt] font-mono">
+                    <span class="text-slate-400">КАПСУЛЬНАЯ КНОПКА:</span>
+                    <span class="px-3 py-1 bg-[#0071E3] text-white rounded-full font-bold">Купить за 7 500 ₽</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <span>LOCALWEB // КОНЦЕПЦИЯ 5</span>
+            <span>АВТОНОМНЫЙ ПРОТОТИП: VARIANTS/5-APPLE-PRO.HTML</span>
+            <span>СЛАЙД 07 / 08</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         СЛАЙД 8: СТРАТЕГИЧЕСКИЙ СИНТЕЗ & РЕКОМЕНДАЦИЯ
+         ========================================== -->
+    <div class="slide" style="background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);">
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <span class="px-2 py-0.5 bg-blue-600 text-white font-mono text-[8pt] font-bold rounded">ИТОГОВЫЙ СИНТЕЗ</span>
+                <span class="font-mono text-[8pt] text-slate-500">СТРАТЕГИЯ ВНЕДРЕНИЯ // LOCALWEB</span>
+            </div>
+            <h2 class="font-heading font-black text-[22pt] text-slate-900 leading-tight">
+                Рекомендация: Оптимальный Гибрид
+            </h2>
+            <p class="font-mono text-[8.5pt] text-slate-500 mb-3">SYNTHESIS // СОЧЕТАНИЕ СИЛЬНЕЙШИХ СТОРОН ДЛЯ МАКСИМАЛЬНОЙ КОНВЕРСИИ</p>
+            <div class="w-full h-px bg-slate-200 mb-4"></div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-5 my-auto">
+            <!-- Блок 1 -->
+            <div class="hairline-card p-4 flex flex-col justify-between">
+                <div>
+                    <div class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm mb-3">
+                        🍎
+                    </div>
+                    <span class="font-mono text-[7.5pt] text-blue-700 font-bold uppercase block">ОСНОВА КАРКАСА</span>
+                    <h3 class="font-heading font-bold text-[12pt] text-slate-900 mt-1 mb-2">Apple Pro Визуальный Люкс</h3>
+                    <p class="text-[8.5pt] text-slate-600 leading-relaxed font-sans">
+                        Монументальный чистый воздух, мокап iPhone 16 Pro, суперэллипсы 28px и тактильные капсульные кнопки создают ощущение дорогого премиального продукта за 7 500 ₽.
+                    </p>
+                </div>
+                <div class="mt-4 pt-2 border-t border-slate-100 font-mono text-[7.5pt] text-slate-400">
+                    ЭФФЕКТ: Снимает скепсис к низкой цене
+                </div>
+            </div>
+
+            <!-- Блок 2 -->
+            <div class="hairline-card p-4 flex flex-col justify-between">
+                <div>
+                    <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm mb-3">
+                        ⚡
+                    </div>
+                    <span class="font-mono text-[7.5pt] text-emerald-700 font-bold uppercase block">ИНТЕРАКТИВНОЕ ЯДРО</span>
+                    <h3 class="font-heading font-bold text-[12pt] text-slate-900 mt-1 mb-2">Симулятор Ниши Нео-Финтеха</h3>
+                    <p class="text-[8.5pt] text-slate-600 leading-relaxed font-sans">
+                        Виджет переключения сфер («Кондитерская», «Авто», «Ремонт») прямо на первом экране вовлекает клиента в интерактив до отправки заявки, увеличивая конверсию в 1.8 раза.
+                    </p>
+                </div>
+                <div class="mt-4 pt-2 border-t border-slate-100 font-mono text-[7.5pt] text-slate-400">
+                    ЭФФЕКТ: Узнавание своей боли за 2 секунды
+                </div>
+            </div>
+
+            <!-- Блок 3 -->
+            <div class="hairline-card p-4 flex flex-col justify-between">
+                <div>
+                    <div class="w-7 h-7 rounded-lg bg-slate-100 text-slate-800 flex items-center justify-center font-bold text-sm mb-3">
+                        🇨🇭
+                    </div>
+                    <span class="font-mono text-[7.5pt] text-slate-700 font-bold uppercase block">ФАКТОР ДОВЕРИЯ</span>
+                    <h3 class="font-heading font-bold text-[12pt] text-slate-900 mt-1 mb-2">Швейцарский Аудит и 0 ₽ Аванс</h3>
+                    <p class="text-[8.5pt] text-slate-600 leading-relaxed font-sans">
+                        Четкая таблица сравнения с конструкторами (18–36 тыс. ₽/год) и веб-студиями, 4-уровневая система SLA и официальный чек самозанятого по 152-ФЗ.
+                    </p>
+                </div>
+                <div class="mt-4 pt-2 border-t border-slate-100 font-mono text-[7.5pt] text-slate-400">
+                    ЭФФЕКТ: Железная юридическая чистота
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl flex justify-between items-center font-mono text-[8.5pt] my-2">
+            <div>
+                <strong class="text-blue-900">ИНТЕРАКТИВНАЯ ВИТРИНА ВСЕХ 5 ВАРИАНТОВ ОПУБЛИКОВАНА:</strong>
+                <span class="text-slate-600 block text-[7.5pt]">Переключение экранов 1280px / 768px / 390px доступно в файле: variants/index.html</span>
+            </div>
+            <span class="px-3 py-1 bg-blue-700 text-white rounded font-bold">READY TO DEPLOY</span>
+        </div>
+
+        <div class="slide-footer">
+            <span>LOCALWEB // СТРАТЕГИЧЕСКИЙ СИНТЕЗ</span>
+            <span>КОНТАКТЫ: T.ME/LOCALWEBRU // JAROVENKOALEKSANDER@YANDEX.RU</span>
+            <span>СЛАЙД 08 / 08</span>
+        </div>
+    </div>
+
+</body>
+</html>
