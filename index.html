@@ -131,8 +131,21 @@
       ]
     }
     </script>
-    <!-- Compiled Tailwind CSS -->
-    <link rel="stylesheet" href="tailwind.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Open Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="styles.css">
 
     <!-- Yandex.Metrika counter -->
